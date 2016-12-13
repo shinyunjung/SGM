@@ -14,11 +14,15 @@
 				text-align: center;
 				font-size: large;
 			}
+			#logoImg{
+				width: 300px;
+				height: 100px; 
+			}
 		</style>
 	</head>
 	<body>
 		<div id="logo">
-			 <a href="logo"><b>로고</b></a>
+			 <a href="logo"><img id="logoImg" src="./resources/include/img/logo.jpg" /></a>
 		</div>
 	</body>
 	<script></script>
