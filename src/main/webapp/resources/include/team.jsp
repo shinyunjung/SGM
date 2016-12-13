@@ -9,21 +9,23 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<style>
 			#row{
-				padding-bottom: 10px;
+				padding-bottom: 50px;
 			}
 			 #emblem{
                 border: 1px solid;
-				width: 150px;
-				height: 200px;
+				width: 170px;
+				height: 220px;
+                 margin-bottom: 20px;
 			}
 			#teamCategory{
-				border: 1px solid;
-				width: 150px;
-				height: 200px;
+				
+				width: 170px;
+				height: 220px;
+                margin-top: 20px;
 			}
 			.table{
 				width: 100%;
-				height: 100%;
+				height: 90%;
 				background-color: greenyellow;
 				color: blue;
 			}
@@ -38,6 +40,7 @@
 			<div id="emblem">
 				사진		
 			</div>
+            ---------------------------
 			<div id="teamCategory">
 				<table class="table">
 					<tr>
