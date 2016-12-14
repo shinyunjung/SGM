@@ -20,6 +20,19 @@
 				left: 270px;
 				top: 270px;
 			}
+			#replyZone{
+				
+				width: 700px;
+				margin-top: 10px;
+			}
+			#repleBox{
+				
+				width: 100%;
+				padding: 10px;
+			}
+			#go{
+				height: 50px;
+			}
 			.detailTable{
 				width: 100%;
 			}
@@ -29,8 +42,25 @@
 			.right{
 				text-align: right;
 			}
+			.user{
+				text-align: center;
+				
+				width: 10%;
+			}
+			.data{
+				width: 82%;
+				padding: 10px;
+			}
+			.repleBtn{
+				margin: 5px;
+				width: 8%;
+			}
 			thead{
 				border-bottom: 1px solid;
+			}
+			textarea{
+				width: 100%;
+				resize: none;
 			}
 		</style>
 	</head>
@@ -73,12 +103,23 @@
 							</td>
 						</tr>
 						<tr class="borderTop">
-							<td colspan="5" class="right ">
+							<td><a>댓글쓰기</a></td>
+							<td colspan="4" class="right ">
 								<a>수정</a> / <a>삭제</a>
 							</td>
 						</tr>
 					</tbody>
 				</table>
+				<!-- 댓글 -->
+				<div id="replyZone">
+					<table id="repleBox">
+						<tr>
+							<td class="user">등록자</td>
+							<td class="data"><textarea rows="3"></textarea></td>
+							<td class="repleBtn"><button id="go">댓글등록</button></td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 	</body>
