@@ -25,7 +25,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="logo" class="jumbotron">
+		<div id="logo" >
 			 <a href="logo"><img id="logoImg" src="./resources/include/img/logo.jpg" /></a>
 		</div>
 	</body>

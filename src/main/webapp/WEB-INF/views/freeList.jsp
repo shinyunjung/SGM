@@ -18,7 +18,7 @@
 			#freeList{
 				position: absolute;
 				left: 270px;
-				top: 270px;
+				top: 290px;
 			}
 			#title{
 				width: 270px;
@@ -62,7 +62,6 @@
 						<th>글쓴이</th>
 						<th>제목</th>
 						<th>조회 수</th>
-						
 					</tr>
 				</thead>
 				<tbody>

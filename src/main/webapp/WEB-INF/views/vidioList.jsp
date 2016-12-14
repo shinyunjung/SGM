@@ -18,7 +18,7 @@
 			#vidioList{
 				position: absolute;
 				left: 270px;
-				top: 270px;
+				top: 290px;
 			}
 			#title{
 				width: 270px;

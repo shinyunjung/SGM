@@ -10,12 +10,19 @@ public class MainController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	//메인페이지
+	//이동수단
 	@RequestMapping(value = "/")
 	public String home() {
 		
-		return "index";
+		return "page";
 
+	}
+	
+	//메인페이지
+	@RequestMapping(value = "/index")
+	public String index() {
+		
+		return "index";
 	}
 	
 	//로그인
@@ -24,6 +31,42 @@ public class MainController {
 		
 		return "login";
 	}
+	
+	//매칭게시판
+	@RequestMapping(value = "/matchList")
+	public String matchList() {
+			
+			return "matchList";
+	}
+	
+	//장소목록
+	@RequestMapping(value = "/placeList")
+	public String placeList() {
+				
+			return "placeList";
+	}
+	
+	//팀 게시판
+	@RequestMapping(value = "/teamList")
+	public String teamList() {
+				
+			return "teamList";
+	}	
+	
+	//영상게시판
+	@RequestMapping(value = "/vidioList")
+	public String vidioList() {
+					
+			return "vidioList";
+	}
+	
+	//팀 게시판
+	@RequestMapping(value = "/freeList")
+	public String freeList() {
+					
+			return "freeList";
+	}
+	
 	//id찾기
 	@RequestMapping(value = "/idFind")
 	public String idFind() {
@@ -67,11 +110,19 @@ public class MainController {
 		logger.info("회원관리");
 		return "usManager";
 	}
+	
 	//팀관리
 	@RequestMapping(value = "/teamManager")
 	public String teamManager() {
 		logger.info("팀관리");
 		return "teamManager";
+	}
+	
+	//장소관리
+	@RequestMapping(value = "/placeManager")
+	public String placeManager() {
+		logger.info("장소관리");
+		return "placeManager";
 	}
 	
 	//결과

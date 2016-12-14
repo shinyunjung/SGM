@@ -17,7 +17,10 @@
 			#search{
 				width: 970px;
 				text-align: right;
-				margin-bottom: 10px;
+			}
+			#title{
+				width: 270px;
+				text-align: right;
 			}
 			.table{
 				width: 700px;
@@ -32,6 +35,9 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
+		<div id="title">
+			<h3>팀 게시판</h3>
+		</div>
 		<div id="search">
 			<button>검색</button>
 			<input type="text" />
