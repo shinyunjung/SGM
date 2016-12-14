@@ -5,33 +5,20 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>장소목록 게시판</title>
+		<title>광고관리 페이지</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			#map{
-				border:1px solid;
-				width: 100%;
-				margin-bottom: 10px;
-			}
-			#search{
-				text-align: center;
-			}
-			#placeList{
-				position: absolute;
-				left: 270px;
-			}
-			#title{
-				width: 270px;
-				text-align: right;
-			}
 			#managerCategori{
 				position:absolute;
 				left: 100px;
-				top: 270px;
+				top: 280px;
 			}
-			
+			#title{
+				text-align: center;
+				
+			}
 			th{
 				text-align: center;
 			}
@@ -41,41 +28,39 @@
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div id="title">
-			<h3>장소목록</h3>
+			<h1><b>광고 관리</b></h1>
 		</div>
-		<div id="map">
-			지도	
+		<div id="searchManager">
+			<button>검색</button>
+			<input type="text" />
 		</div>
 		<div id="managerCategori">
 			<jsp:include page="../../resources/include/manager.jsp" />
 		</div>
-		<div id="search">
-			<select>
-				<option value="1">OO구</option>
-			</select>
-			<input type="text" size="40" />
-			<button>검색</button>
-		</div>
-		<div id="placeList">
+		<div id="Manager">
 			<table class="table table-hover totalTable">
 				<thead>
 					<tr>
-						<th>사진</th>
-						<th class="center">제목</th>
-						<th class="center">날짜</th>
-						<th>비교</th>
+						<th>NO</th>
+						<th>제목</th>
+						<th>유형</th>
+						<th>담당자</th>
+						<th>광고주</th>
+						<th>날짜</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>사진</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>비교</td>
+						<td>0</td>
+						<td>OOO</td>
+						<td>OOOOO</td>
+						<td>OOOOO</td>
+						<td>OOO</td>
+						<td>OOOOOO</td>
 					</tr>
 				</tbody>
 			</table>
-			<button>장소추가</button>
+			<button>광고 추가</button>
 		</div>
 	</body>
 	<script></script>
