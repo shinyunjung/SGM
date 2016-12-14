@@ -1,1 +1,4 @@
 target/*
+.metadata/*
+unlimited01/*
+src/main/webapp/WEB-INF/views/memo.jsp
