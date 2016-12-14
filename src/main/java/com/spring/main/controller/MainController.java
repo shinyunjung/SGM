@@ -121,15 +121,15 @@ public class MainController {
 	//광고목록
 	@RequestMapping(value = "/adList")
 	public String adList() {
-		logger.info("팀관리");
+		logger.info("광고목록");
 		return "adList";
 	}
 	
-	//결과
-	@RequestMapping(value = "/result")
-	public String result() {
-		logger.info("광고수정");
-		return "adModify";
+	//매칭 상세보기
+	@RequestMapping(value = "/matchDetail")
+	public String matchDetail() {
+		logger.info("매칭 상세보기");
+		return "matchDetail";
 	}
 	
 }
