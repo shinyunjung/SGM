@@ -30,6 +30,54 @@
 		<br/>
 		<button onclick="location.href='adList'">adList</button>
 		<br/>
+		<button onclick="location.href='idFind'">idFind</button>
+		<br/>
+		<button onclick="location.href='pwFind'">pwFind</button>
+		<br/>
+		<button onclick="location.href='join'">join</button>
+		<br/>
+		<button onclick="location.href='teamJoin'">teamJoin</button>
+		<br/>
+		<button onclick="location.href='myPage'">myPage</button>
+		<br/>
+		<button onclick="location.href='userModify'">userModify</button>
+		<br/>
+		<button onclick="location.href='msgPage'">msgPage</button>
+		<br/>
+		<button onclick="location.href='matchWrite'">matchWrite</button>
+		<br/>
+		<button onclick="location.href='placeWrite'">placeWrite</button>
+		<br/>
+		<button onclick="location.href='teamWrite'">matchWrite</button>
+		<br/>
+		<button onclick="location.href='tdWrite'">tdWrite</button>
+		<br/>
+		<button onclick="location.href='vidioWrite'">vidioWrite</button>
+		<br/>
+		<button onclick="location.href='freeWrite'">freeWrite</button>
+		<br/>
+		<button onclick="location.href='adWrite'">adWrite</button>
+		<br/>
+		<button onclick="location.href='matchModify'">matchModify</button>
+		<br/>
+		<button onclick="location.href='placeModify'">placeModify</button>
+		<br/>
+		<button onclick="location.href='teamModify'">matchModify</button>
+		<br/>
+		<button onclick="location.href='tdModify'">tdModify</button>
+		<br/>
+		<button onclick="location.href='vidioModify'">vidioModify</button>
+		<br/>
+		<button onclick="location.href='freeModify'">freeModify</button>
+		<br/>
+		<button onclick="location.href='adModify'">adModify</button>
+		<br/>
+		<button onclick="location.href='calendar'">calendar</button>
+		<br/>
+		<button onclick="location.href='memberUpdate'">memberUpdate</button>
+		<br/>
+		<button onclick="location.href='matchDetail'">matchDetail</button>
+		<br/>
 		<button onclick="location.href='matchDetail'">matchDetail</button>
 		<br/>
 	</body>
