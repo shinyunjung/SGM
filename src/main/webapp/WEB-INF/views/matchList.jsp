@@ -10,11 +10,6 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			#search{
-				position: absolute;
-				left: 270px; 
-				width: 700px;
-			}
 			#matchList{
 				position: absolute;
 				left: 270px;
@@ -27,11 +22,6 @@
 			.search{
 				text-align: right;
 			}
-			.table{
-				width: 700px;
-				text-align: center;
-				border-bottom: 1px solid silver;
-			}
 			th{
 				text-align: center;
 			}
@@ -43,7 +33,7 @@
 		<div id="title">
 			<h3>매칭 게시판</h3>
 		</div>
-		<div id="search">
+		<div id="searchList">
 			<table width="100%">
 				<tr>
 					<td><button>글작성</button></td>
@@ -55,7 +45,7 @@
 			</table>
 		</div>
 		<div id="matchList">
-			<table class="table table-hover">
+			<table class="table table-hover totalTable">
 				<thead>
 					<tr>
 						<th>순번</th>

@@ -31,11 +31,6 @@
 				left: 100px;
 				top: 270px;
 			}
-			.placeTable{
-				width: 700px;
-				text-align: center;
-				border-bottom: 1px solid silver;
-			}
 			
 			th{
 				text-align: center;
@@ -62,7 +57,7 @@
 			<button>검색</button>
 		</div>
 		<div id="placeList">
-			<table class="table table-hover placeTable">
+			<table class="table table-hover totalTable">
 				<thead>
 					<tr>
 						<th>사진</th>

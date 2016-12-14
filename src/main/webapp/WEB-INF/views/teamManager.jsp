@@ -24,15 +24,6 @@
 				text-align: center;
 				
 			}
-			#search{
-				width: 970px;
-				text-align: right;
-			}
-			.teamTable{
-				width: 700px;
-				text-align: center;
-				border-bottom: 1px solid silver;
-			}
 			th{
 				text-align: center;
 			}
@@ -44,15 +35,15 @@
 		<div id="title">
 			<h1><b>팀 관리</b></h1>
 		</div>
-		<div id="search">
+		<div id="searchManager">
 			<button>검색</button>
 			<input type="text" />
 		</div>
 		<div id="managerCategori">
 			<jsp:include page="../../resources/include/manager.jsp" />
 		</div>
-		<div id="teamManager">
-			<table class="table table-hover teamTable">
+		<div id="Manager">
+			<table class="table table-hover totalTable">
 				<thead>
 					<tr>
 						<th>NO</th>

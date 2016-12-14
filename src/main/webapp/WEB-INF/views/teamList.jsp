@@ -14,18 +14,9 @@
 				position: absolute;
 				left: 270px;
 			}
-			#search{
-				width: 970px;
-				text-align: right;
-			}
 			#title{
 				width: 270px;
 				text-align: right;
-			}
-			.table{
-				width: 700px;
-				text-align: center;
-				border-bottom: 1px solid silver;
 			}
 			th{
 				text-align: center;
@@ -38,12 +29,12 @@
 		<div id="title">
 			<h3>팀 게시판</h3>
 		</div>
-		<div id="search">
+		<div id="searchManager">
 			<button>검색</button>
 			<input type="text" />
 		</div>
 		<div id="teamList">
-			<table class="table table-hover">
+			<table class="table table-hover totalTable">
 				<thead>
 					<tr>
 						<th>랭킹</th>

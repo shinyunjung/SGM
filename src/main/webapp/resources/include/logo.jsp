@@ -22,6 +22,32 @@
 				width: 300px;
 				height: 100px; 
 			}
+		/**관리 게시판 위치**/
+			#Manager{
+				position: absolute;
+				left: 270px;
+				top: 300px;
+			}
+			
+		/**게시판 스타일**/
+			.totalTable{
+				width: 700px;
+				text-align: center;
+				border-bottom: 1px solid silver;
+			}
+			
+		/**검색 스타일(글작성 없음)**/	
+			#searchManager{
+				width: 970px;
+				text-align: right;
+			}
+		
+		/**검색 스타일(글작성 있음)**/	
+			#searchList{
+				position: absolute;
+				left: 270px; 
+				width: 700px;
+			}
 		</style>
 	</head>
 	<body>
