@@ -33,6 +33,13 @@
 			#go{
 				height: 50px;
 			}
+			#matchMsg{
+				width: 500px;
+				border: 1px solid;
+				position: absolute;
+				top: 500px;
+				left: 500px;
+			}
 			.detailTable{
 				width: 100%;
 			}
@@ -41,6 +48,9 @@
 			}
 			.right{
 				text-align: right;
+			}
+			.center{
+				text-align: center;
 			}
 			.user{
 				text-align: center;
@@ -54,6 +64,15 @@
 			.repleBtn{
 				margin: 5px;
 				width: 8%;
+			}
+			.matchMsg{
+				width: 100%;
+			}
+			.sender{
+				padding: 5px;
+			}
+			.msg{
+				padding: 5px;
 			}
 			thead{
 				border-bottom: 1px solid;
@@ -120,6 +139,32 @@
 						</tr>
 					</table>
 				</div>
+			</div>
+			<div id="matchMsg">
+				<table class="matchMsg">
+					<tr>
+						<td>매칭쪽지 보내기</td>
+						<td class="right"><button>x</button></td>
+					</tr>
+					<tr class="center borderTop">
+						<td class="borderRight sender">보낸 이 : <input type="text" readonly/></td>
+						<td class="sender">받는 이 : <input type="text" readonly/></td>
+					</tr>
+					<tr class="borderTop">
+						<td colspan="2">
+							내용<br/>
+							<div class="msg">
+								<textarea></textarea>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="center borderTop" colspan="2" style="padding: 5px">
+							<button>보내기</button>
+							<button>취소</button>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</body>
