@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>영상 게시판</title>
+		<title>자유 게시판</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
@@ -15,7 +15,7 @@
 				left: 270px; 
 				width: 700px;
 			}
-			#vidioList{
+			#freeList{
 				position: absolute;
 				left: 270px;
 				top: 270px;
@@ -41,7 +41,7 @@
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div id="title">
-			<h3>영상 게시판</h3>
+			<h3>자유 게시판</h3>
 		</div>
 		<div id="search">
 			<table width="100%">
@@ -54,7 +54,7 @@
 				</tr>
 			</table>
 		</div>
-		<div id="vidioList">
+		<div id="freeList">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -62,7 +62,7 @@
 						<th>글쓴이</th>
 						<th>제목</th>
 						<th>조회 수</th>
-						<th>별점</th>
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -71,7 +71,6 @@
 						<td>OOO</td>
 						<td>OOOOO</td>
 						<td>0</td>
-						<td></td>
 					</tr>
 				</tbody>
 			</table>

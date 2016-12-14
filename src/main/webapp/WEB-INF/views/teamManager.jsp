@@ -5,29 +5,26 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>영상 게시판</title>
+		<title>팀관리 페이지</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			#search{
-				position: absolute;
-				left: 270px; 
-				width: 700px;
-			}
-			#vidioList{
+			#teamManager{
 				position: absolute;
 				left: 270px;
 				top: 270px;
 			}
+			#managerCategori{
+				position:absolute;
+				left: 100px;
+				top: 250px;
+			}
 			#title{
-				width: 270px;
-				text-align: right;
+				text-align: center;
+				
 			}
-			.search{
-				text-align: right;
-			}
-			.table{
+			.usTable{
 				width: 700px;
 				text-align: center;
 				border-bottom: 1px solid silver;
@@ -41,28 +38,23 @@
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div id="title">
-			<h3>영상 게시판</h3>
+			<h1><b>팀 관리</b></h1>
 		</div>
-		<div id="search">
-			<table width="100%">
-				<tr>
-					<td><button>글작성</button></td>
-					<td class="search">
-						<button>검색</button>
-						<input type="text" size="20" />
-					</td>
-				</tr>
-			</table>
+		<div id="managerCategori">
+			<jsp:include page="../../resources/include/manager.jsp" />
 		</div>
-		<div id="vidioList">
-			<table class="table table-hover">
+		<div id="teamManager">
+			<table class="table table-hover usTable">
 				<thead>
 					<tr>
-						<th>순번</th>
-						<th>글쓴이</th>
-						<th>제목</th>
-						<th>조회 수</th>
-						<th>별점</th>
+						<th>NO</th>
+						<th>팀명</th>
+						<th>지역</th>
+						<th>대표</th>
+						<th>성명</th>
+						<th>번호</th>
+						<th>이메일</th>
+						<th>해체</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -71,7 +63,10 @@
 						<td>OOO</td>
 						<td>OOOOO</td>
 						<td>0</td>
-						<td></td>
+						<td>0</td>
+						<td>OOO</td>
+						<td>OOOOO</td>
+						<td>0</td>
 					</tr>
 				</tbody>
 			</table>
