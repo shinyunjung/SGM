@@ -9,10 +9,7 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		
 		<style>
-		/* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-    }
+		
 			#logo{
 				width: 100%;
 				text-align: center;
@@ -28,6 +25,17 @@
 				left: 270px;
 				top: 300px;
 			}
+		/**왼쪽 div 스타일**/
+			.content{
+				clear: left;
+				
+			}
+				
+		.dd {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
 			
 		/**게시판 스타일**/
 			.totalTable{
@@ -66,7 +74,7 @@
 	</head>
 	<body>
 		<div id="logo" >
-			 <a href="logo"><img id="logoImg" src="./resources/include/img/logo.jpg" /></a>
+			 <a href="index"><img id="logoImg" src="./resources/include/img/logo.jpg" /></a>
 		</div>
 	</body>
 	<script></script>
