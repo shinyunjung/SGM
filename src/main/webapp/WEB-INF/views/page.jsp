@@ -30,6 +30,8 @@
 		<br/>
 		<button onclick="location.href='adList'">adList</button>
 		<br/>
+		<button onclick="location.href='msg'">msg</button>
+		<br/>
 	</body>
 	<script></script>
 </html>
