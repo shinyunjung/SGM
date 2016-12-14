@@ -9,6 +9,10 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		
 		<style>
+		/* Remove the jumbotron's default bottom margin */ 
+     .jumbotron {
+      margin-bottom: 0;
+    }
 			#logo{
 				width: 100%;
 				text-align: center;
@@ -21,7 +25,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="logo">
+		<div id="logo" class="jumbotron">
 			 <a href="logo"><img id="logoImg" src="./resources/include/img/logo.jpg" /></a>
 		</div>
 	</body>

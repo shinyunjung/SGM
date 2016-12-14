@@ -9,9 +9,18 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		
 		<style>
+		/* Remove the navbar's default rounded borders and increase the bottom margin */ 
+		    .navbar {
+		      margin-bottom: 50px;
+		      border-radius: 0;
+		    }
+    
+   
 			.orange{
 				background-color: orange;
+				
 			}
+ 			
 		</style>
 	</head>
 	<body>
