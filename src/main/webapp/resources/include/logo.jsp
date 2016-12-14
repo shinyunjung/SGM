@@ -48,6 +48,20 @@
 				left: 270px; 
 				width: 700px;
 			}
+			
+		/**border 한방향 스타일**/
+			.borderLeft{
+				border-left: 1px solid;
+			}
+			.borderRight{
+				border-right: 1px solid;
+			}
+			.borderBottom{
+				border-bottom: 1px solid;
+			}
+			.borderTop{
+				border-top: 1px solid;
+			}	
 		</style>
 	</head>
 	<body>

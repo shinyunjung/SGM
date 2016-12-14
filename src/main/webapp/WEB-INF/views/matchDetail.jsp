@@ -14,6 +14,24 @@
 				width: 270px;
 				text-align: right;
 			}
+			#detailZone{
+				width: 700px;
+				position: absolute;
+				left: 270px;
+				top: 270px;
+			}
+			.detailTable{
+				width: 100%;
+			}
+			.subject{
+				width: 500px;
+			}
+			.right{
+				text-align: right;
+			}
+			thead{
+				border-bottom: 1px solid;
+			}
 		</style>
 	</head>
 	<body>
@@ -22,6 +40,45 @@
 		<div id="page">
 			<div id="title">
 				<h3>매칭 게시판</h3>
+			</div>
+			<div id="detailZone">
+				<table class="detailTable">
+					<thead>
+						<tr>
+							<td class="subject">제목(불러오기)</td>
+							<td class="borderLeft">날짜</td>
+							<td class="borderLeft">날짜(불러오기)</td>
+							<td class="borderLeft">조회수</td>
+							<td class="borderLeft">조회수(불러오기)</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="5">
+								내용(불러오기)
+							</td>
+						</tr>
+						<tr>
+							<td colspan="5" class="right">
+								<button>매칭 신청</button>
+							</td>
+						</tr>
+						<tr class="borderTop">
+							<td colspan="3" class="borderRight">
+								지도(불러오기)<br/>
+								주소
+							</td>
+							<td colspan="2" class="borderLeft">
+								광고 배너 공간
+							</td>
+						</tr>
+						<tr class="borderTop">
+							<td colspan="5" class="right ">
+								<a>수정</a> / <a>삭제</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</body>
