@@ -13,7 +13,7 @@ public class MainController {
 	@RequestMapping(value = "/")
 	public String home(){
 		logger.info("홈 요청");
-		return "index";
+		return "vidioList";
 	}
 	
 }

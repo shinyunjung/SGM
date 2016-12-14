@@ -52,7 +52,7 @@
 				width: 700px;
 				position: absolute;
 				left: 170px;
-				top: 400px;
+				top: 500px;
 			}
 			
 			a{

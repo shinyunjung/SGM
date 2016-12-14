@@ -5,19 +5,23 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>팀 게시판</title>
+		<title>영상 게시판</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			#teamList{
+			#search{
+				position: absolute;
+				left: 270px; 
+				width: 700px;
+			}
+			#vidioList{
 				position: absolute;
 				left: 270px;
+				top: 270px;
 			}
-			#search{
-				width: 970px;
+			.search{
 				text-align: right;
-				margin-bottom: 10px;
 			}
 			.table{
 				width: 700px;
@@ -32,37 +36,35 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<div id="search">
-			<button>검색</button>
-			<input type="text" />
+		<div id="title">
+		<h3>영상 게시판</h3>
 		</div>
-		<div id="teamList">
+		<div id="search">
+			<table width="100%">
+				<tr>
+					<td><button>글작성</button></td>
+					<td class="search">
+						<button>검색</button>
+						<input type="text" size="20" />
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="vidioList">
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>랭킹</th>
-						<th>팀</th>
-						<th>경기 수</th>
-						<th>승점</th>
-						<th>승</th>
-						<th>무</th>
-						<th>패</th>
-						<th>득점</th>
-						<th>실점</th>
-						<th>득점차</th>
+						<th>순번</th>
+						<th>글쓴이</th>
+						<th>제목</th>
+						<th>조회 수</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>0</td>
 						<td>OOO</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
+						<td>OOOOO</td>
 						<td>0</td>
 					</tr>
 				</tbody>
