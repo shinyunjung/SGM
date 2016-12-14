@@ -13,16 +13,20 @@
 			#usManager{
 				position: absolute;
 				left: 270px;
-				top: 270px;
+				top: 300px;
 			}
 			#managerCategori{
 				position:absolute;
 				left: 100px;
-				top: 250px;
+				top: 280px;
 			}
 			#title{
 				text-align: center;
 				
+			}
+			#search{
+				width: 970px;
+				text-align: right;
 			}
 			.usTable{
 				width: 700px;
@@ -39,6 +43,10 @@
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div id="title">
 			<h1><b>회원관리</b></h1>
+		</div>
+		<div id="search">
+			<button>검색</button>
+			<input type="text" />
 		</div>
 		<div id="managerCategori">
 			<jsp:include page="../../resources/include/manager.jsp" />

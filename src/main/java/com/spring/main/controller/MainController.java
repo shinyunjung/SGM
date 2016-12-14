@@ -118,11 +118,11 @@ public class MainController {
 		return "teamManager";
 	}
 	
-	//장소관리
-	@RequestMapping(value = "/placeManager")
-	public String placeManager() {
-		logger.info("장소관리");
-		return "placeManager";
+	//광고목록
+	@RequestMapping(value = "/adList")
+	public String adList() {
+		logger.info("팀관리");
+		return "adList";
 	}
 	
 	//결과

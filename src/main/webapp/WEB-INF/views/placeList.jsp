@@ -26,7 +26,12 @@
 				width: 270px;
 				text-align: right;
 			}
-			.table{
+			#managerCategori{
+				position:absolute;
+				left: 100px;
+				top: 270px;
+			}
+			.placeTable{
 				width: 700px;
 				text-align: center;
 				border-bottom: 1px solid silver;
@@ -46,6 +51,9 @@
 		<div id="map">
 			지도	
 		</div>
+		<div id="managerCategori">
+			<jsp:include page="../../resources/include/manager.jsp" />
+		</div>
 		<div id="search">
 			<select>
 				<option value="1">OO구</option>
@@ -54,7 +62,7 @@
 			<button>검색</button>
 		</div>
 		<div id="placeList">
-			<table class="table table-hover">
+			<table class="table table-hover placeTable">
 				<thead>
 					<tr>
 						<th>사진</th>
@@ -72,6 +80,7 @@
 					</tr>
 				</tbody>
 			</table>
+			<button>장소추가</button>
 		</div>
 	</body>
 	<script></script>

@@ -18,8 +18,6 @@
 		<br/>
 		<button onclick="location.href='placeList'">placeList</button>
 		<br/>
-		<button onclick="location.href='placeManager'">placeManager</button>
-		<br/>
 		<button onclick="location.href='teamList'">teamList</button>
 		<br/>
 		<button onclick="location.href='teamManager'">teamManager</button>
@@ -29,6 +27,8 @@
 		<button onclick="location.href='freeList'">freeList</button>
 		<br/>
 		<button onclick="location.href='usManager'">usManager</button>
+		<br/>
+		<button onclick="location.href='adList'">adList</button>
 		<br/>
 	</body>
 	<script></script>

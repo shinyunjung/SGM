@@ -13,18 +13,22 @@
 			#teamManager{
 				position: absolute;
 				left: 270px;
-				top: 270px;
+				top: 300px;
 			}
 			#managerCategori{
 				position:absolute;
 				left: 100px;
-				top: 250px;
+				top: 280px;
 			}
 			#title{
 				text-align: center;
 				
 			}
-			.usTable{
+			#search{
+				width: 970px;
+				text-align: right;
+			}
+			.teamTable{
 				width: 700px;
 				text-align: center;
 				border-bottom: 1px solid silver;
@@ -40,11 +44,15 @@
 		<div id="title">
 			<h1><b>팀 관리</b></h1>
 		</div>
+		<div id="search">
+			<button>검색</button>
+			<input type="text" />
+		</div>
 		<div id="managerCategori">
 			<jsp:include page="../../resources/include/manager.jsp" />
 		</div>
 		<div id="teamManager">
-			<table class="table table-hover usTable">
+			<table class="table table-hover teamTable">
 				<thead>
 					<tr>
 						<th>NO</th>
