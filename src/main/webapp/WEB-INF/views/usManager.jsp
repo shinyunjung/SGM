@@ -24,51 +24,54 @@
 		<div class="layer">
 			<div class="page">
 					
-					<!-- 첫 번째 구역 -->
-					<div class="col2 content">
-						<fieldset>
-							<legend>회원관리</legend>
-						</fieldset>
-						<div class="manager">
-							<jsp:include page="../../resources/include/manager.jsp" />
-						</div>
+				<!-- 첫 번째 구역 -->
+				<div class="col2 content">
+					<fieldset>
+						<legend>회원관리</legend>
+					</fieldset>
+					<div class="manager">
+						<jsp:include page="../../resources/include/manager.jsp" />
 					</div>
-					
-					<!-- 두 번째 구역 -->
-					<div class="col5 content">
-						<div class="right">
-							<button>검색</button>
-							<input type="text" />
-						</div>
-						<div id="Manager">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th>NO</th>
-										<th>아이디</th>
-										<th>성명</th>
-										<th>생년월일</th>
-										<th>성별</th>
-										<th>번호</th>
-										<th>이메일</th>
-										<th>탈퇴</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>0</td>
-										<td>OOO</td>
-										<td>OOOOO</td>
-										<td>0</td>
-										<td>0</td>
-										<td>OOO</td>
-										<td>OOOOO</td>
-										<td>0</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
 				</div>
+				
+				<!-- 두 번째 구역 -->
+				<div class="col5 content">
+					<div class="right">
+						<button>검색</button>
+						<input type="text" />
+					</div>
+					<div id="Manager">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>NO</th>
+									<th>아이디</th>
+									<th>성명</th>
+									<th>생년월일</th>
+									<th>성별</th>
+									<th>번호</th>
+									<th>이메일</th>
+									<th>탈퇴</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>0</td>
+									<td>OOO</td>
+									<td>OOOOO</td>
+									<td>0</td>
+									<td>0</td>
+									<td>OOO</td>
+									<td>OOOOO</td>
+									<td>0</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<!-- 세 번째 구역 -->
+				<div class="col3 content"></div>
 			</div>
 		</div>
 	</body>
