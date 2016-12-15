@@ -10,11 +10,12 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			#managerCategori{
-				
+			.manager{
+				margin-left: 10%;
 			}
 			.table{
 				width: 100%;
+				border-bottom: 1px solid silver;
 			}
 			th{
 				text-align: center;
@@ -32,7 +33,7 @@
 					<div id="title">
 						<h1><b>광고 관리</b></h1>
 					</div>
-					<div class="right">
+					<div class="manager">
 						<jsp:include page="../../resources/include/manager.jsp" />
 					</div>
 				</div>
@@ -43,8 +44,8 @@
 						<button>검색</button>
 						<input type="text" />
 					</div>
-					<div id="">
-						<table class="table table-hover totalTable">
+					<div class="adList">
+						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th>NO</th>
@@ -66,8 +67,15 @@
 								</tr>
 							</tbody>
 						</table>
-						<button>광고 추가</button>
 					</div>
+					<div class="left">
+						<button>광고등록</button>
+					</div>
+				</div>
+				
+				<!-- 세 번째 구역 -->
+				<div class="col3 content">
+				
 				</div>	
 			</div>
 		</div>
