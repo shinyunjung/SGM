@@ -16,23 +16,9 @@
 				border-bottom: 1px solid silver;
 			}
 			
-			.login {
-				width: 50px;
-				height: 50px;
-				text-align: center;
-				border: 1px solid;
-			}
 			
-			.login .txt {
-				padding-top: 30%
-			}
 			
-			.loginBox{
-				border: 1px solid;
-				border-collapse: collapse;
-				padding: 5px;
-			}
-			
+		
 			.matching{
 				background-color: orange;
 			}
@@ -41,13 +27,15 @@
 				position: absolute;
 				left: 170px;
 			}
-			
-			#loginBox{
+			#send{
 				position: absolute;
-				left:900px;
+				left: 170px;
+				top: 500px;
+				size: 50%;
+              
 			}
 			
-			
+						
 			
 			a{
 				cursor:pointer;
@@ -68,7 +56,7 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<!-- 매칭 리스트 -->
+		<!-- 쪽지함 -->
 		<div id="board">
 			<table class="table table-hover">
 				<thead>
@@ -103,6 +91,58 @@
 						<td>삭제</td>
 					</tr>
 					
+				</tbody>
+			</table>
+		</div>
+		
+		<!-- 쪽지보내기 -->
+		<div id="send">
+			<table class="table table-hover">
+				<thead>
+					<tr class="matching">
+						<td colspan="4">
+							<h4><b>쪽지보내기</b></h4>
+						</td>
+					</tr>
+					<tr>
+						<th>보낸이</th>
+						<th></th>
+						<th>팀명</th>
+						<th></th>
+					
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>받는이</td>
+						<td></td>
+						<td>팀명</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>지역</td>
+						<td></td>
+						<td>운동장</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>날짜</td>
+						<td></td>
+						<td>시간</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<td>
+							<div id="ar">
+       						  <button>보내기</button>
+        					  <button>취소</button>
+      						</div>
+						 </td>
 				</tbody>
 			</table>
 		</div>

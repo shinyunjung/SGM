@@ -19,10 +19,10 @@ public class MainController {
 	}
 	
 	//메인페이지
-	@RequestMapping(value = "/index")
+	@RequestMapping(value = "/msgpage")
 	public String index() {
 		
-		return "index";
+		return "msgpage";
 	}
 	
 	//로그인
@@ -125,10 +125,10 @@ public class MainController {
 		return "adList";
 	}
 	
-	//광고목록
+	//쪽지함
 		@RequestMapping(value = "/msg")
 		public String msg() {
-			logger.info("팀관리");
+			logger.info("쪽지함");
 			return "msgpage";
 		}
 	
