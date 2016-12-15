@@ -10,28 +10,9 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			#map{
-				border:1px solid;
-				width: 100%;
-				margin-bottom: 10px;
+			.manager{
+				margin-left: 10%;
 			}
-			#search{
-				text-align: center;
-			}
-			#placeList{
-				position: absolute;
-				left: 270px;
-			}
-			#title{
-				width: 270px;
-				text-align: right;
-			}
-			#managerCategori{
-				position:absolute;
-				left: 100px;
-				top: 270px;
-			}
-			
 			th{
 				text-align: center;
 			}
@@ -40,43 +21,62 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<div id="title">
-			<h3>장소목록</h3>
-		</div>
-		<div id="map">
-			지도	
-		</div>
-		<div id="managerCategori">
-			<jsp:include page="../../resources/include/manager.jsp" />
-		</div>
-		<div id="search">
-			<select>
-				<option value="1">OO구</option>
-			</select>
-			<input type="text" size="40" />
-			<button>검색</button>
-		</div>
-		<div id="placeList">
-			<table class="table table-hover totalTable">
-				<thead>
-					<tr>
-						<th>사진</th>
-						<th class="center">제목</th>
-						<th class="center">날짜</th>
-						<th>비교</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>사진</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>비교</td>
-					</tr>
-				</tbody>
-			</table>
-			<button>장소추가</button>
-		</div>
+		<div class="layer">
+			<div class="page">
+				
+				<!-- 첫 번째 구역 -->
+				<div class="col2 content">
+					<fieldset>
+						<legend>장소목록</legend>
+					</fieldset>
+					<div class="manager">
+						<jsp:include page="../../resources/include/manager.jsp" />
+					</div>
+				</div>
+				
+				<!-- 두 번째 구역 -->
+				<div class="col5 content">
+					<div class="center">
+						지도	
+					</div>
+					<div class="center">
+						<select>
+							<option value="1">OO구</option>
+						</select>
+						<input type="text" size="40" />
+						<button>검색</button>
+					</div>
+					<div class="placeList">
+						<table class="table table-hover totalTable">
+							<thead>
+								<tr>
+									<th>사진</th>
+									<th class="center">제목</th>
+									<th class="center">날짜</th>
+									<th>비교</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>사진</td>
+									<td>제목</td>
+									<td>날짜</td>
+									<td>비교</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="left">
+							<button>장소추가</button>
+						</div>
+					</div>
+				</div>	
+				
+				<!-- 세 번째 구역 -->
+				<div class="col3 content">
+				
+				</div>
+			</div>
+		</div>				
 	</body>
 	<script></script>
 </html>

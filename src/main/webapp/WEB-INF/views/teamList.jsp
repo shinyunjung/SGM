@@ -10,13 +10,8 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			#teamList{
-				position: absolute;
-				left: 270px;
-			}
-			#title{
-				width: 270px;
-				text-align: right;
+			.teamList{
+				width: 100%;
 			}
 			th{
 				text-align: center;
@@ -26,44 +21,61 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<div id="title">
-			<h3>팀 게시판</h3>
-		</div>
-		<div id="searchManager">
-			<button>검색</button>
-			<input type="text" />
-		</div>
-		<div id="teamList">
-			<table class="table table-hover totalTable">
-				<thead>
-					<tr>
-						<th>랭킹</th>
-						<th>팀</th>
-						<th>경기 수</th>
-						<th>승점</th>
-						<th>승</th>
-						<th>무</th>
-						<th>패</th>
-						<th>득점</th>
-						<th>실점</th>
-						<th>득점차</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>0</td>
-						<td>OOO</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-					</tr>
-				</tbody>
-			</table>
+		<div class="layer">
+			<div class="page">
+				
+				<!-- 첫 번째 구역 -->
+				<div class="col2 content">
+					<fieldset>
+						<legend>팀 게시판</legend>
+					</fieldset>
+				</div>
+				
+				<!-- 두 번째 구역 -->
+				<div class="col5 content">
+					<div class="right">
+						<button>검색</button>
+						<input type="text" />
+					</div>
+					<div class="teamList">
+						<table class="table table-hover totalTable">
+							<thead>
+								<tr>
+									<th>랭킹</th>
+									<th>팀</th>
+									<th>경기 수</th>
+									<th>승점</th>
+									<th>승</th>
+									<th>무</th>
+									<th>패</th>
+									<th>득점</th>
+									<th>실점</th>
+									<th>득점차</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>0</td>
+									<td>OOO</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+									<td>0</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<!-- 세 번째 구역 -->
+				<div class="col3 content">
+				
+				</div>	
+			</div>
 		</div>
 	</body>
 	<script></script>
