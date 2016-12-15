@@ -10,28 +10,10 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			#title{
-				width: 270px;
-				text-align: right;
-			}
-			#detailZone{
-				width: 700px;
-				position: absolute;
-				left: 270px;
-				top: 270px;
-			}
-			#replyZone{
-				
-				width: 700px;
-				margin-top: 10px;
-			}
 			#repleBox{
 				
 				width: 100%;
 				padding: 10px;
-			}
-			#go{
-				height: 50px;
 			}
 			#matchMsg{
 				width: 500px;
@@ -39,12 +21,13 @@
 				position: absolute;
 				top: 500px;
 				left: 500px;
+				display: none;
 			}
 			.detailTable{
 				width: 100%;
 			}
 			.subject{
-				width: 500px;
+				width: 60%;
 			}
 			.right{
 				text-align: right;
@@ -86,85 +69,100 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<div id="page">
-			<div id="title">
-				<h3>매칭 게시판</h3>
-			</div>
-			<div id="detailZone">
-				<table class="detailTable">
-					<thead>
+		<div class="layer">
+			<div class="page">
+				
+				<!-- 첫 번째 구역 -->
+				<div class="col2 content">
+					<fieldset>
+							<legend>매칭 게시판</legend>
+					</fieldset>
+				</div>
+				
+				<!-- 두 번째 구역 -->
+				<div class="col5 content">
+					<div id="detailZone">
+						<table class="detailTable">
+							<thead>
+								<tr>
+									<td class="subject left">제목(불러오기)</td>
+									<td class="borderLeft">날짜</td>
+									<td class="borderLeft">날짜(불러오기)</td>
+									<td class="borderLeft">조회수</td>
+									<td class="borderLeft">0</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="5">
+										내용(불러오기)
+									</td>
+								</tr>
+								<tr>
+									<td colspan="5" class="right">
+										<button>매칭 신청</button>
+									</td>
+								</tr>
+								<tr class="borderTop">
+									<td colspan="5">
+										지도(불러오기)<br/>
+										주소
+									</td>
+								</tr>
+								<tr class="borderTop">
+									<td class="left"><a>댓글쓰기</a></td>
+									<td colspan="4" class="right ">
+										<a>수정</a> / <a>삭제</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- 댓글 -->
+						<div id="replyZone">
+							<table class="repleBox borderTop">
+								<tr>
+									<td class="user">등록자</td>
+									<td class="data"><textarea rows="3"></textarea></td>
+									<td class="repleBtn"><button>댓글등록</button></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 세 번째 구역 -->
+				<div class="col3 content">
+					<div class="AD">
+						광고 배너 공간
+					</div>
+				</div>
+				
+				<div id="matchMsg">
+					<table class="matchMsg">
 						<tr>
-							<td class="subject">제목(불러오기)</td>
-							<td class="borderLeft">날짜</td>
-							<td class="borderLeft">날짜(불러오기)</td>
-							<td class="borderLeft">조회수</td>
-							<td class="borderLeft">조회수(불러오기)</td>
+							<td>매칭쪽지 보내기</td>
+							<td class="right"><button>x</button></td>
 						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td colspan="5">
-								내용(불러오기)
-							</td>
-						</tr>
-						<tr>
-							<td colspan="5" class="right">
-								<button>매칭 신청</button>
-							</td>
+						<tr class="center borderTop">
+							<td class="borderRight sender">보낸 이 : <input type="text" readonly/></td>
+							<td class="sender">받는 이 : <input type="text" readonly/></td>
 						</tr>
 						<tr class="borderTop">
-							<td colspan="3" class="borderRight">
-								지도(불러오기)<br/>
-								주소
-							</td>
-							<td colspan="2" class="borderLeft">
-								광고 배너 공간
-							</td>
-						</tr>
-						<tr class="borderTop">
-							<td><a>댓글쓰기</a></td>
-							<td colspan="4" class="right ">
-								<a>수정</a> / <a>삭제</a>
+							<td colspan="2">
+								내용<br/>
+								<div class="msg">
+									<textarea></textarea>
+								</div>
 							</td>
 						</tr>
-					</tbody>
-				</table>
-				<!-- 댓글 -->
-				<div id="replyZone">
-					<table id="repleBox">
 						<tr>
-							<td class="user">등록자</td>
-							<td class="data"><textarea rows="3"></textarea></td>
-							<td class="repleBtn"><button id="go">댓글등록</button></td>
+							<td class="center borderTop" colspan="2" style="padding: 5px">
+								<button>보내기</button>
+								<button>취소</button>
+							</td>
 						</tr>
 					</table>
 				</div>
-			</div>
-			<div id="matchMsg">
-				<table class="matchMsg">
-					<tr>
-						<td>매칭쪽지 보내기</td>
-						<td class="right"><button>x</button></td>
-					</tr>
-					<tr class="center borderTop">
-						<td class="borderRight sender">보낸 이 : <input type="text" readonly/></td>
-						<td class="sender">받는 이 : <input type="text" readonly/></td>
-					</tr>
-					<tr class="borderTop">
-						<td colspan="2">
-							내용<br/>
-							<div class="msg">
-								<textarea></textarea>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="center borderTop" colspan="2" style="padding: 5px">
-							<button>보내기</button>
-							<button>취소</button>
-						</td>
-					</tr>
-				</table>
 			</div>
 		</div>
 	</body>
