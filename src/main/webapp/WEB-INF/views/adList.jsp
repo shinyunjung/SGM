@@ -30,9 +30,9 @@
 				
 				<!-- 첫 번째 구역 -->
 				<div class="col2 content">
-					<div id="title">
-						<h1><b>광고 관리</b></h1>
-					</div>
+					<fieldset>
+						<legend>광고관리</legend>
+					</fieldset>
 					<div class="manager">
 						<jsp:include page="../../resources/include/manager.jsp" />
 					</div>
