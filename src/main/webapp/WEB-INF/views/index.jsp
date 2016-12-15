@@ -62,7 +62,7 @@
 		   <div class=" layer">
 			<div class="page">
 			    <div class="col2 content">
-			      
+			      <jsp:include page="../../resources/include/team.jsp" />
 			    </div>
 			    <div class="col5 content"> 
 			      <!-- 매칭 리스트 -->

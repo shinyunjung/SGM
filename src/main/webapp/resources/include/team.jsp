@@ -8,21 +8,23 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<style>
-			#row{
-				padding-bottom: 50px;
+			#ca{
+				padding-top: 50px;
+				/* border: 1px solid; */
 			}
 			 #emblem{
                 border: 1px solid;
-				width: 170px;
+				width: 100%;
 				height: 220px;
-                 margin-bottom: 20px;
+                margin-bottom: 20px;
 			}
 			#teamCategory{
 				
-				width: 170px;
+				width: 100%;
 				height: 220px;
                 margin-top: 20px;
 			}
+			
 			.table{
 				width: 100%;
 				height: 90%;
@@ -36,24 +38,22 @@
 		</style>
 	</head>
 	<body>
-		<div id="row">
+		<div id="ca">
 			<div id="emblem">
 				사진		
 			</div>
             ---------------------------
 			<div id="teamCategory">
-				<table class="table">
-					<tr>
-						<td><a>팀 멤버</a></td>
-					</tr>
-					<tr>
-						<td><a>팀 멤버</a></td>
-					</tr>
-					<tr>
-						<td><a>팀 멤버</a></td>
-					</tr>
-				</table>
-				<a>팀 탈퇴</a>
+				<div class="list-group">
+  <a href="#" class="list-group-item">
+    팀 멤버
+  </a>
+  <a href="#" class="list-group-item">팀 멤버
+  </a>
+  <a href="#" class="list-group-item">팀 멤버
+  </a>
+  <a href="#" class="list-group-item">팀 탈퇴</a>
+</div>
 			</div>
 		</div>
 	</body>

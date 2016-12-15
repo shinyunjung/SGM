@@ -49,5 +49,12 @@ public class MainController {
 			
 			return "join";
 		}
+		
+		//팀상세
+		@RequestMapping(value = "/teamDetail")
+		public String teamDetail() {
+			logger.info("팀상세");
+			return "teamDetail";
+		}
 	
 }

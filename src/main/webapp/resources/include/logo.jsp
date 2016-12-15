@@ -30,7 +30,7 @@
 			.layer{
 				width: 100%;
 				text-align: center;
-				margin-bottom: 50px;
+				margin-bottom: 20px;
 			}
 	
 			.page {
@@ -41,21 +41,24 @@
 				margin: 0 auto;
 			} 
 			.col2{
-				width:13%;
+				width:17%;
+				text-align: center;
+				padding-top: 30px;
 			}
 			.col5{
-				width: 65%;
+				width: 63%;
+				padding-left: 1%;
+				padding-right: 1%;
 			}
 			.col3{
-				width: 22%;
+				width: 20%;
 			}
 		    
 				
 			.content {
 				height: 100%;
-				border: 1px solid;
+				/* border: 1px solid; */
 	            float: left;
-				padding: 1%;
 	    	}
 			
 		/**게시판 스타일**/
