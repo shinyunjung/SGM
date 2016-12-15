@@ -10,6 +10,9 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
+			.manager{
+				margin-left: 10%;
+			}
 			th{
 				text-align: center;
 			}
@@ -22,17 +25,22 @@
 			<div class="page">
 				
 				<!-- 첫 번째 구역 -->
+				<div class="col2 content">
 					<fieldset>
 						<legend>팀 정보</legend>
 					</fieldset>
-					<div id="searchManager">
+					<div class="manager">
+						<jsp:include page="../../resources/include/manager.jsp" />
+					</div>
+				</div>	
+				
+				<!-- 두 번째 구역 -->
+				<div class="col5 content">
+					<div class="right">
 						<button>검색</button>
 						<input type="text" />
 					</div>
-					<div id="managerCategori">
-						<jsp:include page="../../resources/include/manager.jsp" />
-					</div>
-					<div id="Manager">
+					<div class="teamManager">
 						<table class="table table-hover totalTable">
 							<thead>
 								<tr>
@@ -60,6 +68,12 @@
 							</tbody>
 						</table>
 					</div>
+				</div>
+				
+				<!-- 세 번째 구역 -->
+				<div class="col3 content">
+				
+				</div>
 			</div>
 		</div>
 	</body>
