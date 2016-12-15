@@ -168,4 +168,11 @@ public class MainController {
 		return "vidioDetail";
 	}
 	
+	//자유 상세보기
+	@RequestMapping(value = "/freeDetail")
+	public String freeDetail() {
+		logger.info("영상 상세보기");
+		return "freeDetail";
+	}
+	
 }

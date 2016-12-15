@@ -42,6 +42,8 @@
 		<br/>
 		<button onclick="location.href='vidioDetail'">vidioDetail</button>
 		<br/>
+		<button onclick="location.href='freeDetail'">freeDetail</button>
+		<br/>
 	</body>
 	<script></script>
 </html>
