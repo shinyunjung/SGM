@@ -9,55 +9,44 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		
 		<style>
-		/* Remove the navbar's default rounded borders and increase the bottom margin */ 
-		    .navbar {
-		      margin-bottom: 50px;
-		      border-radius: 0;
-		    }
-    
-   
-			.orange{
-				background-color: orange;
+		    .menu{
 				
+				width: 1080px;
+				background-color: orange; 
+				display: inline-block;
+				margin: 0 auto;
 			}
+			ul.nav li{
+				float: left;
+				width: 180px;
+			}
+			
+			
  			
 		</style>
 	</head>
 	<body>
-		<nav class="navbar navbar-default">
-  <div class="container-fluid orange">
-    <div class="navbar-header orange">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-
-    <div class="collapse navbar-collapse orange" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#"><h4><b>매칭게시판</b></h4><span class="sr-only">(current)</span></a></li>
-        <li><a href="#"><h4><b>매칭일정</b></h4></a></li>
+	<div class="layer">
+    <div class="menu">
+      <ul class="nav">
+        <li class="active"><a href="matchList"><h4><b>매칭게시판</b></h4><span class="sr-only">(current)</span></a></li>
+        <li><a href="calendar"><h4><b>매칭일정</b></h4></a></li>
         <li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h4><b>장소목록</b></h4></a>
+          <a href="placeList" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h4><b>장소목록</b></h4></a>
         </li>
         <li>
-        	<a href="#"><h4><b>팀</b></h4></a>
+        	<a href="teamList"><h4><b>팀</b></h4></a>
         </li>
          <li>
-        	<a href="#"><h4><b>영상 게시판</b></h4></a>
+        	<a href="vidioList"><h4><b>영상 게시판</b></h4></a>
         </li>
          <li>
-        	<a href="#"><h4><b>자유 게시판</b></h4></a>
+        	<a href="freeList"><h4><b>자유 게시판</b></h4></a>
         </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        
-      </ul>
+      </ul>  
     </div>
-  </div>
-</nav>
+    </div>
+  
 	</body>
 	<script></script>
 </html>

@@ -47,9 +47,8 @@
 				left: 35%;
 				top: 42%;
 			}
-			#logo{
-				position:absolute;
-				top: 10%;
+			.logo{
+				margin-top: 8%;
 			}
 			input{
 				border: none;
@@ -62,7 +61,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="logo">
+		<div class="logo">
 			<jsp:include page="../../resources/include/logo.jsp" />
 		</div>
 		<div id="loginBox">

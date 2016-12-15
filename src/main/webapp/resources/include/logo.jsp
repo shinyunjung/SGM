@@ -9,45 +9,50 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		
 		<style>
-		/* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-    }
+		
 			#logo{
-				width: 100%;
+				 width: 1080px; 
 				text-align: center;
 				font-size: large;
+				display: inline-block;
+				margin: 0 auto;
 			}
 			#logoImg{
 				width: 300px;
 				height: 100px; 
 			}
-		/**관리 게시판 위치**/
-			#Manager{
-				position: absolute;
-				left: 270px;
-				top: 300px;
-			}
 			
-		/**게시판 스타일**/
-			.totalTable{
-				width: 700px;
+			.layer{
+				width: 100%;
 				text-align: center;
-				border-bottom: 1px solid silver;
+				margin-bottom: 50px;
 			}
+	
+			.page {
+				height: auto;
+				width: 1080px;
+				border: 1px solid;
+				display: inline-block;
+				margin: 0 auto;
+			} 
+			.col2{
+				width:13%;
+			}
+			.col5{
+				width: 65%;
+			}
+			.col3{
+				width: 22%;
+			}
+		    
+				
+			.content {
+				height: 100%;
+				border: 1px solid;
+	            float: left;
+				padding: 1%;
+	    	}
 			
-		/**검색 스타일(글작성 없음)**/	
-			#searchManager{
-				width: 970px;
-				text-align: right;
-			}
-		
-		/**검색 스타일(글작성 있음)**/	
-			#searchList{
-				position: absolute;
-				left: 270px; 
-				width: 700px;
-			}
 			
 		/**border 한방향 스타일**/
 			.borderLeft{
@@ -61,12 +66,25 @@
 			}
 			.borderTop{
 				border-top: 1px solid;
+			}
+			
+			/**위치 스타일**/
+			.right{
+				text-align: right;
+			}
+			.center{
+				text-align: center;
 			}	
+			.left{
+				text-align: left;
+			}
 		</style>
 	</head>
 	<body>
-		<div id="logo" >
-			 <a href="logo"><img id="logoImg" src="./resources/include/img/logo.jpg" /></a>
+		<div class="layer">
+			<div id="logo" >
+				 <a href="index"><img id="logoImg" src="./resources/include/img/logo.jpg" /></a>
+			</div>
 		</div>
 	</body>
 	<script></script>

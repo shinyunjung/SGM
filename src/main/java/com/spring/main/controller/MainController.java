@@ -132,4 +132,11 @@ public class MainController {
 		return "matchDetail";
 	}
 	
+	//장소목록 상세보기
+	@RequestMapping(value = "/placeDetail")
+	public String placeDetail() {
+		logger.info("장소목록 상세보기");
+		return "placeDetail";
+	}
+	
 }

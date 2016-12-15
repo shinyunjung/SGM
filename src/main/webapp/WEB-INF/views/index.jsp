@@ -6,37 +6,12 @@
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
-    
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 100%;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;} 
-    }
+   
+      
     
     .table{
                 width: 100%;
@@ -50,7 +25,7 @@
                 border: 1px solid;
             }
             
-            .login .txt {
+            .login {
                 padding-top: 30%
             }
             
@@ -68,10 +43,7 @@
             
             #nowGame{
                 border: 1px solid brown;
-                width: 700px;
-               /*  position: absolute;
-                left: 170px;
-                top: 400px; */
+                width: 100%;
             }
             
             a{
@@ -87,12 +59,12 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<div class="container-fluid text-center">    
-			<div class="row content">
-			    <div class="col-sm-2 sidenav">
+		   <div class=" layer">
+			<div class="page">
+			    <div class="col2 content">
 			      
 			    </div>
-			    <div class="col-sm-7 text-left"> 
+			    <div class="col5 content"> 
 			      <!-- 매칭 리스트 -->
 					<div id="board">
 						<table class="table table-hover">
@@ -156,12 +128,12 @@
 						</table>
 					</div>
 			    </div>
-			    <div class="col-sm-3 sidenav">
+			    <div class="col3 content">
 				      
 				      <!-- 로그인 box -->
 						<table class="loginBox">
 							<tr>
-								<td class="loginBox"><input type="text" placeholder="아이디"/></td>
+								<td class="loginBox"><input type="text" size="12" placeholder="아이디"/></td>
 								<td class="loginBox" rowspan="2">
 									<div class="login">
 										<div class="txt">로그인</div>
@@ -169,7 +141,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="loginBox"><input type="password" placeholder="비밀번호"/></td>
+								<td class="loginBox"><input type="password" size="12" placeholder="비밀번호"/></td>
 							</tr>
 							<tr>
 								<td class="loginBox" colspan="2">
@@ -187,11 +159,8 @@
 				      
 		    	</div>
 		  </div>
-	</div>
+		  </div>
 	
-	<footer class="container-fluid text-center">
-	  <p>Footer Text</p>
-	</footer>
 		
 		
 	</body>
