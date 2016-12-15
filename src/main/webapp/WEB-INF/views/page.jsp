@@ -38,6 +38,8 @@
 		<br/>
 		<button onclick="location.href='tdDetail'">tdDetail</button>
 		<br/>
+		<button onclick="location.href='teamModify'">teamModify</button>
+		<br/>
 	</body>
 	<script></script>
 </html>

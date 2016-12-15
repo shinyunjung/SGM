@@ -146,6 +146,14 @@ public class MainController {
 		return "tdDetail";
 	}
 	
+	//팀 정보 수정
+		@RequestMapping(value = "/teamModify")
+		public String teamModify() {
+			logger.info("팀 정보 수정");
+			return "teamModify";
+		}
+	
+	
 	//장소목록 상세보기
 	@RequestMapping(value = "/placeDetail")
 	public String placeDetail() {
