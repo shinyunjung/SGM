@@ -9,19 +9,16 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		
 		<style>
-			.layer{
-				width: 100%;
-				margin-bottom: 50px; 
-			}
 		    .menu{
-				text-align: center;
-				width: 1320px;
+				
+				width: 1080px;
 				background-color: orange; 
+				display: inline-block;
 				margin: 0 auto;
 			}
 			ul.nav li{
 				float: left;
-				width: 220px;
+				width: 180px;
 			}
 			
 			

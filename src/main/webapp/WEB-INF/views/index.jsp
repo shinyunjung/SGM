@@ -11,8 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
    
-      .row.content {height:auto;} 
-    }
+      
     
     .table{
                 width: 100%;
@@ -44,10 +43,7 @@
             
             #nowGame{
                 border: 1px solid brown;
-                width: 700px;
-               /*  position: absolute;
-                left: 170px;
-                top: 400px; */
+                width: 100%;
             }
             
             a{
@@ -63,12 +59,12 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		   
-			<div class="row content">
-			    <div class="col-sm-2 dd">
+		   <div class=" layer">
+			<div class="page">
+			    <div class="col2 content">
 			      
 			    </div>
-			    <div class="col-sm-7"> 
+			    <div class="col5 content"> 
 			      <!-- 매칭 리스트 -->
 					<div id="board">
 						<table class="table table-hover">
@@ -132,7 +128,7 @@
 						</table>
 					</div>
 			    </div>
-			    <div class="col-sm-3 dd">
+			    <div class="col3 content">
 				      
 				      <!-- 로그인 box -->
 						<table class="loginBox">
@@ -162,6 +158,7 @@
 					
 				      
 		    	</div>
+		  </div>
 		  </div>
 	
 	

@@ -11,9 +11,11 @@
 		<style>
 		
 			#logo{
-				width: 100%;
+				width: 1080px;
 				text-align: center;
 				font-size: large;
+				display: inline-block;
+				margin: 0 auto;
 			}
 			#logoImg{
 				width: 300px;
@@ -25,17 +27,36 @@
 				left: 270px;
 				top: 300px;
 			}
-		/**왼쪽 div 스타일**/
-			.content{
-				clear: left;
-				
+			.layer{
+				width: 100%;
+				text-align: center;
+				margin-bottom: 50px;
 			}
+	
+			.page {
+				height: auto;
+				width: 1080px;
+				border: 1px solid;
+				display: inline-block;
+				margin: 0 auto;
+			} 
+			.col2{
+				width:13%;
+			}
+			.col5{
+				width: 65%;
+			}
+			.col3{
+				width: 22%;
+			}
+		    
 				
-		.dd {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 100%;
-    }
+			.content {
+				height: 100%;
+				border: 1px solid;
+	            float: left;
+				padding: 1%;
+	    	}
 			
 		/**게시판 스타일**/
 			.totalTable{
@@ -73,8 +94,10 @@
 		</style>
 	</head>
 	<body>
-		<div id="logo" >
-			 <a href="index"><img id="logoImg" src="./resources/include/img/logo.jpg" /></a>
+		<div class="layer">
+			<div id="logo" >
+				 <a href="index"><img id="logoImg" src="./resources/include/img/logo.jpg" /></a>
+			</div>
 		</div>
 	</body>
 	<script></script>

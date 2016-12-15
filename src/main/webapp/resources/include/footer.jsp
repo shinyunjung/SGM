@@ -6,12 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	.layer{
-		width: 100%;
-		margin-top: 20px;
-	}
+	
 	.foo{
-		width: 1320px;
+		width: 1080px;
 		background-color: #555;
      	color: white;
       	padding: 15px;
