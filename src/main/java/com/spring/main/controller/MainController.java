@@ -11,6 +11,8 @@ public class MainController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
+	
+	
 	//메인페이지
 		@RequestMapping(value = "/")
 		public String home() {

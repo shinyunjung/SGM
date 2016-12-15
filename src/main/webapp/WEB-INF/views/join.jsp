@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -10,11 +9,34 @@
 	<script src="resources/bootstrap/js/bootstrap.js"></script>
 	<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 	<style>
-	div.joinform{
-		
+	.fieldset{
+		background-color: #f5f5f5;
+	  	border: 1px solid #e3e3e3;
+	 	border-radius: 4px;
+	 	text-align: center;
 	}
+	table{
+		width: 100%;
+	}
+	th{
+          text-align: right;
+          padding-bottom: 10px;
+          padding-right: 10px;
+          width: 20%;
+          /* border: 1px solid; */
+       }
+       td{
+         padding-bottom: 10px;
+          width: 20%;
+         /*  border: 1px solid; */
+       }
+       
+/* 	.form-group{
+		margin-left: 20%;
+	} */
+	
 	/* table, td{
-          border:2px solid;
+         form-group border:2px solid;
           text-align: center;
        }
        td{
@@ -44,60 +66,114 @@
 		<!-- 배너 -->
 		</div>
 		<div class="col5 content"> 
+            <div class="well bs-component">
 			<form class="form-horizontal">
 			  <fieldset>
 			  	<legend>회원가입</legend>
 			  		회원정보를 입력해 주세요. 모두 입력하셔야 가입이 가능합니다.
-			    <div class="form-group">
-			      <label for="inputname" class="col-lg-2 control-label">이름</label>
-			      <div class="col-lg-10">
-			        <input type="text" class="form-control" id="inputname" placeholder="이름">
-			      </div>
-			     </div>
-			     <div class="form-group">
-			      <label for="inputid" class="col-lg-2 control-label">아이디</label>
-			      <div class="col-lg-10">
-			        <input type="text" class="form-control" id="inputid" placeholder="아이디">
-			      </div>
-			     </div>
-			     <div class="form-group">
-			      <label for="inputpw" class="col-lg-2 control-label">비밀번호</label>
-			      <div class="col-lg-7">
-			        <input type="password" class="form-control" id="inputpw" placeholder="비밀번호">
-			      </div>
-			     </div>
-			     <div class="form-group">
-			      <label for="inputpw" class="col-lg-2 control-label">비밀번호</label>
-			      <div class="col-lg-7">
-			        <input type="password" class="form-control" id="inputpw" placeholder="비밀번호"size="6">
-			      </div>
-			     </div>
-			    <div class="form-group">
-			      <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-			      <div class="col-lg-10">
-			        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-			      </div>
-			    </div>
-			    <div class="form-group">
-			      <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-			      <div class="col-lg-10">
-			        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-			      </div>
-			    </div>
-			    
-			    <div class="form-group">
-			      <div class="col-lg-10 col-lg-offset-2">
-			        <button type="reset" class="btn btn-default">Cancel</button>
-			        <button type="submit" class="btn btn-primary">Submit</button>
-			      </div>
-			    </div>
-			    <div class="form-group">
-			      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-			      <div class="col-lg-10">
-			        <input type="text" class="form-control" id="inputEmail" placeholder="Email">
-			      </div>
+			  		<table class="cen">
+			  			<tr>
+			  			<td colspan="2">회원정보를 입력해 주세요. 모두 입력하셔야 가입이 가능합니다.
+			  				</td>
+			  			</tr>
+			  			<tr>
+			  				<th>아이디
+			  				</th>
+			  				<td colspan="3">
+			  				<input type="text" class="form-control" placeholder="아이디">
+			  				</td>
+			  				<th>
+			  				</th>
+			  			</tr>
+			  			<tr>
+			  				<th>비밀번호
+			  				</th>
+			  				<td colspan="3">
+			  				<input type="password" class="form-control" placeholder="비밀번호">
+			  				</td>
+			  				<th>
+			  				</th>
+			  			</tr>
+			  			<tr>
+			  				<th>비밀번호
+			  				</th>
+			  				<td colspan="3">
+			  				<input type="password" class="form-control" placeholder="비밀번호">
+			  				</td>
+			  				<th>
+			  				</th>
+			  			</tr>
+			  			<tr>
+			  				<th>성명
+			  				</th>
+			  				<td colspan="3">
+			  				<input type="text" class="form-control" placeholder="성명" >
+			  				</td>
+			  				<th>
+			  				</th>
+			  			</tr>
+			  			<tr>
+			  				<th>생년월일
+			  				</th>
+			  				<td>
+			  					<select id="year"><option>- 선택하세요 -</option></select>
+			  				</td>
+			  				<td>
+			  					<select id="month"><option>- 선택하세요 -</option></select>
+			  				</td>
+			  				<td>
+			  					<select id="date"><option>- 선택하세요 -</option></select>
+			  				</td>
+			  				<th>
+			  				</th>
+			  			</tr>
+			  			<tr>
+			  				<th>성별
+			  				</th>
+			  				<td>
+			  				<input type="radio" name="" /> 남자
+			  				</td>
+			  				<td>
+			  				<input type="radio" name="" /> 여자
+			  				</td>
+			  				<td>
+			  				</td>
+			  				<th>
+			  				</th>
+			  			</tr>
+			  			<tr>
+			  				<th>email
+			  				</th>
+			  				<td colspan="3">
+			  				<input type="email" class="form-control" placeholder="email" >
+			  				</td>
+			  				<th>
+			  				</th>
+			  			</tr>
+			  			<tr>
+			  				<th>인증번호
+			  				</th>
+			  				<td colspan="3">
+			  				<input type="text" class="form-control" placeholder="인증번호" >
+			  				</td>
+			  				<th>
+			  				</th>
+			  			</tr>
+			  			<tr>
+			  				<th>
+			  				</th>
+			  				<td colspan="3">
+			  				<button type="reset" class="btn btn-default">Cancel</button>
+			        		<button type="submit" class="btn btn-primary">Submit</button>
+			  				</td>
+			  				<th>
+			  				</th>
+			  			</tr>
+			  		</table>
+			  		
 			  </fieldset>
 			</form>
+			</div>
 		</div>
 		<div class="col3 content">      
 		//배너
@@ -298,5 +374,61 @@
 	</form>  
    </div>
 </body>
-<script></script>
+<script>
+	function appendYear(){
+		var date = new Date();
+		var year = date.getFullYear();
+		var selectValue = document.getElementById("year");
+		var optionIndex = 0;
+	
+		for(var i=year-100;i<=year;i++){
+				selectValue.add(new Option(i+"년",i),optionIndex++);                        
+		}
+	}
+	
+	
+	function appendMonth(){
+		var selectValue = document.getElementById("month"); 
+		var optionIndex = 0;
+	
+		for(var i=1;i<=12;i++){
+				selectValue.add(new Option(i+"월",i),optionIndex++);
+		}
+	}
+	
+	
+	function appendDay(){
+		var selectValue = document.getElementById("day");
+		var optionIndex = 0;
+	
+		for(var i=1;i<=31;i++){
+				selectValue.add(new Option(i+"일",i),optionIndex++);
+		}
+	} 
+	
+	/* $(function(){
+		$('#year').numericOptions({from:2016,to:1942});
+		$('#month').numericOptions({from:1,to:12,selectedInbex:5,namePadding:2});
+		$('#date').numericOptions().datePulldown({year:$('#year'),month:$('#month'),valuePadding:2});
+	});
+	
+	
+	 var currDate = new Date(); // 현재 날짜 생성
+ currDate=dateToYYYYMMDD(currDate);
+ 
+ alert( currDate );
+         //2016-04-25
+}
+ 
+ 
+//데이트 포멧 
+function dateToYYYYMMDD(date){
+    function pad(num) {
+        num = num + '';
+        return num.length < 2 ? '0' + num : num;
+    }
+    return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
+}
+*/
+</script>
 </html>

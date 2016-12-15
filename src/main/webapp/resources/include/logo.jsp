@@ -42,11 +42,11 @@
 			} 
 			.col2{
 				width:17%;
-				text-align: center;
 				padding-top: 30px;
 			}
 			.col5{
 				width: 63%;
+				text-align: center;
 				padding-left: 1%;
 				padding-right: 1%;
 			}
@@ -59,6 +59,12 @@
 				height: 100%;
 				/* border: 1px solid; */
 	            float: left;
+	    	}
+	    	.lg2{
+	    		width: 20%;
+	    	}
+	    	.lg5{
+	    		width: 50%;
 	    	}
 			
 		/**게시판 스타일**/
