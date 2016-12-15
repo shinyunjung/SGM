@@ -139,6 +139,13 @@ public class MainController {
 		return "teamDetail";
 	}
 	
+	//팀 일지 상세보기
+	@RequestMapping(value = "/tdDetail")
+	public String tdDetail() {
+		logger.info("팀 일지 상세보기");
+		return "tdDetail";
+	}
+	
 	//장소목록 상세보기
 	@RequestMapping(value = "/placeDetail")
 	public String placeDetail() {

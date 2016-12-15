@@ -10,9 +10,9 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<style>
-			td{
-				
-			}	
+			.team{
+				padding-left: 5%;
+			}
 			.score{
 				width: 5%;
 			}	
@@ -46,10 +46,10 @@
 			<div class="page">
 				<!-- 첫 번째 구역 -->
 				<div class="col2 content">
-					<div class="title">
-						<h3>팀 게시판</h3>					
-					</div>
-					<div>
+					<fieldset>
+						<legend>팀 게시판</legend>
+					</fieldset>
+					<div class="team">
 						<jsp:include page="../../resources/include/team.jsp" />
 					</div>
 				</div>
