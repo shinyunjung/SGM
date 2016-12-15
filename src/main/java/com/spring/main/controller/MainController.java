@@ -132,6 +132,13 @@ public class MainController {
 		return "matchDetail";
 	}
 	
+	//팀 상세보기
+	@RequestMapping(value = "/teamDetail")
+	public String teamDetail() {
+		logger.info("팀 상세보기");
+		return "teamDetail";
+	}
+	
 	//장소목록 상세보기
 	@RequestMapping(value = "/placeDetail")
 	public String placeDetail() {

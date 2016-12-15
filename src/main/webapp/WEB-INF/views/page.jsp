@@ -34,6 +34,8 @@
 		<br/>
 		<button onclick="location.href='placeDetail'">placeDetail</button>
 		<br/>
+		<button onclick="location.href='teamDetail'">teamDetail</button>
+		<br/>
 	</body>
 	<script></script>
 </html>

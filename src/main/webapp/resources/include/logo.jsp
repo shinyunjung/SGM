@@ -36,13 +36,13 @@
 				margin: 0 auto;
 			} 
 			.col2{
-				width:13%;
+				width:20%;
 			}
 			.col5{
-				width: 65%;
+				width: 60%;
 			}
 			.col3{
-				width: 22%;
+				width: 20%;
 			}
 		    
 				
@@ -77,6 +77,16 @@
 			}	
 			.left{
 				text-align: left;
+			}
+			
+			/**게시글 제목 스타일**/
+			.title{
+				text-align: right;
+			}
+			
+			/**관리글 제목 스타일**/
+			.managerTitle{
+				text-align: center;
 			}
 		</style>
 	</head>
