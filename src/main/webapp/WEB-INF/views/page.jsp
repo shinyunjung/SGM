@@ -40,6 +40,8 @@
 		<br/>
 		<button onclick="location.href='teamModify'">teamModify</button>
 		<br/>
+		<button onclick="location.href='vidioDetail'">vidioDetail</button>
+		<br/>
 	</body>
 	<script></script>
 </html>

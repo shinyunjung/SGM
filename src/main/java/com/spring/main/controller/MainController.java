@@ -161,4 +161,11 @@ public class MainController {
 		return "placeDetail";
 	}
 	
+	//영상 상세보기
+	@RequestMapping(value = "/vidioDetail")
+	public String vidioDetail() {
+		logger.info("영상 상세보기");
+		return "vidioDetail";
+	}
+	
 }
