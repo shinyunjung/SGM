@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PlaceService {
+public class FreeService {
 
 	@Autowired
 	SqlSession sqlSession;

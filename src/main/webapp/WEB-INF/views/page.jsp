@@ -32,6 +32,28 @@
 		<br/>
 		<button onclick="location.href='matchDetail'">matchDetail</button>
 		<br/>
+		<button onclick="location.href='join'">join</button>
+		<br/>
+		<button onclick="location.href='idFind'">idFind</button>
+		<br/>
+		<button onclick="location.href='idFind'">passFind</button>
+		<br/>
+		<button onclick="location.href='teamJoin'">teamJoin</button>
+		<br/>
+		<button onclick="location.href='myPage'">myPage</button>
+		<br/>
+		<button onclick="location.href=''">idFind</button>
+		<br/>
+		<button onclick="location.href='idFind'">idFind</button>
+		<br/>
+		<button onclick="location.href='idFind'">idFind</button>
+		<br/>
+		<button onclick="location.href='idFind'">idFind</button>
+		<br/>
+		<button onclick="location.href='idFind'">idFind</button>
+		<br/>
+		<button onclick="location.href='idFind'">idFind</button>
+		<br/>
 	</body>
 	<script></script>
 </html>

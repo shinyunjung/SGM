@@ -62,22 +62,25 @@
 		</style>
 	</head>
 	<body>
+		<form action="login" method="post">
 		<div id="logo">
 			<jsp:include page="../../resources/include/logo.jsp" />
 		</div>
 		<div id="loginBox">
 			<div class="id">
-				<input type="text" size="40" style="border:none" placeholder="아이디"/>
+				<input type="text" name="userId" size="40" style="border:none" placeholder="아이디"/>
 			</div>
 			<div class="pass">
-				<input type="password" size="40" placeholder="비밀번호"/>
+				<input type="password" name="userPass" size="40" placeholder="비밀번호"/>
 			</div>
 			<div class="login">
-				로그인
+				<input type="submit" name="login" value="로그인"/>
+				<input type="button" value="회원가입" onclick="join()"/>
 			</div>
-		</div>
+			</div>
+		</form>
 		<div class="option">
-			<a>아이디 찾기</a> | <a>비밀번호 찾기</a> | <a>회원가입</a>
+			<a href="./idFind">아이디 찾기</a> | <a href="./passFind">비밀번호 찾기</a> | <a>회원가입</a>
 		</div>
 	</body>
 	<script></script>

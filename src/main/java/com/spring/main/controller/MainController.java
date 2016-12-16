@@ -1,72 +1,43 @@
 package com.spring.main.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.spring.main.service.BoardService;
 
 @Controller("MainController")
 public class MainController {
+	
+	@Autowired
+	BoardService service;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	//이동수단
+
+	//메인페이지
 	@RequestMapping(value = "/")
 	public String home() {
-		
-		return "page";
-
-	}
-	
-	//메인페이지
-	@RequestMapping(value = "/index")
-	public String index() {
-		
-		return "index";
-	}
-	
-	//로그인
-	@RequestMapping(value = "/loginForm")
-	public String loginForm() {
 		
 		return "login";
 	}
 	
-	//매칭게시판
-	@RequestMapping(value = "/matchList")
-	public String matchList() {
-			
-			return "matchList";
+	//로그인 처리
+	@RequestMapping(value="/login")
+	public ModelAndView login(@RequestParam Map<String, Object> params
+			, HttpSession session){
+		logger.info("로그인 처리");
+		params.put("session", session);
+		return service.login(params);
 	}
-	
-	//장소목록
-	@RequestMapping(value = "/placeList")
-	public String placeList() {
-				
-			return "placeList";
-	}
-	
-	//팀 게시판
-	@RequestMapping(value = "/teamList")
-	public String teamList() {
-				
-			return "teamList";
-	}	
-	
-	//영상게시판
-	@RequestMapping(value = "/vidioList")
-	public String vidioList() {
-					
-			return "vidioList";
-	}
-	
-	//팀 게시판
-	@RequestMapping(value = "/freeList")
-	public String freeList() {
-					
-			return "freeList";
-	}
-	
+		
 	//id찾기
 	@RequestMapping(value = "/idFind")
 	public String idFind() {
@@ -74,10 +45,10 @@ public class MainController {
 		return "idFind";
 	}
 	//pw찾기
-	@RequestMapping(value = "/pwFind")
+	@RequestMapping(value = "/passFind")
 	public String pwFind() {
 		
-		return "pwFind";
+		return "passFind";
 	}
 	//회원가입
 	@RequestMapping(value = "/join")
@@ -110,7 +81,6 @@ public class MainController {
 		logger.info("회원관리");
 		return "usManager";
 	}
-	
 	//팀관리
 	@RequestMapping(value = "/teamManager")
 	public String teamManager() {
@@ -118,18 +88,11 @@ public class MainController {
 		return "teamManager";
 	}
 	
-	//광고목록
-	@RequestMapping(value = "/adList")
-	public String adList() {
-		logger.info("광고목록");
-		return "adList";
-	}
-	
-	//매칭 상세보기
-	@RequestMapping(value = "/matchDetail")
-	public String matchDetail() {
-		logger.info("매칭 상세보기");
-		return "matchDetail";
+	//결과
+	@RequestMapping(value = "/result")
+	public String result() {
+		logger.info("광고수정");
+		return "adModify";
 	}
 	
 }
