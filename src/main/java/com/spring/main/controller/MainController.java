@@ -10,16 +10,9 @@ public class MainController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	//이동수단
-	@RequestMapping(value = "/")
-	public String home() {
-		
-		return "page";
-
-	}
 	
 	//메인페이지
-	@RequestMapping(value = "/index")
+	@RequestMapping(value = "/")
 	public String index() {
 		
 		return "index";
@@ -31,42 +24,6 @@ public class MainController {
 		
 		return "login";
 	}
-	
-	//매칭게시판
-	@RequestMapping(value = "/matchList")
-	public String matchList() {
-			
-			return "matchList";
-	}
-	
-	//장소목록
-	@RequestMapping(value = "/placeList")
-	public String placeList() {
-				
-			return "placeList";
-	}
-	
-	//팀 게시판
-	@RequestMapping(value = "/teamList")
-	public String teamList() {
-				
-			return "teamList";
-	}	
-	
-	//영상게시판
-	@RequestMapping(value = "/vidioList")
-	public String vidioList() {
-					
-			return "vidioList";
-	}
-	
-	//팀 게시판
-	@RequestMapping(value = "/freeList")
-	public String freeList() {
-					
-			return "freeList";
-	}
-	
 	//id찾기
 	@RequestMapping(value = "/idFind")
 	public String idFind() {
@@ -110,7 +67,6 @@ public class MainController {
 		logger.info("회원관리");
 		return "usManager";
 	}
-	
 	//팀관리
 	@RequestMapping(value = "/teamManager")
 	public String teamManager() {
@@ -118,25 +74,11 @@ public class MainController {
 		return "teamManager";
 	}
 	
-	//광고목록
-	@RequestMapping(value = "/adList")
-	public String adList() {
-		logger.info("광고목록");
-		return "adList";
-	}
-	
-	//매칭 상세보기
-	@RequestMapping(value = "/matchDetail")
-	public String matchDetail() {
-		logger.info("매칭 상세보기");
-		return "matchDetail";
-	}
-	
-	//장소목록 상세보기
-	@RequestMapping(value = "/placeDetail")
-	public String placeDetail() {
-		logger.info("장소목록 상세보기");
-		return "placeDetail";
+	//결과
+	@RequestMapping(value = "/result")
+	public String result() {
+		logger.info("광고수정");
+		return "adModify";
 	}
 	
 }
