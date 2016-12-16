@@ -58,6 +58,18 @@ public class MainController {
 			logger.info("팀상세");
 			return "teamDetail";
 		}
+		//매칭게시판
+		@RequestMapping(value = "/matchList")
+		public String matchList() {
+			
+			return "matchList";
+		}
+		//매칭상세
+		@RequestMapping(value = "/matchDetail")
+		public String matchDetail() {
+			logger.info("매칭상세");
+			return "matchDetail";
+		}
 		//매칭쓰기
 		@RequestMapping(value = "/matchWrite")
 		public String matchWrite() {

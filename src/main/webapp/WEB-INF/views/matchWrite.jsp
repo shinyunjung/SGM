@@ -8,109 +8,74 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
-		<style>
-			.title{
-				font-size:20px;
+		<style>		
+			.detailTable{
+				width: 100%;
 			}
-			div.wri{
-				position:absolute;
-				left:270px;
-				top:180px;	
-				width:80%
-				
-			}
-			.writ{
-				width:80%;
-				
+			.subject{
+				width: 15%;
+				text-align: center;
 			}
 			input[type='text']{
+				display: block;
 				width: 100%;
-				height:100%;
-			}
-			#content{
-				height:300px;
-			}
-			div.place{
-				position:absolute;
-				left:270px;
-				width:270px;
-				top:620px;
+				height: 34px;
+				padding: 6px 12px;
+				font-size: 14px;
 				
 			}
-	
-			#map{
-				border:1px solid;
-				position:absolute;
-				left:270px;
-				width:500px;
-				height:300px;
-				top:690px;
-			}
-			#butt{
-				position:absolute;
-				left:270px;
-				top:1000px;
-				
-			}				
-			
-			table, td{
-				border:2px solid;
-				text-align:center;
+			textarea{
+				width:100%;
+				resize:none;
+				font-size: 14px;
 			}
 			
-
-		
 		</style>
 	</head>
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<div class="wri">
-		<h2 class="title">매칭게시판</h2>
-			<br/>
-			<table class="writ">
-				<tr>
-					<td>제목</td>
-					<td>
-						<input type="text"/>
-					</td>
-				</tr>
-				<tr>
-					<td>작성자</td>
-					<td>
-						작성자
-					</td>
-				</tr>
-				<tr>
-					<td>내용</td>
-					<td id="content">
-						<input type="text"/>
-					</td>	
-				</tr>	
-			</table>
-		</div>
-		<div class="place">
-			<table>
-				<tr>
-					<td>
-						<p>경기장 위치</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="button" value="경기장검색"/>	
-					</td>		
-					<td>주소란</td>
-				</tr>
-			</table>	
-		</div>
-		<div id="map">
-			지도란
-		</div>
-		<div id="butt">
-			<button>등록</button>
-			<button>취소</button>
-		</div>
+		<div class=" layer">
+			<div class="page">
+				<div class="col2 content">
+					<fieldset>
+				  		<legend>매칭게시판</legend>
+				  	</fieldset>
+				</div>
+				<div class="col5 content">
+					<form action="" method="post">
+						<table class="detailTable">
+								<tr class="borderTop">
+									<td><input type="text" name="mch_title"/></td>
+								</tr>
+								<tr class="borderTop">
+									<td><input type="text" name="mch_name" value="" readonly/></td>
+								</tr>
+								<tr class="borderTop">
+									<td>
+										<textarea rows="17" name="mch_content"></textarea>
+									</td>
+								</tr>
+								<tr class="borderTop">
+									<td>
+										<jsp:include page="../../resources/include/mapWrite.jsp" />
+									</td>
+								</tr>
+								<tr class="borderTop">
+									<td style="text-align: center;">
+					  				<button type="reset" class="btn btn-default">취소</button>
+					        		<button type="submit" class="btn btn-primary">등록</button>
+			  				</td>
+								</tr>
+						</table>
+					</form>
+				</div>
+				<div class="col3 content">      
+				<!-- 배너 -->
+				</div>
+			</div>
+		</div>	
+		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script></script>
 </html>
