@@ -10,6 +10,9 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
+			.map{
+				margin-bottom: 2%;
+			}
 			.manager{
 				margin-left: 10%;
 			}
@@ -36,7 +39,7 @@
 				
 				<!-- 두 번째 구역 -->
 				<div class="col5 content">
-					<div class="center">
+					<div class="center map borderBottom">
 						지도	
 					</div>
 					<div class="center">

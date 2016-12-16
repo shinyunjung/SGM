@@ -13,17 +13,13 @@
                 width: 400px;
 				border: 1px solid;
 				padding: 10px;
-                position: absolute;
-                left: 35%;
-                top: 23%;
+               	/* margin-top: 10%; */
 			}
 			.pass{
                 width: 400px;
 				border: 1px solid;
 				padding: 10px;
-                position: absolute;
-                left: 35%;
-                top: 30%;
+              	margin-top: 5%;
 			}
 			.login{
                 width: 400px;
@@ -32,23 +28,23 @@
                 background-color: orange;
                 color: white;
 				padding: 10px;
-                position: absolute;
-                left: 35%;
-                top: 37%;
                 font-size: 12pt;
+                margin-top: 5%;
+			}
+			
+			.loginBox{
+				display: inline-block;
+				margin: 0 auto;
 			}
 			
 			.option{
 				width:400px;
 				border-top: 1px solid silver;
 				text-align: center;
-				padding: 10px;
-				position: absolute;
-				left: 35%;
-				top: 42%;
+				margin-top: 5%;
 			}
 			.logo{
-				margin-top: 8%;
+				 margin-top: 5%; 
 			}
 			input{
 				border: none;
@@ -64,20 +60,31 @@
 		<div class="logo">
 			<jsp:include page="../../resources/include/logo.jsp" />
 		</div>
-		<div id="loginBox">
-			<div class="id">
-				<input type="text" size="40" style="border:none" placeholder="아이디"/>
+		<div class="layer">
+			<div class="page">
+				<!-- 첫 번째 구역 -->	
+				<div class="col2 content">
+				</div>
+				
+				<!-- 두 번째 구역 -->
+				<div class="col5 content">
+					<div class="loginBox">
+						<div class="id">
+							<input type="text" size="40" style="border:none" placeholder="아이디"/>
+						</div>
+						<div class="pass">
+							<input type="password" size="40" placeholder="비밀번호"/>
+						</div>
+						<div class="login">
+							로그인
+						</div>
+						<div class="option">
+							<a>아이디 찾기</a> | <a>비밀번호 찾기</a> | <a>회원가입</a>
+						</div>
+					</div>
+				</div>	
 			</div>
-			<div class="pass">
-				<input type="password" size="40" placeholder="비밀번호"/>
-			</div>
-			<div class="login">
-				로그인
-			</div>
-		</div>
-		<div class="option">
-			<a>아이디 찾기</a> | <a>비밀번호 찾기</a> | <a>회원가입</a>
-		</div>
+		</div>	
 	</body>
 	<script></script>
 </html>

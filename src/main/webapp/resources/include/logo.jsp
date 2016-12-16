@@ -40,6 +40,7 @@
 			}
 			.col5{
 				width: 60%;
+				text-align: center;
 			}
 			.col3{
 				width: 20%;
@@ -47,7 +48,7 @@
 		    
 				
 			.content {
-				height: 100%;
+				height: auto;
 				border: 1px solid;
 	            float: left;
 				padding: 1%;
