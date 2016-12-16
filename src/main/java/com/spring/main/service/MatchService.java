@@ -95,4 +95,13 @@ public class MatchService {
 	}
 
 
+	public Map<String, Object> search(String input) {
+		inter=sqlSession.getMapper(BoardInterface.class);
+		Map<String, Object> json = new HashMap<String, Object>();
+		int allCnt = inter.searhCount(input);
+		json.put("count", allCnt);
+		return json;
+	}
+
+
 }

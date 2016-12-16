@@ -44,7 +44,7 @@
 								</td>
 								<td class="right">
 									<input type="text" size="20" class="input"/>
-									<button onclick="searchCall(1)">검색</button>
+									<button onclick="Search()">검색</button>
 								</td>
 							</tr>
 						</table>
@@ -103,6 +103,25 @@
 			}
 		});
 		
+		function Search(){
+			var url="../rest/search";
+			var data={};
+			if($(".input").val()!=""){
+				console.log("검색");
+				input=$(".input").val();
+				$(".input").val("");	
+			}
+			var count=input.length;
+			console.log(count);
+			if(count>1){
+				data.input=input;
+				reqServer(url, data);	
+			}else{
+				alert("검색하실 단어는 2글자 이상이여야합니다.")
+			}
+		}
+		
+		
 		function searchCall(currPage){
 			if(currPage>=1 && currPage<=totalPage){
 				var url="../rest/searchCall";
@@ -149,6 +168,13 @@
 						currPage=data.currPage;
 						totalPage=data.totalPage;
 						printPaging(data.totalCount, data.totalPage); 
+					}
+					else if(url=="../rest/search"){
+						if(data.count!=0){
+							searchCall(1);
+						}else{
+							alert("검색 결과가 없습니다.");
+						}
 					}
 					else if(url=="../rest/searchCall"){
 						console.log("검색 종료");

@@ -28,6 +28,14 @@ public class RestController {
 		return matchService.listCall(params);
 	}
 	
+	//검색 요청
+	@RequestMapping(value="/search")
+	public @ResponseBody Map<String, Object> search(@RequestParam("input") String input){
+		logger.info("검색 요청");
+		return matchService.search(input);
+	}
+	
+	//검색 후 리스트 요청
 	@RequestMapping(value="/searchCall")
 	public @ResponseBody Map<String, Object> searchCall(@RequestParam Map<String, String> params){
 		logger.info("리스트 요청");
