@@ -7,6 +7,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		
 		<style>
 		
@@ -94,7 +96,7 @@
 	<body>
 		<div class="layer">
 			<div id="logo" >
-				 <a href="index"><img id="logoImg" src="./resources/include/img/logo.jpg" /></a>
+				 <a href="index"><img id="logoImg" src="../../main/resources/include/img/logo.jpg" /></a>
 			</div>
 		</div>
 	</body>

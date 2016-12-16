@@ -7,11 +7,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>매칭 게시판</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="resources/bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			
 			th{
+				border: 1px solid;
 				text-align: center;
 			}
 		</style>
@@ -45,21 +43,21 @@
 									</select>
 								</td>
 								<td class="right">
-									<input type="text" size="20" />
-									<button>검색</button>
+									<input type="text" size="20" class="input"/>
+									<button onclick="searchCall()">검색</button>
 								</td>
 							</tr>
 						</table>
 					</div>
 					<div class="matchList">
 						<table class="table table-hover totalTable">
-							<thead>
+							<thead class="center">
 								<tr>
-									<th>순번</th>
-									<th>글쓴이</th>
-									<th>제목</th>
-									<th>조회 수</th>
-									<th>상태</th>
+									<td><b>순번</b></td>
+									<td><b>글쓴이</b></td>
+									<td><b>제목</b></td>
+									<td><b>조회 수</b></td>
+									<td><b>상태</b></td>
 								</tr>
 							</thead>
 							<tbody id="list">
@@ -71,14 +69,10 @@
 									<td>대기중</td>
 								</tr>
 							</tbody>
-							<tr >
-								<td colspan="6" id="paging">
-									<div id="pagenation">
-						
-									</div>
-								</td>
-							</tr>
 						</table>
+						<div id="paging">
+									
+						</div>
 					</div>
 				</div>
 				
@@ -93,17 +87,31 @@
 		var url="";
 		var data={};
 		var currPage=1;//현재 페이지
+		var totalPage=1;
 		
-		$("document").ready(function(){
+		 $("document").ready(function(){
 			listCall(currPage);
-		});
+		}); 
 		
 		$("#pagePerNum").change(function(){
 			listCall(currPage);
 		});
 		
+		function searchCall(){
+			var input = $(".input").val();
+			console.log(input);
+			$(".input").val("");
+			var url="../rest/searchCall";
+			var data={};
+			data.page=currPage;
+			data.pagePerNum=$("#pagePerNum").val();
+			reqServer(url, data);
+			
+		}
+		
 		function listCall(currPage){
-			var url="./rest/listCall";
+			if(currPage>=1 && currPage<=totalPage)
+			var url="../rest/listCall";
 			var data={};
 			data.page=currPage;
 			data.pagePerNum=$("#pagePerNum").val();
@@ -120,11 +128,19 @@
 				dataType:"JSON",
 				success:function(data){
 					console.log(data);
-					if(url=="./rest/listCall"){
+					if(url=="../rest/listCall"){
 						printList(data.jsonList.list);
 						currPage=data.currPage;
-						/* printPaging(data.totalCount, data.totalPage); */
-					}else if(url=="./rest/delete"){
+						totalPage=data.totalPage;
+						printPaging(data.totalCount, data.totalPage); 
+					}
+					else if(url=="./rest/searchCall"){
+						printList(data.jsonList.list);
+						currPage=data.currPage;
+						totalPage=data.totalPage;
+						printPaging(data.totalCount, data.totalPage); 
+					}
+					else if(url=="./rest/delete"){
 						alert(data.msg);
 						listCall(currPage);
 					}
@@ -141,41 +157,72 @@
 			content+="<tr>"
 				+"<td>"+list[i].mch_idx+"</td>"
 				+"<td>"+list[i].mch_name+"</td>"
-				+"<td>"+list[i].mch_title;+"</td>"
+				+"<td>"+list[i].mch_title+"</td>"
 				+"<td>"+list[i].mch_vcount+"</td>"
-				+"<td>"+list[i].mch_state+"</td>";
+				+"<td>"+list[i].mch_state+"</td>"
+				+"</tr>";
 			}
 			
 			$("#list").empty();
 			$("#list").append(content);
 		}
 	
-	/* //플러그인 사용
+	
+	
+	 //페이지 그리기
 	function printPaging(count, page){
 		console.log("전체 게시물:"+count);
 		console.log("전체 페이지:"+page);
 		console.log("현재 페이지:"+currPage);
-		console.log($("#pagenation"));
-		
-		$("#pagenation").paginate({
-			count 		: page, //전체 페이지 수
-			start 		: currPage, //어느 페이지 부터 시작인가
-			display     : 5, //몇 개의 페이지까지 보여줄 것인가
-			border					: true,
-			border_color			: '#BEF8B8',
-			text_color  			: '#68BA64',
-			background_color    	: '#E3F2E1',	
-			border_hover_color		: '#68BA64',
-			text_hover_color  		: 'black',
-			background_hover_color	: '#CAE6C6', 
-			rotate      : false,
-			images		: false,
-			mouse		: 'press',
-			onChange : function(currPage){
-				listCall(currPage);
-			}
-		});
 
-	} */
+		var start; //페이지 시작
+		var end; //페이지 끝
+		
+		var pre=currPage-1;
+		
+		var next=currPage+1;
+		
+		//다음 페이지가 있는지 여부확인
+		var range=(currPage/5);
+		
+		var content="";
+		
+		console.log(range);
+		if(range>1){//5페이지 넘었을 경우
+			end=currPage%5==0?
+					(Math.floor(range))*5:
+					(Math.floor(range)+1)*5;
+			start=Math.floor(end-4);
+		}else{//5페이지 이하일 경우
+			start=1;
+			end=start+4;
+		}
+		console.log(start+"/"+end);
+		
+		content+="<a href='#' onclick='listCall("+1+")'>처음</a> |";
+		
+		content+=" <a href='#' onclick='listCall("+(start-1)+")'> << </a> ";
+		
+		content+="<a href='#' onclick='listCall("+pre+")'> < </a> ";
+		
+		for(var i=start; i<=end; i++){
+			if(i<=page){
+				if(currPage==i){
+					content+="<b>"+i+"</b>";	
+				}else{
+					content+=" <a href='#' onclick='listCall("+i+")'>"
+					+i+"</a> ";
+				}	
+			}
+		}
+		
+		content+="<a href='#' onclick='listCall("+next+")'> > </a> ";
+		
+		content+=" <a href='#' onclick='listCall("+(end+1)+")'> >> </a>";
+		
+		content+="| <a href='#' onclick='listCall("+page+")'>끝</a>";
+		$("#paging").empty();
+		$("#paging").append(content);
+	} 
 	</script>
 </html>
