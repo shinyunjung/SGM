@@ -43,6 +43,9 @@
 				  	</fieldset>
 				</div>
 				<div class="col5 content">
+				<fieldset>
+					<legend>글쓰기</legend>
+				</fieldset>
 					<form action="" method="post">
 						<table class="detailTable">
 								<tr class="borderTop">

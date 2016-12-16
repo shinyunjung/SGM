@@ -54,7 +54,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="문학경기장" id="keyword" size="3"> 
+                    키워드 : <input type="text" value="문학경기장" id="keyword" size="1"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
