@@ -28,7 +28,7 @@
 				top: 300px;
 			}
 			.layer{
-				width: 100%;
+				width: auto;
 				text-align: center;
 				margin-bottom: 20px;
 			}
@@ -41,11 +41,11 @@
 				margin: 0 auto;
 			} 
 			.col2{
-				width:17%;
+				width:20%;
 				padding-top: 30px;
 			}
 			.col5{
-				width: 63%;
+				width: 60%;
 				text-align: center;
 				padding-left: 1%;
 				padding-right: 1%;
@@ -56,7 +56,7 @@
 		    
 				
 			.content {
-				height: 100%;
+				height: auto;
 				/* border: 1px solid; */
 	            float: left;
 	    	}
