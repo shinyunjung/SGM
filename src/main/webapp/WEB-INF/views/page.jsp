@@ -32,6 +32,7 @@
 		<br/>
 		<button onclick="location.href='matchDetail'">matchDetail</button>
 		<br/>
+
 		<button onclick="location.href='join'">join</button>
 		<br/>
 		<button onclick="location.href='idFind'">idFind</button>
@@ -42,17 +43,17 @@
 		<br/>
 		<button onclick="location.href='myPage'">myPage</button>
 		<br/>
-		<button onclick="location.href=''">idFind</button>
+		<button onclick="location.href='placeDetail'">placeDetail</button>
 		<br/>
-		<button onclick="location.href='idFind'">idFind</button>
+		<button onclick="location.href='teamDetail'">teamDetail</button>
 		<br/>
-		<button onclick="location.href='idFind'">idFind</button>
+		<button onclick="location.href='tdDetail'">tdDetail</button>
 		<br/>
-		<button onclick="location.href='idFind'">idFind</button>
+		<button onclick="location.href='teamModify'">teamModify</button>
 		<br/>
-		<button onclick="location.href='idFind'">idFind</button>
+		<button onclick="location.href='vidioDetail'">vidioDetail</button>
 		<br/>
-		<button onclick="location.href='idFind'">idFind</button>
+		<button onclick="location.href='freeDetail'">freeDetail</button>
 		<br/>
 	</body>
 	<script></script>

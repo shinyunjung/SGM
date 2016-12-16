@@ -20,14 +20,18 @@
 			#teamCategory{
 				
 				width: 170px;
-				height: 220px;
+				height: 120px;
                 margin-top: 20px;
 			}
-			.table{
+			.categoryTable{
 				width: 100%;
 				height: 90%;
 				background-color: greenyellow;
 				color: blue;
+			}
+			.fire{
+				width: 170px;
+				text-align: center;
 			}
 			td{
 				border-bottom: 1px solid silver;
@@ -40,9 +44,9 @@
 			<div id="emblem">
 				사진		
 			</div>
-            ---------------------------
+        -----------------------------------
 			<div id="teamCategory">
-				<table class="table">
+				<table class="categoryTable">
 					<tr>
 						<td><a>팀 멤버</a></td>
 					</tr>
@@ -53,6 +57,8 @@
 						<td><a>팀 멤버</a></td>
 					</tr>
 				</table>
+			</div>
+			<div class="fire">
 				<a>팀 탈퇴</a>
 			</div>
 		</div>

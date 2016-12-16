@@ -10,14 +10,12 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			#managerCategori{
-				position:absolute;
-				left: 100px;
-				top: 280px;
+			.manager{
+				margin-left: 10%;
 			}
-			#title{
-				text-align: center;
-				
+			.table{
+				width: 100%;
+				border-bottom: 1px solid silver;
 			}
 			th{
 				text-align: center;
@@ -27,40 +25,59 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<div id="title">
-			<h1><b>광고 관리</b></h1>
-		</div>
-		<div id="searchManager">
-			<button>검색</button>
-			<input type="text" />
-		</div>
-		<div id="managerCategori">
-			<jsp:include page="../../resources/include/manager.jsp" />
-		</div>
-		<div id="Manager">
-			<table class="table table-hover totalTable">
-				<thead>
-					<tr>
-						<th>NO</th>
-						<th>제목</th>
-						<th>유형</th>
-						<th>담당자</th>
-						<th>광고주</th>
-						<th>날짜</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>0</td>
-						<td>OOO</td>
-						<td>OOOOO</td>
-						<td>OOOOO</td>
-						<td>OOO</td>
-						<td>OOOOOO</td>
-					</tr>
-				</tbody>
-			</table>
-			<button>광고 추가</button>
+		<div class="layer">
+			<div class="page">
+				
+				<!-- 첫 번째 구역 -->
+				<div class="col2 content">
+					<fieldset>
+						<legend>광고관리</legend>
+					</fieldset>
+					<div class="manager">
+						<jsp:include page="../../resources/include/manager.jsp" />
+					</div>
+				</div>
+				
+				<!-- 두 번째 구역 -->
+				<div class="col5 content">
+					<div class="right">
+						<button>검색</button>
+						<input type="text" />
+					</div>
+					<div class="adList">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>NO</th>
+									<th>제목</th>
+									<th>유형</th>
+									<th>담당자</th>
+									<th>광고주</th>
+									<th>날짜</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>0</td>
+									<td>OOO</td>
+									<td>OOOOO</td>
+									<td>OOOOO</td>
+									<td>OOO</td>
+									<td>OOOOOO</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="left">
+						<button>광고등록</button>
+					</div>
+				</div>
+				
+				<!-- 세 번째 구역 -->
+				<div class="col3 content">
+				
+				</div>	
+			</div>
 		</div>
 	</body>
 	<script></script>
