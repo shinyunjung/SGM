@@ -30,13 +30,12 @@
 		<br/>
 		<button onclick="location.href='adList'">adList</button>
 		<br/>
-<<<<<<< HEAD
-		<button onclick="location.href='msg'">msg</button>
-=======
+		<button onclick="location.href='msgpage'">msgpage</button>
+		<br/>
 		<button onclick="location.href='matchDetail'">matchDetail</button>
 		<br/>
 		<button onclick="location.href='placeDetail'">placeDetail</button>
->>>>>>> 7f1ffb8e9e69348c6fe3c8b61dad0f7577f96621
+
 		<br/>
 	</body>
 	<script></script>
