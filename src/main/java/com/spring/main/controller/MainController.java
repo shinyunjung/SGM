@@ -10,6 +10,16 @@ public class MainController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+<<<<<<< HEAD
+=======
+	//이동수단
+	@RequestMapping(value = "/")
+	public String home() {
+		
+		return "index";
+
+	}
+>>>>>>> master
 	
 	//메인페이지
 	@RequestMapping(value = "/")
@@ -81,11 +91,62 @@ public class MainController {
 		return "adModify";
 	}
 	
+<<<<<<< HEAD
 	//비디오
 	@RequestMapping(value = "/vidioList")
 	public String vidioList() {
 		
 		return "vidioList";
+=======
+	//매칭 상세보기
+	@RequestMapping(value = "/matchDetail")
+	public String matchDetail() {
+		logger.info("매칭 상세보기");
+		return "matchDetail";
+	}
+	
+	//팀 상세보기
+	@RequestMapping(value = "/teamDetail")
+	public String teamDetail() {
+		logger.info("팀 상세보기");
+		return "teamDetail";
+	}
+	
+	//팀 일지 상세보기
+	@RequestMapping(value = "/tdDetail")
+	public String tdDetail() {
+		logger.info("팀 일지 상세보기");
+		return "tdDetail";
+	}
+	
+	//팀 정보 수정
+		@RequestMapping(value = "/teamModify")
+		public String teamModify() {
+			logger.info("팀 정보 수정");
+			return "teamModify";
+		}
+	
+	
+	//장소목록 상세보기
+	@RequestMapping(value = "/placeDetail")
+	public String placeDetail() {
+		logger.info("장소목록 상세보기");
+		return "placeDetail";
+>>>>>>> master
+	}
+	
+	//영상 상세보기
+	@RequestMapping(value = "/vidioDetail")
+	public String vidioDetail() {
+		logger.info("영상 상세보기");
+		return "vidioDetail";
+	}
+	
+	//자유 상세보기
+	@RequestMapping(value = "/freeDetail")
+	public String freeDetail() {
+		logger.info("영상 상세보기");
+		return "freeDetail";
 	}
 	
 }

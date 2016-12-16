@@ -10,6 +10,7 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
+<<<<<<< HEAD
 			#vidioList{
 				position: absolute;
 				left: 270px;
@@ -18,6 +19,8 @@
 			.search{
 				text-align: right;
 			}
+=======
+>>>>>>> master
 			th{
 				text-align: center;
 			}
@@ -27,41 +30,56 @@
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div class="layer">
-		<div class="page">
-		<div class="col2">
-		<h3>영상 게시판</h3>
-		</div>
-		<div class="col5">
-			<table width="100%">
-				<tr>
-					<td><button>글작성</button></td>
-					<td class="search">
-						<button>검색</button>
-						<input type="text" size="20" />
-					</td>
-				</tr>
-			</table>
-			<table class="table table-hover totalTable">
-				<thead>
-					<tr>
-						<th>순번</th>
-						<th>글쓴이</th>
-						<th>제목</th>
-						<th>조회 수</th>
-					</tr>
-				</thead>
-				<tbody id="list">			
-				<!-- 리스트가 출력될 영역 -->
-				</tbody>
-				<tr>
-					<td colspan="4" id="paging">
-						<div id="pagenation"></div>
-					</td>
-				</tr>
-			</table>
-			</div>
-			<div class="col3"></div>
-		</div>
+			<div class="page">
+				
+				<!-- 첫 번째 구역 -->
+				<div class="col2 content">
+					<fieldset>
+						<legend>영상 게시판</legend>
+					</fieldset>
+				</div>
+				
+				<!-- 두 번째 구역 -->
+				<div class="col5 content">	
+					<div class="search">
+						<table width="100%">
+							<tr>
+								<td class="left"><button>글작성</button></td>
+								<td class="right">
+									<button>검색</button>
+									<input type="text" size="20" />
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div id="freeList">
+						<table class="table table-hover totalTable">
+							<thead>
+								<tr>
+									<th>순번</th>
+									<th>글쓴이</th>
+									<th>제목</th>
+									<th>조회 수</th>
+									<th>평점</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>0</td>
+									<td>OOO</td>
+									<td>OOOOO</td>
+									<td>0</td>
+									<td>OOO</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<!-- 세 번째 구역 -->
+				<div class="col3 content"></div>		
+			</div>			
+>>>>>>> master
 		</div>
 	</body>
 	<script>

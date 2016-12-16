@@ -10,28 +10,12 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			#detailZone{
-				width: 700px;
-				position: absolute;
-				left: 270px;
-				top: 270px;
-			}
-			#replyZone{
-				
-				width: 700px;
-				margin-top: 10px;
-			}
 			#repleBox{
 				
 				width: 100%;
 				padding: 10px;
 			}
-			.AD{
-				width: 250px;
-				position: absolute;
-				left: 1000px;
-				top: 270px;
-			}
+			
 			.detailTable{
 				width: 100%;
 			}
@@ -51,6 +35,9 @@
 				margin: 5px;
 				width: 8%;
 			}
+			.AD{
+				margin-top: 10%;
+			}
 			textarea{
 				width: 100%;
 				resize: none;
@@ -62,68 +49,80 @@
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div class="layer">
 			<div class="page">
-				<div id="title">
-					<h3>장소목록</h3>
+				
+				<!-- 첫 번째 구역 -->
+				<div class="col2 content">
+					<fieldset>
+							<legend>장소목록</legend>
+					</fieldset>
 				</div>
-				<div	id="detailZone">
-					<table class="detailTable">
-						<thead>
-							<tr class="borderBottom">
-								<td class="subject">제목(불러오기)</td>
-								<td class="borderLeft">날짜</td>
-								<td class="borderLeft">날짜(불러오기)</td>
-								<td class="borderLeft">조회수</td>
-								<td class="borderLeft">조회수(불러오기)</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="borderBottom">
-								<td colspan="5">
-									<div class="col-sm-2 borderRight">
-										주소 :
-									</div>
-									<div>
-										주소(불러오기)
-									</div>
-								</td>
-							</tr>
-							<tr class="borderBottom">
-								<td colspan="5">
-									<div class="col-sm-4 borderRight">
-										사진
-									</div>
-									<div>
-										내용
-									</div>
-								</td>
-							</tr>
-							<tr class="borderBottom">
-								<td colspan="5">
-									지도
-								</td>
-							</tr>
-							<tr class=>
-								<td><a>댓글쓰기</a></td>
-								<td colspan="4" class="right ">
-									<a>수정</a> / <a>삭제</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<!-- 댓글 -->
-					<div id="replyZone">
-						<table id="repleBox" class="borderTop">
-							<tr>
-								<td class="user">등록자</td>
-								<td class="data"><textarea rows="3"></textarea></td>
-								<td class="repleBtn"><button id="go">댓글등록</button></td>
-							</tr>
+				
+				<!-- 두 번째 구역 -->
+				<div class="col5 content">
+					<div	id="detailZone">
+						<table class="detailTable">
+							<thead>
+								<tr class="borderBottom">
+									<td class="subject left">제목(불러오기)</td>
+									<td class="borderLeft">날짜</td>
+									<td class="borderLeft">날짜(불러오기)</td>
+									<td class="borderLeft">조회수</td>
+									<td class="borderLeft">0</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="borderBottom">
+									<td colspan="5">
+										<div class="col-sm-2 borderRight left">
+											주소
+										</div>
+										<div>
+											주소(불러오기)
+										</div>
+									</td>
+								</tr>
+								<tr class="borderBottom">
+									<td colspan="5">
+										<div class="col-sm-4 borderRight">
+											사진
+										</div>
+										<div class="borderLeft">
+											내용
+										</div>
+									</td>
+								</tr>
+								<tr class="borderBottom">
+									<td colspan="5">
+										지도
+									</td>
+								</tr>
+								<tr class=>
+									<td class="left"><a>댓글쓰기</a></td>
+									<td colspan="4" class="right ">
+										<a>수정</a> / <a>삭제</a>
+									</td>
+								</tr>
+							</tbody>
 						</table>
+						<!-- 댓글 -->
+						<div id="replyZone">
+							<table id="repleBox" class="borderTop">
+								<tr>
+									<td class="user">등록자</td>
+									<td class="data"><textarea rows="3"></textarea></td>
+									<td class="repleBtn"><button id="go">댓글등록</button></td>
+								</tr>
+							</table>
+						</div>
+						</div>
 					</div>
-				</div>
-				<div style="border: 1px solid" class="AD">
-					광고
-				</div>
+					
+					<!--  세 번째 구역 -->
+					<div class="col3 content">
+						<div class="AD">
+							광고
+						</div>
+					</div>
 			</div>
 		</div>
 	</body>
