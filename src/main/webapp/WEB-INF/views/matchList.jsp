@@ -44,7 +44,7 @@
 								</td>
 								<td class="right">
 									<input type="text" size="20" class="input"/>
-									<button onclick="searchCall()">검색</button>
+									<button onclick="searchCall(1)">검색</button>
 								</td>
 							</tr>
 						</table>
@@ -88,39 +88,55 @@
 		var data={};
 		var currPage=1;//현재 페이지
 		var totalPage=1;
+		var search=false;
+		var input = "";
 		
 		 $("document").ready(function(){
 			listCall(currPage);
 		}); 
 		
 		$("#pagePerNum").change(function(){
-			listCall(currPage);
+			if(search){
+				searchCall(currPage);
+			}else{
+				listCall(currPage);
+			}
 		});
 		
-		function searchCall(){
-			var input = $(".input").val();
-			console.log(input);
-			$(".input").val("");
-			var url="../rest/searchCall";
-			var data={};
-			data.page=currPage;
-			data.pagePerNum=$("#pagePerNum").val();
-			reqServer(url, data);
+		function searchCall(currPage){
+			if(currPage>=1 && currPage<=totalPage){
+				var url="../rest/searchCall";
+				var data={};
+				search=true;
+				console.log($(".input").val());
+				if($(".input").val()!=""){
+					console.log("검색");
+					input=$(".input").val();
+					$(".input").val("");	
+				}
+				console.log(input);
+				data.page=currPage;
+				data.pagePerNum=$("#pagePerNum").val();
+				data.input=input;
+				reqServer(url, data);
+			}
 			
 		}
 		
 		function listCall(currPage){
-			if(currPage>=1 && currPage<=totalPage)
-			var url="../rest/listCall";
-			var data={};
-			data.page=currPage;
-			data.pagePerNum=$("#pagePerNum").val();
-			reqServer(url, data);
+			if(currPage>=1 && currPage<=totalPage){
+				var url="../rest/listCall";
+				var data={};
+				data.page=currPage;
+				data.pagePerNum=$("#pagePerNum").val();
+				reqServer(url, data);
+			}
 		}
 		
 		
 		function reqServer(url, data){
 			console.log(url);
+			console.log(data);
 			$.ajax({
 				url:url,
 				type:"post",
@@ -134,7 +150,8 @@
 						totalPage=data.totalPage;
 						printPaging(data.totalCount, data.totalPage); 
 					}
-					else if(url=="./rest/searchCall"){
+					else if(url=="../rest/searchCall"){
+						console.log("검색 종료");
 						printList(data.jsonList.list);
 						currPage=data.currPage;
 						totalPage=data.totalPage;
@@ -198,29 +215,42 @@
 			end=start+4;
 		}
 		console.log(start+"/"+end);
-		
-		content+="<a href='#' onclick='listCall("+1+")'>처음</a> |";
-		
-		content+=" <a href='#' onclick='listCall("+(start-1)+")'> << </a> ";
-		
-		content+="<a href='#' onclick='listCall("+pre+")'> < </a> ";
-		
-		for(var i=start; i<=end; i++){
-			if(i<=page){
-				if(currPage==i){
-					content+="<b>"+i+"</b>";	
-				}else{
-					content+=" <a href='#' onclick='listCall("+i+")'>"
-					+i+"</a> ";
-				}	
+		if(search){
+			content+="<a href='#' onclick='searchCall("+1+")'>처음</a> |"
+			+" <a href='#' onclick='searchCall("+(start-1)+")'> << </a> "
+			+"<a href='#' onclick='searchCall("+pre+")'> < </a> ";
+			for(var i=start; i<=end; i++){
+				if(i<=page){
+					if(currPage==i){
+						content+="<b>"+i+"</b>";	
+					}else{
+						content+=" <a href='#' onclick='searchCall("+i+")'>"
+						+i+"</a> ";
+					}	
+				}
 			}
+			content+="<a href='#' onclick='searchCall("+next+")'> > </a> "
+			+" <a href='#' onclick='searchCall("+(end+1)+")'> >> </a>"
+			+"| <a href='#' onclick='searchCall("+page+")'>끝</a>";	
+		}else{
+			content+="<a href='#' onclick='listCall("+1+")'>처음</a> |"
+			+" <a href='#' onclick='listCall("+(start-1)+")'> << </a> "
+			+"<a href='#' onclick='listCall("+pre+")'> < </a> ";
+			for(var i=start; i<=end; i++){
+				if(i<=page){
+					if(currPage==i){
+						content+="<b>"+i+"</b>";	
+					}else{
+						content+=" <a href='#' onclick='listCall("+i+")'>"
+						+i+"</a> ";
+					}	
+				}
+			}
+			content+="<a href='#' onclick='listCall("+next+")'> > </a> "
+			+" <a href='#' onclick='listCall("+(end+1)+")'> >> </a>"
+			+"| <a href='#' onclick='listCall("+page+")'>끝</a>";
 		}
 		
-		content+="<a href='#' onclick='listCall("+next+")'> > </a> ";
-		
-		content+=" <a href='#' onclick='listCall("+(end+1)+")'> >> </a>";
-		
-		content+="| <a href='#' onclick='listCall("+page+")'>끝</a>";
 		$("#paging").empty();
 		$("#paging").append(content);
 	} 

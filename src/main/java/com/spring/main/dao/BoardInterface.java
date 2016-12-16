@@ -10,4 +10,8 @@ public interface BoardInterface {
 
 	ArrayList<MatchDto> listCall(int start, int end);
 
+	int searhCount(String input);
+
+	ArrayList<MatchDto> searhCall(int start, int end, String input);
+
 }

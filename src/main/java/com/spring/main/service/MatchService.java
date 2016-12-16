@@ -59,8 +59,39 @@ public class MatchService {
 
 
 	public Map<String, Object> searchCall(Map<String, String> params) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, ArrayList<MatchDto>> obj = new HashMap<String, ArrayList<MatchDto>>();
+		Map<String, Object> json = new HashMap<String, Object>();
+		inter=sqlSession.getMapper(BoardInterface.class);
+		
+		int currPage=Integer.parseInt(params.get("page"));//현재 페이지
+		
+		int pagePerNum=Integer.parseInt(params.get("pagePerNum"));//페이지에 넣을 데이터 갯수
+		
+		String input = params.get("input");
+		
+		logger.info(currPage+"/"+pagePerNum+"/"+input);
+		
+		//게시물 시작과 끝 번호
+		int end=pagePerNum*currPage;
+		int start=end-pagePerNum+1;
+		int allCnt = inter.searhCount(input);
+		
+		int totalPage=allCnt/pagePerNum;
+		System.out.println(totalPage%pagePerNum);
+		if(allCnt%pagePerNum!=0){
+			totalPage+=1;
+		}
+		logger.info("전체 개시물:{}",allCnt);
+		logger.info("전체 개시물:{}",allCnt);
+		logger.info("전체 개시물:{}",allCnt);
+		logger.info("전체 개시물:{}",allCnt);
+		obj.put("list", inter.searhCall(start, end, input));
+		json.put("jsonList", obj);
+		json.put("currPage", currPage);
+		json.put("totalCount", allCnt);
+		json.put("totalPage", totalPage);
+		
+		return json;
 	}
 
 

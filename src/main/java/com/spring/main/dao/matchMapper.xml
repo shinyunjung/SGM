@@ -10,10 +10,22 @@
 		SELECT COUNT(*) FROM matching
 	</select>
 	
+	<!-- 검색 후 게시물 전채 개수 -->
+	<select id="searhCount" resultType="Integer">
+		SELECT COUNT(*) FROM matching WHERE mch_title like '%'||#{param1}||'%'
+	</select>
+	
 	<!-- 리스트 추가 -->
 	<select id="listCall" resultType="com.spring.main.dto.MatchDto">
 		SELECT mch_idx,mch_name , mch_area, mch_ground, mch_age, mch_type, mch_time, mch_content, mch_title, mch_wrdate, mch_reple, mch_vcount, mch_date, mch_state, mch_lat, mch_lng FROM (
 			SELECT mch_idx, mch_name , mch_area, mch_ground, mch_age, mch_type, mch_time, mch_content, mch_title, mch_wrdate, mch_reple, mch_vcount, mch_date, mch_state, mch_lat, mch_lng, ROW_NUMBER() OVER(ORDER BY mch_idx DESC) AS rnum FROM matching
   		)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<!-- 검색 후 리스트 추가 -->
+	<select id="searhCall" resultType="com.spring.main.dto.MatchDto">
+		SELECT mch_idx,mch_name , mch_area, mch_ground, mch_age, mch_type, mch_time, mch_content, mch_title, mch_wrdate, mch_reple, mch_vcount, mch_date, mch_state, mch_lat, mch_lng FROM (
+			SELECT mch_idx, mch_name , mch_area, mch_ground, mch_age, mch_type, mch_time, mch_content, mch_title, mch_wrdate, mch_reple, mch_vcount, mch_date, mch_state, mch_lat, mch_lng, ROW_NUMBER() OVER(ORDER BY mch_idx DESC) AS rnum FROM matching
+  		WHERE mch_title like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 </mapper>
