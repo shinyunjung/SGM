@@ -50,19 +50,19 @@
 				<tr>
 					<td class="index"><h3>PW</h3></td>
 					<td class="left">
-						<input  width="auto" type="text" name="userPass"/>
+						<input  width="auto" type="text" name="u_pass"/>
 					</td>
 				</tr>
                 <tr>
                     <td class="index"><h3>확인</h3></td>
                     <td class="left">
-                        <input  width="auto" type="text" name="userPass"/>
+                        <input  width="auto" type="text" name="u_pass"/>
                     </td>
                 </tr>
 				<tr>
 					<td class="index"><h3>성명</h3></td>
 					<td class="left">
-						<input  width="auto" type="text" name="userName"/>
+						<input  width="auto" type="text" name="u_name"/>
 					</td>
 				</tr>
 				<tr>
@@ -199,14 +199,14 @@
 				<tr>
 					<td class="index"><h3>성별</h3></td>
 					<td>
-						남자:<input type="radio" name="gender" value="남"/>
-						여자:<input type="radio" name="gender" value="여"/>
+						남자:<input type="radio" name="u_gender" value="남"/>
+						여자:<input type="radio" name="u_gender" value="여"/>
 					</td>
 				</tr>
 				<tr> 
 					<td class="index"><h3>email</h3></td>
 					<td class="left">
-						<input type="text" name="email"/>
+						<input type="text" name="u_email"/>
                         <input type="button" name="mailcheak" value="인증받기"/>
 					</td>
 				</tr>

@@ -5,7 +5,7 @@
  
  	<!-- 로그인 처리 -->
  	<select id="login" resultType="String">
- 		SELECT id FROM USER1 
+ 		SELECT u_id FROM USER1 
  			WHERE u_id=#{param1} AND u_pass=#{param2}
  	</select>
 	    

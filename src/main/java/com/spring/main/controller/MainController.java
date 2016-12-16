@@ -26,7 +26,7 @@ public class MainController {
 	@RequestMapping(value = "/")
 	public String home() {
 		
-		return "login";
+		return "index";
 	}
 	
 	//로그인 처리
