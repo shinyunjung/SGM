@@ -121,10 +121,11 @@ public class MainController {
 	//광고목록
 	@RequestMapping(value = "/adList")
 	public String adList() {
-		logger.info("팀관리");
+		logger.info("광고목록");
 		return "adList";
 	}
 	
+
 	//쪽지함
 		@RequestMapping(value = "/msg")
 		public String msg() {
@@ -133,5 +134,20 @@ public class MainController {
 		}
 	
 	
+
+	//매칭 상세보기
+	@RequestMapping(value = "/matchDetail")
+	public String matchDetail() {
+		logger.info("매칭 상세보기");
+		return "matchDetail";
+	}
+	
+	//장소목록 상세보기
+	@RequestMapping(value = "/placeDetail")
+	public String placeDetail() {
+		logger.info("장소목록 상세보기");
+		return "placeDetail";
+	}
+>>>>>>> 7f1ffb8e9e69348c6fe3c8b61dad0f7577f96621
 	
 }
