@@ -1,6 +1,7 @@
 package com.spring.main.controller;
 
-import org.slf4j.Logger;
+import java.util.logging.Logger;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -148,6 +149,5 @@ public class MainController {
 		logger.info("장소목록 상세보기");
 		return "placeDetail";
 	}
->>>>>>> 7f1ffb8e9e69348c6fe3c8b61dad0f7577f96621
-	
+
 }
