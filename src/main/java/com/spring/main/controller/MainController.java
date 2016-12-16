@@ -81,4 +81,11 @@ public class MainController {
 		return "adModify";
 	}
 	
+	//비디오
+	@RequestMapping(value = "/vidioList")
+	public String vidioList() {
+		
+		return "vidioList";
+	}
+	
 }

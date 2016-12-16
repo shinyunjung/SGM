@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.spring.main.dao.BoardInterface">
+ 
+ 	<!-- 비디오리스트 보여주기 -->
+ 	<select id="vidiolist" resultType="com.spring.main.dto.vidioDTO">
+ 		SELECT j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
+ 		j_filenum, j_vcount, j_reple
+ 			FROM (
+  				SELECT j_idx,
+  				u_idx, j_name,
+  				j_category,
+  				j_title,
+  				j_content,
+  				j_date,
+  				j_filenum,
+  				j_vcount,
+  				j_reple
+  					ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum 
+  				FROM board)
+		WHERE rnum BETWEEN #{param1} AND #{param2}
+ 	</select>
+ 	
+ </mapper>
