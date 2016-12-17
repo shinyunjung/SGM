@@ -19,6 +19,9 @@
 				width:80%;
 				
 			}
+			.td{
+				text-align: center;
+			}
 			.writ{
 				width:80%;
 				
@@ -33,11 +36,11 @@
 			
 			table, td{
 				border:2px solid black;
-				text-align:center;
 			}
 			
-			btn{
-				
+			.btn{
+				position: absolute;
+				left: 350px;
 			}
 		
 		</style>
@@ -46,38 +49,41 @@
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div class="wri">
+		<form action="write" method="post" enctype="multipart/form-data">
 		<h2 class="title">영상게시판</h2>
 		<br/>
 			<table class="writ">
 				<tr>
-					<td>제목</td>
+					<td class="td">제목</td>
 					<td>
 						<input type="text"/>
 					</td>
 				</tr>
 				<tr>
-					<td>작성자</td>
+					<td class="td">작성자</td>
 					<td>
-						작성자
+						 작성자
 					</td>
 				</tr>
 				<tr>
-					<td>내용</td>
+					<td class="td">내용</td>
 					<td id="content">
 						<input type="text"/>
 					</td>	
 				</tr>
 				<tr>
-					<td>파일</td>
+					<td class="td">파일</td>
 					<td>
 						<input type="button" value="영상첨부"/>
 					</td>
 				</tr>
 			</table>
+			<br/>
 			<div class="btn">
-				<button>등록</button>
-				<button>취소</button>
+				<input type="submit" value="등록"/>
+				<input type="button" onclick="location.href='./'" value="취소"/>
 			</div>
+			</form>
 		</div>
 	</body>
 	<script></script>

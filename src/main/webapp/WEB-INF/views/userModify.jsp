@@ -18,7 +18,7 @@
 		table, td{
            border:2px solid;
            text-align: center;
-           border-color:orange; 
+      
         }
         td{
         	text-align:center;
@@ -41,9 +41,9 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<!-- ID찾기 -->
-		<div class="joinform">
-			<form action="join" method="post">    
+		<!-- 개인정보수정 -->
+		<div class="joinform"> 
+			<form action="join" method="post">   
             <table> 
 				<tr>
 					<td class="index"><h3>ID</h3></td>

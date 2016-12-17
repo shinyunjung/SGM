@@ -10,69 +10,65 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			.manager{
-				margin-left: 10%;
+			#usManager{
+				position: absolute;
+				left: 270px;
+				top: 300px;
 			}
-			.table{
-				border-bottom: 1px solid silver;
+			#managerCategori{
+				position:absolute;
+				left: 100px;
+				top: 280px;
+			}
+			#title{
+				text-align: center;
+				
+			}
+			th{
+				text-align: center;
 			}
 		</style>
 	</head>
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<div class="layer">
-			<div class="page">
-					
-				<!-- 첫 번째 구역 -->
-				<div class="col2 content">
-					<fieldset>
-						<legend>회원관리</legend>
-					</fieldset>
-					<div class="manager">
-						<jsp:include page="../../resources/include/manager.jsp" />
-					</div>
-				</div>
-				
-				<!-- 두 번째 구역 -->
-				<div class="col5 content">
-					<div class="right">
-						<button>검색</button>
-						<input type="text" />
-					</div>
-					<div id="Manager">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>NO</th>
-									<th>아이디</th>
-									<th>성명</th>
-									<th>생년월일</th>
-									<th>성별</th>
-									<th>번호</th>
-									<th>이메일</th>
-									<th>탈퇴</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>0</td>
-									<td>OOO</td>
-									<td>OOOOO</td>
-									<td>0</td>
-									<td>0</td>
-									<td>OOO</td>
-									<td>OOOOO</td>
-									<td>0</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				
-				<!-- 세 번째 구역 -->
-				<div class="col3 content"></div>
-			</div>
+		<div id="title">
+			<h1><b>회원관리</b></h1>
+		</div>
+		<div id="searchManager">
+			<button>검색</button>
+			<input type="text" />
+		</div>
+		<div id="managerCategori">
+			<jsp:include page="../../resources/include/manager.jsp" />
+		</div>
+		<div id="Manager">
+			<table class="table table-hover totalTable">
+				<thead>
+					<tr>
+						<th>NO</th>
+						<th>아이디</th>
+						<th>성명</th>
+						<th>생년월일</th>
+						<th>성별</th>
+						<th>번호</th>
+						<th>이메일</th>
+						<th>탈퇴</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>0</td>
+						<td>OOO</td>
+						<td>OOOOO</td>
+						<td>0</td>
+						<td>0</td>
+						<td>OOO</td>
+						<td>OOOOO</td>
+						<td>0</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</body>
 	<script></script>

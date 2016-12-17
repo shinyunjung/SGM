@@ -15,11 +15,6 @@
 			left:450px;
 			top:300px;
 		}
-		table, td{
-           border:2px solid;
-           text-align: center;
-           border-color:orange; 
-        }
         tr{
         	text-align:center;
         }
@@ -28,7 +23,7 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<!-- ID찾기 -->
+		<!-- pass찾기 -->
 		<div class="idFind">
         <table>
             <tr id="idf"><h3>비밀번호찾기</h3></tr>

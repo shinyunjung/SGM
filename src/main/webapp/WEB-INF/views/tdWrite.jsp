@@ -48,9 +48,10 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
+		<jsp:include page="../../resources/include/team.jsp" />
 		<div class="wri">
-		<form action="update" method="post">
-		<h2 class="title">영상게시판</h2>
+		<form action="write" method="post" enctype="multipart/form-data">
+		<h2 class="title">팀일지</h2>
 		<br/>
 			<table class="writ">
 				<tr>
@@ -74,15 +75,15 @@
 				<tr>
 					<td class="td">파일</td>
 					<td>
-						<input type="button" value="영상첨부"/>
+						<input type="button" value="파일첨부"/>
 					</td>
 				</tr>
 			</table>
-			<br/>
-			<div class="btn">
-				<input type="submit" value="수정"/>
-				<input type="button" onclick="location.href='./'" value="취소"/>
-			</div>
+				<br/>
+				<div class="btn">
+						<input type="submit" name="join" value="등록"/>
+						<input type="button" onclick="location.href='./'" value="취소"/>
+				</div>
 			</form>
 		</div>
 	</body>

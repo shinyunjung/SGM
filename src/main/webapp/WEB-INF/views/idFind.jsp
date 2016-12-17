@@ -15,11 +15,6 @@
 			left:450px;
 			top:300px;
 		}
-		table, td{
-           border:2px solid;
-           text-align: center;
-           border-color:orange; 
-        }
         tr{
         	text-align:center;
         }
@@ -28,6 +23,7 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
+		<jsp:include page="../../resources/include/team.jsp" />
 		<!-- ID찾기 -->
 		<div class="idFind">
         <table>
