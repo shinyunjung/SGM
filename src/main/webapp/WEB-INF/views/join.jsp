@@ -131,8 +131,8 @@
 			  				<th>
 			  				</th>
 			  				<td colspan="3" style="text-align: center;">
-			  				<button type="reset" class="btn btn-default">취소</button>
-			        		<button type="submit" class="btn btn-primary">등록</button>
+			  				<button type="reset" class="btn btn-default">Cancel</button>
+			        		<button type="submit" class="btn btn-primary">Submit</button>
 			  				</td>
 			  				<th>
 			  				</th>
