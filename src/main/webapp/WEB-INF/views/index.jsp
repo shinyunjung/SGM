@@ -62,7 +62,7 @@
 		   <div class=" layer">
 			<div class="page">
 			    <div class="col2 content">
-			      
+
 			    </div>
 			    <div class="col5 content"> 
 			      <!-- 매칭 리스트 -->
@@ -155,13 +155,13 @@
 								</td>
 							</tr>
 						</table>
-					
-				      
+			      
 		    	</div>
 		  </div>
 		  </div>
-	
-		
+
+	<jsp:include page="../../resources/include/footer.jsp" />
+
 		
 	</body>
 	<script></script>

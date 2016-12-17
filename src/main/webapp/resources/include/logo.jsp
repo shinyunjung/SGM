@@ -13,7 +13,11 @@
 		<style>
 		
 			#logo{
+<<<<<<< .merge_file_a00936
 				 width: 1080px; 
+=======
+				width: 1080px;
+>>>>>>> .merge_file_a04636
 				text-align: center;
 				font-size: large;
 				display: inline-block;
@@ -25,7 +29,7 @@
 			}
 			
 			.layer{
-				width: 100%;
+				width: auto;
 				text-align: center;
 				margin-bottom: 50px;
 			}
