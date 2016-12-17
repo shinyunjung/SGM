@@ -13,7 +13,7 @@
 			table, td{
           	 	border:2px solid;
            		text-align: center;
-      
+           		border-color:orange;
            		}
            	#myimporm{
            		position:absolute;
@@ -86,8 +86,8 @@
         <br/>
     <div id="butt">    
         <tr>
-       	<button>수정</button>
-       	<button>탈퇴</button>
+        <button>수정</button>
+        <button>탈퇴</button>
         </tr>
     </div>  
     <br/>

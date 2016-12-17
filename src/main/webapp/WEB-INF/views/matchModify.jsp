@@ -65,29 +65,28 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<form action="join" method="post">  
-			<div class="wri">
-			<h2 class="title">매칭게시판</h2>
-				<br/>
-				<table class="writ">
-					<tr>
-						<td>제목</td>
-						<td>
-							<input type="text"/>
-						</td>
-					</tr>
-					<tr>
-						<td>작성자</td>
-						<td>
-							작성자
-						</td>
-					</tr>
-					<tr>
-						<td>내용</td>
-						<td id="content">
-							<input type="text"/>
-						</td>	
-					</tr>	
+		<div class="wri">
+		<h2 class="title">매칭게시판</h2>
+			<br/>
+			<table class="writ">
+				<tr>
+					<td>제목</td>
+					<td>
+						<input type="text"/>
+					</td>
+				</tr>
+				<tr>
+					<td>작성자</td>
+					<td>
+						작성자
+					</td>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td id="content">
+						<input type="text"/>
+					</td>	
+				</tr>	
 			</table>
 		</div>
 		<div class="place">
@@ -109,10 +108,9 @@
 			지도란
 		</div>
 		<div id="butt">
-			<input type="submit" value="수정"/>
-			<input type="button" onclick="location.href='./'" value="취소"/>
+			<button>수정완료</button>
+			<button>취소</button>
 		</div>
-	</form>
 	</body>
 	<script></script>
 </html>
