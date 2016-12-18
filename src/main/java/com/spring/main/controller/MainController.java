@@ -17,6 +17,20 @@ public class MainController {
 			
 			return "page";
 		}
+		//팀가입
+		@RequestMapping(value = "/teamJoin")
+		public String teamJoin() {
+			
+			return "teamJoin";
+		}
+		
+		//팀가입
+				@RequestMapping(value = "/teamModify")
+				public String teamModify() {
+					
+					return "teamModify";
+				}
+		
 	
 		//매칭쓰기
 		@RequestMapping(value = "/matchWrite")

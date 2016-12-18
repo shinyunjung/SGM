@@ -6,8 +6,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>로그인 페이지</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="resources/bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>		
 			.detailTable{
 				width: 100%;
@@ -39,10 +37,13 @@
 			#popup{
 		     	position:absolute;
 				z-index:2;
-				width: 700px;
+				width: 300px;
 				height: 300px;
 				background-color: white;
 				display:none;
+			}
+			.sel td,th{
+				text-align: center;
 			}
 		</style>
 	</head>
@@ -72,7 +73,7 @@
 									<th>경기날짜</th>
 									<td><input type="date" name="mch_date" value="" /></td>
 									<th>경기시간</th>
-									<td><input type="time" name="mch_time" value="" size="10"/></td>
+									<td><input type="time" name="mch_time" value=""/></td>
 								</tr>
 								<tr class="borderTop">
 									<th>유형</th>
@@ -92,7 +93,7 @@
 									<td colspan="4" class="map">
 										<div id="popup">
 										<!-- 장소목록 -->	
-											<table>
+											<table class="sel">
 												<tr>
 													<td colspan="4" style="text-align: right;">
 														<b class="cancel">X</b>
@@ -103,18 +104,18 @@
 														<select name="gu"></select>
 													</td>
 												</tr>
-												<tr>
+												<tr class="borderTop">
 													<th>no</th>
-													<th>운동장명</th>
+													<th>운동장</th>
 													<th>주소</th>
 													<th>선택</th>
 												</tr>
-												<tr>
+												<tr class="borderTop">
 													<td>no</td>
 													<td>운동장명</td>
 													<td>주소</td>
 													<td>
-														<button type="button" class="btn btn-success">선택</button>	
+														<input type="radio" />	
 													</td>
 												</tr>
 											</table>
