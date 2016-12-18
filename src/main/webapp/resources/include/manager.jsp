@@ -9,34 +9,25 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<style>
 			#Category{
-				width: 150px;
+				width: 100%;
 				height: 220px;
                 margin-top: 20px;
-			}
-			.categoriTable{
-				background-color: greenyellow;
-				color: blue;
-				text-align: center;
 			}
 		</style>
 	</head>
 	<body>
 		<div id="Category">
-				<table class="table categoriTable">
-					<tr>
-						<td><a>회원관리</a></td>
-					</tr>
-					<tr>
-						<td><a>팀관리</a></td>
-					</tr>
-					<tr>
-						<td><a>장소목록</a></td>
-					</tr>
-					<tr>
-						<td><a>광고</a></td>
-					</tr>
-				</table>
+			<div class="list-group">
+				<a href="#" class="list-group-item">
+				  팀 멤버
+				</a>
+				<a href="#" class="list-group-item">팀 멤버
+				</a>
+				<a href="#" class="list-group-item">팀 멤버
+				</a>
+				<a href="#" class="list-group-item">팀 탈퇴</a>
 			</div>
+		</div>
 	</body>
 	<script></script>
 </html>

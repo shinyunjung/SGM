@@ -12,13 +12,13 @@
 				padding-top: 50px;
 				/* border: 1px solid; */
 			}
-			 #emblem{
+			#emblem{
                 border: 1px solid;
 				width: 100%;
 				height: 220px;
                 margin-bottom: 20px;
 			}
-			#teamCategory{
+			#Category{
 				width: 100%;
 				height: 220px;
                 margin-top: 20px;
@@ -32,17 +32,17 @@
 				사진		
 			</div>
         -----------------------------------
-			<div id="teamCategory">
+			<div id="Category">
 				<div class="list-group">
-  <a href="#" class="list-group-item">
-    팀 멤버
-  </a>
-  <a href="#" class="list-group-item">팀 멤버
-  </a>
-  <a href="#" class="list-group-item">팀 멤버
-  </a>
-  <a href="#" class="list-group-item">팀 탈퇴</a>
-</div>
+					<a href="#" class="list-group-item">
+					  팀 멤버
+					</a>
+					<a href="#" class="list-group-item">팀 멤버
+					</a>
+					<a href="#" class="list-group-item">팀 멤버
+					</a>
+					<a href="#" class="list-group-item">팀 탈퇴</a>
+				</div>
 			</div>
 		</div>
 	</body>

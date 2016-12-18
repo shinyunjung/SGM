@@ -17,45 +17,7 @@ public class MainController {
 			
 			return "page";
 		}
-	//메인페이지
-	@RequestMapping(value = "/index")
-	public String index() {
-		
-		return "index";
-	}
 	
-		
-		//로그인
-		@RequestMapping(value = "/loginForm")
-		public String loginForm() {
-			
-			return "login";
-		}
-		//id찾기
-		@RequestMapping(value = "/idFind")
-		public String idFind() {
-			
-			return "idFind";
-		}
-		//pw찾기
-		@RequestMapping(value = "/pwFind")
-		public String pwFind() {
-			
-			return "pwFind";
-		}
-		//회원가입
-		@RequestMapping(value = "/join")
-		public String join() {
-			
-			return "join";
-		}
-		
-		//팀상세
-		@RequestMapping(value = "/teamDetail")
-		public String teamDetail() {
-			logger.info("팀상세");
-			return "teamDetail";
-		}
 		//매칭쓰기
 		@RequestMapping(value = "/matchWrite")
 		public String matchWrite() {
@@ -68,41 +30,58 @@ public class MainController {
 			logger.info("매칭수정");
 			return "matchModify";
 		}
-
-	//팀 일지 상세보기
-	@RequestMapping(value = "/tdDetail")
-	public String tdDetail() {
-		logger.info("팀 일지 상세보기");
-		return "tdDetail";
-	}
-	
-	//팀 정보 수정
-		@RequestMapping(value = "/teamModify")
-		public String teamModify() {
-			logger.info("팀 정보 수정");
-			return "teamModify";
+		//장소쓰기
+		@RequestMapping(value = "/placeWrite")
+		public String placeWrite() {
+			logger.info("장소쓰기");
+			return "placeWrite";
 		}
-	
-	
-	//장소목록 상세보기
-	@RequestMapping(value = "/placeDetail")
-	public String placeDetail() {
-		logger.info("장소목록 상세보기");
-		return "placeDetail";
-	}
-	
-	//영상 상세보기
-	@RequestMapping(value = "/vidioDetail")
-	public String vidioDetail() {
-		logger.info("영상 상세보기");
-		return "vidioDetail";
-	}
-	
-	//자유 상세보기
-	@RequestMapping(value = "/freeDetail")
-	public String freeDetail() {
-		logger.info("영상 상세보기");
-		return "freeDetail";
-	}
-	
+		//장소수정
+		@RequestMapping(value = "/placeModify")
+		public String placeModify() {
+			logger.info("장소수정");
+			return "placeModify";
+		}
+		//팀일지쓰기
+		@RequestMapping(value = "/tdWrite")
+		public String tdWrite() {
+			logger.info("팀일지쓰기");
+			return "tdWrite";
+		}
+		//팀일지수정
+		@RequestMapping(value = "/tdModify")
+		public String tdModify() {
+			logger.info("팀일지수정");
+			return "tdModify";
+		}
+		//영상쓰기
+		@RequestMapping(value = "/vidioWrite")
+		public String vidioWrite() {
+			logger.info("영상쓰기");
+			return "vidioWrite";
+		}
+		//영상수정
+		@RequestMapping(value = "/vidioModify")
+		public String vidioModify() {
+			logger.info("영상수정");
+			return "vidioModify";
+		}
+		//자유쓰기
+		@RequestMapping(value = "/freeWrite")
+		public String freeWrite() {
+			logger.info("자유쓰기");
+			return "freeWrite";
+		}
+		//자유수정
+		@RequestMapping(value = "/freeModify")
+		public String freeModify() {
+			logger.info("자유수정");
+			return "freeModify";
+		}
+		//결과
+		@RequestMapping(value = "/result")
+		public String result() {
+			logger.info("결과");
+			return "result";
+		}
 }

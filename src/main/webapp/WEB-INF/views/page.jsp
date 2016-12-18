@@ -48,7 +48,7 @@
 		<br/>
 		<button onclick="location.href='placeWrite'">placeWrite</button>
 		<br/>
-		<button onclick="location.href='teamWrite'">matchWrite</button>
+		<button onclick="location.href='teamWrite'">teamWrite</button>
 		<br/>
 		<button onclick="location.href='tdWrite'">tdWrite</button>
 		<br/>

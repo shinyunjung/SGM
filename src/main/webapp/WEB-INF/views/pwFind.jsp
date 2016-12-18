@@ -48,17 +48,16 @@
 		<div class="col5 content"> 
             <div class="well bs-component">
 			  <fieldset>
-			  	<legend>아이디 찾기</legend>
+			  	<legend>비밀번호 찾기</legend>
 			  	<div id="popup">
-				<!-- 아이디 -->	
+				<!-- 비밀번호 -->	
 					<br>
-					<h5>님의 아이디는 입니다.</h5><br>
-					<a href="pwFind">비밀번호 찾기</a><br>
+					<h5>님의 비밀번호는 입니다.</h5><br>
 					<a href="login">로그인하러 가기</a>
 				</div>
-			  		<table>
+			  		<table class="cen">
 			  			<tr>
-			  				<th>성명</th>
+			  				<th>아이디</th>
 			  				<td>
 			  				<input type="text" class="form-control" placeholder="성명" >
 			  				</td>

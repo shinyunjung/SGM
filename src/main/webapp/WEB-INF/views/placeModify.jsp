@@ -8,7 +8,7 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
-<style>		
+		<style>		
 			.detailTable{
 				width: 100%;
 			}
@@ -39,7 +39,7 @@
 			<div class="page">
 				<div class="col2 content">
 					<fieldset>
-				  		<legend>자유게시판</legend>
+				  		<legend>장소목록</legend>
 				  	</fieldset>
 				</div>
 				<div class="col5 content">
@@ -49,23 +49,33 @@
 					<form action="" method="post">
 						<table class="detailTable">
 								<tr class="borderTop">
-									<td><input type="text" name="" placeholder="제목"/></td>
+									<td colspan="3"><input type="text" name="a_ground" placeholder="운동장"/></td>
 								</tr>
 								<tr class="borderTop">
-									<td><input type="text" name="" value="" readonly/></td>
+									<td>글쓴이</td>
+									<td>날짜</td>
+									<td>조회수</td>
 								</tr>
 								<tr class="borderTop">
-									<td>
-										<textarea rows="17" name="" placeholder="내용"></textarea>
+									<td colspan="3">
+										<textarea rows="17" name="a_content" placeholder="내용"></textarea>
 									</td>
 								</tr>
 								<tr class="borderTop">
-									<td>
-										<input type="file" name=""/>
+									<td colspan="3">
+										<input type="file" name="a_picfile"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
-									<td style="text-align: center;">
+									<td colspan="3">
+										<jsp:include page="../../resources/include/mapWrite.jsp" />
+										<input type="hidden" name="lat" />
+										<input type="hidden" name="lng" />
+										<button type="button" class="bt">취소</button><!-- 테스트용 -->
+									</td>
+								</tr>
+								<tr class="borderTop">
+									<td  colspan="3" style="text-align: center;">
 					  				<button type="reset" class="btn btn-default">취소</button>
 					        		<button type="submit" class="btn btn-primary">등록</button>
 			  				</td>
@@ -81,5 +91,9 @@
 		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
+	$(".bt").click(function() {/* 테스트용 */
+		var lat = $("input[name=lat]").val();
+		console.log(lat);
+	});
 	</script>
 </html>

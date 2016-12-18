@@ -8,7 +8,7 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
-<style>		
+		<style>		
 			.detailTable{
 				width: 100%;
 			}
@@ -39,29 +39,37 @@
 			<div class="page">
 				<div class="col2 content">
 					<fieldset>
-				  		<legend>자유게시판</legend>
+				  		<legend>장소목록</legend>
 				  	</fieldset>
 				</div>
 				<div class="col5 content">
 				<fieldset>
-					<legend>글수정</legend>
+					<legend>글쓰기</legend>
 				</fieldset>
 					<form action="" method="post">
 						<table class="detailTable">
 								<tr class="borderTop">
-									<td><input type="text" name="" placeholder="제목"/></td>
+									<td><input type="text" name="a_ground" placeholder="운동장"/></td>
 								</tr>
 								<tr class="borderTop">
-									<td><input type="text" name="" value="" readonly/></td>
+									<td><input type="text" name="a_name" value="" readonly/></td>
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<textarea rows="17" name="" placeholder="내용"></textarea>
+										<textarea rows="17" name="a_content" placeholder="내용"></textarea>
 									</td>
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<input type="file" name=""/>
+										<input type="file" name="a_picfile"/>
+									</td>
+								</tr>
+								<tr class="borderTop">
+									<td>
+										<jsp:include page="../../resources/include/mapWrite.jsp" />
+										<input type="hidden" name="lat" />
+										<input type="hidden" name="lng" />
+										<button type="button" class="bt">취소</button><!-- 테스트용 -->
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -81,5 +89,9 @@
 		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
+	$(".bt").click(function() {/* 테스트용 */
+		var lat = $("input[name=lat]").val();
+		console.log(lat);
+	});
 	</script>
 </html>

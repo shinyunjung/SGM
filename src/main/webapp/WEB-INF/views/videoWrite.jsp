@@ -8,77 +8,78 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
-		<style>
-			.title{
-				font-size:20px;
+<style>		
+			.detailTable{
+				width: 100%;
 			}
-			div.wri{
-				position:absolute;
-				left:270px;
-				top:180px;	
-				width:80%;
-				
-			}
-			.writ{
-				width:80%;
-				
+			.subject{
+				width: 15%;
+				text-align: center;
 			}
 			input[type='text']{
+				display: block;
 				width: 100%;
-				height:100%;
-			}
-			#content{
-				height:300px;
-			}			
-			
-			table, td{
-				border:2px solid black;
-				text-align:center;
-			}
-			
-			btn{
+				height: 34px;
+				padding: 6px 12px;
+				font-size: 14px;
 				
 			}
-		
+			textarea{
+				width:100%;
+				resize:none;
+				font-size: 14px;
+			}
+			
 		</style>
 	</head>
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<div class="wri">
-		<h2 class="title">영상게시판</h2>
-		<br/>
-			<table class="writ">
-				<tr>
-					<td>제목</td>
-					<td>
-						<input type="text"/>
-					</td>
-				</tr>
-				<tr>
-					<td>작성자</td>
-					<td>
-						작성자
-					</td>
-				</tr>
-				<tr>
-					<td>내용</td>
-					<td id="content">
-						<input type="text"/>
-					</td>	
-				</tr>
-				<tr>
-					<td>파일</td>
-					<td>
-						<input type="button" value="영상첨부"/>
-					</td>
-				</tr>
-			</table>
-			<div class="btn">
-				<button>등록</button>
-				<button>취소</button>
+		<div class=" layer">
+			<div class="page">
+				<div class="col2 content">
+					<fieldset>
+				  		<legend>영상게시판</legend>
+				  	</fieldset>
+				</div>
+				<div class="col5 content">
+				<fieldset>
+					<legend>글쓰기</legend>
+				</fieldset>
+					<form action="" method="post">
+						<table class="detailTable">
+								<tr class="borderTop">
+									<td><input type="text" name="" placeholder="제목"/></td>
+								</tr>
+								<tr class="borderTop">
+									<td><input type="text" name="" value="" readonly/></td>
+								</tr>
+								<tr class="borderTop">
+									<td>
+										<textarea rows="17" name="" placeholder="내용"></textarea>
+									</td>
+								</tr>
+								<tr class="borderTop">
+									<td>
+										<input type="file" name=""/>
+									</td>
+								</tr>
+								<tr class="borderTop">
+									<td style="text-align: center;">
+					  				<button type="reset" class="btn btn-default">취소</button>
+					        		<button type="submit" class="btn btn-primary">등록</button>
+			  				</td>
+								</tr>
+						</table>
+					</form>
+				</div>
+				<div class="col3 content">      
+				<!-- 배너 -->
+				</div>
 			</div>
-		</div>
+		</div>	
+		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
-	<script></script>
+	<script>
+	</script>
 </html>
