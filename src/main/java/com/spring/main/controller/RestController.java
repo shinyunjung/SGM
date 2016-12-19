@@ -30,9 +30,9 @@ public class RestController {
 	
 	//검색 요청
 	@RequestMapping(value="/search")
-	public @ResponseBody Map<String, Object> search(@RequestParam("input") String input){
+	public @ResponseBody Map<String, Object> search(@RequestParam Map<String, String> params){
 		logger.info("검색 요청");
-		return matchService.search(input);
+		return matchService.search(params);
 	}
 	
 	//검색 후 리스트 요청

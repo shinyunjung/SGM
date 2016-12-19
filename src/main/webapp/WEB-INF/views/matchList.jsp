@@ -43,8 +43,17 @@
 									</select>
 								</td>
 								<td class="right">
+									<select class="type">
+										<option value="mch_title">제목</option>
+										<option value="mch_content">내용</option>
+										<option value="mch_name">글쓴이</option>
+									</select>
 									<input type="text" size="20" class="input"/>
 									<button onclick="Search()">검색</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
 								</td>
 							</tr>
 						</table>
@@ -61,13 +70,6 @@
 								</tr>
 							</thead>
 							<tbody id="list">
-								<tr>
-									<td>0</td>
-									<td>OOO</td>
-									<td>OOOOO</td>
-									<td>0</td>
-									<td>대기중</td>
-								</tr>
 							</tbody>
 						</table>
 						<div id="paging">
@@ -78,7 +80,7 @@
 				
 				<!-- 세 번째 구역 -->
 				<div class="col3 content">
-				
+					
 				</div>
 			</div>
 		</div>
@@ -90,17 +92,18 @@
 		var totalPage=1;
 		var search=false;
 		var input = "";
-		
+		var type="mch_title";
 		 $("document").ready(function(){
 			listCall(currPage);
 		}); 
 		
 		$("#pagePerNum").change(function(){
-			if(search){
-				searchCall(currPage);
-			}else{
-				listCall(currPage);
-			}
+			searchCall(currPage);
+		});
+		
+		$(".type").change(function(){
+			type=$(".type option:selected").val();
+			console.log(type);
 		});
 		
 		function Search(){
@@ -115,6 +118,7 @@
 			console.log(count);
 			if(count>1){
 				data.input=input;
+				data.type=type;
 				reqServer(url, data);	
 			}else{
 				alert("검색하실 단어는 2글자 이상이여야합니다.")
@@ -133,10 +137,12 @@
 					input=$(".input").val();
 					$(".input").val("");	
 				}
+				console.log(type);
+				data.input=input;
+				data.type=type;
 				console.log(input);
 				data.page=currPage;
 				data.pagePerNum=$("#pagePerNum").val();
-				data.input=input;
 				reqServer(url, data);
 			}
 			
@@ -171,6 +177,7 @@
 					}
 					else if(url=="../rest/search"){
 						if(data.count!=0){
+							console.log(data.count);
 							searchCall(1);
 						}else{
 							alert("검색 결과가 없습니다.");
@@ -182,10 +189,6 @@
 						currPage=data.currPage;
 						totalPage=data.totalPage;
 						printPaging(data.totalCount, data.totalPage); 
-					}
-					else if(url=="./rest/delete"){
-						alert(data.msg);
-						listCall(currPage);
 					}
 				},
 				error:function(error){
@@ -241,7 +244,6 @@
 			end=start+4;
 		}
 		console.log(start+"/"+end);
-		if(search){
 			content+="<a href='#' onclick='searchCall("+1+")'>처음</a> |"
 			+" <a href='#' onclick='searchCall("+(start-1)+")'> << </a> "
 			+"<a href='#' onclick='searchCall("+pre+")'> < </a> ";
@@ -258,25 +260,6 @@
 			content+="<a href='#' onclick='searchCall("+next+")'> > </a> "
 			+" <a href='#' onclick='searchCall("+(end+1)+")'> >> </a>"
 			+"| <a href='#' onclick='searchCall("+page+")'>끝</a>";	
-		}else{
-			content+="<a href='#' onclick='listCall("+1+")'>처음</a> |"
-			+" <a href='#' onclick='listCall("+(start-1)+")'> << </a> "
-			+"<a href='#' onclick='listCall("+pre+")'> < </a> ";
-			for(var i=start; i<=end; i++){
-				if(i<=page){
-					if(currPage==i){
-						content+="<b>"+i+"</b>";	
-					}else{
-						content+=" <a href='#' onclick='listCall("+i+")'>"
-						+i+"</a> ";
-					}	
-				}
-			}
-			content+="<a href='#' onclick='listCall("+next+")'> > </a> "
-			+" <a href='#' onclick='listCall("+(end+1)+")'> >> </a>"
-			+"| <a href='#' onclick='listCall("+page+")'>끝</a>";
-		}
-		
 		$("#paging").empty();
 		$("#paging").append(content);
 	} 

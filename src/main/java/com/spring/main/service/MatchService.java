@@ -68,13 +68,21 @@ public class MatchService {
 		int pagePerNum=Integer.parseInt(params.get("pagePerNum"));//페이지에 넣을 데이터 갯수
 		
 		String input = params.get("input");
+		String type = params.get("type");
 		
 		logger.info(currPage+"/"+pagePerNum+"/"+input);
 		
 		//게시물 시작과 끝 번호
 		int end=pagePerNum*currPage;
 		int start=end-pagePerNum+1;
-		int allCnt = inter.searhCount(input);
+		int allCnt=0;
+		if(input!=""){
+			allCnt = inter.searhCount(input, type);
+			obj.put("list", inter.searhCall(start, end, input, type));
+		}else{
+			allCnt = inter.allCount();
+			obj.put("list", inter.listCall(start, end));
+		}
 		
 		int totalPage=allCnt/pagePerNum;
 		System.out.println(totalPage%pagePerNum);
@@ -85,7 +93,6 @@ public class MatchService {
 		logger.info("전체 개시물:{}",allCnt);
 		logger.info("전체 개시물:{}",allCnt);
 		logger.info("전체 개시물:{}",allCnt);
-		obj.put("list", inter.searhCall(start, end, input));
 		json.put("jsonList", obj);
 		json.put("currPage", currPage);
 		json.put("totalCount", allCnt);
@@ -95,10 +102,15 @@ public class MatchService {
 	}
 
 
-	public Map<String, Object> search(String input) {
+	
+
+
+	public Map<String, Object> search(Map<String, String> params) {
 		inter=sqlSession.getMapper(BoardInterface.class);
 		Map<String, Object> json = new HashMap<String, Object>();
-		int allCnt = inter.searhCount(input);
+		String input=params.get("input");
+		String type=params.get("type");
+		int allCnt = inter.searhCount(input, type);
 		json.put("count", allCnt);
 		return json;
 	}
