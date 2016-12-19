@@ -8,58 +8,41 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<style>
-			#row{
-				padding-bottom: 50px;
+			#ca{
+				padding-top: 50px;
+				/* border: 1px solid; */
 			}
-			 #emblem{
+			#emblem{
                 border: 1px solid;
-				width: 170px;
+				width: 100%;
 				height: 220px;
-                 margin-bottom: 20px;
+                margin-bottom: 20px;
 			}
-			#teamCategory{
-				
-				width: 170px;
-				height: 120px;
+			#Category{
+				width: 100%;
+				height: 220px;
                 margin-top: 20px;
 			}
-			.categoryTable{
-				width: 100%;
-				height: 90%;
-				background-color: greenyellow;
-				color: blue;
-			}
-			.fire{
-				width: 170px;
-				text-align: center;
-			}
-			td{
-				border-bottom: 1px solid silver;
-				padding: 3px;
-			}
+			
 		</style>
 	</head>
 	<body>
-		<div id="row">
+		<div id="ca">
 			<div id="emblem">
 				사진		
 			</div>
         -----------------------------------
-			<div id="teamCategory">
-				<table class="categoryTable">
-					<tr>
-						<td><a>팀 멤버</a></td>
-					</tr>
-					<tr>
-						<td><a>팀 멤버</a></td>
-					</tr>
-					<tr>
-						<td><a>팀 멤버</a></td>
-					</tr>
-				</table>
-			</div>
-			<div class="fire">
-				<a>팀 탈퇴</a>
+			<div id="Category">
+				<div class="list-group">
+					<a href="#" class="list-group-item">
+					  팀 멤버
+					</a>
+					<a href="#" class="list-group-item">팀 멤버
+					</a>
+					<a href="#" class="list-group-item">팀 멤버
+					</a>
+					<a href="#" class="list-group-item">팀 탈퇴</a>
+				</div>
 			</div>
 		</div>
 	</body>

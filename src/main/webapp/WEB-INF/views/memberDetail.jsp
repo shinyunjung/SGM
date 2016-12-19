@@ -5,29 +5,20 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
+		<title>메인 페이지</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script src="resources/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-			#Category{
-				width: 100%;
-				height: 220px;
-                margin-top: 20px;
-			}
 		</style>
 	</head>
 	<body>
-		<div id="Category">
-			<div class="list-group">
-				<a href="#" class="list-group-item">
-				  팀 멤버
-				</a>
-				<a href="#" class="list-group-item">팀 멤버
-				</a>
-				<a href="#" class="list-group-item">팀 멤버
-				</a>
-				<a href="#" class="list-group-item">팀 탈퇴</a>
-			</div>
-		</div>
+		<jsp:include page="../../resources/include/logo.jsp" />
+		<jsp:include page="../../resources/include/nav.jsp" />
+		<!-- ID찾기 -->
+		<div class="joinform">
+	
+    </div>
 	</body>
 	<script></script>
 </html>
