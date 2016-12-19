@@ -15,8 +15,10 @@ public class MainController {
 		@RequestMapping(value = "/")
 		public String home() {
 			
-			return "page";
+			return "index";
 		}
+		
+		
 		//팀가입
 		@RequestMapping(value = "/teamJoin")
 		public String teamJoin() {

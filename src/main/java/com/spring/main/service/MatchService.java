@@ -9,8 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BoardInterface;
+import com.spring.main.dto.AreaDto;
 import com.spring.main.dto.MatchDto;
 
 @Service
@@ -114,6 +116,24 @@ public class MatchService {
 		json.put("count", allCnt);
 		return json;
 	}
+
+
+	//매칭 게시판 글 등록
+	public ModelAndView write(Map<String, String> params) {
+		ModelAndView mav = new ModelAndView();
+		
+		return mav;
+	}
+
+
+	public Map<String, ArrayList<AreaDto>> areaList(Map<String, String> params) {
+		Map<String, ArrayList<AreaDto>> obj = new HashMap<String, ArrayList<AreaDto>>();
+		inter=sqlSession.getMapper(BoardInterface.class);
+		obj.put("area", inter.areaList());
+		return obj;
+	}
+	
+	
 
 
 }

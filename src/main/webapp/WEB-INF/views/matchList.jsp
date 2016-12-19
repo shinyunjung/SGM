@@ -33,7 +33,7 @@
 						<table width="100%">
 							<tr>
 								<td class="left">
-									<button>글작성</button>
+									<button onclick="location.href='../../main/match/matchWrite'">글작성</button>
 									게시물 갯수 : 
 									<select id="pagePerNum">
 										<option value="5">5</option>

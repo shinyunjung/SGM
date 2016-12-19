@@ -61,13 +61,13 @@
 				<fieldset>
 					<legend>글쓰기</legend>
 				</fieldset>
-					<form action="" method="post" id="mainForm">
+					<form action="write" method="post" id="mainForm">
 						<table class="detailTable">
 								<tr class="borderTop">
 									<td colspan="4"><input type="text" name="mch_title" placeholder="제목"/></td>
 								</tr>
 								<tr class="borderTop">
-									<td colspan="4"><input type="text" name="mch_name" value="" readonly/></td>
+									<td colspan="4"><input type="text" name="mch_name" value="123" readonly/></td>
 								</tr>
 								<tr class="borderTop">
 									<th>경기날짜</th>
@@ -94,30 +94,34 @@
 										<div id="popup">
 										<!-- 장소목록 -->	
 											<table class="sel">
-												<tr>
-													<td colspan="4" style="text-align: right;">
-														<b class="cancel">X</b>
-													</td>
-												</tr>
-												<tr>
-													<td colspan="4">
-														<select name="gu"></select>
-													</td>
-												</tr>
-												<tr class="borderTop">
-													<th>no</th>
-													<th>운동장</th>
-													<th>주소</th>
-													<th>선택</th>
-												</tr>
-												<tr class="borderTop">
-													<td>no</td>
-													<td>운동장명</td>
-													<td>주소</td>
-													<td>
-														<input type="radio" />	
-													</td>
-												</tr>
+												<thead>
+													<tr>
+														<td colspan="4" style="text-align: right;">
+															<b class="cancel">X</b>
+														</td>
+													</tr>
+													<tr>
+														<td colspan="4">
+															<select name="gu"></select>
+														</td>
+													</tr>
+													<tr class="borderTop">
+														<th>no</th>
+														<th>운동장</th>
+														<th>주소</th>
+														<th>선택</th>
+													</tr>
+													</thead>
+													<tbody class="areaList">
+													<tr class="borderTop">
+														<td>no</td>
+														<td>운동장명</td>
+														<td>주소</td>
+														<td>
+															<input type="radio" />	
+														</td>
+													</tr>
+												</tbody>	
 											</table>
 										</div>
 										<jsp:include page="../../resources/include/mapWrite.jsp" />
@@ -140,13 +144,38 @@
 		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
+	var url="";
+	var data={};
 	$(".btn-info").click(function(){
+		url="../match/areaList";
 		$("#popup").css("display","block");
 		var frm = document.getElementById('mainForm');
 		for (var i=0; i<10; i++) {
 			frm['gu'].options[i] = new Option(i+1, i+1);
 		}
+		reqServer(url, data);
 	});
+	
+	function reqServer(url, data){
+		console.log(url);
+		console.log(data);
+		$.ajax({
+			url:url,
+			type:"post",
+			data:data,
+			dataType:"JSON",
+			success:function(data){
+				console.log(data);
+				if(url=="../match/areaList"){
+					printArea(data.area);
+				}
+			},
+			error:function(error){
+				console.log(error);
+			}
+		});
+	}
+	
 	$(".cancel").click(function(){
 		$("#popup").css("display","none");
 	});
@@ -168,5 +197,32 @@
 			}
 		}
 	});
+	
+	$(".btn-primary").click(function(){
+		var mch_date=$("input[type='date']").val();
+		console.log(mch_date);
+		
+		var mch_time=$("input[type='time']").val();
+		console.log(mch_time);
+	});
+	
+	function printArea(list){
+		var content="";
+		for(var i=0; i<list.length; i++){
+			content+="<tr>"
+				+"<td>"+list[i].a_idx+"</td>"
+				+"<td>"+list[i].a_name+"</td>"
+				+"<td>"+list[i].a_address+"</td>"
+				+"<td>"+"<input type='radio' name='position' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+")'/>"+"</td>"
+				+"</tr>";
+			}
+			
+			$(".areaList").empty();
+			$(".areaList").append(content);
+		}
+	
+	function checkMap(lat, lng){
+		console.log(lat+"/"+lng);
+	}
 	</script>
 </html>
