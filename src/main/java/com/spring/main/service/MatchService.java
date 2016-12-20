@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BoardInterface;
@@ -132,6 +136,18 @@ public class MatchService {
 		obj.put("area", inter.areaList());
 		return obj;
 	}
+
+
+	public ModelAndView areaMap(String lat) {
+		ModelAndView mav = new ModelAndView();
+		logger.info(lat);
+		mav.addObject("lat",lat);
+		mav.setViewName("matchWrite");
+		return mav;
+	}
+
+
+	
 	
 	
 

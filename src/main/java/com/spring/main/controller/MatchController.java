@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,6 +57,14 @@ public class MatchController {
 		logger.info("매칭쓰기");
 		return service.areaList(params);
 	}
+	
+	//매칭쓰기
+	@RequestMapping(value = "/areaMap")
+	public ModelAndView areaMap(@RequestParam("lat") String lat) {
+		logger.info("장소 결정");
+		return service.areaMap(lat);
+	}
+	
 	
 	//매칭수정
 	@RequestMapping(value = "/matchModify")

@@ -124,7 +124,9 @@
 												</tbody>	
 											</table>
 										</div>
-										<jsp:include page="../../resources/include/mapWrite.jsp" />
+										<div class="popMap">
+											<jsp:include page='../../resources/include/mapSearch.jsp' />
+										</div>
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -213,16 +215,16 @@
 				+"<td>"+list[i].a_idx+"</td>"
 				+"<td>"+list[i].a_name+"</td>"
 				+"<td>"+list[i].a_address+"</td>"
-				+"<td>"+"<input type='radio' name='position' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+")'/>"+"</td>"
+				+"<td>"+"<input type='radio' name='position' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+")' />"+"</td>"
 				+"</tr>";
 			}
 			
 			$(".areaList").empty();
 			$(".areaList").append(content);
-		}
+	}
 	
 	function checkMap(lat, lng){
-		console.log(lat+"/"+lng);
+		location.href="areaMap?lat="+lat;
 	}
 	</script>
 </html>
