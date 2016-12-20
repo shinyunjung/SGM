@@ -65,7 +65,7 @@
 				<div id="title">
 					<h3>장소목록</h3>
 				</div>
-				<div	id="detailZone">
+				<div id="detailZone">
 					<table class="detailTable">
 						<thead>
 							<tr class="borderBottom">
