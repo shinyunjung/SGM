@@ -17,4 +17,7 @@ public interface BoardInterface {
 
 	ArrayList<AreaDto> areaList();
 
+	int write(int t_idx, String title, String writer, String date, String time, String type, String age, String content,
+			String lat, String lng, int area, String ground, String state);
+
 }

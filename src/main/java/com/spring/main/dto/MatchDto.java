@@ -18,8 +18,8 @@ public class MatchDto {
 	private int mch_vcount;
 	private Date mch_date;
 	private String mch_state;
-	private double mch_lat;
-	private double mch_lng;
+	private String mch_lat;
+	private String mch_lng;
 	public int getMch_idx() {
 		return mch_idx;
 	}
@@ -110,16 +110,16 @@ public class MatchDto {
 	public void setMch_state(String mch_state) {
 		this.mch_state = mch_state;
 	}
-	public double getMch_lat() {
+	public String getMch_lat() {
 		return mch_lat;
 	}
-	public void setMch_lat(double mch_lat) {
+	public void setMch_lat(String mch_lat) {
 		this.mch_lat = mch_lat;
 	}
-	public double getMch_lng() {
+	public String getMch_lng() {
 		return mch_lng;
 	}
-	public void setMch_lng(double mch_lng) {
+	public void setMch_lng(String mch_lng) {
 		this.mch_lng = mch_lng;
 	}
 	

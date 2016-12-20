@@ -15,7 +15,7 @@
 		SELECT COUNT(*) FROM matching WHERE ${param2} like '%'||#{param1}||'%'
 	</select>
 	
-	<!-- 리스트 추가 -->
+	<!-- 리스트 불러오기 -->
 	<select id="listCall" resultType="com.spring.main.dto.MatchDto">
 		SELECT mch_idx,mch_name , mch_area, mch_ground, mch_age, mch_type, mch_time, mch_content, mch_title, mch_wrdate, mch_reple, mch_vcount, mch_date, mch_state, mch_lat, mch_lng FROM (
 			SELECT mch_idx, mch_name , mch_area, mch_ground, mch_age, mch_type, mch_time, mch_content, mch_title, mch_wrdate, mch_reple, mch_vcount, mch_date, mch_state, mch_lat, mch_lng, ROW_NUMBER() OVER(ORDER BY mch_idx DESC) AS rnum FROM matching
@@ -33,4 +33,9 @@
 	<select id="areaList" resultType="com.spring.main.dto.AreaDto">
 		SELECT a_idx, u_idx, a_name, a_area, a_lat, a_lng  FROM area
 	</select>
+	
+	<!-- 매칭 리스트 추가 -->
+	<insert id="write">
+		INSERT INTO matching(mch_idx, t_idx, mch_title, mch_name, mch_date, mch_time, mch_type, mch_age, mch_content, mch_lat, mch_lng, mch_area, mch_ground, mch_state) VALUES(matching_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10}, #{param11}, #{param12}, #{param13})
+	</insert>
 </mapper>

@@ -114,12 +114,7 @@
 													</thead>
 													<tbody class="areaList">
 													<tr class="borderTop">
-														<td>no</td>
-														<td>운동장명</td>
-														<td>주소</td>
-														<td>
-															<input type="radio" />	
-														</td>
+														
 													</tr>
 												</tbody>	
 											</table>
@@ -213,9 +208,10 @@
 		for(var i=0; i<list.length; i++){
 			content+="<tr>"
 				+"<td>"+list[i].a_idx+"</td>"
-				+"<td>"+list[i].a_name+"</td>"
+				+"<td>"+list[i].a_ground
+				+"<input type='hidden' name='ground' value='"+list[i].a_ground+"' /></td>"
 				+"<td>"+list[i].a_address+"</td>"
-				+"<td>"+"<input type='radio' name='position' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+")' />"+"</td>"
+				+"<td>"+"<input type='radio' name='position' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+")' value='"+list[i].a_lat+"/"+list[i].a_lng+"' />"+"</td>"
 				+"</tr>";
 			}
 			
@@ -224,7 +220,9 @@
 	}
 	
 	function checkMap(lat, lng){
-		location.href="areaMap?lat="+lat;
+		console.log(lat, lng);
+		console.log($("input[name='position']:checked").val());
+		
 	}
 	</script>
 </html>

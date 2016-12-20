@@ -125,7 +125,27 @@ public class MatchService {
 	//매칭 게시판 글 등록
 	public ModelAndView write(Map<String, String> params) {
 		ModelAndView mav = new ModelAndView();
-		
+		inter=sqlSession.getMapper(BoardInterface.class);
+		int success=0;
+		int t_idx=1;
+		String title = params.get("mch_title");
+		String writer = params.get("mch_name");
+		String date = params.get("mch_date");
+		String time = params.get("mch_time");
+		String type = params.get("mch_type");
+		String age = params.get("mch_age");
+		String content = params.get("mch_content");
+		String prePosition = params.get("position");
+		String ground = params.get("ground");
+		int area = Integer.parseInt(params.get("gu"));
+		String[] position = prePosition.split("/");
+		String lat = position[0];
+		String lng = position[1];
+		String state="대기";
+		logger.info(title+"/"+writer+"/"+date+"/"+time+"/"+type+"/"+age+"/"+content+"/"+lat+"/"+lng+"/"+area+"/"+ground);
+		success = inter.write(t_idx, title, writer, date, time, type, age, content, lat, lng, area, ground, state);
+		mav.addObject("write",params);
+		mav.setViewName("matchList");
 		return mav;
 	}
 
