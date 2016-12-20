@@ -80,6 +80,13 @@ public class MainController {
 		return "adModify";
 	}
 	
+	//매칭쓰기
+			@RequestMapping(value = "/matchWrite")
+			public String matchWrite() {
+				logger.info("매칭쓰기");
+				return "matchWrite";
+			}
+	
 	/*//메인페이지
 		@RequestMapping(value = "/")
 		public String home() {

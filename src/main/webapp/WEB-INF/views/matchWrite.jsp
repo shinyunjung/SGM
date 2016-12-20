@@ -36,7 +36,7 @@
 			}
 			#popup{
 		     	position:absolute;
-				z-index:2;
+				z-index:3;
 				width: 300px;
 				height: 300px;
 				background-color: white;
@@ -121,6 +121,7 @@
 											</table>
 										</div>
 										<jsp:include page="../../resources/include/mapWrite.jsp" />
+										
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -150,6 +151,16 @@
 	$(".cancel").click(function(){
 		$("#popup").css("display","none");
 	});
+	
+	$(".cancel").click(function(){
+		$("#popup").css("display","none");
+	});
+	
+	$("#search").click(function(){
+		var keyword = $("#keyword").val();
+		searchPlaces(keyword);
+	});
+	
 	$(document).ready(function(){
 		var frm = document.getElementById('mainForm');
 		var no=0;
