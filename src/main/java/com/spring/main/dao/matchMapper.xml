@@ -38,4 +38,29 @@
 	<insert id="write">
 		INSERT INTO matching(mch_idx, t_idx, mch_title, mch_name, mch_date, mch_time, mch_type, mch_age, mch_content, mch_lat, mch_lng, mch_area, mch_ground, mch_state) VALUES(matching_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10}, #{param11}, #{param12}, #{param13})
 	</insert>
+	
+	<!-- 매칭 상세보기 -->
+	<select id="detail" resultType="com.spring.main.dto.MatchDto">
+		SELECT * FROM matching WHERE mch_idx=#{param1}
+	</select>
+	
+	<!-- 댓글 등록 -->
+	<insert id="replyRegist">
+		INSERT INTO reple(r_idx, r_category, parent_idx, r_writer, r_reple) VALUES(reple_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
+	<!-- 댓글 수 업 -->
+	<update id="replyUp">
+		UPDATE matching SET mch_reple=mch_reple+1 WHERE mch_idx=#{param1}
+	</update>
+	
+	<!-- 댓글 리스트 -->
+	<select id="replyList" resultType="com.spring.main.dto.RepleDto">
+		SELECT * FROM reple WHERE parent_idx=#{param1} AND r_category=#{param2}
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDel">
+		DELETE FROM reple WHERE r_idx=#{param1} AND r_category=#{param2}
+	</delete>
 </mapper>

@@ -6,8 +6,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
 		
 			#logo{
@@ -95,12 +95,23 @@
 			.borderTop{
 				border-top: 1px solid;
 			}	
+			
+		/**텍스트 위치 스타일**/
+		.right{
+			text-align: right;
+		}
+		.left{
+			text-align: left;
+		}
+		.center{
+			text-align: center;
+		}	
 		</style>
 	</head>
 	<body>
 		<div class="layer">
 			<div id="logo" >
-				 <a href="../../main/index"><img id="logoImg" src="../../main/resources/include/img/logo.jpg" /></a>
+				 <a href="index"><img id="logoImg" src="../../main/resources/include/img/logo.jpg" /></a>
 			</div>
 		</div>
 	</body>

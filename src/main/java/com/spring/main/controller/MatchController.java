@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.AreaDto;
+import com.spring.main.dto.RepleDto;
 import com.spring.main.service.MatchService;
 
 @Controller("MatchController")
@@ -24,7 +25,7 @@ public class MatchController {
 	MatchService service;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	private static boolean modFlag = false;
 	//매칭게시판
 	@RequestMapping(value = "/matchList")
 	public String matchList() {
@@ -33,10 +34,35 @@ public class MatchController {
 	}
 	//매칭상세
 	@RequestMapping(value = "/matchDetail")
-	public String matchDetail() {
+	public ModelAndView matchDetail(@RequestParam("idx") int idx) {
 		logger.info("매칭상세");
-		return "matchDetail";
+		modFlag=false;
+		return service.detail(idx, modFlag);
 	}
+	
+	
+	//댓글 등록
+	@RequestMapping(value = "/replyRegist")
+	public @ResponseBody Map<String, String> replyRegist(@RequestParam Map<String, String> params) {
+		logger.info("매칭댓글등록");
+		return service.replyRegist(params);
+	}
+	
+	//댓글 요청	
+	@RequestMapping(value="/replyList")
+	public @ResponseBody Map<String, ArrayList<RepleDto>> replyList(@RequestParam Map<String, String> params){
+		logger.info("리스트 요청");
+		return service.replyList(params);
+	}
+	
+	
+	//댓글 요청	
+	@RequestMapping(value="/replyDel")
+	public @ResponseBody Map<String, String> replyDel(@RequestParam Map<String, String> params){
+		logger.info("삭제 요청");
+		return service.replyDel(params);
+	}
+	
 	//매칭쓰기페이지 이동
 	@RequestMapping(value = "/matchWrite")
 	public String matchWrite() {
@@ -51,10 +77,10 @@ public class MatchController {
 		return service.write(params);
 	}
 	
-	//매칭쓰기
+	//매칭목록
 	@RequestMapping(value = "/areaList")
 	public @ResponseBody Map<String, ArrayList<AreaDto>> areaList(@RequestParam Map<String, String> params) {
-		logger.info("매칭쓰기");
+		logger.info("매칭목록");
 		return service.areaList(params);
 	}
 	
@@ -68,9 +94,10 @@ public class MatchController {
 	
 	//매칭수정
 	@RequestMapping(value = "/matchModify")
-	public String matchModify() {
+	public ModelAndView matchModify(@RequestParam("idx") int idx) {
 		logger.info("매칭수정");
-		return "matchModify";
+		modFlag=true;
+		return service.detail(idx, modFlag);
 	}
 	//경기일정
 	@RequestMapping(value = "/calendar")

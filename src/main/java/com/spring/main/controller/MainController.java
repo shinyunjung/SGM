@@ -19,6 +19,13 @@ public class MainController {
 		}
 		
 		
+	//메인페이지
+		@RequestMapping(value = "/index")
+		public String index() {
+			
+			return "index";
+		}
+		
 		//팀가입
 		@RequestMapping(value = "/teamJoin")
 		public String teamJoin() {

@@ -203,7 +203,7 @@
 			content+="<tr>"
 				+"<td>"+list[i].mch_idx+"</td>"
 				+"<td>"+list[i].mch_name+"</td>"
-				+"<td>"+list[i].mch_title+"</td>"
+				+"<td><a href='../match/matchDetail?idx="+list[i].mch_idx+"'>"+list[i].mch_title+"</a></td>"
 				+"<td>"+list[i].mch_vcount+"</td>"
 				+"<td>"+list[i].mch_state+"</td>"
 				+"</tr>";
