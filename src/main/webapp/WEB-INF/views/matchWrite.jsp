@@ -222,6 +222,7 @@
 	function checkMap(lat, lng){
 		console.log(lat, lng);
 		console.log($("input[name='position']:checked").val());
+		areaSearch(lat, lng);
 		
 	}
 	</script>

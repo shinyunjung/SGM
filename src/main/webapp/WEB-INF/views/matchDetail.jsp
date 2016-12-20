@@ -182,6 +182,7 @@
 	</body>
 	<script>
 		var repleCnt=0;
+		areaSearch(${detail.mch_lat}, ${detail.mch_lng});
 		function mchMsg(){
 			console.log("신청");
 			$("#matchMsg").css("display","block");
