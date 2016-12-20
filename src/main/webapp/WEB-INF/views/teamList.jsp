@@ -56,6 +56,17 @@
 								</tr>
 							</thead>
 							<tbody id="start">
+							<c:forEach items="${list}" var="dto">
+								<tr>
+									<td>${dto.id}</td>
+									<td>
+										<a href="./memberView?id=${dto.id}">${dto.name}</a>
+									</td>
+									<td>
+										<a href="./delete?id=${dto.id}">탈퇴</a>
+									</td>
+								</tr>
+							</c:forEach>
 							</tbody>
 						</table>
 						<div id="paging"></div> 
