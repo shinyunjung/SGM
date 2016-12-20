@@ -100,7 +100,7 @@
 	<body>
 		<div class="layer">
 			<div id="logo" >
-				 <a href="index"><img id="logoImg" src="./resources/include/img/logo.jpg" /></a>
+				 <a href="index"><img id="logoImg" src="../../main/resources/include/img/logo.jpg" /></a>
 			</div>
 		</div>
 	</body>
