@@ -21,11 +21,12 @@ public class MainController {
 	BoardService service;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	//메인페이지
-	@RequestMapping(value = "/")
-	public String home() {
-		
+	
+	//메인 이동
+	@RequestMapping(value="/")
+	public String home(){
+		//TRACE < DEBUG < INFO < WARN < ERROR < FATAL
+		logger.info("홈 요청");
 		return "index";
 	}
 	
@@ -36,6 +37,13 @@ public class MainController {
 		logger.info("로그인 처리");
 		params.put("session", session);
 		return service.login(params);
+	}
+	
+	//회원가입 이동
+	@RequestMapping(value="/join")
+	public String join() {
+		logger.info("회원가입 페이지");
+		return "join";
 	}
 		
 	//id찾기
@@ -50,12 +58,7 @@ public class MainController {
 		
 		return "passFind";
 	}
-	//회원가입
-	@RequestMapping(value = "/join")
-	public String join() {
-		
-		return "join";
-	}
+
 	//마이페이지
 	@RequestMapping(value = "/myPage")
 	public String myPage() {

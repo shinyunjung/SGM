@@ -10,8 +10,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <style>
-   
-
    			 .table{
                 width: 100%;
                 text-align: center;
@@ -148,7 +146,7 @@
 							<tr>
 								<td class="loginBox" colspan="2">
 									<a href="./join">회원가입</a>
-									<a href="./idFind">아이디 찾기</a>/<a href="./passFind">비밀번호 찾기</a>
+									<a href="./myPage">아이디 찾기</a>/<a href="./passFind">비밀번호 찾기</a>
 								</td>
 							</tr>
 							<tr>

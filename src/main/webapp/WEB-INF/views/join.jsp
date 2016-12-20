@@ -37,7 +37,7 @@
 		</div>
 		<div class="col5 content"> 
             <div class="well bs-component">
-			<form class="form-horizontal"name="mainForm" id="mainForm" method="post">
+			<form class="form-horizontal" name="mainForm" id="mainForm" method="post">
 			  <fieldset>
 			  	<legend>회원가입</legend>
 			  		<table class="cen">
@@ -48,27 +48,33 @@
 			  			<tr>
 			  				<th>아이디
 			  				</th>
-			  				<td colspan="3">
-			  				<input type="text" class="form-control" placeholder="아이디">
-			  				</td>
+			  					<td colspan="3">
+			  						<input type="text" name="u_id" class="form-control" placeholder="아이디" >
+			  					</td>
+			  					<td style="padding-left: 10px;">
+			  						<button type="button" class="btn btn-default" id="chk">중복체크</button>
+			  					</td>	
 			  				<th>
 			  				</th>
 			  			</tr>
 			  			<tr>
 			  				<th>비밀번호
-			  				</th>
-			  				<td colspan="3">
-			  				<input type="password" class="form-control" placeholder="비밀번호">
-			  				</td>
-			  				<th>
+			  					</th>
+			  						<td colspan="3">
+			  							<input type="password" name="u_pass"  id="pw1" class="form-control" placeholder="비밀번호">
+			  						</td>
+			  					<th>
 			  				</th>
 			  			</tr>
 			  			<tr>
-			  				<th>비밀번호
+			  				<th>비밀번호 
 			  				</th>
 			  				<td colspan="3">
-			  				<input type="password" class="form-control" placeholder="비밀번호">
-			  				</td>
+			  					<input type="password" name="u_pass2" id="pw2" class="form-control" placeholder="비밀번호 확인">
+								<span id="pwchk">
+									같은 비밀번호를 입력하시오.
+								</span>
+			  						</td>
 			  				<th>
 			  				</th>
 			  			</tr>
@@ -76,7 +82,7 @@
 			  				<th>성명
 			  				</th>
 			  				<td colspan="3">
-			  				<input type="text" class="form-control" placeholder="성명" >
+			  				<input type="text" name="u_name" class="form-control" placeholder="성명" >
 			  				</td>
 			  				<th>
 			  				</th>
@@ -97,10 +103,10 @@
 			  				<th>성별
 			  				</th>
 			  				<td>
-			  				<input type="radio" name="" /> 남자
+			  				<input type="radio" name="u_gender" /> 남자
 			  				</td>
 			  				<td>
-			  				<input type="radio" name="" /> 여자
+			  				<input type="radio" name="u_gender" /> 여자
 			  				</td>
 			  				<td>
 			  				</td>
@@ -111,7 +117,7 @@
 			  				<th>email
 			  				</th>
 			  				<td colspan="3">
-			  				<input type="email" class="form-control" placeholder="email" >
+			  				<input type="email" name="u_mail" class="form-control" placeholder="email" >
 			  				</td>
 			  				<td style="padding-left: 10px;">
 			  					<button class="btn btn-default">보내기</button>
@@ -131,8 +137,8 @@
 			  				<th>
 			  				</th>
 			  				<td colspan="3" style="text-align: center;">
+			  				<button type="button" id="userJoin" class="btn btn-primary">회원가입</button>
 			  				<button type="reset" class="btn btn-default">취소</button>
-			        		<button type="submit" class="btn btn-primary">등록</button>
 			  				</td>
 			  				<th>
 			  				</th>
@@ -236,5 +242,107 @@ function setDay() {
         }
     }
 }
+
+
+var data;
+var overChk = false;
+var url;
+
+//중복체크
+$("#chk").click(function(){		
+	url="./rest/overlay";
+	data={};
+	data.u_id=$("input[name='u_id']").val();
+	console.log(data);
+	ajaxCall(url, data);
+});
+
+//비밀번호 일치 확인
+$(function(){
+	  $('#pw1').keyup(function(){
+	   $('span[name=pwchk]').text('');
+	  }); //#pw.keyup
+
+	  $('#pw2').keyup(function(){
+	   if($('#pw2').val()!=$('#pw1').val()){
+	    $('span[name=pwchk]').text('');
+	    $('span[name=pwchk]').html('<b style="color:red"> 일치하지않습니다.</b>');
+	   }else{
+	    $('span[name=pwchk]').text('');
+	    $('span[name=pwchk]').html('<b style="color:blue"> 일치합니다.</b>');
+	   }
+	  }); //#pw2.keyup
+	 });
+
+
+//회원가입
+$("#userJoin").click(function(){
+	url="./rest/userJoin";
+	data={};
+	data.u_id = $("input[name='u_id']").val();
+	data.u_pass = $("input[name='u_pass']").val();
+	data.u_name = $("input[name='u_name']").val();
+	data.u_age = $("input[name='age']").val();
+	data.u_gender = $("input[name='u_gender']").val();
+	data.u_phnum = $("input[name='u_phnum']").val();
+	data.u_email = $("input[name='u_mail']").val();
+	console.log(data);
+	
+	if(validation()){
+		ajaxCall(url, data);
+	}
+});
+
+//유효성 검사
+function validation(){
+	
+	if(overChk == false){
+		alert("중복 체크를 해 주세요!!");
+		return false;
+	}else if(data.u_id == null || data.u_id == ""){
+		alert("아이디는 필수 입력 사항 입니다.");
+		return false;
+	}else if(data.u_pass == null || data.u_pass == ""){
+		alert("비밀번호는 필수 입력 사항 입니다.");
+		return false;
+	}else if(data.u_name == null || data.u_name == ""){
+		alert("이름은 필수 입력 사항 입니다.");
+		return false;
+	}else{
+		return true;
+	}		
+	
+}	
+
+//요청 전송
+function ajaxCall(reqUrl, reqData){
+	$.ajax({
+		url:reqUrl,
+		type:'get',
+		data:reqData,
+		dataType:'json',
+		success:function(d){
+			result(reqUrl, d);
+		},error:function(e){
+			console.log(e);
+		}
+	});
+}
+
+function result(url, data){
+	console.log(url);
+	if(url=="./rest/overlay"){
+		if(data.use=="Y"){
+			overChk = true;
+			alert("사용 가능한 아이디 입니다.");
+		}else{
+			alert("이미 사용중인 아이디 입니다.");
+			$("input[name='u_id']").val("");
+		}
+	}
+	
+}
+
+
 </script>
 </html>

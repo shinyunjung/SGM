@@ -1,5 +1,6 @@
 package com.spring.main.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BoardInterface;
+import com.spring.main.dto.UserDto;
 
 @Service
 public class BoardService {
@@ -49,5 +51,50 @@ public class BoardService {
 		mav.setViewName(page);
 		return mav;
 	}
+	
+	//중복체크
+		public Map<String, String> overlay(String u_id) {
+			
+			inter = sqlSession.getMapper(BoardInterface.class);
+			Map<String, String> json = new HashMap<String, String>();
+			logger.info("id중복확인");
+			String use = "N";
+			if(inter.overlay(u_id) == null){
+				use = "Y";
+			}
+			json.put("use", use);
+			
+			logger.info("id중복확인");
+			
+			
+			
+			
+			return json;
+		}
+
+	
+	//회원가입
+		public UserDto userJoin(Map<String, String> params) {
+			
+			inter = sqlSession.getMapper(BoardInterface.class);
+			UserDto info = new UserDto();
+			
+			info.setU_id(params.get("u_id"));
+			info.setU_pass(params.get("u_pass"));
+			info.setU_name(params.get("u_name"));
+			info.setU_age(Integer.parseInt(params.get("u_age")));
+			info.setU_gender(params.get("gender"));
+			info.setU_phnum(Integer.parseInt(params.get("u_phnum")));
+			info.setU_email(params.get("u_mail"));
+			
+			inter.userJoin(info);
+			
+			return info;
+		}
+
+
+	
+	
+	
 
 }	

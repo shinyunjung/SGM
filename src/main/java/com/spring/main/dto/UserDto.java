@@ -8,7 +8,7 @@ public class UserDto {
 	private String u_name;
 	private int u_age;
 	private String u_gender;
-	private String u_phnum;
+	private int u_phnum;
 	private String u_email;
 	
 	public String getU_idx() {
@@ -47,12 +47,14 @@ public class UserDto {
 	public void setU_gender(String u_gender) {
 		this.u_gender = u_gender;
 	}
-	public String getU_phnum() {
+
+	public int getU_phnum() {
 		return u_phnum;
 	}
-	public void setU_phnum(String u_phnum) {
+	public void setU_phnum(int u_phnum) {
 		this.u_phnum = u_phnum;
 	}
+		
 	public String getU_email() {
 		return u_email;
 	}
