@@ -10,10 +10,11 @@ public interface BoardInterface {
 	//게시물 전체 갯수
 	int allCount();
 
-	//비디오 리스트
-	ArrayList<vidioDTO> vidiolist(int start, int end);
-
 	//매치리스트
-	ArrayList<MatchDto> listCall(int start, int end);
+	ArrayList<vidioDTO> listCall(int start, int end);
+
+	int searhCount(String input, String type);
+
+	ArrayList<vidioDTO> searhCall(int start, int end, String input, String type);
 
 }

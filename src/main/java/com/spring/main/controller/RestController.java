@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.spring.main.service.MatchService;
 import com.spring.main.service.VidioService;
 
 @Controller("RestController")
@@ -18,7 +17,7 @@ import com.spring.main.service.VidioService;
 public class RestController {
 	
 	@Autowired
-	MatchService matchService;
+	VidioService VidioService;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
