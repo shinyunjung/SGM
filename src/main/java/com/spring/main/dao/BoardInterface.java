@@ -1,17 +1,19 @@
 package com.spring.main.dao;
 
-import java.util.ArrayList;
 
-import com.spring.main.dto.MatchDto;
+import com.spring.main.dto.UserDto;
 
 public interface BoardInterface {
 
-	int allCount();
+	//로그인
+	String login(String u_id, String u_pass);
 
-	ArrayList<MatchDto> listCall(int start, int end);
+	//중복체크
+	String overlay(String u_id);
+	
+	//회원가입
+	void userJoin(UserDto info);
 
-	int searhCount(String input, String type);
 
-	ArrayList<MatchDto> searhCall(int start, int end, String input, String type);
 
 }

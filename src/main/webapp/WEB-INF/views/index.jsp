@@ -10,10 +10,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <style>
-   
-      
-    
-    .table{
+   			 .table{
                 width: 100%;
                 text-align: center;
                 border-bottom: 1px solid silver;
@@ -131,22 +128,25 @@
 			    <div class="col3 content">
 				      
 				      <!-- 로그인 box -->
+				      <form action="login" method="post" id="login">
 						<table class="loginBox">
 							<tr>
-								<td class="loginBox"><input type="text" size="12" placeholder="아이디"/></td>
+								<td class="loginBox">
+									<input type="text" name="u_id" size="12" placeholder="아이디"/>
+								</td>
 								<td class="loginBox" rowspan="2">
-									<div class="login">
-										<div class="txt">로그인</div>
-									</div>
+										<div class="txt"><input type="submit" value="로그인"></div>
 								</td>
 							</tr>
 							<tr>
-								<td class="loginBox"><input type="password" size="12" placeholder="비밀번호"/></td>
+								<td class="loginBox">
+									<input type="password" name="u_pass" size="12" placeholder="비밀번호"/>
+								</td>
 							</tr>
 							<tr>
 								<td class="loginBox" colspan="2">
-									<a>회원가입	</a>
-									<a>아이디</a>/<a>비밀번호 찾기</a>
+									<a href="./join">회원가입</a>
+									<a href="./myPage">아이디 찾기</a>/<a href="./passFind">비밀번호 찾기</a>
 								</td>
 							</tr>
 							<tr>
@@ -155,14 +155,10 @@
 								</td>
 							</tr>
 						</table>
-					
-				      
+					</form>
 		    	</div>
 		  </div>
-		  </div>
-	
-		
-		
+		  </div>	
 	</body>
 	<script></script>
 </html>
