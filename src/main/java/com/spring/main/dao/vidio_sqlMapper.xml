@@ -12,14 +12,18 @@
   				u_idx, j_name,
   				j_category,
   				j_title,
-  				j_content,
+  				j_content, 
   				j_date,
   				j_filenum,
   				j_vcount,
-  				j_reple
+  				j_reple,
   					ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum 
   				FROM board)
 		WHERE rnum BETWEEN #{param1} AND #{param2}
  	</select>
  	
+ 	<!-- 게시물 수 -->
+ 	<select id="allCount" resultType="Integer">
+ 		SELECT COUNT(*) FROM board
+ 	</select>
  </mapper>

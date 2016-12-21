@@ -10,7 +10,6 @@
 		<script src="resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
 		<style>
-<<<<<<< HEAD
 			#vidioList{
 				position: absolute;
 				left: 270px;
@@ -19,8 +18,6 @@
 			.search{
 				text-align: right;
 			}
-=======
->>>>>>> master
 			th{
 				text-align: center;
 			}
@@ -44,7 +41,15 @@
 					<div class="search">
 						<table width="100%">
 							<tr>
-								<td class="left"><button>글작성</button></td>
+								<td class="left">
+								게시물 갯수 : 
+									<select id="pagePerNum">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								<button>글작성</button></td>
 								<td class="right">
 									<button>검색</button>
 									<input type="text" size="20" />
@@ -60,18 +65,16 @@
 									<th>글쓴이</th>
 									<th>제목</th>
 									<th>조회 수</th>
-									<th>평점</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>0</td>
-									<td>OOO</td>
-									<td>OOOOO</td>
-									<td>0</td>
-									<td>OOO</td>
-								</tr>
+							<tbody id="list">			
+								<!-- 리스트가 출력될 영역 -->
 							</tbody>
+								<tr>
+									<td colspan="4" id="paging">
+										<div id="pagenation"></div>
+									</td>
+								</tr>
 						</table>
 					</div>
 				</div>
@@ -79,31 +82,29 @@
 				<!-- 세 번째 구역 -->
 				<div class="col3 content"></div>		
 			</div>			
->>>>>>> master
 		</div>
 	</body>
 	<script>
-	var msg = "${msg}";
-	console.log("msg : "+msg);
-	if(msg != ""){
-		alert(msg);
-	}
+	var url="";
+	var data={};
+	var currPage=1;//현재 페이지
 	
-	var currPage = 1;
-	
-	vidioList(currPage);
+	$("document").ready(function(){
+		vidioList(currPage);
+	});
 	
 	$("#pagePerNum").change(function(){
 		vidioList(currPage);
 	});
 	
 	function vidioList(currPage){
-		var url="./Vidio/vidioList";
-		var data = {};
-		data.page = currPage;
-		data.pagePerNum = $("#pagePerNum").val();
+		var url="./vidio/vidioList";
+		var data={};
+		data.page=currPage;
+		data.pagePerNum=$("#pagePerNum").val();
 		reqServer(url, data);
 	}
+	
 	
 	function reqServer(url, data){
 		console.log(url);
@@ -111,41 +112,35 @@
 			url:url,
 			type:"post",
 			data:data,
-			dataType:"json",
-			success:function(d){
-				console.log(d)
-				if(url == "./Vidio/vidioList"){
-					printList(d.jsonList.list);
-					currPage = d.currPage;
-					printPaging(d.allCnt, d.page);
+			dataType:"JSON",
+			success:function(data){
+				console.log(data);
+				if(url=="./vidio/vidioList"){
+					printList(data.jsonList.list);
+					currPage=data.currPage;
+					/* printPaging(data.totalCount, data.totalPage); */
+				}else if(url=="./vidio/delete"){
+					alert(data.msg);
+					vidioList(currPage);
 				}
 			},
-			error:function(e){
-				console.log(e)
+			error:function(error){
+				console.log(error);
 			}
-		});
-	}
+	});
+}
 	
-	function printList(list){
-		console.log(list);
-		var content = "";
-		for(var i=0; i<list.length; i++){
-			content += "<tr>"
+function printList(list){
+	var content="";
+	for(var i=0; i<list.length; i++){
+		content+="<tr>"
 			+"<td>"+list[i].j_idx+"</td>"
 			+"<td>"+list[i].j_name+"</td>"
-			+"	<td>"
-				+"<a href='./detail?idx="+list[i].j_idx+"'>"
-				+list[i].j_title+"</a>";
-			
-			/*
-			if(list[i].newFileName != null){
-				content += "<img width='15px' src='resources/img/default.png'/>";
-			}	
-			*/
-			content +="</td>"
+			+"<td>"+list[i].j_title;+"</td>"
 			+"<td>"+list[i].j_vcount+"</td>"
-			+"</tr>"
+			+"</tr>";
 		}
+		
 		$("#list").empty();
 		$("#list").append(content);
 	}
@@ -154,7 +149,7 @@
 	function printPaging(allCnt, pageNum){
 		console.log("전체 게시물 :"+allCnt );
 		console.log("생성 가능 페이지 :"+pageNum );
-		console.log("현재 페이지 :"+currPage);
+		console.log("현재 페이지 :"+currPage);	
 		
 		 $("#pagenation").paginate({
 			count 		: pageNum,
@@ -171,11 +166,38 @@
 			images		: false,
 			mouse		: 'press',
 			onChange	: function(page){
-				listCall(page);
+				vidioList(page);
 			} 
 		});
-		
-	}
 	
+}
+ 
+/* //플러그인 사용
+function printPaging(count, page){
+	console.log("전체 게시물:"+count);
+	console.log("전체 페이지:"+page);
+	console.log("현재 페이지:"+currPage);
+	console.log($("#pagenation"));
+	
+	$("#pagenation").paginate({
+		count 		: page, //전체 페이지 수
+		start 		: currPage, //어느 페이지 부터 시작인가
+		display     : 5, //몇 개의 페이지까지 보여줄 것인가
+		border					: true,
+		border_color			: '#BEF8B8',
+		text_color  			: '#68BA64',
+		background_color    	: '#E3F2E1',	
+		border_hover_color		: '#68BA64',
+		text_hover_color  		: 'black',
+		background_hover_color	: '#CAE6C6', 
+		rotate      : false,
+		images		: false,
+		mouse		: 'press',
+		onChange : function(currPage){
+			listCall(currPage);
+		}
+	});
+
+} */
 	</script>
 </html>

@@ -10,16 +10,6 @@ public class MainController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-<<<<<<< HEAD
-=======
-	//이동수단
-	@RequestMapping(value = "/")
-	public String home() {
-		
-		return "index";
-
-	}
->>>>>>> master
 	
 	//메인페이지
 	@RequestMapping(value = "/")
@@ -91,14 +81,14 @@ public class MainController {
 		return "adModify";
 	}
 	
-<<<<<<< HEAD
+
 	//비디오
 	@RequestMapping(value = "/vidioList")
 	public String vidioList() {
 		
 		return "vidioList";
-=======
-	//매칭 상세보기
+	}
+	//매칭 상세보
 	@RequestMapping(value = "/matchDetail")
 	public String matchDetail() {
 		logger.info("매칭 상세보기");
@@ -132,7 +122,6 @@ public class MainController {
 	public String placeDetail() {
 		logger.info("장소목록 상세보기");
 		return "placeDetail";
->>>>>>> master
 	}
 	
 	//영상 상세보기
