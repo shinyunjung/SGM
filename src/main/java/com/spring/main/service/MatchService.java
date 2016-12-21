@@ -1,5 +1,6 @@
 package com.spring.main.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -85,7 +86,7 @@ public class MatchService {
 		int start=end-pagePerNum+1;
 		int allCnt=0;
 		if(input!=""){
-			allCnt = inter.searhCount(input, type);
+			allCnt = inter.mch_searhCount(input, type);
 			obj.put("list", inter.mch_searhCall(start, end, input, type));
 		}else{
 			allCnt = inter.mch_allCount();
@@ -118,7 +119,7 @@ public class MatchService {
 		Map<String, Object> json = new HashMap<String, Object>();
 		String input=params.get("input");
 		String type=params.get("type");
-		int allCnt = inter.searhCount(input, type);
+		int allCnt = inter.mch_searhCount(input, type);
 		json.put("count", allCnt);
 		return json;
 	}
@@ -139,7 +140,7 @@ public class MatchService {
 		String content = params.get("mch_content");
 		String prePosition = params.get("position");
 		String ground = params.get("ground");
-		int area = Integer.parseInt(params.get("gu"));
+		String area = params.get("gu");
 		String[] position = prePosition.split("/");
 		String lat = position[0];
 		String lng = position[1];
@@ -236,6 +237,36 @@ public class MatchService {
 		}
 		obj.put("msg", msg);
 		return obj;
+	}
+
+
+	public ModelAndView modify(Map<String, Object> params) {
+		ModelAndView mav = new ModelAndView();
+		inter=sqlSession.getMapper(MatchInterface.class);
+		int success=0;
+		String mch_idx=(String) params.get("mch_idx");
+		String t_idx=(String)params.get("t_idx");
+		String title =(String) params.get("mch_title");
+		String writer =(String) params.get("mch_name");
+		String date = (String)params.get("mch_date");
+		String time = (String)params.get("mch_time");
+		String type =(String) params.get("mch_type");
+		String age =(String) params.get("mch_age");
+		String content =(String) params.get("mch_content");
+		String prePosition =(String) params.get("position");
+		String ground =(String) params.get("ground");
+		String area = (String)params.get("gu");
+		String[] position = prePosition.split("/");
+		String lat = position[0];
+		String lng = position[1];
+		String state="대기";
+		
+		
+		logger.info(t_idx+"/"+title+"/"+writer+"/"+date+"/"+time+"/"+type+"/"+age+"/"+content+"/"+lat+"/"+lng+"/"+area+"/"+ground+"/"+state+"/"+mch_idx);
+		success = inter.mch_modify(t_idx, title, writer, date, time, type, age, content, lat, lng, area, ground, state, mch_idx);
+		mav.addObject("success", success);
+		mav.setViewName("matchList");
+		return mav;
 	}
 
 

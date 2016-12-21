@@ -1,6 +1,7 @@
 package com.spring.main.dao;
 
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import com.spring.main.dto.AreaDto;
@@ -17,7 +18,7 @@ public interface MatchInterface {
     ArrayList<MatchDto> mch_listCall(int start, int end);
     
     //매칭 게시글 개수(검색)
-    int searhCount(String input, String type);
+    int mch_searhCount(String input, String type);
     
     //매칭 리스트(검색)
     ArrayList<MatchDto> mch_searhCall(int start, int end, String input, String type);
@@ -27,7 +28,7 @@ public interface MatchInterface {
 
 	//매칭 글 쓰기
 	int mch_write(String t_idx, String title, String writer, String date, String time, String type, String age, String content,
-			String lat, String lng, int area, String ground, String state);
+			String lat, String lng, String area, String ground, String state);
 
 	//매칭 상세보기
 	MatchDto mch_detail(int idx);
@@ -45,5 +46,8 @@ public interface MatchInterface {
 	int mch_replyDel(String idx, String category);
 
 	void mch_repleDown(String parentIdx);
+
+	int mch_modify(String t_idx, String title, String writer, String date, String time, String type, String age,
+			String content, String lat, String lng, String area, String ground, String state, String mch_idx);
 
 }

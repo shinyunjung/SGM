@@ -115,13 +115,21 @@ public class MatchController {
 	}
 	
 	
-	//매칭수정
+	//매칭수정페이지
 	@RequestMapping(value = "/matchModify")
 	public ModelAndView matchModify(@RequestParam("idx") int idx) {
 		logger.info("매칭수정");
 		modFlag=true;
 		return service.detail(idx, modFlag);
 	}
+	
+	//수정
+	@RequestMapping(value = "/modify")
+	public ModelAndView modify(@RequestParam Map<String, Object> params) {
+		logger.info("매칭수정");
+		return service.modify(params);
+	}
+	
 	//경기일정
 	@RequestMapping(value = "/calendar")
 	public String calendar() {

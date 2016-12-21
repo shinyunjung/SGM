@@ -196,16 +196,18 @@
 	$(document).ready(function(){
 		var frm = document.getElementById('mainForm');
 		var no=0;
+		var valCnt=0;
 		
-		frm['mch_type'].options[0] = new Option('축구', '축구');
-		frm['mch_type'].options[1] = new Option('풋살', '풋살');
+		frm['mch_type'].options[0] = new Option('축구', 1);
+		frm['mch_type'].options[1] = new Option('풋살', 2);
 		for(var i=1; i<7; i++){
 			for(var j=0; j<2; j++){
 				var l = i+1;
+				valCnt++;
 				if(j<1){
-					frm['mch_age'].options[no] = new Option(i+'0대', i+'0대');
+					frm['mch_age'].options[no] = new Option(i+'0대', valCnt);
 				}else{
-					frm['mch_age'].options[no] = new Option(i+'0대~'+l+'0대', i+'0대~'+l+'0대');
+					frm['mch_age'].options[no] = new Option(i+'0대~'+l+'0대', valCnt);
 				}
 				no++;
 			}

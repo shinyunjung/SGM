@@ -97,6 +97,11 @@
 									<td class="borderLeft">조회수</td>
 									<td class="borderLeft">${detail.mch_vcount}</td>
 								</tr>
+								<tr>
+									<td>
+										
+									</td>
+								</tr>
 							</thead>
 							<tbody>
 								<tr>
@@ -158,7 +163,7 @@
 							<td class="right"><button onclick="delMsg()">x</button></td>
 						</tr>
 						<tr class="center borderTop">
-							<td class="borderRight sender">보낸 이 : <input type="text" id="send" readonly/></td>
+							<td class="borderRight sender" id="sender">보낸 이 : </td>
 							<td class="sender">받는 이 : <input type="text" value="${detail.mch_name}" id="reception" readonly/></td>
 						</tr>
 						<tr class="borderTop">
@@ -181,12 +186,25 @@
 		</div>
 	</body>
 	<script>
+		var url="";
+		var data={};
+		var userIdx="${sessionScope.userIdx}";
 		var repleCnt=0;
 		areaSearch("${detail.mch_lat}", "${detail.mch_lng}");
+		
 		function mchMsg(){
 			console.log("신청");
 			$("#matchMsg").css("display","block");
+			selectTeam(userIdx);
 		}
+		
+		function selectTeam(idx){
+			console.log(idx);
+			url="../selectTeam";
+			data.idx=idx;
+			reqServer(url, data);
+		}
+		
 		
 		function sendMsg(){
 			
@@ -215,7 +233,7 @@
 			data.replyer="${sessionScope.userId}"; 
 			data.reple=$("#reple").val();
 			console.log(data);
-			sendServer(url, data);
+			reqServer(url, data);
 		});
 		
 		function replyList(){
@@ -225,7 +243,7 @@
 			data.category=4;
 			console.log(data);
 			console.log("댓글 리스트");
-			sendServer(url, data);
+			reqServer(url, data);
 		}
 		
 		function printReple(list){
@@ -259,10 +277,10 @@
 			data.parent="${detail.mch_idx }";
 			data.category=4;
 			console.log(data);
-			sendServer(url, data);
+			reqServer(url, data);
 		}
 		
-		function sendServer(url, obj){
+		function reqServer(url, obj){
 			console.log(url);
 			console.log(obj);
 			$.ajax({
@@ -283,12 +301,38 @@
 						console.log("댓글 삭제");
 						alert(data.msg);
 						replyList();
+					}else if(url=="../selectTeam"){
+						console.log("쪽지에서 함");
+						console.log(data.userTeam);
+						printSelect(data.userTeam);
 					}
 				},
 				error:function(error){
 					console.log(error);
 				}
 			});
+		}
+		
+		
+		function printSelect(data){
+			console.log("printSelect")
+			var content="보낸이 : ";
+			content+="<input type='hidden' name='mch_name' value="+data[0].t_name+" />";
+			content+="<select name='t_idx' class='select' onchange='teamValue()'>";
+			for(var i=0; i<data.length; i++){
+				content+="<option value="+data[i].t_idx+"  >"+data[i].t_name+"</option>";
+			}
+			content+="</select>";
+			$("#sender").empty();
+			$("#sender").append(content);
+		}
+		
+		function teamValue(){
+			var input = document.getElementsByName("mch_name");
+			var value = $("select[name='t_idx']").val();
+			var t_name=$("option[value='"+value+"']").html();
+			input.value=t_name;
+			
 		}
 	</script>
 </html>

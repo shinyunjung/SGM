@@ -134,7 +134,9 @@
 			var url="../../main/userSearch";
 			var data={};
 			data.userId=userId;
-			reqServer(url, data);
+			sendServer(url, data);
+		}else{
+			
 		}
 		
 		function logoId(){
@@ -152,10 +154,10 @@
 			var url="../../main/selectTeam";
 			var data={};
 			data.idx=u_idx;
-			reqServer(url, data); 
+			sendServer(url, data); 
 		}
 		
-		function reqServer(url, data){
+		function sendServer(url, data){
 			$.ajax({
 				url:url,
 				type:"post",

@@ -59,31 +59,34 @@
 				</div>
 				<div class="col5 content">
 				<fieldset>
-					<legend>글쓰기</legend>
+					<legend>글수정</legend>
 				</fieldset>
-					<form action="write" method="post" id="mainForm">
+					<form action="modify" method="post" id="mainForm">
 						<table class="detailTable">
 								<tr class="borderTop">
-									<td colspan="4"><input type="text" name="mch_title" placeholder="제목"/></td>
+									<td colspan="4">
+										<input type="text" name="mch_title" value="${detail.mch_title}" />
+										<input type="hidden" name="mch_idx" value="${detail.mch_idx}" />
+									</td>
 								</tr>
 								<tr class="borderTop">
-									<td colspan="4"><input type="text" name="mch_name" value="123" readonly/></td>
+									<td colspan="4" class="messenger"></td>
 								</tr>
 								<tr class="borderTop">
 									<th>경기날짜</th>
-									<td><input type="date" name="mch_date" value="" /></td>
+									<td><input type="date" name="mch_date" value="${detail.mch_date}" /></td>
 									<th>경기시간</th>
-									<td><input type="time" name="mch_time" value=""/></td>
+									<td><input type="time" name="mch_time" value="${detail.mch_time}"/></td>
 								</tr>
 								<tr class="borderTop">
 									<th>유형</th>
-									<td><select name="mch_type"></select></td>
+									<td><select name="mch_type" ></select></td>
 									<th>연령대</th>
 									<td><select name="mch_age"></select></td>
 								</tr>
 								<tr class="borderTop">
 									<td colspan="4">
-										<textarea rows="17" name="mch_content"></textarea>
+										<textarea rows="17" name="mch_content">${detail.mch_content}</textarea>
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -143,6 +146,56 @@
 	<script>
 	var url="";
 	var data={};
+	var userIdx="${sessionScope.userIdx}";
+	var change=false;
+	$("document").ready(function(){
+		console.log(userIdx);
+		selectTeam(userIdx);
+		var position="${detail.mch_lat}"+"/"+"${detail.mch_lng}";
+		console.log(position);
+		areaSearch("${detail.mch_lat}", "${detail.mch_lng}");
+		$("input [name='position']").attr("checked",true);
+		
+	});
+	
+	$(document).ready(function(){
+		var frm = document.getElementById('mainForm');
+		var no=0;
+		var valCnt=0;
+		var age="${detail.mch_age}";
+		var type="${detail.mch_type}";
+		console.log(age+"/"+type);
+		frm['mch_type'].options[0] = new Option('축구', 1);
+		frm['mch_type'].options[1] = new Option('풋살', 2);
+		for(var i=1; i<7; i++){
+			for(var j=0; j<2; j++){
+				var l = i+1;
+				valCnt++;
+				if(j<1){
+					frm['mch_age'].options[no] = new Option(i+'0대', valCnt);
+				}else{
+					frm['mch_age'].options[no] = new Option(i+'0대~'+l+'0대', valCnt);
+				}
+				no++;
+			}
+		}
+		$("select[name='mch_age'] option:eq("+(age-1)+")").attr("selected","selected");
+		$("select[name='mch_type'] option:eq("+(type-1)+")").attr("selected","selected");
+		
+	});
+	
+	
+	
+	
+	
+	
+	function selectTeam(idx){
+		url="../selectTeam";
+		data.idx=idx;
+		reqServer(url, data);
+	}
+	
+	
 	$(".btn-info").click(function(){
 		url="../match/areaList";
 		$("#popup").css("display","block");
@@ -165,6 +218,10 @@
 				console.log(data);
 				if(url=="../match/areaList"){
 					printArea(data.area);
+				}else if(url=="../selectTeam"){
+					console.log("수정페이지에서 함");
+					console.log(data.userTeam);
+					printSelect(data.userTeam);
 				}
 			},
 			error:function(error){
@@ -176,24 +233,7 @@
 	$(".cancel").click(function(){
 		$("#popup").css("display","none");
 	});
-	$(document).ready(function(){
-		var frm = document.getElementById('mainForm');
-		var no=0;
-		
-		frm['mch_type'].options[0] = new Option('축구', '축구');
-		frm['mch_type'].options[1] = new Option('풋살', '풋살');
-		for(var i=1; i<7; i++){
-			for(var j=0; j<2; j++){
-				var l = i+1;
-				if(j<1){
-					frm['mch_age'].options[no] = new Option(i+'0대', i+'0대');
-				}else{
-					frm['mch_age'].options[no] = new Option(i+'0대~'+l+'0대', i+'0대~'+l+'0대');
-				}
-				no++;
-			}
-		}
-	});
+	
 	
 	$(".btn-primary").click(function(){
 		var mch_date=$("input[type='date']").val();
@@ -222,6 +262,28 @@
 	function checkMap(lat, lng){
 		console.log(lat, lng);
 		console.log($("input[name='position']:checked").val());
+		areaSearch(lat, lng);
+	}
+	
+	function printSelect(data){
+		var content="";
+		var t_idx="${detail.t_idx}";
+		content+="<input type='hidden' name='mch_name' value="+data[0].t_name+" />";
+		content+="<select name='t_idx' class='select' onchange='teamValue()'>";
+		for(var i=0; i<data.length; i++){
+			content+="<option value="+data[i].t_idx+"  >"+data[i].t_name+"</option>";
+		}
+		content+="</select>";
+		$(".messenger").empty();
+		$(".messenger").append(content);
+		$("select[name='t_idx'] option:eq("+(t_idx-1)+")").attr("selected","selected");
+	}
+	
+	function teamValue(){
+		var input = document.getElementsByName("mch_name");
+		var value = $("select[name='t_idx']").val();
+		var t_name=$("option[value='"+value+"']").html();
+		input.value=t_name;
 		
 	}
 	</script>
