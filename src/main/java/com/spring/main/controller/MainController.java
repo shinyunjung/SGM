@@ -42,6 +42,13 @@ public class MainController {
 			return "index";
 	}
 	
+	//메인페이지
+		@RequestMapping(value = "/loginPage")
+		public String login() {
+					
+			return "login";
+		}
+		
 	//로그인 처리
 	@RequestMapping(value="/login")
 	public ModelAndView login(@RequestParam Map<String, Object> params
