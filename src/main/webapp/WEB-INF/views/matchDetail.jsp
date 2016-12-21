@@ -132,7 +132,7 @@
 						<div id="replyZone">
 							<table class="repleBox borderTop">
 								<tr>
-									<td class="user">등록자</td>
+									<td class="user">${sessionScope.userId}</td>
 									<td class="data"><textarea rows="3" id="reple"></textarea></td>
 									<td class="repleBtn"><button class="repleGo">댓글등록</button></td>
 								</tr>
@@ -212,8 +212,7 @@
 			var data={};
 			data.idx="${detail.mch_idx}";
 			data.category=4;
-			/* data.replyer="${sessionScope.userId}"; */
-			data.replyer="등록자";
+			data.replyer="${sessionScope.userId}"; 
 			data.reple=$("#reple").val();
 			console.log(data);
 			sendServer(url, data);
@@ -231,7 +230,7 @@
 		
 		function printReple(list){
 			var content="";
-			var user="등록자";
+			var user="${sessionScope.userId}";
 			console.log(user);
 			repleCnt=list.length;
 			for(var i=0; i<list.length; i++){
@@ -257,6 +256,7 @@
 			var url="../match/replyDel";
 			var data={};
 			data.idx=idx;
+			data.parent="${detail.mch_idx }";
 			data.category=4;
 			console.log(data);
 			sendServer(url, data);

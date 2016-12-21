@@ -129,7 +129,7 @@ public class MatchService {
 		ModelAndView mav = new ModelAndView();
 		inter=sqlSession.getMapper(MatchInterface.class);
 		int success=0;
-		int t_idx=1;
+		String t_idx=params.get("t_idx");
 		String title = params.get("mch_title");
 		String writer = params.get("mch_name");
 		String date = params.get("mch_date");
@@ -226,10 +226,12 @@ public class MatchService {
 		inter=sqlSession.getMapper(MatchInterface.class);
 		String idx=params.get("idx");
 		String category=params.get("category");
+		String parentIdx = params.get("parent");
 		String msg="삭제에 실패했습니다.";
 		
 		success=inter.mch_replyDel(idx, category);
 		if(success==1){
+			inter.mch_repleDown(parentIdx);
 			msg="삭제에 성공했습니다.";
 		}
 		obj.put("msg", msg);

@@ -3,8 +3,8 @@ package com.spring.main.dto;
 import java.sql.Date;
 
 public class MatchDto {
-	private int mch_idx;
-	private int t_idx;
+	private String mch_idx;
+	private String t_idx;
 	private String mch_name;
 	private String mch_area;
 	private String mch_ground;
@@ -20,16 +20,17 @@ public class MatchDto {
 	private String mch_state;
 	private String mch_lat;
 	private String mch_lng;
-	public int getMch_idx() {
+	
+	public String getMch_idx() {
 		return mch_idx;
 	}
-	public void setMch_idx(int mch_idx) {
+	public void setMch_idx(String mch_idx) {
 		this.mch_idx = mch_idx;
 	}
-	public int getT_idx() {
+	public String getT_idx() {
 		return t_idx;
 	}
-	public void setT_idx(int t_idx) {
+	public void setT_idx(String t_idx) {
 		this.t_idx = t_idx;
 	}
 	public String getMch_name() {

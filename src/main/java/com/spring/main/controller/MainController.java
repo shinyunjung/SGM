@@ -1,5 +1,6 @@
 package com.spring.main.controller;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,8 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.MemberDto;
+import com.spring.main.dto.SelectTeamDto;
+import com.spring.main.dto.UserDto;
 import com.spring.main.service.BoardService;
 
 @Controller("MainController")
@@ -19,6 +24,8 @@ public class MainController {
 	
 	@Autowired
 	BoardService service;
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//메인페이지
 		@RequestMapping(value = "/")
@@ -34,8 +41,6 @@ public class MainController {
 			
 			return "index";
 	}
-
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//로그인 처리
 	@RequestMapping(value="/login")
@@ -106,17 +111,17 @@ public class MainController {
 		return "teamDetail";
 	}
 	
-	//팀 일지 상세보기
-	@RequestMapping(value = "/tdDetail")
-	public String tdDetail() {
-		logger.info("팀 일지 상세보기");
-		return "tdDetail";
+	//회원이 속한 정보 찾기
+	@RequestMapping(value = "/selectTeam")
+	public @ResponseBody Map<String, ArrayList<SelectTeamDto>> selectTeam(@RequestParam("idx") String idx) {
+		logger.info("회원이 속한 팀 정보 찾기");
+		return service.selectTeam(idx);
 	}
 	
-	//팀 정보 수정
-		@RequestMapping(value = "/teamModify")
-		public String teamModify() {
-			logger.info("팀 정보 수정");
-			return "teamModify";
-		}
+	//회원 정보 찾기
+	@RequestMapping(value = "/userSearch")
+	public @ResponseBody Map<String, UserDto> userSearch(@RequestParam Map<String, String> params) {
+		logger.info("회원정보 찾기");
+		return service.userSearch(params);
+	}
 }

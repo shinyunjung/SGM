@@ -3,64 +3,69 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-<mapper namespace="com.spring.main.dao.BoardInterface">
+<mapper namespace="com.spring.main.dao.MatchInterface">
 	
 	<!-- 게시물 전채 개수 -->
-	<select id="allCount" resultType="Integer">
+	<select id="mch_allCount" resultType="Integer">
 		SELECT COUNT(*) FROM matching
 	</select>
 	
 	<!-- 검색 후 게시물 전채 개수 -->
-	<select id="searhCount" resultType="Integer" >
+	<select id="mch_searhCount" resultType="Integer" >
 		SELECT COUNT(*) FROM matching WHERE ${param2} like '%'||#{param1}||'%'
 	</select>
 	
 	<!-- 리스트 불러오기 -->
-	<select id="listCall" resultType="com.spring.main.dto.MatchDto">
+	<select id="mch_listCall" resultType="com.spring.main.dto.MatchDto">
 		SELECT mch_idx,mch_name , mch_area, mch_ground, mch_age, mch_type, mch_time, mch_content, mch_title, mch_wrdate, mch_reple, mch_vcount, mch_date, mch_state, mch_lat, mch_lng FROM (
 			SELECT mch_idx, mch_name , mch_area, mch_ground, mch_age, mch_type, mch_time, mch_content, mch_title, mch_wrdate, mch_reple, mch_vcount, mch_date, mch_state, mch_lat, mch_lng, ROW_NUMBER() OVER(ORDER BY mch_idx DESC) AS rnum FROM matching
   		)WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
 	<!-- 검색 후 리스트 추가 -->
-	<select id="searhCall" resultType="com.spring.main.dto.MatchDto">
+	<select id="mch_searhCall" resultType="com.spring.main.dto.MatchDto">
 		SELECT mch_idx,mch_name , mch_area, mch_ground, mch_age, mch_type, mch_time, mch_content, mch_title, mch_wrdate, mch_reple, mch_vcount, mch_date, mch_state, mch_lat, mch_lng FROM (
 			SELECT mch_idx, mch_name , mch_area, mch_ground, mch_age, mch_type, mch_time, mch_content, mch_title, mch_wrdate, mch_reple, mch_vcount, mch_date, mch_state, mch_lat, mch_lng, ROW_NUMBER() OVER(ORDER BY mch_idx DESC) AS rnum FROM matching
   		WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
 	<!-- 장소목록 불러오기 -->
-	<select id="areaList" resultType="com.spring.main.dto.AreaDto">
+	<select id="mch_areaList" resultType="com.spring.main.dto.AreaDto">
 		SELECT a_idx, u_idx, a_name, a_area, a_lat, a_lng  FROM area
 	</select>
 	
 	<!-- 매칭 리스트 추가 -->
-	<insert id="write">
+	<insert id="mch_write">
 		INSERT INTO matching(mch_idx, t_idx, mch_title, mch_name, mch_date, mch_time, mch_type, mch_age, mch_content, mch_lat, mch_lng, mch_area, mch_ground, mch_state) VALUES(matching_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10}, #{param11}, #{param12}, #{param13})
 	</insert>
 	
 	<!-- 매칭 상세보기 -->
-	<select id="detail" resultType="com.spring.main.dto.MatchDto">
+	<select id="mch_detail" resultType="com.spring.main.dto.MatchDto">
 		SELECT * FROM matching WHERE mch_idx=#{param1}
 	</select>
 	
 	<!-- 댓글 등록 -->
-	<insert id="replyRegist">
+	<insert id="mch_replyRegist">
 		INSERT INTO reple(r_idx, r_category, parent_idx, r_writer, r_reple) VALUES(reple_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4})
 	</insert>
 	
 	<!-- 댓글 수 업 -->
-	<update id="replyUp">
+	<update id="mch_replyUp">
 		UPDATE matching SET mch_reple=mch_reple+1 WHERE mch_idx=#{param1}
 	</update>
 	
+	<!-- 댓글 수 다운 -->
+	<update id="mch_repleDown">
+		UPDATE matching SET mch_reple=mch_reple-1 WHERE mch_idx=#{param1}
+	</update>
+	
 	<!-- 댓글 리스트 -->
-	<select id="replyList" resultType="com.spring.main.dto.RepleDto">
-		SELECT * FROM reple WHERE parent_idx=#{param1} AND r_category=#{param2}
+	<select id="mch_replyList" resultType="com.spring.main.dto.RepleDto">
+		SELECT * FROM reple WHERE parent_idx=#{param1} AND r_category=#{param2} ORDER BY r_idx ASC
 	</select>
 	
 	<!-- 댓글 삭제 -->
-	<delete id="replyDel">
+	<delete id="mch_replyDel">
 		DELETE FROM reple WHERE r_idx=#{param1} AND r_category=#{param2}
 	</delete>
 </mapper>

@@ -26,7 +26,7 @@ public interface MatchInterface {
 	ArrayList<AreaDto> mch_areaList();
 
 	//매칭 글 쓰기
-	int mch_write(int t_idx, String title, String writer, String date, String time, String type, String age, String content,
+	int mch_write(String t_idx, String title, String writer, String date, String time, String type, String age, String content,
 			String lat, String lng, int area, String ground, String state);
 
 	//매칭 상세보기
@@ -43,5 +43,7 @@ public interface MatchInterface {
 
 	//매칭 댓글 삭제
 	int mch_replyDel(String idx, String category);
+
+	void mch_repleDown(String parentIdx);
 
 }

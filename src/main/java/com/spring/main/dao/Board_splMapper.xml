@@ -4,8 +4,8 @@
  <mapper namespace="com.spring.main.dao.BoardInterface">
  
  	<!-- 로그인 처리 -->
- 	<select id="login" resultType="String">
- 		SELECT u_id FROM USER1 
+ 	<select id="login" resultType="com.spring.main.dto.LoginDto">
+ 		SELECT u_id, u_idx FROM USER1 
  			WHERE u_id=#{param1} AND u_pass=#{param2}
  	</select>
  	
@@ -21,5 +21,20 @@
  				user1_seq.NEXTVAL,#{u_id},#{u_pass},#{u_name},#{u_age},#{u_gender},#(u_phnum),#{u_mail}
  			)
  	</insert>
-	    
+	
+	
+	<!-- 유저 정보 -->
+	<select id="userSearch" resultType="com.spring.main.dto.UserDto">
+		SELECT * FROM user1 WHERE u_id= #{param1}
+	</select>    
+	
+	<!-- 유저가 속한 팀 정보 -->
+	<select id="selectTeam" resultType="com.spring.main.dto.SelectTeamDto">
+		SELECT m.t_idx, t.t_name FROM memver m, team t WHERE m.u_idx=(SELECT u_idx FROM user1 WHERE u_idx=#{param1}) and m.t_idx=t.t_idx
+	</select>
+	
+	<!-- 유저의 idx 출력(세션화) -->
+	<select id="userIdx" resultType="String">
+		SELECT u_idx FROM user1 WHERE u_id=#{param1}
+	</select>
 </mapper>

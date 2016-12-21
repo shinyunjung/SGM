@@ -64,10 +64,12 @@
 					<form action="write" method="post" id="mainForm">
 						<table class="detailTable">
 								<tr class="borderTop">
-									<td colspan="4"><input type="text" name="mch_title" placeholder="제목"/></td>
+									<td colspan="4">
+										<input type="text" name="mch_title" placeholder="제목"/>
+									</td>
 								</tr>
 								<tr class="borderTop">
-									<td colspan="4" class="messenger"><input type="text" name="mch_name" value="123" readonly/></td>
+									<td colspan="4" class="messenger"></td>
 								</tr>
 								<tr class="borderTop">
 									<th>경기날짜</th>
@@ -143,10 +145,16 @@
 	<script>
 	var url="";
 	var data={};
+	var userIdx="${sessionScope.userIdx}";
 	$("document").ready(function(){
-		console.log("시작")	;
+		selectTeam(userIdx);
 	});
 	
+	function selectTeam(idx){
+		url="../selectTeam";
+		data.idx=idx;
+		reqServer(url, data);
+	}
 	
 	$(".btn-info").click(function(){
 		url="../match/areaList";
@@ -170,6 +178,10 @@
 				console.log(data);
 				if(url=="../match/areaList"){
 					printArea(data.area);
+				}else if(url=="../selectTeam"){
+					console.log("쓰기페이지에서 함");
+					console.log(data.userTeam);
+					printSelect(data.userTeam);
 				}
 			},
 			error:function(error){
@@ -230,5 +242,26 @@
 		areaSearch(lat, lng);
 		
 	}
+	
+	function printSelect(data){
+		var content="";
+		content+="<input type='hidden' name='mch_name' value="+data[0].t_name+" />";
+		content+="<select name='t_idx' class='select' onchange='teamValue()'>";
+		for(var i=0; i<data.length; i++){
+			content+="<option value="+data[i].t_idx+"  >"+data[i].t_name+"</option>";
+		}
+		content+="</select>";
+		$(".messenger").empty();
+		$(".messenger").append(content);
+	}
+	
+	function teamValue(){
+		var input = document.getElementsByName("mch_name");
+		var value = $("select[name='t_idx']").val();
+		var t_name=$("option[value='"+value+"']").html();
+		input.value=t_name;
+		
+	}
+	
 	</script>
 </html>

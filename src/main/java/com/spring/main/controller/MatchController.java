@@ -32,6 +32,29 @@ public class MatchController {
 		
 		return "matchList";
 	}
+	
+	//리스트 요청
+		@RequestMapping(value="/listCall")
+		public @ResponseBody Map<String, Object> listCall(@RequestParam Map<String, String> params){
+			logger.info("리스트 요청");
+			return service.listCall(params);
+		}
+		
+		//검색 요청
+		@RequestMapping(value="/search")
+		public @ResponseBody Map<String, Object> search(@RequestParam Map<String, String> params){
+			logger.info("검색 요청");
+			return service.search(params);
+		}
+		
+		//검색 후 리스트 요청
+		@RequestMapping(value="/searchCall")
+		public @ResponseBody Map<String, Object> searchCall(@RequestParam Map<String, String> params){
+			logger.info("리스트 요청");
+			return service.searchCall(params);
+		}
+	
+	
 	//매칭상세
 	@RequestMapping(value = "/matchDetail")
 	public ModelAndView matchDetail(@RequestParam("idx") int idx) {

@@ -153,9 +153,12 @@
 						</table>
 					</form>
 		    	</div>
-		    	<jsp:include page="../../resources/include/footer.jsp" />
 		  </div>
-		  </div>	
+		  </div>
+		  <jsp:include page="../../resources/include/footer.jsp" />
 	</body>
-	<script></script>
+	<script>
+		var user="${sessionScope.userId}";
+		console.log(user);
+	</script>
 </html>

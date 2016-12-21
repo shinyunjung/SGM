@@ -93,9 +93,10 @@
 		var search=false;
 		var input = "";
 		var type="mch_title";
-		 $("document").ready(function(){
+		
+		$(document).ready(function(){
 			listCall(currPage);
-		}); 
+		});
 		
 		$("#pagePerNum").change(function(){
 			searchCall(currPage);
@@ -107,7 +108,7 @@
 		});
 		
 		function Search(){
-			var url="../rest/search";
+			var url="../match/search";
 			var data={};
 			if($(".input").val()!=""){
 				console.log("검색");
@@ -128,7 +129,7 @@
 		
 		function searchCall(currPage){
 			if(currPage>=1 && currPage<=totalPage){
-				var url="../rest/searchCall";
+				var url="../match/searchCall";
 				var data={};
 				search=true;
 				console.log($(".input").val());
@@ -150,7 +151,7 @@
 		
 		function listCall(currPage){
 			if(currPage>=1 && currPage<=totalPage){
-				var url="../rest/listCall";
+				var url="../match/listCall";
 				var data={};
 				data.page=currPage;
 				data.pagePerNum=$("#pagePerNum").val();
@@ -169,13 +170,13 @@
 				dataType:"JSON",
 				success:function(data){
 					console.log(data);
-					if(url=="../rest/listCall"){
+					if(url=="../match/listCall"){
 						printList(data.jsonList.list);
 						currPage=data.currPage;
 						totalPage=data.totalPage;
 						printPaging(data.totalCount, data.totalPage); 
 					}
-					else if(url=="../rest/search"){
+					else if(url=="../match/search"){
 						if(data.count!=0){
 							console.log(data.count);
 							searchCall(1);
@@ -183,7 +184,7 @@
 							alert("검색 결과가 없습니다.");
 						}
 					}
-					else if(url=="../rest/searchCall"){
+					else if(url=="../match/searchCall"){
 						console.log("검색 종료");
 						printList(data.jsonList.list);
 						currPage=data.currPage;
@@ -211,6 +212,7 @@
 			
 			$("#list").empty();
 			$("#list").append(content);
+			logoId();
 		}
 	
 	

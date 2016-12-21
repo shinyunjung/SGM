@@ -18,6 +18,11 @@
 				margin: 0 auto;
 				margin-bottom: 20px;
 			}
+			
+			.userMsg{
+				width: 1080px;
+				text-align: right;
+			}
 			#logoImg{
 				width: 300px;
 				height: 100px; 
@@ -111,9 +116,84 @@
 	<body>
 		<div class="layer">
 			<div id="logo" >
-				 <a href="index"><img id="logoImg" src="../../main/resources/include/img/logo.jpg" /></a>
+				 <a href="../index"><img id="logoImg" src="../../main/resources/include/img/logo.jpg" /></a>
+			</div>
+			<div class="userMsg">
+				
 			</div>
 		</div>
 	</body>
-	<script></script>
+	<script>
+		var userId="${sessionScope.userId}";
+		var userIdx="${sessionScope.userIdx}";
+		var userData={};
+		var teamData={};
+		console.log(userId);
+		console.log(userIdx);
+		if(userId!=""){
+			var url="../../main/userSearch";
+			var data={};
+			data.userId=userId;
+			reqServer(url, data);
+		}
+		
+		function logoId(){
+			if(userId!=""){
+				var url="../../main/userSearch";
+				var data={};
+				data.userId=userId;
+				reqServer(url, data);
+			}
+		}
+		
+		
+		function selectTeam(u_idx){
+			console.log("selectTeam");
+			var url="../../main/selectTeam";
+			var data={};
+			data.idx=u_idx;
+			reqServer(url, data); 
+		}
+		
+		function reqServer(url, data){
+			$.ajax({
+				url:url,
+				type:"post",
+				data:data,
+				dataType:"JSON",
+				success:function(data){
+					console.log(data);
+					if(url=="../../main/userSearch"){
+						console.log("유저확인");
+						selectTeam(data.user.u_idx);
+						userData=data.user;
+						console.log(userData);
+					}else if(url=="../../main/selectTeam"){
+						console.log("팀정보 확인");
+						teamData=(data.userTeam);
+						console.log(teamData.length);
+						printUser(userData.u_name, teamData);
+						
+					}
+				},
+				error:function(error){
+					console.log(error);
+				}
+			});
+		}
+		
+		function printUser(name, data){
+			console.log(name);
+			var content="";
+			content+="<select>"
+			+"<option value=0>내가 가입한 팀: </option>";
+			for(var i=0; i<data.length; i++){
+				content+="<option value="+data[i].t_idx+" >"+data[i].t_name+"</option>";
+			}
+			content+="</select>";
+			content+=" "+name+" 님 안녕하세요";
+			$(".userMsg").empty();
+			$(".userMsg").append(content);
+		}
+	</script>
 </html>
