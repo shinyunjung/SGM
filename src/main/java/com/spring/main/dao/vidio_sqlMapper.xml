@@ -17,8 +17,7 @@
   				j_filenum,
   				j_vcount,
   				j_reple,
-  					ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum 
-  				FROM board)
+  					ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board)
 		WHERE rnum BETWEEN #{param1} AND #{param2}
  	</select>
  	
