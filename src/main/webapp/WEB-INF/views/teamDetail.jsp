@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -68,9 +69,9 @@
 									<th class="score">승</th>
 									<th class="score">무</th>
 									<th class="score">패</th>
-									<td class="score">0</td>
-									<td class="score">0</td>
-									<td class="score">0</td>
+									<td class="score">${team.t_win}</td>
+									<td class="score">${team.t_draw}</td>
+									<td class="score">${team.t_lose}</td>
 									<th>포인트</th>
 									<td>OOO</td>
 									<th>경기수</th>
@@ -101,8 +102,14 @@
 								<th colspan="4">평가 정보</th>
 							</tr>
 							<tr>
-								<td class="normal">OOO</td>
-								<td class="normal">OOO</td>
+								<td class="normal">매너</td>
+								<td class="normal">
+								<c:set var="sum" value="0"/>
+								<c:forEach items="${evalue}" var="i">
+									<c:set var="sum" value="${sum+i.ev_manner}"/>
+								</c:forEach>
+								<fmt:formatNumber value="${sum/3}" type="pattern" pattern="0"/>
+								</td>
 								<td class="normal">OOO</td>
 								<td class="normal">OOO</td>
 							</tr>
@@ -163,5 +170,7 @@
 		</div>
 		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
-	<script></script>
+	<script>
+	alert(n.toFixed(0));
+	</script>
 </html>

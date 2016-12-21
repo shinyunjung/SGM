@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.TeamService;
 
@@ -35,9 +36,9 @@ public class TeamController {
 	}
 	//팀상세
 	@RequestMapping(value = "/teamDetail")
-	public String teamDetail() {
+	public ModelAndView teamDetail(@RequestParam("t_idx") String t_idx) {
 		logger.info("팀상세");
-		return "teamDetail";
+		return service.teamDetail(t_idx);
 	}
 	//멤버등록
 	@RequestMapping(value = "/memberUpdate")

@@ -23,7 +23,32 @@
 	</select>
 	
 	<!-- 검색게시물 수 -->
-	<select id="searchallCount" resultType="Integer">
+	<select id="searchCount" resultType="Integer">
 		SELECT COUNT(*) FROM team1 WHERE t_name LIKE '%'||#{param1}||'%'
+	</select>
+	
+	<!-- 팀상세 -->
+	<select id="teamDetail" resultType="com.spring.main.dto.TeamDto">
+		SELECT * FROM team1 WHERE t_idx = #{param1}
+	</select>
+	
+	<!-- 멤버 -->
+	<select id="memberCall" resultType="com.spring.main.dto.MemberDto">
+		SELECT * FROM memver WHERE t_idx = #{param1}
+	</select>
+	
+	<!-- 평가 -->
+	<select id="evalueCall" resultType="com.spring.main.dto.EvalueDto">
+		SELECT * FROM evalue WHERE t_idx = #{param1}
+	</select>
+	
+	<!-- 평가수 -->
+	<select id="evalueCount" resultType="Integer">
+		SELECT COUNT(*) FROM evalue WHERE t_idx = #{param1}
+	</select>
+	
+	<!-- 멤버수 -->
+	<select id="memberCount" resultType="Integer">
+		SELECT COUNT(*) FROM memver WHERE t_idx = #{param1}
 	</select>
 </mapper>

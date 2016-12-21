@@ -9,8 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.TeamInterface;
+import com.spring.main.dto.EvalueDto;
 import com.spring.main.dto.TeamDto;
 
 
@@ -41,7 +43,7 @@ public class TeamService {
 		String t_name = params.get("t_name");
 		logger.info(t_name);
 		if(t_name!=""){
-			allCnt = inter.searchallCount(t_name); //전체 게시물 수
+			allCnt = inter.searchCount(t_name); //전체 게시물 수
 			obj.put("list", inter.search(t_name));
 			logger.info("검색");
 		}else{
@@ -74,5 +76,24 @@ public class TeamService {
 		return obj;
 	}
 */
+
+	public ModelAndView teamDetail(String t_idx) {
+		
+		inter = sqlSession.getMapper(TeamInterface.class);
+		ModelAndView mav = new ModelAndView();
+		ArrayList<EvalueDto> list = new ArrayList<EvalueDto>();
+		EvalueDto info = new EvalueDto();
+		ArrayList<EvalueDto> evalue = inter.evalueCall(t_idx);
+		logger.info(t_idx);
+
+		mav.addObject("team",inter.teamDetail(t_idx));
+		mav.addObject("evalue",evalue);
+		mav.addObject("evCnt",inter.evalueCount(t_idx));
+		mav.addObject("member",inter.memberCall(t_idx));
+		mav.addObject("meCount",inter.memberCount(t_idx));
+		mav.setViewName("teamDetail");
+		
+		return mav;
+	}
 
 }

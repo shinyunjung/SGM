@@ -158,7 +158,8 @@
 		$("#paging").empty();
 		var start;	//페이지 시작
 		var end;	//페이지 끝
-		var range = (currPage/5);	//다음 페이지 있는지 여부
+		var range = Math.floor(currPage/5);	//다음 페이지 있는지 여부
+		
 		var content = "<ul class='pagination pagination-sm'>"
    			+"<li class='page-item first'><a href='#' onclick='listCall(1)'>First</a></li>"
    			+"<li class='page-item prev'><a href='#' onclick='listCall("+(currPage-1)+")'>Previous</a></li>";
