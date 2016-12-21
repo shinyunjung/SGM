@@ -3,27 +3,27 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.main.dao.TeamInterface">
+
 	<!-- 리스트보이기 -->
 	<select id="listCall" resultType="com.spring.main.dto.TeamDto">
-		SELECT t_idx,t_name,t_area,t_day,t_time,t_uniform,t_matchcount,t_rankpoint,t_age,t_win,t_lose,t_draw
-			FROM (
-				SELECT 	t_idx,
-						t_name,
-						t_area,
-						t_day,
-						t_time,
-						t_uniform,
-						t_matchcount,
-						t_rankpoint,
-						t_age,
-						t_win,
-						t_lose,
-						t_draw,
-				ROW_NUMBER() OVER(ORDER BY t_rankpoint DESC)AS tnum FROM team1
-				)WHERE tnum BETWEEN #{param1} AND #{param2}
+		SELECT t_idx,t_name,t_area,t_day,t_time,t_uniform,t_matchcount,t_rankpoint,
+		t_age,t_win,t_lose,t_draw,RANK() OVER (ORDER BY t_rankpoint DESC) RANK FROM team1
 	</select>
+	
 	<!-- 게시물 수 -->
 	<select id="allCount" resultType="Integer">
 		SELECT COUNT(*) FROM team1
+	</select>
+	
+	<!-- 검색 -->
+	<select id="search" resultType="com.spring.main.dto.TeamDto">
+		SELECT * FROM (SELECT t_idx,t_name,t_area,t_day,t_time,t_uniform,
+		t_matchcount,t_rankpoint,t_age,t_win,t_lose,t_draw,RANK() OVER 
+		(ORDER BY t_rankpoint DESC) RANK FROM team1)WHERE t_name LIKE '%'||#{param1}||'%'
+	</select>
+	
+	<!-- 검색게시물 수 -->
+	<select id="searchallCount" resultType="Integer">
+		SELECT COUNT(*) FROM team1 WHERE t_name LIKE '%'||#{param1}||'%'
 	</select>
 </mapper>

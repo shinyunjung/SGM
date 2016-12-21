@@ -65,31 +65,31 @@
 							</thead>
 							<tbody>
 								<tr>
+									<th class="score">승</th>
+									<th class="score">무</th>
+									<th class="score">패</th>
 									<td class="score">0</td>
 									<td class="score">0</td>
 									<td class="score">0</td>
-									<td class="score">0</td>
-									<td class="score">0</td>
-									<td class="score">0</td>
+									<th>포인트</th>
 									<td>OOO</td>
-									<td>OOO</td>
-									<td>OOO</td>
+									<th>경기수</th>
 									<td>OOO</td>
 								</tr>
 								<tr>
+									<th colspan="3">지역</th>
 									<td colspan="3"></td>
-									<td colspan="3"></td>
+									<th>요일</th>
 									<td></td>
-									<td></td>
-									<td></td>
+									<th>시간</th>
 									<td></td>
 								</tr>
 								<tr>
+									<th colspan="3">인수</th>
 									<td colspan="3"></td>
-									<td colspan="3"></td>
+									<th>연령</th>
 									<td></td>
-									<td></td>
-									<td></td>
+									<th>색</th>
 									<td></td>
 								</tr>
 							</tbody>
@@ -161,6 +161,7 @@
 				</div>
 			</div>
 		</div>
+		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script></script>
 </html>

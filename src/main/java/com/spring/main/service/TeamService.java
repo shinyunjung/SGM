@@ -36,22 +36,43 @@ public class TeamService {
 		//페이지당 보여줄 게시물 갯수
 		int pagePerNum = Integer.parseInt(params.get("pagePerNum"));
 		logger.info("현재 페이지 : "+currPage);
-		logger.info("페이지 당 보여줄 수 : "+pagePerNum);		
-		int end = currPage*pagePerNum;	//게시물 끝 번호
-		int start = end-pagePerNum+1;	//게시물 시작번호
-		int allCnt = inter.allCount();			//전체 게시물 수
+		logger.info("페이지 당 보여줄 수 : "+pagePerNum);
+		int allCnt = 0;
+		String t_name = params.get("t_name");
+		logger.info(t_name);
+		if(t_name!=""){
+			allCnt = inter.searchallCount(t_name); //전체 게시물 수
+			obj.put("list", inter.search(t_name));
+			logger.info("검색");
+		}else{
+			allCnt = inter.allCount();			//전체 게시물 수
+			obj.put("list", inter.listCall());
+			logger.info("리스트");
+		}
 		logger.info("전체 게시물 수 : {}",allCnt);
 		int page = allCnt%pagePerNum >0 ? 
 				Math.round(allCnt/pagePerNum)+1
 				:Math.round(allCnt/pagePerNum);//생성 할 수 있는 페이지
 		
-		obj.put("list", inter.listCall(start, end));		
+		
 		json.put("jsonList", obj);
 		json.put("currPage", currPage);
 		json.put("allCnt", allCnt);		
 		json.put("page", page);
 		return json;
 	}
-
+/*
+	public Map<String, String> search(String t_name) {
+		inter = sqlSession.getMapper(TeamInterface.class);
+		Map<String, String> obj = new HashMap<String, String>();
+		logger.info(t_name);
+		String result = inter.search(t_name);
+		
+			
+		obj.put("msg", msg);		
+		
+		return obj;
+	}
+*/
 
 }

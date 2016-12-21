@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.TeamService;
 
@@ -55,8 +54,15 @@ public class TeamController {
 	
 	//리스트보여주기
 	@RequestMapping(value = "/listCall")
-	public  @ResponseBody Map<String, Object> listCall(@RequestParam Map<String, String> params) {
+	public @ResponseBody Map<String, Object> listCall(@RequestParam Map<String, String> params) {
 		logger.info("리스트보여주기");
 		return service.listCall(params);
 	}
+	
+	/*//검색하기
+	@RequestMapping(value = "/search")
+	public @ResponseBody Map<String, String> search(@RequestParam("t_name") String t_name) {
+		logger.info("검색");
+		return service.search(t_name);
+	}*/
 }

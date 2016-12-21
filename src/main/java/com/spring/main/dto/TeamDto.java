@@ -14,7 +14,15 @@ public class TeamDto {
 	private int t_win;
 	private int t_lose;
 	private int t_draw;
+	private int rank;
 	
+	
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 	
 	public int getT_idx() {
 		return t_idx;
