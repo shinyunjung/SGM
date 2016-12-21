@@ -1,15 +1,24 @@
 package com.spring.main.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.spring.main.service.BoardService;
 
 @Controller("MainController")
 public class MainController {
-
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@Autowired
+	BoardService service;
 	
 	//메인페이지
 		@RequestMapping(value = "/")
@@ -24,8 +33,44 @@ public class MainController {
 		public String index() {
 			
 			return "index";
-		}
+	}
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	//로그인 처리
+	@RequestMapping(value="/login")
+	public ModelAndView login(@RequestParam Map<String, Object> params
+			, HttpSession session){
+		logger.info("로그인 처리");
+		params.put("session", session);
+		return service.login(params);
+	}
+	
+	//회원가입 이동
+	@RequestMapping(value="/join")
+	public String join() {
+		logger.info("회원가입 페이지");
+		return "join";
+	}
 		
+	//id찾기
+	@RequestMapping(value = "/idFind")
+	public String idFind() {
+		
+		return "idFind";
+	}
+	//pw찾기
+	@RequestMapping(value = "/passFind")
+	public String pwFind() {
+		
+		return "passFind";
+	}
+
+	//마이페이지
+	@RequestMapping(value = "/myPage")
+	public String myPage() {
+		return "myPage";
+	}
 		//팀가입
 		@RequestMapping(value = "/teamJoin")
 		public String teamJoin() {
@@ -33,78 +78,45 @@ public class MainController {
 			return "teamJoin";
 		}
 		
-		//팀가입
-				@RequestMapping(value = "/teamModify")
-				public String teamModify() {
-					
-					return "teamModify";
-				}
 		
+	//회원관리
+	@RequestMapping(value = "/usManager")
+	public String usManager() {
+		logger.info("회원관리");
+		return "usManager";
+	}
+	//팀관리
+	@RequestMapping(value = "/teamManager")
+	public String teamManager() {
+		logger.info("팀관리");
+		return "teamManager";
+	}
 	
-		//매칭쓰기
-		@RequestMapping(value = "/matchWrite")
-		public String matchWrite() {
-			logger.info("매칭쓰기");
-			return "matchWrite";
-		}
-		//매칭수정
-		@RequestMapping(value = "/matchModify")
-		public String matchModify() {
-			logger.info("매칭수정");
-			return "matchModify";
-		}
-		//장소쓰기
-		@RequestMapping(value = "/placeWrite")
-		public String placeWrite() {
-			logger.info("장소쓰기");
-			return "placeWrite";
-		}
-		//장소수정
-		@RequestMapping(value = "/placeModify")
-		public String placeModify() {
-			logger.info("장소수정");
-			return "placeModify";
-		}
-		//팀일지쓰기
-		@RequestMapping(value = "/tdWrite")
-		public String tdWrite() {
-			logger.info("팀일지쓰기");
-			return "tdWrite";
-		}
-		//팀일지수정
-		@RequestMapping(value = "/tdModify")
-		public String tdModify() {
-			logger.info("팀일지수정");
-			return "tdModify";
-		}
-		//영상쓰기
-		@RequestMapping(value = "/vidioWrite")
-		public String vidioWrite() {
-			logger.info("영상쓰기");
-			return "vidioWrite";
-		}
-		//영상수정
-		@RequestMapping(value = "/vidioModify")
-		public String vidioModify() {
-			logger.info("영상수정");
-			return "vidioModify";
-		}
-		//자유쓰기
-		@RequestMapping(value = "/freeWrite")
-		public String freeWrite() {
-			logger.info("자유쓰기");
-			return "freeWrite";
-		}
-		//자유수정
-		@RequestMapping(value = "/freeModify")
-		public String freeModify() {
-			logger.info("자유수정");
-			return "freeModify";
-		}
-		//결과
-		@RequestMapping(value = "/result")
-		public String result() {
-			logger.info("결과");
-			return "result";
+	//결과
+	@RequestMapping(value = "/result")
+	public String result() {
+		logger.info("광고수정");
+		return "adModify";
+	}
+	
+	//팀 상세보기
+	@RequestMapping(value = "/teamDetail")
+	public String teamDetail() {
+		logger.info("팀 상세보기");
+		return "teamDetail";
+	}
+	
+	//팀 일지 상세보기
+	@RequestMapping(value = "/tdDetail")
+	public String tdDetail() {
+		logger.info("팀 일지 상세보기");
+		return "tdDetail";
+	}
+	
+	//팀 정보 수정
+		@RequestMapping(value = "/teamModify")
+		public String teamModify() {
+			logger.info("팀 정보 수정");
+			return "teamModify";
 		}
 }

@@ -6,19 +6,9 @@ import java.util.ArrayList;
 import com.spring.main.dto.AreaDto;
 import com.spring.main.dto.MatchDto;
 import com.spring.main.dto.RepleDto;
-import com.spring.main.dto.UserDto;
 
 
-public interface BoardInterface {
-
-	//로그인
-	String login(String u_id, String u_pass);
-
-	//중복체크
-	String overlay(String u_id);
-	
-	//회원가입
-	void userJoin(UserDto info);
+public interface MatchInterface {
 
 	//매칭 게시글 개수
     int mch_allCount();
