@@ -67,7 +67,7 @@
 									<td colspan="4"><input type="text" name="mch_title" placeholder="제목"/></td>
 								</tr>
 								<tr class="borderTop">
-									<td colspan="4"><input type="text" name="mch_name" value="123" readonly/></td>
+									<td colspan="4" class="messenger"><input type="text" name="mch_name" value="123" readonly/></td>
 								</tr>
 								<tr class="borderTop">
 									<th>경기날짜</th>
@@ -143,6 +143,11 @@
 	<script>
 	var url="";
 	var data={};
+	$("document").ready(function(){
+		console.log("시작")	;
+	});
+	
+	
 	$(".btn-info").click(function(){
 		url="../match/areaList";
 		$("#popup").css("display","block");

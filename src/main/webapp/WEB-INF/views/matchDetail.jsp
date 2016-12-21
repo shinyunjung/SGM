@@ -158,8 +158,8 @@
 							<td class="right"><button onclick="delMsg()">x</button></td>
 						</tr>
 						<tr class="center borderTop">
-							<td class="borderRight sender">보낸 이 : <input type="text" readonly/></td>
-							<td class="sender">받는 이 : <input type="text" value="${detail.mch_name}" readonly/></td>
+							<td class="borderRight sender">보낸 이 : <input type="text" id="send" readonly/></td>
+							<td class="sender">받는 이 : <input type="text" value="${detail.mch_name}" id="reception" readonly/></td>
 						</tr>
 						<tr class="borderTop">
 							<td colspan="2">
@@ -171,7 +171,7 @@
 						</tr>
 						<tr>
 							<td class="center borderTop" colspan="2" style="padding: 5px">
-								<button>보내기</button>
+								<button onclick="sendMsg()">보내기</button>
 								<button onclick="delMsg()">취소</button>
 							</td>
 						</tr>
@@ -182,12 +182,15 @@
 	</body>
 	<script>
 		var repleCnt=0;
-		areaSearch(${detail.mch_lat}, ${detail.mch_lng});
+		areaSearch("${detail.mch_lat}", "${detail.mch_lng}");
 		function mchMsg(){
 			console.log("신청");
 			$("#matchMsg").css("display","block");
 		}
 		
+		function sendMsg(){
+			
+		}
 		function delMsg(){
 			console.log("신청");
 			$("#matchMsg").css("display","none");
