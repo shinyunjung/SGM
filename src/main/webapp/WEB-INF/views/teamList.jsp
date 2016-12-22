@@ -5,8 +5,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>팀 게시판</title>
+		<title>팀 순위</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<style>
 			.teamList{
 				width: 100%;
@@ -21,7 +23,6 @@
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div class="layer">
 			<div class="page">
-				
 				<!-- 첫 번째 구역 -->
 				<div class="col2 content">
 					<fieldset>
@@ -31,37 +32,44 @@
 				
 				<!-- 두 번째 구역 -->
 				<div class="col5 content">
-					<div class="right">
-						<input type="text" class="input"/>
-						<button onclick="Search()">검색</button>
-					</div>
-					<div class="teamList">
-					게시물 갯수:
-					<select id="pagePerNum"> <!-- onchange="" -->
-						<option value="5">5</option>
-						<option value="10">10</option>
-						<option value="15">15</option>
-						<option value="20">20</option>
-					</select>
-						<table class="table table-hover totalTable">
-							<thead>
-								<tr>
-									<th>랭킹</th>
-									<th>팀</th>
-									<th>경기 수</th>
-									<th>승점</th>
-									<th>승</th>
-									<th>무</th>
-									<th>패</th>
-								</tr>
-							</thead>
-							<tbody id="start">
-							
-							</tbody>
-						</table>
-						<div id="paging"></div> 
-					</div>
-				</div>
+					<table class="table table-hover totalTable">
+						<thead>
+							<tr>
+								<td style="text-align: left;">
+									게시물수:
+									<select id="pagePerNum"> <!-- onchange="" -->
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								</td>
+								<td style="text-align: right;">
+									<input type="text" class="input"/>
+									<button onclick="Search()">검색</button>
+								</td>
+							</tr>
+						</thead>
+					</table>
+					<table class="table table-hover totalTable">
+					<thead>
+						<tr>
+							<th>랭킹</th>
+							<th>팀</th>
+							<th>지역</th>
+							<th>경기 수</th>
+							<th>승점</th>
+							<th>승</th>
+							<th>무</th>
+							<th>패</th>
+						</tr>
+					</thead>
+					<tbody id="start">
+					
+					</tbody>
+				</table>
+				<div id="paging"></div> 
+			</div>
 				
 				<!-- 세 번째 구역 -->
 				<div class="col3 content">
@@ -140,6 +148,7 @@
 			+"<td>"+list[i].rank+"</td><td>"
 			+"<a href='./teamDetail?t_idx="+list[i].t_idx+"'>"
 			+list[i].t_name+"</a></td><td>"
+			+list[i].t_area+"</a></td><td>"
 			+list[i].t_matchcount+"</td><td>"
 			+list[i].t_rankpoint+"</td><td>"
 			+list[i].t_win+"</td><td>"

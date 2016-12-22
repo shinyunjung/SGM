@@ -53,7 +53,7 @@
 				<!-- 첫 번째 구역 -->
 				<div class="col2 content">
 					<fieldset>
-						<legend>팀 게시판</legend>
+						<legend>${team.t_name}</legend>
 					</fieldset>
 					<div class="team">
 						<jsp:include page="../../resources/include/team.jsp" />
@@ -93,7 +93,7 @@
 									<td>${team.t_time}</td>
 								</tr>
 								<tr>
-									<th colspan="3">인수</th>
+									<th colspan="3">인원수</th>
 									<td colspan="3">${meCnt}</td>
 									<th>연령</th>
 									<td>${team.t_age}</td>
@@ -190,17 +190,17 @@
 	
 	$("#pagePerNum").change(function(){
 		currPage = 1;
-		listCall(currPage);
+		tdList(currPage,t_idx);
 	});
 	
 	//검색기능
 	function Search(){
 		t_name = $(".input").val();
-		listCall(currPage);
+		tdList(currPage,t_idx);
 		
 	}
 	
-	function tdList(t_idx){
+	function tdList(currPage,t_idx){
 		var url="./tdList";
 		var data = {};
 		data.t_idx = t_idx;
@@ -245,6 +245,14 @@
 			+list[i].t_win+"</td><td>"
 			+list[i].t_draw+"</td><td>"
 			+list[i].t_lose+"</td></tr>";
+			
+			/* <tr>
+			<td>0</td>
+			<td>OOO</td>
+			<td>OOOOO</td>
+			<td>0</td>
+			<td>OOO</td>
+		</tr> */
 		}
 		$("#start").empty();
 		$("#start").append(content);

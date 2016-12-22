@@ -12,42 +12,41 @@
 	<body>
 		<div class="member">
 		----------------------------------------------------------------------------------------------------------------------	
+			<table class="table table-hover totalTable">
+				<thead>
+					<tr>
+						<td style="text-align: left;">
+							게시물수:
+							<select id="pagePerNum"> <!-- onchange="" -->
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+							</select>
+						</td>
+						<td style="text-align: right;">
+							<input type="text" class="input"/>
+							<button onclick="Search()">검색</button>
+						</td>
+					</tr>
+				</thead>
+			</table>
 			<table class="table">
 				<thead>
 					<tr>
-						<th>멤버 리스트</th>
+						<th>팀 일지</th>
 					</tr>
+					<thead>
 					<tr>
-						<th>No</th>
-						<th>이름</th>
-						<th>포지션</th>
-						<th>총점</th>
-						<th>경기수</th>
+						<th>번호</th>					
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조회</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${member}" var="dto" varStatus="status">
-					<c:choose>
-					<c:when test="${dto.rank==1 && dto.m_tpoint!=0 }">
-						<tr id="ace">
-							<td>ace</td>
-							<td>${dto.m_name}</td>
-							<td>${dto.m_position}</td>
-							<td>${dto.m_tpoint}</td>
-							<td>${dto.m_matchcount}</td>
-						</tr>
-					</c:when>
-					<c:otherwise>
-						<tr>
-							<td>${status.count}</td>
-							<td>${dto.m_name}</td>
-							<td>${dto.m_position}</td>
-							<td>${dto.m_tpoint}</td>
-							<td>${dto.m_matchcount}</td>
-						</tr>
-					</c:otherwise>
-				</c:choose>
-				</c:forEach>
+					
 				</tbody>
 			</table>
 		</div>
