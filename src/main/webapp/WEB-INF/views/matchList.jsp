@@ -34,7 +34,7 @@
 						<table width="100%">
 							<tr>
 								<td class="left">
-									<button onclick="location.href='../../main/match/matchWrite'">글작성</button>
+									<button onclick="mchWrite()">글작성</button>
 									게시물 갯수 : 
 									<select id="pagePerNum">
 										<option value="5">5</option>
@@ -89,17 +89,19 @@
 	<script>
 		var url="";
 		var data={};
+		var pagePerNum=$("#pagePerNum").val();
 		var currPage=1;//현재 페이지
 		var totalPage=1;
 		var search=false;
 		var input = "";
 		var type="mch_title";
 		
-		$(document).ready(function(){
+		$("document").ready(function(){
 			listCall(currPage);
 		});
 		
 		$("#pagePerNum").change(function(){
+			pagePerNum=$("#pagePerNum").val();
 			searchCall(currPage);
 		});
 		
@@ -216,14 +218,39 @@
 			logoId();
 		}
 	
+	function mchWrite(){
+		if("${sessionScope.userId}"!=""){
+			location.href="../../main/match/matchWrite";
+		}else{
+			alert("로그인이 필요한 권한입니다.");
+		}
+	}
+	
 	
 	
 	 //페이지 그리기
 	function printPaging(count, page){
+		var totalRange=page/5;
+		var totalEnd=0;
+		
 		console.log("전체 게시물:"+count);
 		console.log("전체 페이지:"+page);
 		console.log("현재 페이지:"+currPage);
-
+		
+		if(currPage>page){
+			currPage=page;
+			searchCall(currPage);
+		}
+		if(totalRange>1){
+			totalEnd=page%5==0?
+					(Math.floor(totalRange))*5:
+					(Math.floor(totalRange)+1)*5;
+			totalStart=Math.floor(totalEnd-4);	
+		}else{
+			totalStart=1;
+			totalEnd=totalStart+4;
+		}
+		
 		var start; //페이지 시작
 		var end; //페이지 끝
 		
@@ -234,7 +261,7 @@
 		//다음 페이지가 있는지 여부확인
 		var range=(currPage/5);
 		
-		var content="";
+		var content = "<ul class='pagination pagination-sm'>";
 		
 		console.log(range);
 		if(range>1){//5페이지 넘었을 경우
@@ -247,24 +274,40 @@
 			end=start+4;
 		}
 		console.log(start+"/"+end);
-			content+="<a href='#' onclick='searchCall("+1+")'>처음</a> |"
-			+" <a href='#' onclick='searchCall("+(start-1)+")'> << </a> "
-			+"<a href='#' onclick='searchCall("+pre+")'> < </a> ";
+			content+="<li class='page-item first'><a href='#' onclick='searchCall("+1+")'>First</a></li>"
+			+"<li class='page-item prev'><a href='#' onclick='searchCall("+(start-1)+")'> << </a></li> "
+			+"<li class='page-item before'><a href='#' onclick='searchCall("+pre+")'> < </a></li> ";
 			for(var i=start; i<=end; i++){
 				if(i<=page){
 					if(currPage==i){
-						content+="<b>"+i+"</b>";	
+						content+="<li class='page-item active'><a href='#'><b>"+i+"</b></a></li>";	
 					}else{
-						content+=" <a href='#' onclick='searchCall("+i+")'>"
-						+i+"</a> ";
+						content+="<li class='page-item'> <a href='#' onclick='searchCall("+i+")'>"
+						+i+"</a></li> ";
 					}	
 				}
 			}
-			content+="<a href='#' onclick='searchCall("+next+")'> > </a> "
-			+" <a href='#' onclick='searchCall("+(end+1)+")'> >> </a>"
-			+"| <a href='#' onclick='searchCall("+page+")'>끝</a>";	
+			content+="<li class='page-item after'><a href='#' onclick='searchCall("+next+")'> > </a></li> "
+			+"<li class='page-item next'> <a href='#' onclick='searchCall("+(end+1)+")'> >> </a></li>"
+			+"<li class='page-item last'><a href='#' onclick='searchCall("+page+")'>Last</a></li>";	
 		$("#paging").empty();
 		$("#paging").append(content);
+		
+		if(range<1){
+			$(".first").addClass("disabled");
+			$(".prev").addClass("disabled");
+			if(currPage==1){
+				$(".before").addClass("disabled");	
+			}
+		}
+		if(end==totalEnd){
+			$(".next").addClass("disabled");
+			$(".last").addClass("disabled");
+			if(currPage==page){
+				$(".after").addClass("disabled");
+			}
+		}
+		
 	} 
 	</script>
 </html>

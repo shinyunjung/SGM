@@ -62,7 +62,7 @@
 				<fieldset>
 					<legend>글쓰기</legend>
 				</fieldset>
-					<form action="write" method="post" id="mainForm">
+					<form action="write" method="get" id="mainForm" name="writeForm" onSubmit="writeCheck();return false">
 						<table class="detailTable">
 								<tr class="borderTop">
 									<td colspan="4">
@@ -90,7 +90,7 @@
 									</td>
 								</tr>
 								<tr class="borderTop">
-									<td><button type="button" class="btn btn-info">운동장 선택</button></td>
+									<td><button type="button" class="btn btn-info" name="area">운동장 선택</button></td>
 								</tr>
 								<tr>
 									<td colspan="4" class="map">
@@ -130,7 +130,7 @@
 								<tr class="borderTop">
 									<td colspan="4" style="text-align: center;">
 					  				<button type="reset" class="btn btn-default">취소</button>
-					        		<button type="submit" class="btn btn-primary">등록</button>
+					        		<button type="submit" class="btn btn-primary" >등록</button>
 			  				</td>
 								</tr>
 						</table>
@@ -146,6 +146,7 @@
 	<script>
 	var url="";
 	var data={};
+	var areaCheck=false;
 	var userIdx="${sessionScope.userIdx}";
 	$("document").ready(function(){
 		selectTeam(userIdx);
@@ -165,6 +166,14 @@
 			frm['gu'].options[i] = new Option(i+1, i+1);
 		}
 		reqServer(url, data);
+	});
+	
+	$("select[name='gu']").change(function(){
+		console.log("구 변경");
+		var url="../match/selectAreaList";
+		var data={};
+		data.area=$("select[name='gu']").val();
+		
 	});
 	
 	function reqServer(url, data){
@@ -225,13 +234,15 @@
 	
 	function printArea(list){
 		var content="";
+		content+="<tr>"
+			+"<td>"+"<input type='hidden' name='ground' value="+list[0].a_ground+" />"+"</td>"
+			+"</tr>"
 		for(var i=0; i<list.length; i++){
 			content+="<tr>"
 				+"<td>"+list[i].a_idx+"</td>"
-				+"<td>"+list[i].a_ground
-				+"<input type='hidden' name='ground' value='"+list[i].a_ground+"' /></td>"
+				+"<td class='ground"+i+"'>"+list[i].a_ground+"</td>"
 				+"<td>"+list[i].a_address+"</td>"
-				+"<td>"+"<input type='radio' name='position' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+")' value='"+list[i].a_lat+"/"+list[i].a_lng+"' />"+"</td>"
+				+"<td>"+"<input type='radio' name='position' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+", "+i+")' value='"+list[i].a_lat+"/"+list[i].a_lng+"' />"+"</td>"
 				+"</tr>";
 			}
 			
@@ -239,11 +250,16 @@
 			$(".areaList").append(content);
 	}
 	
-	function checkMap(lat, lng){
+	function checkMap(lat, lng, i){
 		console.log(lat, lng);
 		console.log($("input[name='position']:checked").val());
 		areaSearch(lat, lng);
 		
+		var input = document.getElementsByName("ground");
+		var value = $(".ground"+i+"").html();
+		input.value=value;
+		console.log(input);
+		areaCheck=true;
 	}
 	
 	function printSelect(data){
@@ -266,5 +282,28 @@
 		
 	}
 	
+	function writeCheck(){
+		console.log(areaCheck);
+		
+		if(document.writeForm.mch_title.value==""){
+			alert("제목을 입력해주세요");
+			document.writeForm.mch_title.focus();
+		}else if(document.writeForm.mch_date.value==""){
+			alert("경기날짜를 입력해주세요");
+			document.writeForm.mch_date.focus();
+		}else if(document.writeForm.mch_time.value==""){
+			alert("경기시간을 입력해주세요");
+			document.writeForm.mch_time.focus();
+		}else if(document.writeForm.mch_content.value==""){
+			alert("내용을 입력해주세요");
+			document.writeForm.mch_content.focus();
+		}else if(areaCheck==false){
+			alert("운동장을 입력해주세요");
+			document.writeForm.area.focus();
+		}else{
+			document.writeForm.submit();
+			return true;
+		}
+	}
 	</script>
 </html>

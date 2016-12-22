@@ -1,5 +1,6 @@
 package com.spring.main.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -99,6 +100,13 @@ public class MatchController {
 		logger.info("매칭쓰기");
 		return service.write(params);
 	}
+	
+	//매칭쓰기 체크
+		@RequestMapping(value = "/writeCheck")
+		public ModelAndView writeCheck(@RequestParam Map<String, String> params) throws ParseException {
+			logger.info("매칭쓰기 체크");
+			return service.writeCheck(params);
+		}
 	
 	//매칭목록
 	@RequestMapping(value = "/areaList")

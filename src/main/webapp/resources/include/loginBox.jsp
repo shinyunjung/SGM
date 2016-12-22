@@ -32,6 +32,7 @@
 		var teamData={};
 		console.log(userId);
 		console.log(userIdx);
+		
 		if(userId!=""){
 			var url="../../main/userSearch";
 			var data={};

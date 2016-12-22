@@ -31,7 +31,7 @@
 	
 	<!-- 장소목록 불러오기 -->
 	<select id="mch_areaList" resultType="com.spring.main.dto.AreaDto">
-		SELECT a_idx, u_idx, a_name, a_area, a_lat, a_lng  FROM area
+		SELECT *  FROM area
 	</select>
 	
 	<!-- 매칭 리스트 추가 -->

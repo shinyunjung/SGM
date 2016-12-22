@@ -1,6 +1,8 @@
 package com.spring.main.service;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -266,6 +268,71 @@ public class MatchService {
 		success = inter.mch_modify(t_idx, title, writer, date, time, type, age, content, lat, lng, area, ground, state, mch_idx);
 		mav.addObject("success", success);
 		mav.setViewName("matchList");
+		return mav;
+	}
+
+
+	public ModelAndView writeCheck(Map<String, String> params) throws ParseException {
+		ModelAndView mav = new ModelAndView();
+		inter=sqlSession.getMapper(MatchInterface.class);
+		MatchDto mdt = new MatchDto();
+		String msg="";
+		mav.addObject("writeData", params);
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date mchDate;
+		
+		String t_idx=params.get("t_idx");
+		String title = params.get("mch_title");
+		String writer = params.get("mch_name");
+		String date = params.get("mch_date");
+		String time = params.get("mch_time");
+		String type = params.get("mch_type");
+		String age = params.get("mch_age");
+		String content = params.get("mch_content");
+		String prePosition = params.get("position");
+		String ground = params.get("ground");
+		String area = params.get("gu");
+		
+		if(title!=""){
+			mdt.setMch_title(title);
+		}else{
+			msg="제목을 입력해주세요";
+			mav.addObject("msg",msg);
+			mav.setViewName("matchWrite");
+			return mav;
+		}
+		
+		if(date!=""){
+			mchDate=(Date) transFormat.parse(date);
+			mdt.setMch_date(mchDate);
+		}else{
+			msg="시합날짜를 결정해주세요";
+			mav.addObject("msg",msg);
+			mav.setViewName("matchWrite");
+			return mav;
+		}
+		
+		if(time!=""){
+			mdt.setMch_time(time);
+		}else{
+			msg="시합시간을 결정해주세요";
+			mav.addObject("msg",msg);
+			mav.setViewName("matchWrite");
+			return mav;
+		}
+		
+		if(content!=""){
+			mdt.setMch_content(content);
+		}else{
+			msg="내용을 적어주세요";
+			mav.addObject("msg",msg);
+			mav.setViewName("matchWrite");
+			return mav;
+		}
+		/*String[] position = prePosition.split("/");
+		String lat = position[0];
+		String lng = position[1];
+		String state="대기";*/
 		return mav;
 	}
 
