@@ -32,8 +32,17 @@
 					<div class="search">
 						<table width="100%">
 							<tr>
-								<td class="left"><button>글작성</button></td>
-								<td class="right">
+								<td class="left">
+									<button onclick="location.href='../../main/vidio/vidioWrite'">글작성</button>
+									게시물 갯수 : 
+									<select id="pagePerNum">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+									</td>
+									<td class="right">
 									<button>검색</button>
 									<input type="text" size="20" />
 								</td>
