@@ -32,8 +32,8 @@
 				<!-- 두 번째 구역 -->
 				<div class="col5 content">
 					<div class="right">
-						<button onclick="Search()">검색</button>
 						<input type="text" class="input"/>
+						<button onclick="Search()">검색</button>
 					</div>
 					<div class="teamList">
 					게시물 갯수:
@@ -158,7 +158,7 @@
 		$("#paging").empty();
 		var start;	//페이지 시작
 		var end;	//페이지 끝
-		var range = Math.floor(currPage/5);	//다음 페이지 있는지 여부
+		var range = (currPage/5);	//다음 페이지 있는지 여부
 		
 		var content = "<ul class='pagination pagination-sm'>"
    			+"<li class='page-item first'><a href='#' onclick='listCall(1)'>First</a></li>"

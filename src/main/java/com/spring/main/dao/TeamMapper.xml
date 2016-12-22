@@ -34,7 +34,8 @@
 	
 	<!-- 멤버 -->
 	<select id="memberCall" resultType="com.spring.main.dto.MemberDto">
-		SELECT * FROM memver WHERE t_idx = #{param1}
+		SELECT m_idx,u_idx,t_idx,m_name,m_matchcount,m_tpoint,m_position,m_grade
+		,RANK() OVER (ORDER BY m_tpoint DESC) RANK FROM memver WHERE t_idx = #{param1}
 	</select>
 	
 	<!-- 평가 -->

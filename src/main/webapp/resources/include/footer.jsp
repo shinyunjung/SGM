@@ -5,7 +5,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	
 	.foo{
 		width: 1080px;
 		background-color: #555;
@@ -17,9 +16,9 @@
 </head>
 <body>
 <div class="layer">
-<footer class="foo">
-	  <p>Footer Text</p>
+	<footer class="foo">
+		<p>Footer Text</p>
 	</footer>
-	</div>
+</div>
 </body>
 </html>

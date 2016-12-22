@@ -2,9 +2,11 @@ package com.spring.main.dto;
 
 
 public class TeamDto {
+	
+	String[] area = {"중구", "동구", "남구", "연수구", "남동구", "부평구", "계양구", "서구", "강화군", "옹진군"};
 	private int t_idx;
 	private String t_name;
-	private int t_area;
+	private String t_area;
 	private String t_day;
 	private String t_time;
 	private String t_uniform;
@@ -36,11 +38,11 @@ public class TeamDto {
 	public void setT_name(String t_name) {
 		this.t_name = t_name;
 	}
-	public int getT_area() {
+	public String getT_area() {
 		return t_area;
 	}
 	public void setT_area(int t_area) {
-		this.t_area = t_area;
+		this.t_area = area[t_area];
 	}
 	public String getT_day() {
 		return t_day;

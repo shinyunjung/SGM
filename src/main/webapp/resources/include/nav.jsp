@@ -20,9 +20,6 @@
 				float: left;
 				width: 180px;
 			}
-			
-			
- 			
 		</style>
 	</head>
 	<body>

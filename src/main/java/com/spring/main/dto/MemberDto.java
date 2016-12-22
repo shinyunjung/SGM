@@ -9,8 +9,15 @@ public class MemberDto {
 	private String m_tpoint;
 	private String m_position;
 	private String m_grade;
+	private int rank;
 	
 	
+	public int getRank() {   
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 	public String getT_idx() {
 		return t_idx;
 	}

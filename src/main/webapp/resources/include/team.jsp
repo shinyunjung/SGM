@@ -34,13 +34,9 @@
         -----------------------------------
 			<div id="Category">
 				<div class="list-group">
-					<a href="#" class="list-group-item">
-					  팀 멤버
-					</a>
-					<a href="#" class="list-group-item">팀 멤버
-					</a>
-					<a href="#" class="list-group-item">팀 멤버
-					</a>
+					<a href="./teamDetail?t_idx=${team.t_idx}"  class="list-group-item">팀 멤버</a>
+					<a href="#" onclick="tdList(${team.t_idx})" class="list-group-item">팀 일지</a>
+					<a href="#" class="list-group-item">팀 수정</a>
 					<a href="#" class="list-group-item">팀 탈퇴</a>
 				</div>
 			</div>

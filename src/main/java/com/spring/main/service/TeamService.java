@@ -90,7 +90,7 @@ public class TeamService {
 		mav.addObject("evalue",evalue);
 		mav.addObject("evCnt",inter.evalueCount(t_idx));
 		mav.addObject("member",inter.memberCall(t_idx));
-		mav.addObject("meCount",inter.memberCount(t_idx));
+		mav.addObject("meCnt",inter.memberCount(t_idx));
 		mav.setViewName("teamDetail");
 		
 		return mav;
