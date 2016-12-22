@@ -21,13 +21,6 @@ public class VidioController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	//리스트보여주기
-	@RequestMapping(value="/vidioList")
-	public @ResponseBody Map<String, Object> vidioList(
-		@RequestParam Map<String, String> params){
-		logger.info("리스트 보여주기");
-		return service.vidioList(params);
-	}
 	//영상상세
 	@RequestMapping(value = "/vidioDetail")
 	public String vidioDetail() {

@@ -24,21 +24,21 @@ public class RestController {
 	//리스트 요청
 		@RequestMapping(value="/v_listCall")
 		public @ResponseBody Map<String, Object> listCall(@RequestParam Map<String, String> params){
-			logger.info("리스트 요청");
-			return VidioService.listCall(params);
+			logger.info("비디오 리스트 요청");
+			return VidioService.v_listCall(params);
 		}
 		
 		//검색 요청
 		@RequestMapping(value="/v_search")
 		public @ResponseBody Map<String, Object> search(@RequestParam Map<String, String> params){
 			logger.info("검색 요청");
-			return VidioService.search(params);
+			return VidioService.v_search(params);
 		}
 		
 		//검색 후 리스트 요청
 		@RequestMapping(value="/v_searchCall")
 		public @ResponseBody Map<String, Object> searchCall(@RequestParam Map<String, String> params){
 			logger.info("리스트 요청");
-			return VidioService.searchCall(params);
+			return VidioService.v_searchCall(params);
 		}
 }

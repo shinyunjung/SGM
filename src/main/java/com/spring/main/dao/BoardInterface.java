@@ -11,10 +11,15 @@ public interface BoardInterface {
 	int allCount();
 
 	//매치리스트
-	ArrayList<vidioDTO> listCall(int start, int end);
+	ArrayList<MatchDto> listCall(int start, int end);
+	
+	//매치리스트
+	ArrayList<vidioDTO> v_listCall(int start, int end);
 
-	int searhCount(String input, String type);
+	int v_searhCount(String input, String type);
 
-	ArrayList<vidioDTO> searhCall(int start, int end, String input, String type);
+	ArrayList<vidioDTO> v_searhCall(int start, int end, String input, String type);
+
+	int v_allCount();
 
 }

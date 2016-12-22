@@ -3,9 +3,19 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.spring.main.dao.BoardInterface">
  
- 	<!-- 비디오리스트 보여주기 -->
- 	<select id="vidiolist" resultType="com.spring.main.dto.vidioDTO">
- 		SELECT j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
+ 	<!-- 게시물 전채 개수 -->
+	<select id="v_allCount" resultType="Integer">
+		SELECT COUNT(*) FROM board
+	</select>
+	
+	<!-- 검색 후 게시물 전채 개수 -->
+	<select id="v_searhCount" resultType="Integer" >
+		SELECT COUNT(*) FROM board WHERE ${param2} like '%'||#{param1}||'%'
+	</select>
+	
+	<!-- 리스트 불러오기 -->
+	<select id="v_listCall" resultType="com.spring.main.dto.vidioDTO">
+		SELECT j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
  		j_filenum, j_vcount, j_reple
  			FROM (
   				SELECT j_idx,
@@ -19,10 +29,23 @@
   				j_reple,
   					ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board)
 		WHERE rnum BETWEEN #{param1} AND #{param2}
- 	</select>
- 	
- 	<!-- 게시물 수 -->
- 	<select id="allCount" resultType="Integer">
- 		SELECT COUNT(*) FROM board
- 	</select>
+	</select>
+	
+	<!-- 검색 후 리스트 추가 -->
+	<select id="v_searhCall" resultType="com.spring.main.dto.vidioDTO">
+		SELECT j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
+ 		j_filenum, j_vcount, j_reple FROM (
+			SELECT j_idx,
+  				u_idx, j_name,
+  				j_category,
+  				j_title,
+  				j_content, 
+  				j_date,
+  				j_filenum,
+  				j_vcount,
+  				j_reple, 
+  					ROW_NUMBER() OVER(ORDER BY mch_idx DESC) AS rnum FROM board
+  		WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
  </mapper>

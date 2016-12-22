@@ -25,7 +25,7 @@ public class VidioService {
 	BoardInterface inter = null;
 
 	//리스트 추가
-		public Map<String, Object> listCall(Map<String, String> params) {
+		public Map<String, Object> v_listCall(Map<String, String> params) {
 			Map<String, ArrayList<vidioDTO>> obj = new HashMap<String, ArrayList<vidioDTO>>();
 			Map<String, Object> json = new HashMap<String, Object>();
 			inter=sqlSession.getMapper(BoardInterface.class);
@@ -39,7 +39,7 @@ public class VidioService {
 			//게시물 시작과 끝 번호
 			int end=pagePerNum*currPage;
 			int start=end-pagePerNum+1;
-			int allCnt = inter.allCount();
+			int allCnt = inter.v_allCount();
 			
 			int totalPage=allCnt/pagePerNum;
 			System.out.println(totalPage%pagePerNum);
@@ -48,7 +48,7 @@ public class VidioService {
 			}
 			logger.info("전체 개시물:{}",allCnt);
 			
-			obj.put("list", inter.listCall(start, end));
+			obj.put("list", inter.v_listCall(start, end));
 			json.put("jsonList", obj);
 			json.put("currPage", currPage);
 			json.put("totalCount", allCnt);
@@ -58,7 +58,7 @@ public class VidioService {
 		}
 
 
-		public Map<String, Object> searchCall(Map<String, String> params) {
+		public Map<String, Object> v_searchCall(Map<String, String> params) {
 			Map<String, ArrayList<vidioDTO>> obj = new HashMap<String, ArrayList<vidioDTO>>();
 			Map<String, Object> json = new HashMap<String, Object>();
 			inter=sqlSession.getMapper(BoardInterface.class);
@@ -77,11 +77,11 @@ public class VidioService {
 			int start=end-pagePerNum+1;
 			int allCnt=0;
 			if(input!=""){
-				allCnt = inter.searhCount(input, type);
-				obj.put("list", inter.searhCall(start, end, input, type));
+				allCnt = inter.v_searhCount(input, type);
+				obj.put("list", inter.v_searhCall(start, end, input, type));
 			}else{
 				allCnt = inter.allCount();
-				obj.put("list", inter.listCall(start, end));
+				obj.put("list", inter.v_listCall(start, end));
 			}
 			
 			int totalPage=allCnt/pagePerNum;
@@ -105,12 +105,12 @@ public class VidioService {
 		
 
 
-		public Map<String, Object> search(Map<String, String> params) {
+		public Map<String, Object> v_search(Map<String, String> params) {
 			inter=sqlSession.getMapper(BoardInterface.class);
 			Map<String, Object> json = new HashMap<String, Object>();
 			String input=params.get("input");
 			String type=params.get("type");
-			int allCnt = inter.searhCount(input, type);
+			int allCnt = inter.v_searhCount(input, type);
 			json.put("count", allCnt);
 			return json;
 		}

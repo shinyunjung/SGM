@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -49,18 +48,18 @@
 									<th>글쓴이</th>
 									<th>제목</th>
 									<th>조회 수</th>
-									<th>평점</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>0</td>
-									<td>OOO</td>
-									<td>OOOOO</td>
-									<td>0</td>
-									<td>OOO</td>
-								</tr>
+							<tbody id="list">
+								
 							</tbody>
+							<tr >
+								<td colspan="6" id="paging">
+									<div id="pagenation">
+						
+									</div>
+								</td>
+							</tr>
 						</table>
 					</div>
 				</div>
@@ -79,11 +78,11 @@
 	var input = "";
 	var type="vidio_title";
 	 $("document").ready(function(){
-		listCall(currPage);
+		 v_listCall(currPage);
 	}); 
 	
 	$("#pagePerNum").change(function(){
-		searchCall(currPage);
+		v_searchCall(currPage);
 	});
 	
 	$(".type").change(function(){
@@ -92,7 +91,7 @@
 	});
 	
 	function Search(){
-		var url="../vidio/search";
+		var url="./rest/v_search";
 		var data={};
 		if($(".input").val()!=""){
 			console.log("검색");
@@ -111,9 +110,9 @@
 	}
 	
 	
-	function searchCall(currPage){
+	function v_searchCall(currPage){
 		if(currPage>=1 && currPage<=totalPage){
-			var url="../vidio/searchCall";
+			var url="./rest/v_searchCall";
 			var data={};
 			search=true;
 			console.log($(".input").val());
@@ -133,9 +132,9 @@
 		
 	}
 	
-	function listCall(currPage){
+	function v_listCall(currPage){
 		if(currPage>=1 && currPage<=totalPage){
-			var url="../vidio/listCall";
+			var url="./rest/v_listCall";
 			var data={};
 			data.page=currPage;
 			data.pagePerNum=$("#pagePerNum").val();
@@ -154,21 +153,21 @@
 			dataType:"JSON",
 			success:function(data){
 				console.log(data);
-				if(url=="../vidio/listCall"){
+				if(url=="./rest/v_listCall"){
 					printList(data.jsonList.list);
 					currPage=data.currPage;
 					totalPage=data.totalPage;
 					printPaging(data.totalCount, data.totalPage); 
 				}
-				else if(url=="../vidio/search"){
+				else if(url=="./rest/v_search"){
 					if(data.count!=0){
 						console.log(data.count);
-						searchCall(1);
+						v_searchCall(1);
 					}else{
 						alert("검색 결과가 없습니다.");
 					}
 				}
-				else if(url=="../vidio/searchCall"){
+				else if(url=="./rest/v_searchCall"){
 					console.log("검색 종료");
 					printList(data.jsonList.list);
 					currPage=data.currPage;
@@ -186,11 +185,10 @@ function printList(list){
 	var content="";
 	for(var i=0; i<list.length; i++){
 		content+="<tr>"
-			+"<td>"+list[i].vid_idx+"</td>"
-			+"<td>"+list[i].vid_name+"</td>"
-			+"<td><a href='../vidio/vidioDetail?idx="+list[i].vid_idx+"'>"+list[i].vid_title+"</a></td>"
-			+"<td>"+list[i].vid_vcount+"</td>"
-			+"<td>"+list[i].vid_state+"</td>"
+			+"<td>"+list[i].j_idx+"</td>"
+			+"<td>"+list[i].j_name+"</td>"
+			+"<td><a href='../vidio/vidioDetail?idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
+			+"<td>"+list[i].j_vcount+"</td>"
 			+"</tr>";
 		}
 		
@@ -230,21 +228,21 @@ function printPaging(count, page){
 	}
 	console.log(start+"/"+end);
 		content+="<a href='#' onclick='searchCall("+1+")'>처음</a> |"
-		+" <a href='#' onclick='searchCall("+(start-1)+")'> << </a> "
-		+"<a href='#' onclick='searchCall("+pre+")'> < </a> ";
+		+" <a href='#' onclick='v_searchCall("+(start-1)+")'> << </a> "
+		+"<a href='#' onclick='v_searchCall("+pre+")'> < </a> ";
 		for(var i=start; i<=end; i++){
 			if(i<=page){
 				if(currPage==i){
-					content+="<b>"+i+"</b>";	
+					content+="<b>"+i+"</b>";
 				}else{
-					content+=" <a href='#' onclick='searchCall("+i+")'>"
+					content+=" <a href='#' onclick='v_searchCall("+i+")'>"
 					+i+"</a> ";
 				}	
 			}
 		}
-		content+="<a href='#' onclick='searchCall("+next+")'> > </a> "
-		+" <a href='#' onclick='searchCall("+(end+1)+")'> >> </a>"
-		+"| <a href='#' onclick='searchCall("+page+")'>끝</a>";	
+		content+="<a href='#' onclick='v_searchCall("+next+")'> > </a> "
+		+" <a href='#' onclick='v_searchCall("+(end+1)+")'> >> </a>"
+		+"| <a href='#' onclick='v_searchCall("+page+")'>끝</a>";	
 	$("#paging").empty();
 	$("#paging").append(content);
 } 
