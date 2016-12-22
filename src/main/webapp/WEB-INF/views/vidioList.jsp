@@ -43,8 +43,13 @@
 									</select>
 									</td>
 									<td class="right">
-									<button>검색</button>
-									<input type="text" size="20" />
+									<select class="type">
+										<option value="mch_title">제목</option>
+										<option value="mch_content">내용</option>
+										<option value="mch_name">글쓴이</option>
+									</select>
+									<input type="text" size="20" class="input"/>
+									<button onclick="Search()">검색</button>
 								</td>
 							</tr>
 						</table>
