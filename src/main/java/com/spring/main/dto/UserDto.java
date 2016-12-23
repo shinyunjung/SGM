@@ -9,7 +9,8 @@ public class UserDto {
 	private String u_age;
 	private String u_gender;
 	private String u_phnum;
-	private String u_email;
+	private String u_mail;
+	private String u_grade;
 	
 	public String getU_idx() {
 		return u_idx;
@@ -55,12 +56,20 @@ public class UserDto {
 		this.u_phnum = u_phnum;
 	}
 		
-	public String getU_email() {
-		return u_email;
+	public String getU_mail() {
+		return u_mail;
 	}
-	public void setU_email(String u_email) {
-		this.u_email = u_email;
+	public void setU_mail(String u_mail) {
+		this.u_mail = u_mail;
 	}
+	public String getU_grade() {
+		return u_grade;
+	}
+	public void setU_grade(String u_grade) {
+		this.u_grade = u_grade;
+	}
+	
+	
 
 
 }

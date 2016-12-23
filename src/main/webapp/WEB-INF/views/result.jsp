@@ -31,7 +31,7 @@
 		</div>
 		<div class="col5 content"> 
             <div class="well bs-component">
-			<form class="form-horizontal" method="post">
+			<form action="evaUp" class="form-horizontal" method="post">
 			  <fieldset>
 			  	<legend><h2>00 VS 00</h2></legend>
 			  		<table>

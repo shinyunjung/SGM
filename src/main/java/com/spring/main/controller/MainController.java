@@ -91,24 +91,11 @@ public class MainController {
 		}
 		
 		
-	//회원관리
-	@RequestMapping(value = "/usManager")
-	public String usManager() {
-		logger.info("회원관리");
-		return "usManager";
-	}
 	//팀관리
 	@RequestMapping(value = "/teamManager")
 	public String teamManager() {
 		logger.info("팀관리");
 		return "teamManager";
-	}
-	
-	//결과
-	@RequestMapping(value = "/result")
-	public String result() {
-		logger.info("광고수정");
-		return "adModify";
 	}
 	
 	//팀 상세보기

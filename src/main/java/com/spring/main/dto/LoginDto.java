@@ -4,7 +4,7 @@ public class LoginDto {
 	private String u_idx;
 	private String u_id;
 	private String u_name;
-	
+	private String u_grade;
 	
 	public String getU_idx() {
 		return u_idx;
@@ -24,6 +24,13 @@ public class LoginDto {
 	public void setU_name(String u_name) {
 		this.u_name = u_name;
 	}
+	public String getU_grade() {
+		return u_grade;
+	}
+	public void setU_grade(String u_grade) {
+		this.u_grade = u_grade;
+	}
+	
 	
 	
 }

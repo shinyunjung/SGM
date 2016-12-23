@@ -6,8 +6,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
 			
 			.userMsg{
@@ -28,6 +26,7 @@
 	<script>
 		var userId="${sessionScope.userId}";
 		var userIdx="${sessionScope.userIdx}";
+		var manager="${sessionScope.manager}";
 		var userData={};
 		var teamData={};
 		console.log(userId);
@@ -88,13 +87,18 @@
 		function printUser(name, data){
 			console.log(name);
 			var content="";
-			content+="<select>"
-			+"<option value=0>내가 가입한 팀: </option>";
-			for(var i=0; i<data.length; i++){
-				content+="<option value="+data[i].t_idx+" >"+data[i].t_name+"</option>";
+			if(manager==""){
+				content+="<select>"
+					+"<option value=0>내가 가입한 팀: </option>";
+					for(var i=0; i<data.length; i++){
+						content+="<option value="+data[i].t_idx+" >"+data[i].t_name+"</option>";
+					}
+					content+="</select>";
+					content+=" "+name+" 님 안녕하세요";	
 			}
-			content+="</select>";
-			content+=" "+name+" 님 안녕하세요";
+			else{
+				content+=" <a href='../../main/manager/usManager'>"+manager+" 님 안녕하세요</a>";
+			}
 			$(".userMsg").empty();
 			$(".userMsg").append(content);
 		}

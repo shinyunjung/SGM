@@ -6,8 +6,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
 		
 			#logo{
@@ -26,12 +24,6 @@
 			#logoImg{
 				width: 300px;
 				height: 100px; 
-			}
-		/**관리 게시판 위치**/
-			#Manager{
-				position: absolute;
-				left: 270px;
-				top: 300px;
 			}
 			.layer{
 				width: auto;

@@ -36,6 +36,7 @@ public class BoardService {
 		String u_id = (String) params.get("u_id");
 		String u_pass = (String) params.get("u_pass");
 		String u_idx="";
+		String u_grade="";
 
 		HttpSession session = (HttpSession) params.get("session");
 		ModelAndView mav = new ModelAndView();
@@ -43,13 +44,18 @@ public class BoardService {
 		logger.info("id: {}",u_id);
 		logger.info("pass: {}",u_pass);
 		String page = "index";
-		login=inter.login(u_id, u_pass);
 		if(u_id == null || u_pass == null){
 			page="redirect:/";
 		}else{	
+			login=inter.login(u_id, u_pass);
 			if(login != null){
-				page = "redirect:/";
 				u_idx=login.getU_idx();
+				u_grade=login.getU_grade();
+				logger.info("grade:{}",u_grade);
+				if(u_grade.equals("관리자")){
+					page="usManager";
+					session.setAttribute("manager", u_grade);
+				}
 				logger.info(u_idx);
 				if(u_idx!=""){
 					session.setAttribute("userIdx", u_idx);
@@ -94,7 +100,7 @@ public class BoardService {
 			info.setU_age(params.get("u_age"));
 			info.setU_gender(params.get("gender"));
 			info.setU_phnum(params.get("u_phnum"));
-			info.setU_email(params.get("u_mail"));
+			info.setU_mail(params.get("u_mail"));
 			
 			inter.userJoin(info);
 			
