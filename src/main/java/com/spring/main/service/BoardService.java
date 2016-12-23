@@ -49,7 +49,7 @@ public class BoardService {
 		}else{	
 			if(login != null){
 				page = "redirect:/";
-				u_idx=inter.userIdx(u_id);
+				u_idx=login.getU_idx();
 				logger.info(u_idx);
 				if(u_idx!=""){
 					session.setAttribute("userIdx", u_idx);

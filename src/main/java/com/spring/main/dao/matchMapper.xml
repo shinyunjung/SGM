@@ -36,12 +36,13 @@
 	
 	<!-- 매칭 리스트 추가 -->
 	<insert id="mch_write">
-		INSERT INTO matching(mch_idx, t_idx, mch_title, mch_name, mch_date, mch_time, mch_type, mch_age, mch_content, mch_lat, mch_lng, mch_area, mch_ground, mch_state) VALUES(matching_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10}, #{param11}, #{param12}, #{param13})
+		INSERT INTO matching(mch_idx, t_idx, mch_title, mch_name, mch_date, mch_time, mch_type, mch_age, mch_content, mch_lat, mch_lng, mch_area, mch_ground, mch_state) 
+		VALUES(matching_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10}, #{param11}, #{param12}, #{param13})
 	</insert>
 	
 	<!-- 매칭 수정 -->
 	<update id="mch_modify">
-		UPDATE matching SET t_idx=#{param1}, mch_title=#{param2}, mch_name=#{param3}, mch_date=#{param4}, mch_time=#{param5}, mch_type=#{param6}, mch_age=#{param7}, mch_content=#{param8}, mch_lat#{param9}, mch_lng=#{param10}, mch_area=#{param11}, mch_ground=#{param12}, mch_state=#{param13} WHERE mch_idx=#{param14}
+		UPDATE matching SET t_idx=#{param1}, mch_title=#{param2}, mch_name=#{param3}, mch_date=#{param4}, mch_time=#{param5}, mch_type=#{param6}, mch_age=#{param7}, mch_content=#{param8}, mch_lat=#{param9}, mch_lng=#{param10}, mch_area=#{param11}, mch_ground=#{param12}, mch_state=#{param13} WHERE mch_idx=#{param14}
 	</update>
 	
 	<!-- 매칭 상세보기 -->
@@ -73,4 +74,9 @@
 	<delete id="mch_replyDel">
 		DELETE FROM reple WHERE r_idx=#{param1} AND r_category=#{param2}
 	</delete>
+	
+	<!-- 유저가 속한 팀 정보(대표만) -->
+	<select id="selectTeam" resultType="com.spring.main.dto.SelectTeamDto">
+		SELECT m.t_idx, t.t_name FROM memver m, team t WHERE m.u_idx=(SELECT u_idx FROM user1 WHERE u_idx=#{param1}) and m.t_idx=t.t_idx and m_grade='대표'
+	</select>
 </mapper>

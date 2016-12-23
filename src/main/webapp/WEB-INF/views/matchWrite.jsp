@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<% String[] area = {"중구", "동구", "남구", "연수구", "남동구", "부평구", "계양구", "서구", "강화군", "옹진군"}; %>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,12 +36,11 @@
 				height: 300px;
 			}
 			#popup{
-		     	position:absolute;
-				z-index:2;
-				width: 300px;
+				width: 100%;
 				height: 300px;
 				background-color: white;
 				display:none;
+				overflow: auto;
 			}
 			.sel td,th{
 				text-align: center;
@@ -62,7 +62,7 @@
 				<fieldset>
 					<legend>글쓰기</legend>
 				</fieldset>
-					<form action="write" method="get" id="mainForm" name="writeForm" onSubmit="writeCheck();return false">
+					<form action="write" method="post" id="mainForm" name="writeForm" onSubmit="writeCheck();return false">
 						<table class="detailTable">
 								<tr class="borderTop">
 									<td colspan="4">
@@ -70,7 +70,13 @@
 									</td>
 								</tr>
 								<tr class="borderTop">
-									<td colspan="4" class="messenger"></td>
+									<td colspan="4" class="messenger">
+										<select name="team_info">
+											<c:forEach items="${teamList}" var="team">
+												<option value="${team.t_idx}/${team.t_name}">${team.t_name}</option>
+											</c:forEach>
+										</select>
+									</td>
 								</tr>
 								<tr class="borderTop">
 									<th>경기날짜</th>
@@ -96,16 +102,16 @@
 									<td colspan="4" class="map">
 										<div id="popup">
 										<!-- 장소목록 -->	
-											<table class="sel">
+											<table class="sel" width="100%">
 												<thead>
 													<tr>
-														<td colspan="4" style="text-align: right;">
-															<b class="cancel">X</b>
-														</td>
-													</tr>
-													<tr>
 														<td colspan="4">
-															<select name="gu"></select>
+															<select name="mch_area">
+															<c:set var="area" value="<%=area %>"></c:set>
+																<c:forEach items="${area}" var="team" varStatus="gu">
+																	<option value="${gu.index}">${team}</option>
+																</c:forEach>
+															</select>
 														</td>
 													</tr>
 													<tr class="borderTop">
@@ -148,31 +154,24 @@
 	var data={};
 	var areaCheck=false;
 	var userIdx="${sessionScope.userIdx}";
-	$("document").ready(function(){
-		selectTeam(userIdx);
-	});
 	
-	function selectTeam(idx){
-		url="../selectTeam";
-		data.idx=idx;
-		reqServer(url, data);
-	}
 	
 	$(".btn-info").click(function(){
 		url="../match/areaList";
-		$("#popup").css("display","block");
-		var frm = document.getElementById('mainForm');
-		for (var i=0; i<10; i++) {
-			frm['gu'].options[i] = new Option(i+1, i+1);
-		}
-		reqServer(url, data);
+		$("#popup").slideToggle("slow",function(){
+			var flag=$("#popup").css("display");
+			console.log(flag);
+			if(flag=="block"){
+				reqServer(url, data);
+			}
+		});
 	});
 	
 	$("select[name='gu']").change(function(){
 		console.log("구 변경");
 		var url="../match/selectAreaList";
 		var data={};
-		data.area=$("select[name='gu']").val();
+		data.area=$("select[name='area']").val();
 		
 	});
 	
@@ -188,10 +187,6 @@
 				console.log(data);
 				if(url=="../match/areaList"){
 					printArea(data.area);
-				}else if(url=="../selectTeam"){
-					console.log("쓰기페이지에서 함");
-					console.log(data.userTeam);
-					printSelect(data.userTeam);
 				}
 			},
 			error:function(error){
@@ -201,7 +196,9 @@
 	}
 	
 	$(".cancel").click(function(){
-		$("#popup").css("display","none");
+		$("#popup").slideUp("slow",function(){
+			
+		});
 	});
 	$(document).ready(function(){
 		var frm = document.getElementById('mainForm');
@@ -234,15 +231,12 @@
 	
 	function printArea(list){
 		var content="";
-		content+="<tr>"
-			+"<td>"+"<input type='hidden' name='ground' value="+list[0].a_ground+" />"+"</td>"
-			+"</tr>"
 		for(var i=0; i<list.length; i++){
 			content+="<tr>"
 				+"<td>"+list[i].a_idx+"</td>"
 				+"<td class='ground"+i+"'>"+list[i].a_ground+"</td>"
 				+"<td>"+list[i].a_address+"</td>"
-				+"<td>"+"<input type='radio' name='position' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+", "+i+")' value='"+list[i].a_lat+"/"+list[i].a_lng+"' />"+"</td>"
+				+"<td>"+"<input type='radio' name='areaInfo' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+", "+i+")' value='"+list[i].a_lat+"/"+list[i].a_lng+"/"+list[i].a_ground+"' />"+"</td>"
 				+"</tr>";
 			}
 			
@@ -255,39 +249,21 @@
 		console.log($("input[name='position']:checked").val());
 		areaSearch(lat, lng);
 		
-		var input = document.getElementsByName("ground");
-		var value = $(".ground"+i+"").html();
-		input.value=value;
-		console.log(input);
 		areaCheck=true;
 	}
 	
-	function printSelect(data){
-		var content="";
-		content+="<input type='hidden' name='mch_name' value="+data[0].t_name+" />";
-		content+="<select name='t_idx' class='select' onchange='teamValue()'>";
-		for(var i=0; i<data.length; i++){
-			content+="<option value="+data[i].t_idx+"  >"+data[i].t_name+"</option>";
-		}
-		content+="</select>";
-		$(".messenger").empty();
-		$(".messenger").append(content);
-	}
-	
-	function teamValue(){
-		var input = document.getElementsByName("mch_name");
-		var value = $("select[name='t_idx']").val();
-		var t_name=$("option[value='"+value+"']").html();
-		input.value=t_name;
-		
-	}
 	
 	function writeCheck(){
 		console.log(areaCheck);
+		var test=$("select[name='team_info']").value;
+		console.log("select:"+test);
 		
 		if(document.writeForm.mch_title.value==""){
 			alert("제목을 입력해주세요");
 			document.writeForm.mch_title.focus();
+		}else if(document.writeForm.team_info.value==""){
+			alert("팀을 입력해주세요");
+			document.writeForm.team_info.focus();
 		}else if(document.writeForm.mch_date.value==""){
 			alert("경기날짜를 입력해주세요");
 			document.writeForm.mch_date.focus();
@@ -301,8 +277,9 @@
 			alert("운동장을 입력해주세요");
 			document.writeForm.area.focus();
 		}else{
-			document.writeForm.submit();
-			return true;
+			
+			 document.writeForm.submit(); 
+			return true; 
 		}
 	}
 	</script>

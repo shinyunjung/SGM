@@ -25,7 +25,5 @@ public interface BoardInterface {
 	//유저가 속한 팀 정보
 	ArrayList<SelectTeamDto> selectTeam(String idx);
 
-	//유저번호 출력(세션화하기)
-	String userIdx(String u_id);
 
 }

@@ -98,10 +98,10 @@
 									<td class="borderLeft">조회수</td>
 									<td class="borderLeft">${detail.mch_vcount}</td>
 								</tr>
-								<tr>
-									<td>
-										
-									</td>
+								<tr class="borderTop">
+									<td class="left">시합날짜:${detail.mch_date}</td>
+									<td class="borderLeft">경기시간:${detail.mch_time}</td>
+									<td class="borderLeft" colspan="3">팀명:${detail.mch_name}</td>
 								</tr>
 							</thead>
 							<tbody>
@@ -129,7 +129,7 @@
 										<td class="left"><a onclick="reple()" class="repCnt">댓글 ${detail.mch_reple}</a></td>
 									</c:if>
 									<td colspan="4" class="right ">
-										<a href="../match/matchModify?idx=${detail.mch_idx }">수정</a> / <a>삭제</a>
+										<a href="../match/matchModify?idx=${detail.mch_idx }&userIdx=${sessionScope.userIdx}">수정</a> / <a>삭제</a>
 									</td>
 								</tr>
 							</tbody>

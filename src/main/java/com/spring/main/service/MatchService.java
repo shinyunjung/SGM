@@ -8,11 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.context.request.RequestAttributes;
@@ -22,7 +24,10 @@ import com.spring.main.dao.BoardInterface;
 import com.spring.main.dao.MatchInterface;
 import com.spring.main.dto.AreaDto;
 import com.spring.main.dto.MatchDto;
+import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.RepleDto;
+import com.spring.main.dto.TeamDto;
+import com.spring.main.dto.UserDto;
 
 @Service
 public class MatchService {
@@ -128,27 +133,32 @@ public class MatchService {
 
 
 	//매칭 게시판 글 등록
-	public ModelAndView write(Map<String, String> params) {
+	public ModelAndView write(Map<String, String> params)  {
 		ModelAndView mav = new ModelAndView();
 		inter=sqlSession.getMapper(MatchInterface.class);
 		int success=0;
-		String t_idx=params.get("t_idx");
-		String title = params.get("mch_title");
-		String writer = params.get("mch_name");
-		String date = params.get("mch_date");
-		String time = params.get("mch_time");
-		String type = params.get("mch_type");
-		String age = params.get("mch_age");
-		String content = params.get("mch_content");
-		String prePosition = params.get("position");
-		String ground = params.get("ground");
-		String area = params.get("gu");
-		String[] position = prePosition.split("/");
-		String lat = position[0];
-		String lng = position[1];
-		String state="대기";
-		logger.info(title+"/"+writer+"/"+date+"/"+time+"/"+type+"/"+age+"/"+content+"/"+lat+"/"+lng+"/"+area+"/"+ground);
-		success = inter.mch_write(t_idx, title, writer, date, time, type, age, content, lat, lng, area, ground, state);
+		MatchDto mdt = new MatchDto();
+		
+		String teamInfo=params.get("team_info");
+		String mch_title = params.get("mch_title");
+		String mch_date = params.get("mch_date");
+		String mch_time = params.get("mch_time");
+		String mch_type = params.get("mch_type");
+		String mch_age = params.get("mch_age");
+		String mch_content = params.get("mch_content");
+		String areaInfo = params.get("areaInfo");
+		String mch_area = params.get("mch_area");
+		String[] position = areaInfo.split("/");
+		String[] team = teamInfo.split("/");
+		String t_idx=team[0];
+		String mch_name=team[1];
+		String mch_lat = position[0];
+		String mch_lng = position[1];
+		String mch_ground=position[2];
+		String mch_state="대기";
+		
+		logger.info(mch_title+"/"+mch_name+"/"+mch_date+"/"+mch_time+"/"+mch_type+"/"+mch_age+"/"+mch_content+"/"+mch_lat+"/"+mch_lng+"/"+mch_area+"/"+mch_ground);
+		success = inter.mch_write(t_idx, mch_title, mch_name, mch_date, mch_time, mch_type, mch_age, mch_content, mch_lat, mch_lng, mch_area, mch_ground, mch_state);
 		mav.addObject("success", success);
 		mav.setViewName("matchList");
 		return mav;
@@ -173,13 +183,19 @@ public class MatchService {
 
 
 	//상세보기/수정페이지 
-	public ModelAndView detail(int idx, boolean modFlag) {
+	public ModelAndView detail(Map<String, String>params) {
 		inter=sqlSession.getMapper(MatchInterface.class);
 		MatchDto mdt = new MatchDto();
 		ModelAndView mav = new ModelAndView();
+		String idx = params.get("idx");
+		String modFlag=params.get("modFlag");
 		mdt=inter.mch_detail(idx);
 		mav.addObject("detail",mdt);
-		if(modFlag){
+		if(modFlag.equals("true")){
+			ArrayList<TeamDto> obj = new ArrayList<TeamDto>();
+			String userIdx=params.get("userIdx");
+			obj=inter.selectTeam(userIdx);
+			mav.addObject("teamList",obj);
 			mav.setViewName("matchModify");
 		}else{
 			mav.setViewName("matchDetail");
@@ -242,97 +258,59 @@ public class MatchService {
 	}
 
 
-	public ModelAndView modify(Map<String, Object> params) {
+	public ModelAndView modify(Map<String, String> params) {
 		ModelAndView mav = new ModelAndView();
 		inter=sqlSession.getMapper(MatchInterface.class);
 		int success=0;
-		String mch_idx=(String) params.get("mch_idx");
-		String t_idx=(String)params.get("t_idx");
-		String title =(String) params.get("mch_title");
-		String writer =(String) params.get("mch_name");
-		String date = (String)params.get("mch_date");
-		String time = (String)params.get("mch_time");
-		String type =(String) params.get("mch_type");
-		String age =(String) params.get("mch_age");
-		String content =(String) params.get("mch_content");
-		String prePosition =(String) params.get("position");
-		String ground =(String) params.get("ground");
-		String area = (String)params.get("gu");
-		String[] position = prePosition.split("/");
-		String lat = position[0];
-		String lng = position[1];
-		String state="대기";
+		
+		String teamInfo=params.get("team_info");
+		String mch_title = params.get("mch_title");
+		String mch_date = params.get("mch_date");
+		String mch_time = params.get("mch_time");
+		String mch_type = params.get("mch_type");
+		String mch_age = params.get("mch_age");
+		String mch_content = params.get("mch_content");
+		String areaInfo = params.get("areaInfo");
+		
+		logger.info("areaInfo:{}",areaInfo);
+		logger.info("teamInfo:{}",teamInfo);
+		
+		String mch_area = params.get("mch_area");
+		String[] position = areaInfo.split("/");
+		String[] team = teamInfo.split("/");
+		String t_idx=team[0];
+		String mch_name=team[1];
+		String mch_lat = position[0];
+		String mch_lng = position[1];
+		String mch_ground=position[2];
+		String mch_state="대기";
+		String mch_idx=params.get("mch_idx");
 		
 		
-		logger.info(t_idx+"/"+title+"/"+writer+"/"+date+"/"+time+"/"+type+"/"+age+"/"+content+"/"+lat+"/"+lng+"/"+area+"/"+ground+"/"+state+"/"+mch_idx);
-		success = inter.mch_modify(t_idx, title, writer, date, time, type, age, content, lat, lng, area, ground, state, mch_idx);
+		logger.info(mch_title+"/"+mch_name+"/"+mch_date+"/"+mch_time+"/"+mch_type+"/"+mch_age+"/"+mch_content+"/"+mch_lat+"/"+mch_lng+"/"+mch_area+"/"+mch_ground);
+		success = inter.mch_modify(t_idx, mch_title, mch_name, mch_date, mch_time, mch_type, mch_age, mch_content, mch_lat, mch_lng, mch_area, mch_ground, mch_state, mch_idx);
 		mav.addObject("success", success);
 		mav.setViewName("matchList");
 		return mav;
 	}
 
 
-	public ModelAndView writeCheck(Map<String, String> params) throws ParseException {
+	public ModelAndView memberCheck(String idx) {
 		ModelAndView mav = new ModelAndView();
 		inter=sqlSession.getMapper(MatchInterface.class);
-		MatchDto mdt = new MatchDto();
-		String msg="";
-		mav.addObject("writeData", params);
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date mchDate;
-		
-		String t_idx=params.get("t_idx");
-		String title = params.get("mch_title");
-		String writer = params.get("mch_name");
-		String date = params.get("mch_date");
-		String time = params.get("mch_time");
-		String type = params.get("mch_type");
-		String age = params.get("mch_age");
-		String content = params.get("mch_content");
-		String prePosition = params.get("position");
-		String ground = params.get("ground");
-		String area = params.get("gu");
-		
-		if(title!=""){
-			mdt.setMch_title(title);
-		}else{
-			msg="제목을 입력해주세요";
-			mav.addObject("msg",msg);
+		ArrayList<TeamDto> obj = new ArrayList<TeamDto>();
+		int count=0;
+		obj=inter.selectTeam(idx);
+		count=obj.size();
+		String msg="쓰기권한이 없습니다.";
+		logger.info("count:{}",count);
+		if(count>0){
+			mav.addObject("teamList",obj);
 			mav.setViewName("matchWrite");
-			return mav;
-		}
-		
-		if(date!=""){
-			mchDate=(Date) transFormat.parse(date);
-			mdt.setMch_date(mchDate);
 		}else{
-			msg="시합날짜를 결정해주세요";
 			mav.addObject("msg",msg);
-			mav.setViewName("matchWrite");
-			return mav;
+			mav.setViewName("matchList");
 		}
-		
-		if(time!=""){
-			mdt.setMch_time(time);
-		}else{
-			msg="시합시간을 결정해주세요";
-			mav.addObject("msg",msg);
-			mav.setViewName("matchWrite");
-			return mav;
-		}
-		
-		if(content!=""){
-			mdt.setMch_content(content);
-		}else{
-			msg="내용을 적어주세요";
-			mav.addObject("msg",msg);
-			mav.setViewName("matchWrite");
-			return mav;
-		}
-		/*String[] position = prePosition.split("/");
-		String lat = position[0];
-		String lng = position[1];
-		String state="대기";*/
 		return mav;
 	}
 

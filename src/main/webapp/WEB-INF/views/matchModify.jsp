@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<% String[] area = {"중구", "동구", "남구", "연수구", "남동구", "부평구", "계양구", "서구", "강화군", "옹진군"}; %>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,15 +36,17 @@
 				height: 300px;
 			}
 			#popup{
-		     	position:absolute;
-				z-index:2;
-				width: 300px;
+				width: 100%;
 				height: 300px;
 				background-color: white;
 				display:none;
+				overflow: auto;
 			}
 			.sel td,th{
 				text-align: center;
+			}
+			input[name='areaInfo']{
+				display: none;
 			}
 		</style>
 	</head>
@@ -60,18 +63,25 @@
 				</div>
 				<div class="col5 content">
 				<fieldset>
-					<legend>글수정</legend>
+					<legend>글쓰기</legend>
 				</fieldset>
-					<form action="modify" method="post" id="mainForm">
+					<form action="modify" method="post" id="mainForm" name="modifyForm" onSubmit="modifyCheck();return false" >
 						<table class="detailTable">
 								<tr class="borderTop">
 									<td colspan="4">
-										<input type="text" name="mch_title" value="${detail.mch_title}" />
+										<input type="text" name="mch_title" value="${detail.mch_title}"/>
 										<input type="hidden" name="mch_idx" value="${detail.mch_idx}" />
+										<input type="text" name="areaInfo" value="${detail.mch_lat}/${detail.mch_lng}/${detail.mch_ground}"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
-									<td colspan="4" class="messenger"></td>
+									<td colspan="4" class="messenger">
+										<select name="team_info">
+											<c:forEach items="${teamList}" var="team">
+												<option value="${team.t_idx}/${team.t_name}">${team.t_name}</option>
+											</c:forEach>
+										</select>
+									</td>
 								</tr>
 								<tr class="borderTop">
 									<th>경기날짜</th>
@@ -81,32 +91,32 @@
 								</tr>
 								<tr class="borderTop">
 									<th>유형</th>
-									<td><select name="mch_type" ></select></td>
+									<td><select name="mch_type"></select></td>
 									<th>연령대</th>
 									<td><select name="mch_age"></select></td>
 								</tr>
 								<tr class="borderTop">
 									<td colspan="4">
-										<textarea rows="17" name="mch_content">${detail.mch_content}</textarea>
+										<textarea rows="17" name="mch_content">${detail.mch_content }</textarea>
 									</td>
 								</tr>
 								<tr class="borderTop">
-									<td><button type="button" class="btn btn-info">운동장 선택</button></td>
+									<td><button type="button" class="btn btn-info" name="area">운동장 선택</button></td>
 								</tr>
 								<tr>
 									<td colspan="4" class="map">
 										<div id="popup">
 										<!-- 장소목록 -->	
-											<table class="sel">
+											<table class="sel" width="100%">
 												<thead>
 													<tr>
-														<td colspan="4" style="text-align: right;">
-															<b class="cancel">X</b>
-														</td>
-													</tr>
-													<tr>
 														<td colspan="4">
-															<select name="gu"></select>
+															<select name="mch_area">
+															<c:set var="area" value="<%=area %>"></c:set>
+																<c:forEach items="${area}" var="team" varStatus="gu">
+																	<option value="${gu.index}">${team}</option>
+																</c:forEach>
+															</select>
 														</td>
 													</tr>
 													<tr class="borderTop">
@@ -131,7 +141,7 @@
 								<tr class="borderTop">
 									<td colspan="4" style="text-align: center;">
 					  				<button type="reset" class="btn btn-default">취소</button>
-					        		<button type="submit" class="btn btn-primary">등록</button>
+					        		<button type="submit" class="btn btn-primary" >등록</button>
 			  				</td>
 								</tr>
 						</table>
@@ -147,25 +157,21 @@
 	<script>
 	var url="";
 	var data={};
+	var areaCheck=false;
 	var userIdx="${sessionScope.userIdx}";
-	var change=false;
-	$("document").ready(function(){
-		console.log(userIdx);
-		selectTeam(userIdx);
-		var position="${detail.mch_lat}"+"/"+"${detail.mch_lng}";
-		console.log(position);
-		areaSearch("${detail.mch_lat}", "${detail.mch_lng}");
-		$("input [name='position']").attr("checked",true);
-		
-	});
+	var teamList="${teamList}";
+	var position="${detail.mch_lat}"+"/"+"${detail.mch_lng}"+"/"+"${detail.mch_ground}";
 	
-	$(document).ready(function(){
+	
+	$("document").ready(function(){
+		console.log("document시작")
 		var frm = document.getElementById('mainForm');
 		var no=0;
 		var valCnt=0;
 		var age="${detail.mch_age}";
 		var type="${detail.mch_type}";
-		console.log(age+"/"+type);
+		var t_idx="${detail.t_idx}";
+		
 		frm['mch_type'].options[0] = new Option('축구', 1);
 		frm['mch_type'].options[1] = new Option('풋살', 2);
 		for(var i=1; i<7; i++){
@@ -183,6 +189,11 @@
 		$("select[name='mch_age'] option:eq("+(age-1)+")").attr("selected","selected");
 		$("select[name='mch_type'] option:eq("+(type-1)+")").attr("selected","selected");
 		
+		areaSearch("${detail.mch_lat}", "${detail.mch_lng}");
+		$("select[name='team_info'] option:eq("+(t_idx-1)+")").attr("selected","selected");
+		console.log($("select[name='team_info']"));
+		areaInfo.value=position;
+		
 	});
 	
 	
@@ -190,21 +201,23 @@
 	
 	
 	
-	function selectTeam(idx){
-		url="../selectTeam";
-		data.idx=idx;
-		reqServer(url, data);
-	}
-	
-	
 	$(".btn-info").click(function(){
 		url="../match/areaList";
-		$("#popup").css("display","block");
-		var frm = document.getElementById('mainForm');
-		for (var i=0; i<10; i++) {
-			frm['gu'].options[i] = new Option(i+1, i+1);
-		}
-		reqServer(url, data);
+		$("#popup").slideToggle("slow",function(){
+			var flag=$("#popup").css("display");
+			console.log(flag);
+			if(flag=="block"){
+				reqServer(url, data);
+			}
+		});
+	});
+	
+	$("select[name='gu']").change(function(){
+		console.log("구 변경");
+		var url="../match/selectAreaList";
+		var data={};
+		data.area=$("select[name='area']").val();
+		
 	});
 	
 	function reqServer(url, data){
@@ -219,10 +232,6 @@
 				console.log(data);
 				if(url=="../match/areaList"){
 					printArea(data.area);
-				}else if(url=="../selectTeam"){
-					console.log("수정페이지에서 함");
-					console.log(data.userTeam);
-					printSelect(data.userTeam);
 				}
 			},
 			error:function(error){
@@ -232,7 +241,9 @@
 	}
 	
 	$(".cancel").click(function(){
-		$("#popup").css("display","none");
+		$("#popup").slideUp("slow",function(){
+			
+		});
 	});
 	
 	
@@ -249,43 +260,52 @@
 		for(var i=0; i<list.length; i++){
 			content+="<tr>"
 				+"<td>"+list[i].a_idx+"</td>"
-				+"<td>"+list[i].a_ground
-				+"<input type='hidden' name='ground' value='"+list[i].a_ground+"' /></td>"
+				+"<td class='ground"+i+"'>"+list[i].a_ground+"</td>"
 				+"<td>"+list[i].a_address+"</td>"
-				+"<td>"+"<input type='radio' name='position' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+")' value='"+list[i].a_lat+"/"+list[i].a_lng+"' />"+"</td>"
+				+"<td>"+"<input type='radio' name='areaInfoRadio' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+", "+i+")' value='"+list[i].a_lat+"/"+list[i].a_lng+"/"+list[i].a_ground+"' />"+"</td>"
 				+"</tr>";
 			}
 			
 			$(".areaList").empty();
 			$(".areaList").append(content);
+			$("input [name='areaInfo']").attr("checked", true);
 	}
 	
-	function checkMap(lat, lng){
+	function checkMap(lat, lng, i){
 		console.log(lat, lng);
-		console.log($("input[name='position']:checked").val());
+		var test = $("input[name='areaInfoRadio']:checked").val();
 		areaSearch(lat, lng);
-	}
-	
-	function printSelect(data){
-		var content="";
-		var t_idx="${detail.t_idx}";
-		content+="<input type='hidden' name='mch_name' value="+data[0].t_name+" />";
-		content+="<select name='t_idx' class='select' onchange='teamValue()'>";
-		for(var i=0; i<data.length; i++){
-			content+="<option value="+data[i].t_idx+"  >"+data[i].t_name+"</option>";
-		}
-		content+="</select>";
-		$(".messenger").empty();
-		$(".messenger").append(content);
-		$("select[name='t_idx'] option:eq("+(t_idx-1)+")").attr("selected","selected");
-	}
-	
-	function teamValue(){
-		var input = document.getElementsByName("mch_name");
-		var value = $("select[name='t_idx']").val();
-		var t_name=$("option[value='"+value+"']").html();
-		input.value=t_name;
 		
+		console.log(test);
+		$("input[name='areaInfo']").val(test);
+		areaCheck=true;
 	}
+	
+	
+	
+	function modifyCheck(){
+		console.log(areaInfo);
+		
+		if(document.modifyForm.mch_title.value==""){
+			alert("제목을 입력해주세요");
+			document.modifyForm.mch_title.focus();
+		}else if(document.modifyForm.team_info.value==""){
+			alert("팀을 입력해주세요");
+			document.modifyForm.team_info.focus();
+		}else if(document.modifyForm.mch_date.value==""){
+			alert("경기날짜를 입력해주세요");
+			document.modifyForm.mch_date.focus();
+		}else if(document.modifyForm.mch_time.value==""){
+			alert("경기시간을 입력해주세요");
+			document.modifyForm.mch_time.focus();
+		}else if(document.modifyForm.mch_content.value==""){
+			alert("내용을 입력해주세요");
+			document.modifyForm.mch_content.focus();
+		}else{
+			 document.modifyForm.submit(); 
+			return true; 
+		}
+	}
+	
 	</script>
 </html>

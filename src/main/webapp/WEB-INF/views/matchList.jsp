@@ -95,6 +95,13 @@
 		var search=false;
 		var input = "";
 		var type="mch_title";
+		var idx="${sessionScope.userIdx}";
+		var msg="";
+		msg="${msg}";
+		
+		if(msg!=""){
+			alert(msg);
+		}
 		
 		$("document").ready(function(){
 			listCall(currPage);
@@ -219,8 +226,10 @@
 		}
 	
 	function mchWrite(){
-		if("${sessionScope.userId}"!=""){
-			location.href="../../main/match/matchWrite";
+		if(idx!=""){
+			var userIdx="${sessionScope.userIdx}";
+			console.log(userIdx);
+			location.href="../../main/match/memberCheck?idx="+userIdx; 
 		}else{
 			alert("로그인이 필요한 권한입니다.");
 		}

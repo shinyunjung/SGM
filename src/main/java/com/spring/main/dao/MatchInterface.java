@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 import com.spring.main.dto.AreaDto;
 import com.spring.main.dto.MatchDto;
+import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.RepleDto;
+import com.spring.main.dto.TeamDto;
 
 
 public interface MatchInterface {
@@ -31,7 +33,7 @@ public interface MatchInterface {
 			String lat, String lng, String area, String ground, String state);
 
 	//매칭 상세보기
-	MatchDto mch_detail(int idx);
+	MatchDto mch_detail(String idx);
 
 	//매칭 댓글 등록
 	int mch_replyRegist(int category, String idx, String replyer, String reple);
@@ -49,5 +51,9 @@ public interface MatchInterface {
 
 	int mch_modify(String t_idx, String title, String writer, String date, String time, String type, String age,
 			String content, String lat, String lng, String area, String ground, String state, String mch_idx);
+
+	ArrayList<TeamDto> selectTeam(String idx);
+
+
 
 }

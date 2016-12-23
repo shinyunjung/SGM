@@ -33,8 +33,4 @@
 		SELECT m.t_idx, t.t_name FROM memver m, team t WHERE m.u_idx=(SELECT u_idx FROM user1 WHERE u_idx=#{param1}) and m.t_idx=t.t_idx
 	</select>
 	
-	<!-- 유저의 idx 출력(세션화) -->
-	<select id="userIdx" resultType="String">
-		SELECT u_idx FROM user1 WHERE u_id=#{param1}
-	</select>
 </mapper>

@@ -58,10 +58,11 @@ public class MatchController {
 	
 	//매칭상세
 	@RequestMapping(value = "/matchDetail")
-	public ModelAndView matchDetail(@RequestParam("idx") int idx) {
+	public ModelAndView matchDetail(@RequestParam Map<String, String> params) {
 		logger.info("매칭상세");
-		modFlag=false;
-		return service.detail(idx, modFlag);
+		String modFlag="false";
+		params.put("modFlag",modFlag);
+		return service.detail(params);
 	}
 	
 	
@@ -75,12 +76,12 @@ public class MatchController {
 	//댓글 요청	
 	@RequestMapping(value="/replyList")
 	public @ResponseBody Map<String, ArrayList<RepleDto>> replyList(@RequestParam Map<String, String> params){
-		logger.info("리스트 요청");
+		logger.info("댓글 리스트 요청");
 		return service.replyList(params);
 	}
 	
 	
-	//댓글 요청	
+	//댓글 삭제
 	@RequestMapping(value="/replyDel")
 	public @ResponseBody Map<String, String> replyDel(@RequestParam Map<String, String> params){
 		logger.info("삭제 요청");
@@ -90,8 +91,15 @@ public class MatchController {
 	//매칭쓰기페이지 이동
 	@RequestMapping(value = "/matchWrite")
 	public String matchWrite() {
-		logger.info("매칭쓰기");
+		logger.info("쓰기페이지 이동");
 		return "matchWrite";
+	}
+	
+	//글작성 권한 검색
+	@RequestMapping(value = "/memberCheck")
+	public ModelAndView memberCheck(@RequestParam("idx") String idx) {
+		logger.info("권한 검색");
+		return service.memberCheck(idx);
 	}
 	
 	//매칭쓰기
@@ -101,13 +109,6 @@ public class MatchController {
 		return service.write(params);
 	}
 	
-	//매칭쓰기 체크
-		@RequestMapping(value = "/writeCheck")
-		public ModelAndView writeCheck(@RequestParam Map<String, String> params) throws ParseException {
-			logger.info("매칭쓰기 체크");
-			return service.writeCheck(params);
-		}
-	
 	//매칭목록
 	@RequestMapping(value = "/areaList")
 	public @ResponseBody Map<String, ArrayList<AreaDto>> areaList(@RequestParam Map<String, String> params) {
@@ -115,7 +116,7 @@ public class MatchController {
 		return service.areaList(params);
 	}
 	
-	//매칭쓰기
+	//장소결정
 	@RequestMapping(value = "/areaMap")
 	public ModelAndView areaMap(@RequestParam("lat") String lat) {
 		logger.info("장소 결정");
@@ -125,18 +126,20 @@ public class MatchController {
 	
 	//매칭수정페이지
 	@RequestMapping(value = "/matchModify")
-	public ModelAndView matchModify(@RequestParam("idx") int idx) {
+	public ModelAndView matchModify(@RequestParam Map<String, String> params) {
 		logger.info("매칭수정");
-		modFlag=true;
-		return service.detail(idx, modFlag);
+		String modFlag="true";
+		params.put("modFlag", modFlag);
+		return service.detail(params);
 	}
 	
 	//수정
 	@RequestMapping(value = "/modify")
-	public ModelAndView modify(@RequestParam Map<String, Object> params) {
+	public ModelAndView modify(@RequestParam Map<String, String> params) {
 		logger.info("매칭수정");
 		return service.modify(params);
 	}
+	
 	
 	//경기일정
 	@RequestMapping(value = "/calendar")
