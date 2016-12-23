@@ -20,12 +20,6 @@
 				width: 300px;
 				height: 100px; 
 			}
-		/**관리 게시판 위치**/
-			#Manager{
-				position: absolute;
-				left: 270px;
-				top: 300px;
-			}
 			.layer{
 				width: auto;
 				text-align: center;

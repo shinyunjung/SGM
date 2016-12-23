@@ -18,22 +18,32 @@
 				width: 5%;
 			}	
 			.info{
-				padding-bottom: 7%;
+				padding-top: 23px;
+				border: 1px solid;
+			}
+			.eva{
+				border: 1px solid;
 			}
 			.evaTable{
 				width: 100%;
 			}
-			.normal{
-				border: 1px solid;
-				border-collapse: collapse;
-			}
 			.memberSign{
 				padding-top: 8%;
-				
 				text-align: right;
 			}
 			.member{
-				padding-top: 20%;
+				width: 100%;
+				padding-top: 20px;
+				overflow: auto;
+				display: block;
+				border: 1px solid;
+			}
+			.tdList{
+				padding-top: 20px;
+				position: relative;
+				z-index: 2;
+				display: none;
+				border: 1px solid;
 			}
 			#ace{
 				background-color: black;
@@ -42,6 +52,10 @@
 			}
 			td,th{
 				text-align: center;
+			}
+			.margin{
+				margin: 0;
+				border: 1px solid;
 			}
 		</style>
 	</head>
@@ -103,14 +117,30 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="eva col-sm-8">
+					<div class="eva col-sm-5">
+						<table class="evaTable">
+							<tr>
+								<th colspan="4">전적</th>
+							</tr>
+							<c:forEach items="${ent}" var="ent" begin="0" end="4">
+							<tr>
+								<td>${ent.e_team}</td>
+								<td rowspan="2">${ent.date}</td>
+							</tr>
+							<tr>
+								<td>${ent.e_difference}</td>
+							</tr>
+							</c:forEach>
+						</table>
+					</div>
+					<div class="eva col-sm-7">
 						<table class="evaTable">
 							<tr>
 								<th colspan="4">평가 정보</th>
 							</tr>
 							<tr>
-								<td class="normal">매너</td>
-								<td class="normal">
+								<td>매너</td>
+								<td>
 								<c:set var="sum" value="0"/>
 								<c:forEach items="${evalue}" var="i">
 									<c:set var="sum" value="${sum+i.ev_manner}"/>
@@ -118,20 +148,22 @@
 								<c:if test="${sum!=0}">
 								<fmt:formatNumber value="${sum/evCnt}" type="pattern" pattern="0"/>
 								</c:if>
+								<div class="progress">
+								  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+								  aria-valuemin="0" aria-valuemax="100" style="width:${evCnt}0%">
+								  </div>
+								</div>
 								</td>
-								<td class="normal">OOO</td>
-								<td class="normal">OOO</td>
+								<td>OOO</td>
+								<td>OOO</td>
 							</tr>
 							<tr>
-								<td class="normal">OOO</td>
-								<td class="normal">OOO</td>
-								<td class="normal">OOO</td>
-								<td class="normal">OOO</td>
+								<td>OOO</td>
+								<td>OOO</td>
+								<td>OOO</td>
+								<td>OOO</td>
 							</tr>
 						</table>
-					</div>
-					<div class="col-sm-4 memberSign">
-						<button>멤버 등록</button>
 					</div>
 					<div class="member">
 					----------------------------------------------------------------------------------------------------------------------	
@@ -173,8 +205,53 @@
 							</c:forEach>
 							</tbody>
 						</table>
-					</div>
 				</div>
+				<div class="tdList">
+				----------------------------------------------------------------------------------------------------------------------	
+					<table class="table margin">
+						<thead>
+							<tr>
+								<th style="text-align: left;" colspan="2">팀 일지</th>
+							</tr>
+							<tr>
+								<td style="text-align: left;">
+									게시물수:
+									<select id="pagePerNum">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								</td>
+								<td style="text-align: right;">
+									<select class="type">
+										<option value="5">제목</option>
+										<option value="10">내용</option>
+										<option value="15">글쓴이</option>
+									</select>
+									<input type="text" class="input"/>
+									<button onclick="Search()">검색</button>
+								</td>
+							</tr>
+						</thead>
+					</table>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>번호</th>					
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성일</th>
+								<th>조회</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+					<div id="paging"></div>
+				</div>
+			</div>
 				
 				<!-- 세 번째 구역 -->
 				<div class="col3 content">
@@ -187,23 +264,41 @@
 	<script>
 	var currPage = 1;
 	var num = 5;
+	var value = null;
+	var type = null;
+	
+	function tdList(t_idx){
+		$(".tdList").css("display","block");
+		$(".member").css("display","none");
+		/* listCall(currPage,t_idx,value,type); */
+	}
+	function member(){
+		$(".tdList").css("display","none");
+		$(".member").css("display","block");
+	}
+	
 	
 	$("#pagePerNum").change(function(){
 		currPage = 1;
-		tdList(currPage,t_idx);
+		listCall(currPage,t_idx,value,type);
 	});
 	
 	//검색기능
 	function Search(){
-		t_name = $(".input").val();
-		tdList(currPage,t_idx);
+		value = $(".input").val();
+		type = $(".type").val();
+		listCall(currPage,t_idx,value,type);
 		
 	}
 	
-	function tdList(currPage,t_idx){
+	function listCall(currPage,t_idx,value,type){
 		var url="./tdList";
 		var data = {};
+		data.page = currPage;
+		data.pagePerNum = $("#pagePerNum").val();
 		data.t_idx = t_idx;
+		data.value = value;
+		data.type = type;
 		reqServer(url,data);
 	}
 	
@@ -215,27 +310,18 @@
 			dataType:"json",
 			success:function(d){
 				console.log(d)
-				printList(allCnt,list)
+				printList(d.jsonList.list);
+				currPage = d.currPage;
+				printPaging(d.allCnt, d.page);
 			},error:function(e){
 				console.log(e)
 			}
 		});
 	}
 	
-	function printList(allCnt,list){
+	function printList(list){
 		console.log(list);
-		var end = currPage*num;
-		var sta = end-num;
-		console.log(sta+"/"+end);
-		if(end>allCnt-1){
-			end=allCnt;
-		}
-		if(allCnt<num){
-			sta = 0;
-		}
-		var content = "";
-		for(var i=sta; i<end; i++){
-			i=parseInt(i);
+		for(var i=0; i<list.length; i++){
 			content +="<tr>"
 			+"<td>"+list[i].rank+"</td><td>"
 			+"<a href='./teamDetail?t_idx="+list[i].t_idx+"'>"
@@ -252,7 +338,7 @@
 			<td>OOOOO</td>
 			<td>0</td>
 			<td>OOO</td>
-		</tr> */
+		</tr>  */
 		}
 		$("#start").empty();
 		$("#start").append(content);
@@ -305,6 +391,7 @@
 			$(".last").addClass("disabled");
 		}
 		
-	}
+	} 
+	
 	</script>
 </html>

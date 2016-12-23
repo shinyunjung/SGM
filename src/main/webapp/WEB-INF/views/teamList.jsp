@@ -69,7 +69,7 @@
 					</tbody>
 				</table>
 				<div id="paging"></div> 
-			</div>
+				</div>
 				
 				<!-- 세 번째 구역 -->
 				<div class="col3 content">

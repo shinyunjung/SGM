@@ -40,7 +40,7 @@
 	
 	<!-- 평가 -->
 	<select id="evalueCall" resultType="com.spring.main.dto.EvalueDto">
-		SELECT * FROM evalue WHERE t_idx = #{param1}
+		SELECT AVG(ev_manner),AVG(ev_level),AVG(ev_defe),AVG(ev_attk) FROM evalue WHERE t_idx = #{param1}
 	</select>
 	
 	<!-- 평가수 -->

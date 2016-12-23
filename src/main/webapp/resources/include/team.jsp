@@ -9,15 +9,10 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<style>
 			#ca{
-				padding-top: 50px;
+				padding-top: 20px;
 				/* border: 1px solid; */
 			}
-			#emblem{
-                border: 1px solid;
-				width: 100%;
-				height: 220px;
-                margin-bottom: 20px;
-			}
+			
 			#Category{
 				width: 100%;
 				height: 220px;
@@ -28,13 +23,20 @@
 	</head>
 	<body>
 		<div id="ca">
-			<div id="emblem">
-				사진		
+			<div class="thumbnail">
+				<img src="#" alt="사진" style="width:100%; height: 220px;">
 			</div>
+			<h4><b>대표
+				<c:forEach items="${member}" var="dto" varStatus="status">
+					<c:if test="${dto.m_grade=='대표'}">
+						${dto.m_name}&nbsp;
+					</c:if>
+				</c:forEach>
+			</b></h4>
         -----------------------------------
 			<div id="Category">
 				<div class="list-group">
-					<a href="./teamDetail?t_idx=${team.t_idx}"  class="list-group-item">팀 멤버</a>
+					<a href="#" onclick="member()"  class="list-group-item">팀 멤버</a>
 					<a href="#" onclick="tdList(${team.t_idx})" class="list-group-item">팀 일지</a>
 					<a href="#" class="list-group-item">팀 수정</a>
 					<a href="#" class="list-group-item">팀 탈퇴</a>
@@ -42,5 +44,6 @@
 			</div>
 		</div>
 	</body>
-	<script></script>
+	<script>
+	</script>
 </html>

@@ -22,7 +22,7 @@ public interface TeamInterface {
 	TeamDto teamDetail(String t_idx);
 	
 	//팀평가정보
-	ArrayList<EvalueDto> evalueCall(String t_idx);
+	EvalueDto evalueCall(String t_idx);
 	
 	//팀소속멤버
 	ArrayList<MemberDto> memberCall(String t_idx);

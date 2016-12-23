@@ -83,7 +83,7 @@ public class TeamService {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<EvalueDto> list = new ArrayList<EvalueDto>();
 		EvalueDto info = new EvalueDto();
-		ArrayList<EvalueDto> evalue = inter.evalueCall(t_idx);
+		EvalueDto evalue = inter.evalueCall(t_idx);
 		logger.info(t_idx);
 
 		mav.addObject("team",inter.teamDetail(t_idx));
