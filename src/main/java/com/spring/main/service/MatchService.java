@@ -187,6 +187,9 @@ public class MatchService {
 		inter=sqlSession.getMapper(MatchInterface.class);
 		MatchDto mdt = new MatchDto();
 		ModelAndView mav = new ModelAndView();
+		if(!modFlag){
+			inter.vcountUp(idx);
+		}
 		mdt=inter.mch_detail(idx);
 		mav.addObject("detail",mdt);
 		if(modFlag){

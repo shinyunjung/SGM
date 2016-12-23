@@ -56,6 +56,9 @@ public interface MatchInterface {
 
 	void repleDelete(String idx, String category);
 
+	void vcountUp(String idx);
+
+
 
 
 }

@@ -89,4 +89,9 @@
 	<delete id="repleDelete">
 		DELETE FROM reple WHERE parent_idx=#{param1} AND r_category=#{param2}
 	</delete>
+	
+	<!-- 조회수 -->
+	<update id="vcountUp">
+		UPDATE matching SET mch_vcount=mch_vcount+1 WHERE mch_idx=#{param1}
+	</update>
 </mapper>
