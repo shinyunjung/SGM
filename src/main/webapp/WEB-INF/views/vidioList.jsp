@@ -151,6 +151,7 @@
 			var url="./rest/v_listCall";
 			var data={};
 			data.page=currPage;
+
 			data.pagePerNum=$("#pagePerNum").val();
 			reqServer(url, data);
 		}
