@@ -70,7 +70,7 @@
 		SELECT * FROM reple WHERE parent_idx=#{param1} AND r_category=#{param2} ORDER BY r_idx ASC
 	</select>
 	
-	<!-- 댓글 삭제 -->
+	<!-- 댓글 삭제(개인) -->
 	<delete id="mch_replyDel">
 		DELETE FROM reple WHERE r_idx=#{param1} AND r_category=#{param2}
 	</delete>
@@ -79,4 +79,14 @@
 	<select id="selectTeam" resultType="com.spring.main.dto.SelectTeamDto">
 		SELECT m.t_idx, t.t_name FROM memver m, team t WHERE m.u_idx=(SELECT u_idx FROM user1 WHERE u_idx=#{param1}) and m.t_idx=t.t_idx and m_grade='대표'
 	</select>
+	
+	<!-- 글 삭제 -->
+	<delete id="delete">
+		DELETE FROM matching WHERE mch_idx=#{param1}
+	</delete>
+	
+	<!-- 댓글 삭제(전체) -->
+	<delete id="repleDelete">
+		DELETE FROM reple WHERE parent_idx=#{param1} AND r_category=#{param2}
+	</delete>
 </mapper>

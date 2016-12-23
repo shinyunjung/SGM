@@ -74,14 +74,8 @@
 										<input type="text" name="areaInfo" value="${detail.mch_lat}/${detail.mch_lng}/${detail.mch_ground}"/>
 									</td>
 								</tr>
-								<tr class="borderTop">
-									<td colspan="4" class="messenger">
-										<select name="team_info">
-											<c:forEach items="${teamList}" var="team">
-												<option value="${team.t_idx}/${team.t_name}">${team.t_name}</option>
-											</c:forEach>
-										</select>
-									</td>
+								<tr>
+									<td>VS ${detail.mch_name}</td>
 								</tr>
 								<tr class="borderTop">
 									<th>경기날짜</th>

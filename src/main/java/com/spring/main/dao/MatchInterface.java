@@ -1,12 +1,10 @@
 package com.spring.main.dao;
 
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import com.spring.main.dto.AreaDto;
 import com.spring.main.dto.MatchDto;
-import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.RepleDto;
 import com.spring.main.dto.TeamDto;
 
@@ -53,6 +51,10 @@ public interface MatchInterface {
 			String content, String lat, String lng, String area, String ground, String state, String mch_idx);
 
 	ArrayList<TeamDto> selectTeam(String idx);
+
+	int delete(String idx);
+
+	void repleDelete(String idx, String category);
 
 
 

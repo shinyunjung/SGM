@@ -116,9 +116,11 @@
 									</td>
 								</tr>
 								<tr class="borderTop">
+									<td colspan="5">${detail.mch_ground}</td>
+								</tr>
+								<tr>
 									<td colspan="5">
 										<jsp:include page='../../resources/include/mapSearch.jsp' /><br/>
-										주소
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -129,7 +131,7 @@
 										<td class="left"><a onclick="reple()" class="repCnt">댓글 ${detail.mch_reple}</a></td>
 									</c:if>
 									<td colspan="4" class="right ">
-										<a href="../match/matchModify?idx=${detail.mch_idx }&userIdx=${sessionScope.userIdx}">수정</a> / <a>삭제</a>
+										<a href="../match/matchModify?idx=${detail.mch_idx }&userIdx=${sessionScope.userIdx}">수정</a> / <a href="../match/delete?idx=${detail.mch_idx}">삭제</a>
 									</td>
 								</tr>
 							</tbody>

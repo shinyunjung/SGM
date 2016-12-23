@@ -183,19 +183,13 @@ public class MatchService {
 
 
 	//상세보기/수정페이지 
-	public ModelAndView detail(Map<String, String>params) {
+	public ModelAndView detail(String idx, boolean modFlag) {
 		inter=sqlSession.getMapper(MatchInterface.class);
 		MatchDto mdt = new MatchDto();
 		ModelAndView mav = new ModelAndView();
-		String idx = params.get("idx");
-		String modFlag=params.get("modFlag");
 		mdt=inter.mch_detail(idx);
 		mav.addObject("detail",mdt);
-		if(modFlag.equals("true")){
-			ArrayList<TeamDto> obj = new ArrayList<TeamDto>();
-			String userIdx=params.get("userIdx");
-			obj=inter.selectTeam(userIdx);
-			mav.addObject("teamList",obj);
+		if(modFlag){
 			mav.setViewName("matchModify");
 		}else{
 			mav.setViewName("matchDetail");
@@ -311,6 +305,22 @@ public class MatchService {
 			mav.addObject("msg",msg);
 			mav.setViewName("matchList");
 		}
+		return mav;
+	}
+
+
+	public ModelAndView delete(String idx, String category) {
+		ModelAndView mav = new ModelAndView();
+		inter=sqlSession.getMapper(MatchInterface.class);
+		int success=0;
+		String msg="삭제에 실패했습니다.";
+		success=inter.delete(idx);
+		if(success==1){
+			inter.repleDelete(idx, category);
+			msg="삭제에 성공했습니다.";
+		}
+		mav.addObject("msg",msg);
+		mav.setViewName("matchList");
 		return mav;
 	}
 
