@@ -47,9 +47,6 @@ public interface MatchInterface {
 
 	void mch_repleDown(String parentIdx);
 
-	int mch_modify(String t_idx, String title, String writer, String date, String time, String type, String age,
-			String content, String lat, String lng, String area, String ground, String state, String mch_idx);
-
 	ArrayList<TeamDto> selectTeam(String idx);
 
 	int delete(String idx);
@@ -57,6 +54,10 @@ public interface MatchInterface {
 	void repleDelete(String idx, String category);
 
 	void vcountUp(String idx);
+
+	int mch_modify(String mch_title, String mch_date, String mch_time, String mch_type, String mch_age,
+			String mch_content, String mch_lat, String mch_lng, String mch_area, String mch_ground, String mch_state,
+			String mch_idx);
 
 
 

@@ -42,7 +42,7 @@
 	
 	<!-- 매칭 수정 -->
 	<update id="mch_modify">
-		UPDATE matching SET t_idx=#{param1}, mch_title=#{param2}, mch_name=#{param3}, mch_date=#{param4}, mch_time=#{param5}, mch_type=#{param6}, mch_age=#{param7}, mch_content=#{param8}, mch_lat=#{param9}, mch_lng=#{param10}, mch_area=#{param11}, mch_ground=#{param12}, mch_state=#{param13} WHERE mch_idx=#{param14}
+		UPDATE matching SET mch_title=#{param1},  mch_date=#{param2}, mch_time=#{param3}, mch_type=#{param4}, mch_age=#{param5}, mch_content=#{param6}, mch_lat=#{param7}, mch_lng=#{param8}, mch_area=#{param9}, mch_ground=#{param10}, mch_state=#{param11} WHERE mch_idx=#{param12}
 	</update>
 	
 	<!-- 매칭 상세보기 -->

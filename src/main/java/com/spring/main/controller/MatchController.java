@@ -58,10 +58,10 @@ public class MatchController {
 	
 	//매칭상세
 	@RequestMapping(value = "/matchDetail")
-	public ModelAndView matchDetail(@RequestParam("idx") String idx) {
+	public ModelAndView matchDetail(@RequestParam Map<String, String> params) {
 		logger.info("매칭상세");
 		modFlag=false;
-		return service.detail(idx, modFlag);
+		return service.detail(params, modFlag);
 	}
 	
 	
@@ -125,10 +125,10 @@ public class MatchController {
 	
 	//매칭수정페이지
 	@RequestMapping(value = "/matchModify")
-	public ModelAndView matchModify(@RequestParam("idx") String idx) {
+	public ModelAndView matchModify(@RequestParam Map<String, String> params) {
 		logger.info("매칭수정");
 		modFlag=true;
-		return service.detail(idx, modFlag);
+		return service.detail(params, modFlag);
 	}
 	
 	//수정

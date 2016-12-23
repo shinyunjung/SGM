@@ -183,12 +183,23 @@ public class MatchService {
 
 
 	//상세보기/수정페이지 
-	public ModelAndView detail(String idx, boolean modFlag) {
+	public ModelAndView detail(Map<String, String> params, boolean modFlag) {
 		inter=sqlSession.getMapper(MatchInterface.class);
 		MatchDto mdt = new MatchDto();
 		ModelAndView mav = new ModelAndView();
+		String idx=params.get("idx");
+		String userIdx=params.get("userIdx");
+		logger.info("userIdx:{}",userIdx);
 		if(!modFlag){
 			inter.vcountUp(idx);
+			ArrayList<TeamDto> obj = new ArrayList<TeamDto>();
+			if(userIdx!=""){
+				logger.info("세션 있음");
+				obj=inter.selectTeam(userIdx);
+				mav.addObject("teamList", obj);
+			}else{
+				logger.info("세션없음");
+			}
 		}
 		mdt=inter.mch_detail(idx);
 		mav.addObject("detail",mdt);
@@ -260,7 +271,6 @@ public class MatchService {
 		inter=sqlSession.getMapper(MatchInterface.class);
 		int success=0;
 		
-		String teamInfo=params.get("team_info");
 		String mch_title = params.get("mch_title");
 		String mch_date = params.get("mch_date");
 		String mch_time = params.get("mch_time");
@@ -270,13 +280,9 @@ public class MatchService {
 		String areaInfo = params.get("areaInfo");
 		
 		logger.info("areaInfo:{}",areaInfo);
-		logger.info("teamInfo:{}",teamInfo);
 		
 		String mch_area = params.get("mch_area");
 		String[] position = areaInfo.split("/");
-		String[] team = teamInfo.split("/");
-		String t_idx=team[0];
-		String mch_name=team[1];
 		String mch_lat = position[0];
 		String mch_lng = position[1];
 		String mch_ground=position[2];
@@ -284,8 +290,8 @@ public class MatchService {
 		String mch_idx=params.get("mch_idx");
 		
 		
-		logger.info(mch_title+"/"+mch_name+"/"+mch_date+"/"+mch_time+"/"+mch_type+"/"+mch_age+"/"+mch_content+"/"+mch_lat+"/"+mch_lng+"/"+mch_area+"/"+mch_ground);
-		success = inter.mch_modify(t_idx, mch_title, mch_name, mch_date, mch_time, mch_type, mch_age, mch_content, mch_lat, mch_lng, mch_area, mch_ground, mch_state, mch_idx);
+		logger.info(mch_title+"/"+mch_date+"/"+mch_type+"/"+mch_age+"/"+mch_content+"/"+mch_lat+"/"+mch_lng+"/"+mch_area+"/"+mch_ground);
+		success = inter.mch_modify(mch_title, mch_date, mch_time, mch_type, mch_age, mch_content, mch_lat, mch_lng, mch_area, mch_ground, mch_state, mch_idx);
 		mav.addObject("success", success);
 		mav.setViewName("matchList");
 		return mav;

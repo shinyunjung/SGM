@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String idx = (String)session.getAttribute("userIdx");
+	boolean check=false;
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -130,9 +134,22 @@
 									<c:if test="${detail.mch_reple!=0}">
 										<td class="left"><a onclick="reple()" class="repCnt">댓글 ${detail.mch_reple}</a></td>
 									</c:if>
-									<td colspan="4" class="right ">
-										<a href="../match/matchModify?idx=${detail.mch_idx }&userIdx=${sessionScope.userIdx}">수정</a> / <a href="../match/delete?idx=${detail.mch_idx}">삭제</a>
-									</td>
+									<c:if test="${sessionScope.userIdx==''}">
+										<h1>세션 구별</h1>
+									</c:if>
+									<c:if test="${sessionScope.userIdx!=''}">
+										<c:set var="detailTeam" value="${detail.mch_name }" />
+										<c:forEach items="${teamList}" var="team">
+											<c:if test="${team.t_name==detailTeam}">
+												<%check=true; %>
+											</c:if>
+										</c:forEach>
+										<td colspan="4" class="right ">
+											<%if(check) {%>
+											<a href="../match/matchModify?idx=${detail.mch_idx }&userIdx=${sessionScope.userIdx}">수정</a> / <a href="../match/delete?idx=${detail.mch_idx}">삭제</a>
+											<%} %>
+										</td> 
+									</c:if>
 								</tr>
 							</tbody>
 						</table>
