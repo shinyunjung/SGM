@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.spring.main.dao.PlaceInterface">
+	
+	<!-- 게시물 전채 개수 -->
+	<select id="allCount" resultType="Integer">
+		SELECT COUNT(*) FROM area
+	</select>
+	
+	<!-- 리스트 추가 -->
+	<select id="listCall" resultType="com.spring.main.dto.PlaceDto">
+		SELECT a_idx,  u_idx,  a_name, 
+			 a_area,  a_address,  a_ground,  a_content,  a_date,
+			 a_reple,  a_vcount,  a_total,  a_evalunum,  a_picfile,
+			 a_lat,  a_lng FROM (
+			SELECT a_idx,  u_idx,  a_name, 
+			 a_area,  a_address,  a_ground,  a_content,  a_date,
+			 a_reple,  a_vcount,  a_total,  a_evalunum,  a_picfile,
+			 a_lat,  a_lng, ROW_NUMBER() OVER(ORDER BY a_idx DESC) 
+			AS rnum FROM area
+  		)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+</mapper>

@@ -148,5 +148,11 @@ public class MainController {
 		logger.info("장소목록 상세보기");
 		return "placeDetail";
 	}
+	//장소목록 상세보기
+		@RequestMapping(value = "/placeModify")
+		public String placeModify() {
+			logger.info("장소목록");
+			return "placeModify";
+		}
 
 }
