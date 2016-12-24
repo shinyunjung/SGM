@@ -52,7 +52,7 @@
 			  				<input type="text" name="u_id" class="form-control" placeholder="아이디">
 			  				</td>
 			  				<td style="padding-left: 10px;">
-			  					<input type="button" class="btn btn-default" value="중복체크" />
+			  					<input type="button" class="btn btn-default" name="overlay" id="overlay" value="중복체크" />
 			  				</td>
 			  			</tr>
 			  			<tr>
@@ -88,10 +88,10 @@
 			  			<tr>
 			  				<th>성별</th>
 			  				<td>
-			  					<input type="radio" name="" /> 남자
+			  					<input type="radio" name="gender" value="male" /> 남자
 			  				</td>
 			  				<td>
-			  					<input type="radio" name="" /> 여자
+			  					<input type="radio" name="gender" value="femail" /> 여자
 			  				</td>
 			  				<td></td>
 			  				<th></th>
@@ -99,14 +99,14 @@
 			  			<tr>
 			  				<th>핸드폰</th>
 			  				<td colspan="3">
-			  					<input type="text" class="form-control" placeholder="핸드폰" >
+			  					<input type="text" name="phonNum" class="form-control" placeholder="핸드폰" >
 			  				</td>
 			  				<td></td>
 			  			</tr>
 			  			<tr>
 			  				<th>email</th>
 			  				<td colspan="3">
-			  					<input type="email" class="form-control" placeholder="이메일" >
+			  					<input type="email" name="mail" class="form-control" placeholder="이메일" >
 			  				</td>
 			  				<td style="padding-left: 10px;">
 			  					<input type="button" class="btn btn-default" onclick="send()" value="보내기" />
@@ -140,6 +140,9 @@
 	<jsp:include page="../../resources/include/footer.jsp" />
 </body>
 <script>
+/*중복체크 변수*/
+var overlay=false;
+ 
 $(document).ready(function(){
     var frm = document.getElementById('mainForm');
     
@@ -175,6 +178,7 @@ $(document).ready(function(){
      ********************************************/
     frm['dateDay'].value        = nowDay;
 });
+
 /******************
  * 일(day) 셋팅
  ******************/
@@ -221,34 +225,87 @@ function setDay() {
     }
 }
 
+/****** 
+ *중복체크
+ ******/
+$("#overlay").click(function(){
+	var url="./overlay";
+	var id = $("input[name='u_id']").val();
+	var data={};
+	if(id==""){
+		alert("아이디를 입력해주세요");
+	}else if(id.length<5||id.length>12){
+		alert("아이디는 5~12문자만 사용됩니다.");
+	}else{
+		console.log(id);
+		data.id=id;
+		reqServer(url, data);
+	}
+});
+
+
+/*****************************
+ *중복체크 후 아이디 변환시 중복체크 재기동
+ *****************************/
+ if(overlay){
+	 $("input[name='u_id']").change(function(){
+			console.log("아이디 변환");
+			overlay=false;
+		}); 
+ }
 
 /***********************
  * 인증 번호 보내기
  ***********************/
 function send(){
 	var email=$("input[type='email']").val();
+	
+}
+
+
+/******
+ * ajax폼
+ *****/
+function reqServer(url, data){
+	console.log("ajax전송");
 	$.ajax({
-		url:"./mail",
+		url:url,
 		type:"post",
-		data:{
-			mail:email
-		},
+		data:data,
 		dataType:"JSON",
 		success:function(data){
 			console.log(data);
+			if(url=="./overlay"){
+				var yn=data.use;
+				console.log(yn);
+				if(yn=="Y"){
+					alert("중복체크 확인");
+					overlay=true;
+				}else{
+					alert("중복되는 아이디가 있습니다.");
+				}
+			}
 		},
 		error:function(error){
 			console.log(error);
 		}
 	});
-	
 }
+
+
 
 /***********************
  * 회원가입 정보기입 체크
  ***********************/
 function joinCheck(){
-	if(document.)
+	console.log(overlay);
+	if(document.mainForm.u_id.value==""){
+		alert("아이디를 입력해주세요");
+		mainForm.u_id.focus();
+	}else if(!overlay){
+		alert("중복체크를 해주세요");
+		mainForm.overlay.focus();
+	}
 }
  
 </script>

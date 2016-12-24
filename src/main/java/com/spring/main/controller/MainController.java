@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.SelectTeamDto;
 import com.spring.main.dto.UserDto;
 import com.spring.main.service.BoardService;
@@ -64,7 +63,14 @@ public class MainController {
 		logger.info("회원가입 페이지");
 		return "join";
 	}
-		
+	
+	//아이디 중복체크
+	@RequestMapping(value="/overlay")
+	public @ResponseBody Map<String, String> overlay(@RequestParam("id") String id){
+		logger.info("아이디 중복체크");
+		return service.overlay(id);
+	}
+	
 	//id찾기
 	@RequestMapping(value = "/idFind")
 	public String idFind() {
