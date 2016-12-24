@@ -147,7 +147,7 @@
 							</tr>
 							<tr>
 								<td class="loginBox" colspan="2">
-									카카오톡 로그인
+									<jsp:include page="../../resources/include/kakao.jsp" />
 								</td>
 							</tr>
 						</table>

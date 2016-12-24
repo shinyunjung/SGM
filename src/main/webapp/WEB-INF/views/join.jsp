@@ -37,7 +37,7 @@
 		</div>
 		<div class="col5 content"> 
             <div class="well bs-component">
-			<form class="form-horizontal"name="mainForm" id="mainForm" method="post">
+			<form class="form-horizontal"name="mainForm" id="mainForm" method="post" onSubmit="joinCheck();return false">
 			  <fieldset>
 			  	<legend>회원가입</legend>
 			  		<table>
@@ -49,30 +49,30 @@
 			  			<tr>
 			  				<th>아이디</th>
 			  				<td colspan="3">
-			  				<input type="text" class="form-control" placeholder="아이디">
+			  				<input type="text" name="u_id" class="form-control" placeholder="아이디">
 			  				</td>
 			  				<td style="padding-left: 10px;">
-			  					<button class="btn btn-default">중복체크</button>
+			  					<input type="button" class="btn btn-default" value="중복체크" />
 			  				</td>
 			  			</tr>
 			  			<tr>
 			  				<th>비밀번호</th>
 			  				<td colspan="3">
-			  				<input type="password" class="form-control" placeholder="비밀번호">
+			  				<input type="password" name="u_pass" class="form-control" placeholder="비밀번호">
 			  				</td>
 			  				<th></th>
 			  			</tr>
 			  			<tr>
 			  				<th>비밀번호</th>
 			  				<td colspan="3">
-			  				<input type="password" class="form-control" placeholder="비밀번호">
+			  				<input type="password" name="u_pass" class="form-control" placeholder="비밀번호">
 			  				</td>
 			  				<th></th>
 			  			</tr>
 			  			<tr>
 			  				<th>성명</th>
 			  				<td colspan="3">
-			  				<input type="text" class="form-control" placeholder="성명" >
+			  				<input type="text" name="u_name" class="form-control" placeholder="성명" >
 			  				</td>
 			  				<th></th>
 			  			</tr>
@@ -109,7 +109,7 @@
 			  					<input type="email" class="form-control" placeholder="이메일" >
 			  				</td>
 			  				<td style="padding-left: 10px;">
-			  					<button class="btn btn-default">보내기</button>
+			  					<input type="button" class="btn btn-default" onclick="send()" value="보내기" />
 			  				</td>
 			  			</tr>
 			  			<tr>
@@ -118,13 +118,13 @@
 			  				<input type="text" class="form-control" placeholder="인증번호" >
 			  				</td>
 			  				<td style="padding-left: 10px;">
-			  					<button class="btn btn-default">확인</button>
+			  					<input type="button" class="btn btn-default" value="확인" />
 			  				</td>
 			  			</tr>
 			  			<tr>
 			  				<td colspan="5" style="text-align: center;">
-			  				<button type="reset" class="btn btn-default">취소</button>
-			        		<button type="submit" class="btn btn-primary">등록</button>
+			  				<input type="reset" class="btn btn-default" value="취소" />
+			        		<input type="submit" class="btn btn-primary" value="등록" />
 			  				</td>
 			  			</tr>
 			  		</table>
@@ -220,5 +220,36 @@ function setDay() {
         }
     }
 }
+
+
+/***********************
+ * 인증 번호 보내기
+ ***********************/
+function send(){
+	var email=$("input[type='email']").val();
+	$.ajax({
+		url:"./mail",
+		type:"post",
+		data:{
+			mail:email
+		},
+		dataType:"JSON",
+		success:function(data){
+			console.log(data);
+		},
+		error:function(error){
+			console.log(error);
+		}
+	});
+	
+}
+
+/***********************
+ * 회원가입 정보기입 체크
+ ***********************/
+function joinCheck(){
+	if(document.)
+}
+ 
 </script>
 </html>
