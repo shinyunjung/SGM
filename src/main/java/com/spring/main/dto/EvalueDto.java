@@ -2,25 +2,17 @@ package com.spring.main.dto;
 
 public class EvalueDto {
 
-	private String ev_idx;
-	private String t_idx;
 	private String ev_manner;
 	private String ev_level;
 	private String ev_defe;
 	private String ev_attk;
-	private String ev_review;
+	private String count;
 	
-	public String getEv_idx() {
-		return ev_idx;
+	public String getCount() {
+		return count;
 	}
-	public void setEv_idx(String ev_idx) {
-		this.ev_idx = ev_idx;
-	}
-	public String getT_idx() {
-		return t_idx;
-	}
-	public void setT_idx(String t_idx) {
-		this.t_idx = t_idx;
+	public void setCount(String count) {
+		this.count = count;
 	}
 	public String getEv_manner() {
 		return ev_manner;
@@ -45,11 +37,5 @@ public class EvalueDto {
 	}
 	public void setEv_attk(String ev_attk) {
 		this.ev_attk = ev_attk;
-	}
-	public String getEv_review() {
-		return ev_review;
-	}
-	public void setEv_review(String ev_review) {
-		this.ev_review = ev_review;
 	}
 }

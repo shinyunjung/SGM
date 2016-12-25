@@ -40,12 +40,13 @@
 	
 	<!-- 평가 -->
 	<select id="evalueCall" resultType="com.spring.main.dto.EvalueDto">
-		SELECT AVG(ev_manner),AVG(ev_level),AVG(ev_defe),AVG(ev_attk) FROM evalue WHERE t_idx = #{param1}
+		SELECT ROUND(COUNT(t_idx))count,ROUND(AVG(ev_manner))ev_manner,ROUND(AVG(ev_level))ev_level,
+		ROUND(AVG(ev_defe))ev_defe,ROUND(AVG(ev_attk))ev_attk FROM evalue WHERE t_idx = #{param1}
 	</select>
 	
-	<!-- 평가수 -->
-	<select id="evalueCount" resultType="Integer">
-		SELECT COUNT(*) FROM evalue WHERE t_idx = #{param1}
+	<!-- 전적 -->
+	<select id="entCall" resultType="com.spring.main.dto.EntirelyDto">
+		SELECT * FROM entirely WHERE t_idx = #{param1}
 	</select>
 	
 	<!-- 멤버수 -->

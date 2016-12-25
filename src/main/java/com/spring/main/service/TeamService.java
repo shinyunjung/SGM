@@ -81,14 +81,10 @@ public class TeamService {
 		
 		inter = sqlSession.getMapper(TeamInterface.class);
 		ModelAndView mav = new ModelAndView();
-		ArrayList<EvalueDto> list = new ArrayList<EvalueDto>();
-		EvalueDto info = new EvalueDto();
-		EvalueDto evalue = inter.evalueCall(t_idx);
-		logger.info(t_idx);
 
 		mav.addObject("team",inter.teamDetail(t_idx));
-		mav.addObject("evalue",evalue);
-		mav.addObject("evCnt",inter.evalueCount(t_idx));
+		mav.addObject("evalue",inter.evalueCall(t_idx));
+		mav.addObject("ent",inter.entCall(t_idx));
 		mav.addObject("member",inter.memberCall(t_idx));
 		mav.addObject("meCnt",inter.memberCount(t_idx));
 		mav.setViewName("teamDetail");

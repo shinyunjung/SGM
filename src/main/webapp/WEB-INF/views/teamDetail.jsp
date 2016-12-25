@@ -34,7 +34,6 @@
 			.member{
 				width: 100%;
 				padding-top: 20px;
-				overflow: auto;
 				display: block;
 				border: 1px solid;
 			}
@@ -56,6 +55,13 @@
 			.margin{
 				margin: 0;
 				border: 1px solid;
+			}
+			.pro{
+				width: 140px;
+				height: 20px;
+				background-color: #f0f0f0;
+				border-radius: 4px;
+				margin: 5px;
 			}
 		</style>
 	</head>
@@ -117,51 +123,64 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="eva col-sm-5">
+					<div class="eva col-sm-6">
 						<table class="evaTable">
 							<tr>
 								<th colspan="4">전적</th>
 							</tr>
-							<c:forEach items="${ent}" var="ent" begin="0" end="4">
+							<c:forEach items="${ent}" var="dto" begin="0" end="4">
 							<tr>
-								<td>${ent.e_team}</td>
-								<td rowspan="2">${ent.date}</td>
-							</tr>
-							<tr>
-								<td>${ent.e_difference}</td>
+								<td style="width:50%">${dto.e_team}</td>
+								<td style="width:20%"> ${dto.e_difference} </td>
+								<td style="width:30%">${dto.e_date}</td>
 							</tr>
 							</c:forEach>
 						</table>
 					</div>
-					<div class="eva col-sm-7">
+					<div class="eva col-sm-6">
 						<table class="evaTable">
 							<tr>
 								<th colspan="4">평가 정보</th>
 							</tr>
 							<tr>
-								<td>매너</td>
+								<th>매너</th>
 								<td>
-								<c:set var="sum" value="0"/>
-								<c:forEach items="${evalue}" var="i">
-									<c:set var="sum" value="${sum+i.ev_manner}"/>
-								</c:forEach>
-								<c:if test="${sum!=0}">
-								<fmt:formatNumber value="${sum/evCnt}" type="pattern" pattern="0"/>
-								</c:if>
-								<div class="progress">
-								  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-								  aria-valuemin="0" aria-valuemax="100" style="width:${evCnt}0%">
+								<div class="pro">
+								  <div class="progress-bar progress-bar-success" role="progressbar" style="width:${evalue.ev_manner*10}%">
 								  </div>
 								</div>
 								</td>
-								<td>OOO</td>
-								<td>OOO</td>
+								<th>${evalue.ev_manner/2}/5(${evalue.count})</th>
 							</tr>
 							<tr>
-								<td>OOO</td>
-								<td>OOO</td>
-								<td>OOO</td>
-								<td>OOO</td>
+								<th>실력</th>
+								<td>
+								<div class="pro">
+								  <div class="progress-bar progress-bar-info" " role="progressbar" style="width:${evalue.ev_level*10}%">
+								  </div>
+								</div>
+								</td>
+								<th>${evalue.ev_level/2}/5(${evalue.count})</th>
+							</tr>
+							<tr>
+								<th>공격력</th>
+								<td>
+								<div class="pro">
+								  <div class="progress-bar progress-bar-danger" role="progressbar" style="width:${evalue.ev_attk*10}%">
+								  </div>
+								</div>
+								</td>
+								<th>${evalue.ev_attk/2}/5(${evalue.count})</th>
+							</tr>
+							<tr>
+								<th>수비력</th>
+								<td>
+								<div class="pro">
+								  <div class="progress-bar progress-bar-warning" " role="progressbar" style="width:${evalue.ev_defe*10}%">
+								  </div>
+								</div>
+								</td>
+								<th>${evalue.ev_defe/2}/5(${evalue.count})</th>
 							</tr>
 						</table>
 					</div>
@@ -215,6 +234,7 @@
 							</tr>
 							<tr>
 								<td style="text-align: left;">
+									<button onclick="tdWrite()">글쓰기</button>
 									게시물수:
 									<select id="pagePerNum">
 										<option value="5">5</option>
@@ -225,9 +245,9 @@
 								</td>
 								<td style="text-align: right;">
 									<select class="type">
-										<option value="5">제목</option>
-										<option value="10">내용</option>
-										<option value="15">글쓴이</option>
+										<option value="j_title">제목</option>
+										<option value="j_content">내용</option>
+										<option value="j_name">글쓴이</option>
 									</select>
 									<input type="text" class="input"/>
 									<button onclick="Search()">검색</button>
@@ -245,7 +265,7 @@
 								<th>조회</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="start">
 							
 						</tbody>
 					</table>
@@ -266,11 +286,13 @@
 	var num = 5;
 	var value = null;
 	var type = null;
+	var idx = 0;
 	
 	function tdList(t_idx){
 		$(".tdList").css("display","block");
 		$(".member").css("display","none");
-		/* listCall(currPage,t_idx,value,type); */
+		idx="1"+t_idx;
+		listCall(currPage,idx,value,type);
 	}
 	function member(){
 		$(".tdList").css("display","none");
@@ -280,23 +302,29 @@
 	
 	$("#pagePerNum").change(function(){
 		currPage = 1;
-		listCall(currPage,t_idx,value,type);
+		listCall(currPage,idx,value,type);
 	});
+	
+	//글쓰기
+	function tdWrite(){
+		console.log(idx);
+		location.href="../td/tdWrite?idx="+idx;
+	}
 	
 	//검색기능
 	function Search(){
 		value = $(".input").val();
 		type = $(".type").val();
-		listCall(currPage,t_idx,value,type);
+		listCall(currPage,idx,value,type);
 		
 	}
 	
-	function listCall(currPage,t_idx,value,type){
-		var url="./tdList";
+	function listCall(currPage,idx,value,type){
+		var url="../td/tdList";
 		var data = {};
 		data.page = currPage;
 		data.pagePerNum = $("#pagePerNum").val();
-		data.t_idx = t_idx;
+		data.j_category = idx;
 		data.value = value;
 		data.type = type;
 		reqServer(url,data);
@@ -320,25 +348,15 @@
 	}
 	
 	function printList(list){
+		var content = "";
 		console.log(list);
 		for(var i=0; i<list.length; i++){
-			content +="<tr>"
-			+"<td>"+list[i].rank+"</td><td>"
-			+"<a href='./teamDetail?t_idx="+list[i].t_idx+"'>"
-			+list[i].t_name+"</a></td><td>"
-			+list[i].t_matchcount+"</td><td>"
-			+list[i].t_rankpoint+"</td><td>"
-			+list[i].t_win+"</td><td>"
-			+list[i].t_draw+"</td><td>"
-			+list[i].t_lose+"</td></tr>";
-			
-			/* <tr>
-			<td>0</td>
-			<td>OOO</td>
-			<td>OOOOO</td>
-			<td>0</td>
-			<td>OOO</td>
-		</tr>  */
+			content +="<tr><td>"+list[i].j_idx+"</td><td>"
+			+"<a href='../td/tdDetail?j_idx="+list[i].j_idx+",j_category="+list[i].j_category+"'>"
+			+list[i].j_title+"</a><b>["+list[i].j_reple+"]</b></td><td>"
+			+list[i].j_name+"</td><td>"
+			+list[i].j_date.substr(0,10)+"</td><td>"
+			+list[i].j_vcount+"</td></tr>";
 		}
 		$("#start").empty();
 		$("#start").append(content);
@@ -387,6 +405,12 @@
 			$(".prev").addClass("disabled");
 		}
 		if(currPage==pageNum){
+			$(".next").addClass("disabled");
+			$(".last").addClass("disabled");
+		}
+		if(pageNum==1||pageNum==0){
+			$(".first").addClass("disabled");
+			$(".prev").addClass("disabled");
 			$(".next").addClass("disabled");
 			$(".last").addClass("disabled");
 		}

@@ -2,6 +2,7 @@ package com.spring.main.dao;
 
 import java.util.ArrayList;
 
+import com.spring.main.dto.EntirelyDto;
 import com.spring.main.dto.EvalueDto;
 import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.TeamDto;
@@ -24,6 +25,9 @@ public interface TeamInterface {
 	//팀평가정보
 	EvalueDto evalueCall(String t_idx);
 	
+	//전적
+	ArrayList<EntirelyDto> entCall(String t_idx);
+	
 	//팀소속멤버
 	ArrayList<MemberDto> memberCall(String t_idx);
 	
@@ -32,5 +36,7 @@ public interface TeamInterface {
 	
 	//멤버수
 	int memberCount(String t_idx);
+	
+	
 
 }

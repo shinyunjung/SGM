@@ -4,4 +4,49 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.main.dao.TdInterface">
 
+	<!-- 리스트보이기 -->
+	<select id="listCall" resultType="com.spring.main.dto.TdDto">
+		SELECT j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple
+			FROM (
+				SELECT j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple,
+				ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board WHERE j_category=#{param3}
+				)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<!-- 게시물 수 -->
+	<select id="allCount" resultType="Integer">
+		SELECT COUNT(*) FROM board WHERE j_category = #{param1}
+	</select>
+	
+	<!-- 검색리스트보이기 -->
+	<select id="search" resultType="com.spring.main.dto.TdDto">
+		SELECT j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple
+			FROM (
+				SELECT j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple,
+				ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board 
+				WHERE j_category=#{param3} AND ${param4} LIKE '%'||#{param5}||'%'
+				)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<!-- 검색수 -->
+	<select id="searchCount" resultType="Integer">
+		SELECT COUNT(*) FROM board WHERE j_category = #{param1} AND ${param2} LIKE '%'||#{param3}||'%'
+	</select>
+	
+	<!-- 파일올리기 -->
+	<insert id="fileUp">
+		INSERT INTO forder(f_idx,j_idx,f_category,f_filename,f_newfilename)
+		VALUES(forder_num.NEXTVAL,#{param1},#{param2},#{param3},#{param4})
+	</insert>
+	
+	<!-- idx받아오기 -->
+	<select id="idxCall" resultType="Integer">
+        SELECT board_num.NEXTVAL FROM DUAL
+    </select>
+	
+	<!-- 글쓰기 -->
+	<insert id="write">
+		INSERT INTO board(j_idx,u_idx,j_category,j_name,j_title,j_content,j_filenum,j_vcount,j_reple)
+		VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},0,0,0)
+	</insert>
 </mapper>
