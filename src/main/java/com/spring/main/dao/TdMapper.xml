@@ -49,4 +49,22 @@
 		INSERT INTO board(idx,j_idx,u_idx,j_category,j_name,j_title,j_content,j_filenum,j_vcount,j_reple)
 		VALUES(#{param1},td_num.NEXTVAL,#{param2},#{param3},#{param4},#{param5},#{param6},0,0,0)
 	</insert>
+	
+	<!-- 개인기록 -->
+	<insert id="record">
+		INSERT INTO personal_record(p_idx,m_idx,p_offside,p_effectshot,p_goal,p_assist,p_atkpoint,
+		p_shoot,p_poul,p_warning,p_off,p_ck,p_pk,p_date)
+		VALUES(pr_num.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},
+		#{param8},#{param9},#{param10},#{param11},#{param12},#{param13})
+	</insert>
+	
+	<!-- 포인트,경기수 -->
+	<update id="point">
+		UPDATE memver SET m_matchcount = m_matchcount+1, m_tpoint = m_tpoint+#{param1} WHERE u_idx = #{param2}
+	</update>
+	
+	<!-- 멤버목록 -->
+	<select id="member" resultType="com.spring.main.dto.MemberDto">
+		SELECT m_idx,u_idx,m_name FROM memver WHERE t_idx = #{param1}
+	</select>
 </mapper>

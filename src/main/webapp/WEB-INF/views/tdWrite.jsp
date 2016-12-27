@@ -21,19 +21,24 @@
 			input[type='text']{
 				display: block;
 				width: 100%;
-				height: 34px;
 				padding: 6px 12px;
 				font-size: 14px;
 				
 			}
-			textarea{
-				width:100%;
-				resize:none;
-				font-size: 14px;
-			}
 			#div1{
 				width: 100%;
 				min-height: 300px;
+				font-size: 14px;
+			}
+			#pr{
+				text-align: right;
+				position: relative;
+				z-index: 2;
+				display: none;
+			}
+			#pr th,#pr td{
+				width: 7.7%;
+				text-align: center;
 			}
 			
 		</style>
@@ -66,9 +71,7 @@
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<div id="div1" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)">
-											
-										</div>
+										<div id="div1" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 										<input type="hidden" name="j_content"/>
 									</td>
 								</tr>
@@ -78,17 +81,41 @@
 										<input type="file" name="file2" id="imgInp" onchange="fileView(this)"/>
 										<input type="file" name="file3" id="imgInp" onchange="fileView(this)"/>
 										<input id="fileName" type="hidden" name="fileName"/>
-										
 									</td>
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<button type="button" onclick="member()" class="btn btn-success">개인기록</button>
+										<button type="button" id="toggle" class="btn btn-success">개인기록</button>
+										<input id="tf" type="hidden" name="tf" value=""/>
+										<div id="pr">
+										<input type="date" name="p_date"/>
+										<table class="detailTable">
+										<tr>
+										<th style="width:15%">이름</th>
+										<th>득점</th>
+						                <th>도움</th>
+						                <th>슈팅</th>
+						                <th>파울</th>
+						                <th>경고</th>
+						                <th>퇴장</th>
+						                <th>코너킥</th>
+						                <th>패널티 킥</th>
+						                <th>오프 사이드</th>
+						                <th>유효 슈팅</th>
+						                <th>선택</th>
+										</tr>
+										<tbody id="start">
+										</tbody>
+										</table>
+										</div>
 									</td>
+								</tr>
+								<tbody id="start">
+								</tbody>
 								<tr class="borderTop">
 									<td style="text-align: center;">
 					  				<button type="reset" onclick="html()" class="btn btn-default">취소</button>
-					        		<button type="submit" onclick="CheckForm()" class="btn btn-primary">등록</button>
+					        		<button type="submit" onclick="CheckForm(this.form)" class="btn btn-primary">등록</button>
 			  				</td>
 								</tr>
 						</table>
@@ -103,6 +130,8 @@
 	<script>
 	var file = null;
 	var fileName = null;
+	var t_idx = <%=idx.substring(1) %>;
+	var sw = false;
 	
 	
 	//파일이름추출
@@ -152,8 +181,91 @@
         }$("#"+file).detach(); 
     }
 	
-	//value값 넣기
-	function CheckForm(){ 
+    $("#toggle").click(function(){
+        $(this).toggleClass("ex");            
+        sw = $(this).hasClass("ex");            
+		if(sw == true){
+			$(this).text("취소");
+			$("#pr").css("display","block");
+			$("#tf").val("t");
+			member();
+		}else{
+			$(this).text("개인기록");
+			/* $("#pr").css("display","none"); */
+			$("#start").empty();
+			$("#tf").val("");
+		}
+        
+    });
+    
+	//개인기록
+	function member(){
+		var url="./member";
+		var data = {};
+		data.t_idx = t_idx;
+		reqServer(url,data);
+	}
+	
+	
+	function reqServer(url,data){
+		$.ajax({
+			url:url,
+			type:"post",
+			data:data,
+			dataType:"json",
+			success:function(d){
+				console.log(d)
+				printList(d.jsonList.list);
+				
+			},error:function(e){
+				console.log(e)
+			}
+		});
+	}
+	
+
+	function printList(list){
+		console.log(list);
+		var content = "";
+		for(var i=0; i<list.length; i++){
+			content +="<tr class='borderTop'><td>"+list[i].m_name
+			+"</td><td><input type='text' name='p_goal[]' value='0'/></td>"
+            +"<td><input type='text' name='p_assist[]' value='0'/></td>"
+            +"<td><input type='text' name='p_shoot[]' value='0'/></td>"
+            +"<td><input type='text' name='p_poul[]' value='0'/></td>"
+            +"<td><input type='text' name='p_warning[]' value='0'/></td>"
+            +"<td><input type='text' name='p_off[]' value='0'/></td>"
+            +"<td><input type='text' name='p_ck[]' value='0'/></td>"
+            +"<td><input type='text' name='p_pk[]' value='0'/></td>"
+            +"<td><input type='text' name='p_offside[]' value='0'/></td>"
+            +"<td><input type='text' name='p_effectshot[]' value='0'/></td>"
+            +"<td><input type='checkbox' name='chk[]' value='"
+            +list[i].m_idx+"/"+list[i].u_idx+"'/></td></tr>";
+		}
+		$("#start").empty();
+		$("#start").append(content);
+	}
+	
+	//submit체크
+	function CheckForm(f){
+		if(sw==true){
+			for(var i=0; i<f.elements['chk[]'].length; i++){
+				console.log("for"+i);
+				if(f.elements['chk[]'][i].checked==false){
+					console.log(i);
+					f.elements['p_goal[]'][i].disabled=true;
+					f.elements['p_assist[]'][i].disabled=true;
+					f.elements['p_shoot[]'][i].disabled=true;
+					f.elements['p_poul[]'][i].disabled=true;
+					f.elements['p_warning[]'][i].disabled=true;
+					f.elements['p_off[]'][i].disabled=true;
+					f.elements['p_ck[]'][i].disabled=true;
+					f.elements['p_pk[]'][i].disabled=true;
+					f.elements['p_offside[]'][i].disabled=true;
+					f.elements['p_effectshot[]'][i].disabled=true;
+				}
+			}
+		}
 		$("#div1 img").attr("src","#");
 		var text = $("#div1").html();
 		$("input[name=j_content]").val(text);
@@ -163,7 +275,6 @@
 	} 
 	//리셋
 	function html() {
-		console.log("dd");
 		$("#div1").empty();
 	}
 	

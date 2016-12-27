@@ -62,6 +62,13 @@ public class TdController {
 		return service.write(multi);
 	}
 	
+	//멩버목록
+	@RequestMapping(value = "/member")
+	public @ResponseBody Map<String, Object> member(@RequestParam("t_idx") String t_idx) {
+		logger.info("멩버목록");
+		return service.member(t_idx);
+	}
+	
 	/*//파일올리기
 	@RequestMapping(value = "/file")
 	public  @ResponseBody Map<String, Object> fileUP(@RequestParam MultipartHttpServletRequest multi) {

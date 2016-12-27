@@ -3,6 +3,7 @@ package com.spring.main.dao;
 import java.util.ArrayList;
 
 import com.spring.main.dto.FileDto;
+import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.TdDto;
 
 public interface TdInterface {
@@ -27,6 +28,17 @@ public interface TdInterface {
 	
 	//파일 업로드
 	void fileUp(int idx, String j_category, String fileName, String newFileName);
+
+	//멤버정보
+	ArrayList<MemberDto> member(String t_idx);
+
+	//개인기록
+	void record(String m_idx, String string, String string2, String string3, String string4, int p_atkpoint,
+			String string5, String string6, String string7, String string8, String string9, String string10,
+			String p_date);
+
+	//멤버정보
+	void point(int p_atkpoint, String u_idxm);
 	
 
 }

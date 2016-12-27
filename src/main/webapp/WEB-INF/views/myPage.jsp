@@ -79,7 +79,6 @@
 		  		 	<thead>
 		            <tr>
 		            	<td style="width: 14%;">날짜</td>
-		                <td style="width: 20%;">상대팀</td>
 		                <td>득점</td>
 		                <td>도움</td>
 		                <td>공격포인트</td>
@@ -96,7 +95,6 @@
 					<tbody>
 		            <tr>
 		                <td>날짜</td>
-		                <td>상대팀</td>
 		                <td>득점</td>
 		                <td>도움</td>
 		                <td>공격포인트</td>

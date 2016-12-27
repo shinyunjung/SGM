@@ -3,6 +3,7 @@ package com.spring.main.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.TdInterface;
 import com.spring.main.dao.TeamInterface;
+import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.TdDto;
 import com.spring.main.util.FileUpload;
 
@@ -27,6 +29,7 @@ public class TdService {
 	TdInterface inter = null;
 	TeamInterface team = null;
 	
+	//팀일지 리스트 팀정보
 	public ModelAndView tdList(String t_idx) {
 		
 		team = sqlSession.getMapper(TeamInterface.class);
@@ -111,6 +114,30 @@ public class TdService {
 			String j_content = multi.getParameter("j_content");
 			String j_name = multi.getParameter("j_name");
 			String fileName = multi.getParameter("fileName");
+			String tf = multi.getParameter("tf");
+			if(tf!=""){
+				String p_date = multi.getParameter("p_date");
+				String[] p_goal = multi.getParameterValues("p_goal[]");
+				String[] p_assist = multi.getParameterValues("p_assist[]");
+				String[] p_shoot = multi.getParameterValues("p_shoot[]");
+				String[] p_poul = multi.getParameterValues("p_poul[]");
+				String[] p_warning = multi.getParameterValues("p_warning[]");
+				String[] p_off = multi.getParameterValues("p_off[]");
+				String[] p_ck = multi.getParameterValues("p_ck[]");
+				String[] p_pk = multi.getParameterValues("p_pk[]");
+				String[] p_offside = multi.getParameterValues("p_offside[]");
+				String[] p_effectshot = multi.getParameterValues("p_effectshot[]");
+				String[] chk = multi.getParameterValues("chk[]");
+				for(int i=0; i<chk.length; i++){
+				StringTokenizer tokens = new StringTokenizer(chk[i]);
+		        String m_idx = tokens.nextToken("/") ;
+		        String u_idxm = tokens.nextToken("/") ;
+		        int p_atkpoint = Integer.parseInt(p_goal[i])+Integer.parseInt(p_assist[i]);
+		        logger.info(m_idx+"/"+u_idxm);
+				inter.record(m_idx,p_offside[i],p_effectshot[i],p_goal[i],p_assist[i],p_atkpoint,p_shoot[i],p_poul[i],p_warning[i],p_off[i],p_ck[i],p_pk[i],p_date);
+				inter.point(p_atkpoint,u_idxm);
+				}
+			}
 			Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
 			if(fileName !=null){
 				//파일 업로드
@@ -128,6 +155,18 @@ public class TdService {
 			String t_idx = j_category.substring(1);
 			mav.setViewName("redirect:../td/tdList?t_idx="+t_idx);
 			return mav;
+		}
+
+		//멤버정보 가져오기
+		public Map<String, Object> member(String t_idx) {
+			inter = sqlSession.getMapper(TdInterface.class);
+			Map<String, Object> json = new HashMap<String, Object>();
+			Map<String, ArrayList<MemberDto>> obj = new HashMap<String, ArrayList<MemberDto>>();
+
+
+			obj.put("list", inter.member(t_idx));
+			json.put("jsonList", obj);
+			return json;
 		}
 
 		
