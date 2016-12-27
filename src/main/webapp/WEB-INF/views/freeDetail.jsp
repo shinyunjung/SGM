@@ -7,8 +7,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="resources/bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
+		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
 			.detailTable{
 				width: 100%;
@@ -59,23 +59,25 @@
 						<table class="detailTable">
 							<thead>
 								<tr>
-									<td class="subject left">제목(불러오기)</td>
+									<td class="subject left">${content.j_title}</td>
 									<td class="borderLeft">날짜</td>
-									<td class="borderLeft">날짜(불러오기)</td>
+									<td class="borderLeft">${content.j_date}</td>
 									<td class="borderLeft">조회수</td>
-									<td class="borderLeft">0</td>
+									<td class="borderLeft">${content.j_vcount}</td>
 								</tr>
 							</thead>
 							<tbody class="borderTop">
 								<tr>
 									<td colspan="5">
-										내용(불러오기)
+										${content.j_content}
 									</td>
 								</tr>
 								<tr class="borderTop">
 									<td class="left"><a>댓글쓰기</a></td>
 									<td colspan="4" class="right ">
-										<a>수정</a> / <a>삭제</a>
+										<input type="button" onclick="location.href='./freeList'" value="돌아가기"/>
+										<input type="button" onclick="location.href='./freeModify?idx=${content.j_idx}'" value="수정하기"/>
+										<a>삭제</a>
 									</td>
 								</tr>
 							</tbody>

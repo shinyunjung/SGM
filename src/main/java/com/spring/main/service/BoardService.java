@@ -1,5 +1,6 @@
 package com.spring.main.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BoardInterface;
 import com.spring.main.dto.UserDto;
+import com.spring.main.dto.mylistDTO;
 
 @Service
 public class BoardService {
@@ -52,7 +54,6 @@ public class BoardService {
 		return mav;
 	}
 	
-	
 	//중복체크
 		public Map<String, String> overlay(String u_id) {
 			
@@ -80,14 +81,47 @@ public class BoardService {
 			info.setU_id(params.get("u_id"));
 			info.setU_pass(params.get("u_pass"));
 			info.setU_name(params.get("u_name"));
-			info.setU_age(Integer.parseInt(params.get("u_age")));
-			info.setU_gender(params.get("gender"));
-			info.setU_phnum(Integer.parseInt(params.get("u_phnum")));
+			info.setU_age(params.get("u_age"));
+			info.setU_gender(params.get("u_gender"));
+			info.setU_phnum(params.get("u_phnum"));
 			info.setU_email(params.get("u_mail"));
 			
 			inter.userJoin(info);
 			
 			return info;
 		}
+		
+		//마이페이지 리스트
 
-}	
+		public Map<String, Object> mylistCall(Map<String, String> params) {
+			
+			inter = sqlSession.getMapper(BoardInterface.class);
+			Map<String, Object> json = new HashMap<String, Object>();
+			Map<String, ArrayList<mylistDTO>> obj 
+				= new HashMap<String, ArrayList<mylistDTO>>();
+			
+			//현재 페이지
+			int currPage = Integer.parseInt(params.get("page"));
+			//페이지당 보여줄 게시물 갯수
+			int pagePerNum = Integer.parseInt(params.get("pagePerNum"));
+			logger.info("현재 페이지 : "+currPage);
+			logger.info("페이지 당 보여줄 수 : "+pagePerNum);		
+			int end = currPage*pagePerNum;	//게시물 끝 번호
+			int start = end-pagePerNum+1;	//게시물 시작번호
+			int allCnt = inter.allCount();
+			logger.info("전체 게시물 수 : {}",allCnt);
+			int page = allCnt%pagePerNum >0 ?
+					Math.round(allCnt/pagePerNum)+1
+					:Math.round(allCnt/pagePerNum); //생성 할 수 있는 페이지
+			
+			obj.put("list", inter.mylistCall(start, end));
+			json.put("jsonList", obj);
+			json.put("currPage", currPage);
+			json.put("allCnt", allCnt);		
+			json.put("page", page);
+			return json;
+		}
+		
+	
+}
+

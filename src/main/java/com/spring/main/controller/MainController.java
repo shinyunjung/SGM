@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.BoardService;
@@ -37,6 +38,7 @@ public class MainController {
 		logger.info("로그인 처리");
 		params.put("session", session);
 		return service.login(params);
+		
 	}
 	
 	//회원가입 이동
@@ -118,8 +120,7 @@ public class MainController {
 			logger.info("팀 정보 수정");
 			return "teamModify";
 		}
-	
-	
+		
 	//장소목록 상세보기
 	@RequestMapping(value = "/placeDetail")
 	public String placeDetail() {
@@ -127,18 +128,7 @@ public class MainController {
 		return "placeDetail";
 	}
 	
-	//영상 상세보기
-	@RequestMapping(value = "/vidioDetail")
-	public String vidioDetail() {
-		logger.info("영상 상세보기");
-		return "vidioDetail";
-	}
-	
-	//자유 상세보기
-	@RequestMapping(value = "/freeDetail")
-	public String freeDetail() {
-		logger.info("영상 상세보기");
-		return "freeDetail";
-	}
+
+
 	
 }
