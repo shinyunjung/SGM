@@ -25,9 +25,9 @@ public class TdController {
 	
 	//팀일지리스트
 	@RequestMapping(value = "/tdList")
-	public @ResponseBody Map<String, Object> tdList(@RequestParam Map<String, String> params) {
-		logger.info("팀일지리스트");
-		return service.tdList(params);
+	public ModelAndView tdList(@RequestParam("t_idx") String t_idx) {
+		logger.info("팀상세");
+		return service.tdList(t_idx);
 	}
 	//팀일지상세
 	@RequestMapping(value = "/tdDetail")
@@ -46,6 +46,13 @@ public class TdController {
 	public String tdModify() {
 		logger.info("팀일지수정");
 		return "tdModify";
+	}
+	
+	//팀일지리스트
+	@RequestMapping(value = "/listCall")
+	public @ResponseBody Map<String, Object> listCall(@RequestParam Map<String, String> params) {
+		logger.info("팀일지리스트");
+		return service.listCall(params);
 	}
 	
 	//글쓰기(파일추가)

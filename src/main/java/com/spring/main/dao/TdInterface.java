@@ -18,14 +18,15 @@ public interface TdInterface {
 
 	//검색수
 	int searchCount( String j_category, String type, String value);
-
-	int fileUp(int idx, String j_category, String fileName, String newFileName);
-
+	
 	//idx받아오기
 	int idxCall();
 
 	//글쓰기
-	int write(int idx, String u_idx, String j_category, String j_name, String j_title, String j_content);
+	void write(int idx, String u_idx, String j_category, String j_name, String j_title, String j_content);
+	
+	//파일 업로드
+	void fileUp(int idx, String j_category, String fileName, String newFileName);
 	
 
 }

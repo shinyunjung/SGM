@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.TdInterface;
+import com.spring.main.dao.TeamInterface;
 import com.spring.main.dto.TdDto;
 import com.spring.main.util.FileUpload;
 
@@ -24,8 +25,25 @@ public class TdService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	TdInterface inter = null;
+	TeamInterface team = null;
+	
+	public ModelAndView tdList(String t_idx) {
+		
+		team = sqlSession.getMapper(TeamInterface.class);
+		ModelAndView mav = new ModelAndView();
 
-	public Map<String, Object> tdList(Map<String, String> params) {
+		mav.addObject("team",team.teamDetail(t_idx));
+		mav.addObject("evalue",team.evalueCall(t_idx));
+		mav.addObject("ent",team.entCall(t_idx));
+		mav.addObject("member",team.memberCall(t_idx));
+		mav.addObject("meCnt",team.memberCount(t_idx));
+		mav.setViewName("tdList");
+		
+		return mav;
+	}
+	
+	//리스트 불러오기
+	public Map<String, Object> listCall(Map<String, String> params) {
 		inter = sqlSession.getMapper(TdInterface.class);
 		Map<String, Object> json = new HashMap<String, Object>();
 		Map<String, ArrayList<TdDto>> obj = new HashMap<String, ArrayList<TdDto>>();
@@ -103,14 +121,16 @@ public class TdService {
 			ArrayList<String> newName = newFile.get("newName");
 			int idx = inter.idxCall();
 			logger.info(j_title+"/"+j_content+"/"+j_name+"/"+fileName);
-			int success = inter.write(idx,u_idx,j_category,j_name, j_title, j_content);
+			inter.write(idx,u_idx,j_category,j_name, j_title, j_content);
 			for(int i=0; i<newName.size(); i++){
 				inter.fileUp(idx,j_category, oldName.get(i),newName.get(i));
 			}
 			String t_idx = j_category.substring(1);
-			mav.setViewName("redirect:../team/teamDetail?t_idx="+t_idx);
+			mav.setViewName("redirect:../td/tdList?t_idx="+t_idx);
 			return mav;
 		}
+
+		
 
 
 }

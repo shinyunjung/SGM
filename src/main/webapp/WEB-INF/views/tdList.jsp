@@ -31,17 +31,9 @@
 				padding-top: 8%;
 				text-align: right;
 			}
-			.member{
-				width: 100%;
-				padding-top: 20px;
-				display: block;
-				border: 1px solid;
-			}
 			.tdList{
 				padding-top: 20px;
 				position: relative;
-				z-index: 2;
-				display: none;
 				border: 1px solid;
 			}
 			#ace{
@@ -184,46 +176,51 @@
 							</tr>
 						</table>
 					</div>
-					<div class="member">
-					----------------------------------------------------------------------------------------------------------------------	
-						<table class="table">
-							<thead>
-								<tr>
-									<th>멤버 리스트</th>
-								</tr>
-								<tr>
-									<th>No</th>
-									<th>이름</th>
-									<th>포지션</th>
-									<th>총점</th>
-									<th>경기수</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${member}" var="dto" varStatus="status">
-								<c:choose>
-								<c:when test="${dto.rank==1 && dto.m_tpoint!=0 }">
-									<tr id="ace">
-										<td>ace</td>
-										<td>${dto.m_name}</td>
-										<td>${dto.m_position}</td>
-										<td>${dto.m_tpoint}</td>
-										<td>${dto.m_matchcount}</td>
-									</tr>
-								</c:when>
-								<c:otherwise>
-									<tr>
-										<td>${status.count}</td>
-										<td>${dto.m_name}</td>
-										<td>${dto.m_position}</td>
-										<td>${dto.m_tpoint}</td>
-										<td>${dto.m_matchcount}</td>
-									</tr>
-								</c:otherwise>
-							</c:choose>
-							</c:forEach>
-							</tbody>
-						</table>
+				<div class="tdList">
+				----------------------------------------------------------------------------------------------------------------------	
+					<table class="table margin">
+						<thead>
+							<tr>
+								<th style="text-align: left;" colspan="2">팀 일지</th>
+							</tr>
+							<tr>
+								<td style="text-align: left;">
+									<button onclick="tdWrite()">글쓰기</button>
+									게시물수:
+									<select id="pagePerNum">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								</td>
+								<td style="text-align: right;">
+									<select class="type">
+										<option value="j_title">제목</option>
+										<option value="j_content">내용</option>
+										<option value="j_name">글쓴이</option>
+									</select>
+									<input type="text" class="input"/>
+									<button onclick="Search()">검색</button>
+								</td>
+							</tr>
+						</thead>
+					</table>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>번호</th>					
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성일</th>
+								<th>조회</th>
+							</tr>
+						</thead>
+						<tbody id="start">
+							
+						</tbody>
+					</table>
+					<div id="paging"></div>
 				</div>
 			</div>
 				
@@ -236,8 +233,39 @@
 		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
+	var currPage = 1;
+	var num = 5;
+	var value = null;
+	var type = null;
+	var idx = "1"+${team.t_idx};
+	
+	$(document).ready(function(){
+		listCall(currPage,idx,value,type);
+	});
+	
+	
+	
+	$("#pagePerNum").change(function(){
+		currPage = 1;
+		listCall(currPage,idx,value,type);
+	});
+	
+	//글쓰기
+	function tdWrite(){
+		console.log(idx);
+		location.href="./tdWrite?idx="+idx;
+	}
+	
+	//검색기능
+	function Search(){
+		value = $(".input").val();
+		type = $(".type").val();
+		listCall(currPage,idx,value,type);
+		
+	}
+	
 	function listCall(currPage,idx,value,type){
-		var url="../td/tdList";
+		var url="./listCall";
 		var data = {};
 		data.page = currPage;
 		data.pagePerNum = $("#pagePerNum").val();
@@ -257,6 +285,7 @@
 				console.log(d)
 				printList(d.jsonList.list);
 				currPage = d.currPage;
+				printPaging(d.allCnt, d.page);
 			},error:function(e){
 				console.log(e)
 			}
@@ -278,7 +307,60 @@
 		$("#start").append(content);
 	}
 	
-
+	function printPaging(allCnt, pageNum){
+		console.log("전체 게시물 :"+allCnt );
+		console.log("생성 가능 페이지 :"+pageNum );
+		console.log("현재 페이지 :"+currPage);
+		
+		$("#paging").empty();
+		var start;	//페이지 시작
+		var end;	//페이지 끝
+		var range = (currPage/5);	//다음 페이지 있는지 여부
+		
+		var content = "<ul class='pagination pagination-sm'>"
+   			+"<li class='page-item first'><a href='#' onclick='listCall(1,"+idx+","+value+","+type+")'>First</a></li>"
+   			+"<li class='page-item prev'><a href='#' onclick='listCall("+(currPage-1)+","+idx+","+value+","+type+")'>Previous</a></li>";
+		
+		if(range >1){//5페이지 넘었을 경우
+			end = currPage%5 == 0 ?
+					(Math.floor(range))*5
+					:(Math.floor(range)+1)*5;
+			start = Math.floor(end-4);
+		}else{//5페이지 미만일 경우
+			start = 1;
+			end = 5;
+		}
+		
+		//페이징 표시			
+		for(var i=start; i<=end;i++){
+			if(i<=pageNum){
+				if(currPage ==i){
+					content += "<li class='page-item active'><a href='#'>"+i+"</a></li>";
+				}else{
+					content += "<li class='page-item'><a href='#' onclick='listCall("+i+","+idx+","+value+","+type+")' >"+i+"</a></li>";
+				}					
+			}			
+		}
+		content += "<li class='page-item next'><a href='#' onclick='listCall("+(currPage+1)+","+idx+","+value+","+type+")'>Next</a></li>"
+           +"<li class='page-item last'><a href='#' onclick='listCall("+pageNum+","+idx+","+value+","+type+")'>Last</a></li></ul>";
+		
+		$("#paging").append(content);
+		if(currPage==1){
+			$(".first").addClass("disabled");
+			$(".prev").addClass("disabled");
+		}
+		if(currPage==pageNum){
+			$(".next").addClass("disabled");
+			$(".last").addClass("disabled");
+		}
+		if(pageNum==1||pageNum==0){
+			$(".first").addClass("disabled");
+			$(".prev").addClass("disabled");
+			$(".next").addClass("disabled");
+			$(".last").addClass("disabled");
+		}
+		
+	} 
 	
 	</script>
 </html>
