@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8"/>
@@ -15,15 +14,26 @@
 <script type='text/javascript'>
   //<![CDATA[
     // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('9d899f6f9616a56ae9036aa736cac274');
+    Kakao.init("9d899f6f9616a56ae9036aa736cac274");
     function loginWithKakao() {
       // 로그인 창을 띄웁니다.
       Kakao.Auth.login({
         success: function(authObj) {
-          alert(JSON.stringify(authObj));
-        },
+        	Kakao.API.request({
+                url: '/v1/user/me',
+                success: function(res) {
+                  alert(JSON.stringify(res));
+                  console.log("0");
+                },
+                fail: function(error) {
+                  alert(JSON.stringify(error));
+                  console.log("1");
+                }
+              });
+            },
         fail: function(err) {
           alert(JSON.stringify(err));
+          alert("1");
         }
       });
     };

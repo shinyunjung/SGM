@@ -16,9 +16,9 @@
  	
  	<!-- 회원가입 -->
  	<insert id="userJoin" parameterType="com.spring.main.dto.UserDto">
- 		INSERT INTO user1(u_idx,u_id,u_pass,u_name,u_age,u_gender,u_phnum,u_mail)
+ 		INSERT INTO user1(u_idx,u_id,u_pass,u_name,u_age,u_gender,u_phnum,u_mail,u_grade)
  			VALUES(
- 				user1_seq.NEXTVAL,#{u_id},#{u_pass},#{u_name},#{u_age},#{u_gender},#(u_phnum),#{u_mail}
+ 				user_seq.NEXTVAL,#{u_id},#{u_pass},#{u_name},#{u_age},#{u_gender},#{u_phnum},#{u_mail},#{u_grade}
  			)
  	</insert>
 	

@@ -15,9 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BoardInterface;
 import com.spring.main.dto.LoginDto;
-import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.SelectTeamDto;
 import com.spring.main.dto.UserDto;
+import com.spring.main.util.EmailTest;
+
 
 @Service
 public class BoardService {
@@ -89,22 +90,29 @@ public class BoardService {
 
 	
 	//회원가입
-		public UserDto userJoin(Map<String, String> params) {
+		public Map<String, String> userJoin(Map<String, String> params) {
 			
 			inter = sqlSession.getMapper(BoardInterface.class);
 			UserDto info = new UserDto();
+			Map<String, String> map = new HashMap<String, String>();
+			String msg="회원가입에 실패했습니다.";
+			int success=0;
 			
-			info.setU_id(params.get("u_id"));
-			info.setU_pass(params.get("u_pass"));
-			info.setU_name(params.get("u_name"));
-			info.setU_age(params.get("u_age"));
+			info.setU_id(params.get("id"));
+			info.setU_pass(params.get("pass"));
+			info.setU_name(params.get("name"));
+			info.setU_age(params.get("age"));
 			info.setU_gender(params.get("gender"));
-			info.setU_phnum(params.get("u_phnum"));
-			info.setU_mail(params.get("u_mail"));
+			info.setU_phnum(params.get("phonNum"));
+			info.setU_mail(params.get("mail"));
+			info.setU_grade("회원");
 			
-			inter.userJoin(info);
-			
-			return info;
+			success=inter.userJoin(info);
+			if(success==1){
+				msg="회원가입에 성공했습니다.";
+			}
+			map.put("msg", msg);
+			return map;
 		}
 
 
@@ -126,6 +134,36 @@ public class BoardService {
 			Map<String, ArrayList<SelectTeamDto>> map = new HashMap<String, ArrayList<SelectTeamDto>>();
 			map.put("userTeam", inter.selectTeam(idx));
 			return map;
+		}
+
+
+		//인증번호
+		public Map<String, String> certification(String email) {
+			EmailTest mail = new EmailTest();
+			String authNum="";
+			String success="인증번호가 보내지지 않았습니다.";
+			Map<String, String> map = new HashMap<String, String>();
+			authNum=RandomNum();
+			try {
+				success = mail.gmailtest(email, authNum);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			map.put("msg", success);
+			map.put("num", authNum);
+			return map;
+		}
+
+
+		//랜덤(인증번호)
+		private String RandomNum() {
+			StringBuffer buffer = new StringBuffer();
+			//인증번호 수
+			for(int i=0; i<7; i++){
+				int n=(int)(Math.random()*10);
+				buffer.append(n);
+			}
+			return buffer.toString();
 		}
 }	
 

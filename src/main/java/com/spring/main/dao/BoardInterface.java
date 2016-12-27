@@ -17,7 +17,7 @@ public interface BoardInterface {
 	String overlay(String u_id);
 	
 	//회원가입
-	void userJoin(UserDto info);
+	int userJoin(UserDto info);
 
 	//유저 정보
 	UserDto userSearch(String u_id);

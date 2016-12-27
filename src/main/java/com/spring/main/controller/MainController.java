@@ -58,7 +58,7 @@ public class MainController {
 	}
 	
 	//회원가입 이동
-	@RequestMapping(value="/join")
+	@RequestMapping(value="/joinForm")
 	public String join() {
 		logger.info("회원가입 페이지");
 		return "join";
@@ -70,6 +70,20 @@ public class MainController {
 		logger.info("아이디 중복체크");
 		return service.overlay(id);
 	}
+	
+	//메일 인증번호
+	@RequestMapping(value="/certification")
+	public @ResponseBody Map<String, String> certification(@RequestParam("mail") String mail){
+		logger.info("인증번호");
+		return service.certification(mail);
+	}
+	
+	@RequestMapping(value="/join")
+	public @ResponseBody Map<String, String> join(@RequestParam Map<String, String> params){
+		logger.info("회원가입 요청");
+		return service.userJoin(params);
+	}
+	
 	
 	//id찾기
 	@RequestMapping(value = "/idFind")
