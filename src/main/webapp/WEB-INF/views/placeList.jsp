@@ -176,7 +176,7 @@
 		var input = $(".input").val();
 		console.log(input);
 		$(".input").val("");
-		var url="../rest/searchCall";
+		var url="./Place/searchCall";
 		var data={};
 		data.page=currPage;
 		data.pagePerNum=$("#pagePerNum").val();
@@ -187,7 +187,7 @@
 	
 	function listCall(currPage){
 		if(currPage>=1 && currPage<=totalPage)
-		var url="../rest/listCall";
+		var url="./Place/listCall";
 		var data={};
 		data.page=currPage;
 		data.pagePerNum=$("#pagePerNum").val();
@@ -204,19 +204,19 @@
 			dataType:"JSON",
 			success:function(data){
 				console.log(data);
-				if(url=="../rest/listCall"){
+				if(url=="./Place/listCall"){
 					printList(data.jsonList.list);
 					currPage=data.currPage;
 					totalPage=data.totalPage;
 					printPaging(data.totalCount, data.totalPage); 
 				}
-				else if(url=="./rest/searchCall"){
+				else if(url=="./Place/searchCall"){
 					printList(data.jsonList.list);
 					currPage=data.currPage;
 					totalPage=data.totalPage;
 					printPaging(data.totalCount, data.totalPage); 
 				}
-				else if(url=="./rest/delete"){
+				else if(url=="./Place/delete"){
 					alert(data.msg);
 					listCall(currPage);
 				}
