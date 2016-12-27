@@ -25,5 +25,7 @@ public interface BoardInterface {
 	//유저가 속한 팀 정보
 	ArrayList<SelectTeamDto> selectTeam(String idx);
 
+	int userModify(UserDto udt);
+
 
 }

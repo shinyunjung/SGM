@@ -165,5 +165,52 @@ public class BoardService {
 			}
 			return buffer.toString();
 		}
+
+		//마이페이지(회원 정보 불러오기)/수정페이지(회원정보 수정)
+		public ModelAndView myPage(String id, boolean modFlag) {
+			ModelAndView mav = new ModelAndView();
+			UserDto udt =  new UserDto();
+			inter = sqlSession.getMapper(BoardInterface.class);
+			logger.info("id:{}",id);
+			udt=inter.userSearch(id);
+			mav.addObject("user",udt);
+			if(!modFlag){
+				mav.setViewName("myPage");
+			}else{
+				mav.setViewName("userModify");
+			}
+			return mav;
+		}
+
+
+		public ModelAndView modify(Map<String, String> params) {
+			ModelAndView mav = new ModelAndView();
+			UserDto udt = new UserDto();
+			inter = sqlSession.getMapper(BoardInterface.class);
+			int success=0;
+			String msg="수정에 실패했습니다.";
+			String id=params.get("u_id");
+			String pass=params.get("u_pass");
+			String email=params.get("u_email");
+			
+			udt=inter.userSearch(id);
+			if(!pass.equals("")){
+				udt.setU_pass(pass);
+			}
+			if(!email.equals(udt.getU_mail())){
+				udt.setU_mail(email);
+			}
+			udt.setU_phnum(params.get("u_phonNum"));
+			
+			success = inter.userModify(udt);
+			if(success==1){
+				msg="수정에 성공했습니다.";
+			}
+			mav.addObject("msg", msg);
+			mav.setViewName("index");
+			return mav;
+		}
+
+
 }	
 

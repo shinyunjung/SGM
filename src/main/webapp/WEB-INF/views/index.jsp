@@ -22,6 +22,11 @@
                 padding-top: 30%
             }
             
+            .userLogin{
+            	border: 1px solid black;
+            	height: 100px;
+            }
+            
             .loginBox{
                 border: 1px solid;
                 border-collapse: collapse;
@@ -124,34 +129,41 @@
 			    <div class="col3 content">
 				      
 				      <!-- 로그인 box -->
-				      <form action="login" method="post" id="login">
-						<table class="loginBox">
-							<tr>
-								<td class="loginBox">
-									<input type="text" name="u_id" size="12" placeholder="아이디"/>
-								</td>
-								<td class="loginBox" rowspan="2">
-										<div class="txt"><input type="submit" value="로그인"></div>
-								</td>
-							</tr>
-							<tr>
-								<td class="loginBox">
-									<input type="password" name="u_pass" size="12" placeholder="비밀번호"/>
-								</td>
-							</tr>
-							<tr>
-								<td class="loginBox" colspan="2">
-									<a href="./joinForm">회원가입</a><br/>
-									<a href="./myPage">아이디 찾기</a>/<a href="./passFind">비밀번호 찾기</a>
-								</td>
-							</tr>
-							<tr>
-								<td class="loginBox" colspan="2">
-									<jsp:include page="../../resources/include/kakao.jsp" />
-								</td>
-							</tr>
-						</table>
-					</form>
+				      <c:if test="${sessionScope.userId==null}">
+					      <form action="login" method="post" id="login">
+							<table class="loginBox">
+								<tr>
+									<td class="loginBox">
+										<input type="text" name="u_id" size="12" placeholder="아이디"/>
+									</td>
+									<td class="loginBox" rowspan="2">
+											<div class="txt"><input type="submit" value="로그인"></div>
+									</td>
+								</tr>
+								<tr>
+									<td class="loginBox">
+										<input type="password" name="u_pass" size="12" placeholder="비밀번호"/>
+									</td>
+								</tr>
+								<tr>
+									<td class="loginBox" colspan="2">
+										<a href="./joinForm">회원가입</a><br/>
+										<a href="./myPage">아이디 찾기</a>/<a href="./passFind">비밀번호 찾기</a>
+									</td>
+								</tr>
+								<tr>
+									<td class="loginBox" colspan="2">
+										<jsp:include page="../../resources/include/kakao.jsp" />
+									</td>
+								</tr>
+							</table>
+						</form>
+					</c:if>
+					<c:if test="${sessionScope.userId!=null}">
+						<div class="userLogin">
+							
+						</div>
+					</c:if>
 		    	</div>
 		  </div>
 		  </div>
@@ -160,5 +172,70 @@
 	<script>
 		var user="${sessionScope.userId}";
 		console.log(user);
+		
+		var msg="";
+		msg="${msg}";
+		if(msg!=""){
+			alert(msg);
+		}
+		
+		if(user!=""){
+			var url="./userSearch";
+			var data={};
+			data.userId=user;
+			sendServer(url, data);
+		}
+			
+			
+			
+			function selectTeam(u_idx){
+				console.log("selectTeam");
+				var url="./selectTeam";
+				var data={};
+				data.idx=u_idx;
+				sendServer(url, data); 
+			}
+			
+			function sendServer(url, data){
+				$.ajax({
+					url:url,
+					type:"post",
+					data:data,
+					dataType:"JSON",
+					success:function(data){
+						console.log(data);
+						if(url=="./userSearch"){
+							console.log("유저확인");
+							selectTeam(data.user.u_idx);
+							userData=data.user;
+							console.log(userData);
+						}else if(url=="./selectTeam"){
+							console.log("팀정보 확인");
+							teamData=(data.userTeam);
+							console.log(teamData.length);
+							printUser(userData.u_name, teamData);
+							
+						}
+					},
+					error:function(error){
+						console.log(error);
+					}
+				});
+			}
+			
+			function printUser(name, data){
+				console.log(name);
+				var content="";
+				content+=" "+"<a href='myPage?id=${sessionScope.userId}'>"+name+"</a> 님 안녕하세요<br/>";	
+					content+="<select>"
+						+"<option value=0>내가 가입한 팀: </option>";
+						for(var i=0; i<data.length; i++){
+							content+="<option value="+data[i].t_idx+" >"+data[i].t_name+"</option>";
+						}
+						content+="</select>";
+				content+="<div class='center'><a href='./teamJoin'>팀 생성</a></div>"		
+				$(".userLogin").empty();
+				$(".userLogin").append(content);
+			}
 	</script>
 </html>

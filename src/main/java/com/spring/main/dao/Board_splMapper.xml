@@ -33,4 +33,9 @@
 		SELECT m.t_idx, t.t_name FROM memver m, team t WHERE m.u_idx=(SELECT u_idx FROM user1 WHERE u_idx=#{param1}) and m.t_idx=t.t_idx
 	</select>
 	
+	<!-- 유저 정보 수정 -->
+	<update id="userModify" parameterType="com.spring.main.dto.UserDto">
+		UPDATE user1 SET u_pass=#{u_pass}, u_mail=#{u_mail}, u_phnum=#{u_phnum} WHERE u_id=#{u_id}
+	</update>
+	
 </mapper>

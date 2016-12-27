@@ -48,25 +48,25 @@
 			  		<table id="myimporm">
 			  			<tr>
 			  				<th>아이디</th>
-			  				<td></td>
+			  				<td>${user.u_id}</td>
 			  				<th>성명</th>
-			  				<td></td>
+			  				<td>${user.u_name}</td>
 			  			</tr>
 			  			<tr>
 			  				<th>성별</th>
-			  				<td></td>
+			  				<td>${user.u_gender}</td>
 			  				<th>생년월일</th>
-			  				<td></td>
+			  				<td>${user.u_age}</td>
 			  			</tr>
 			  			<tr>
 			  				<th>핸드폰</th>
-			  				<td></td>
+			  				<td>${user.u_phnum}</td>
 			  				<th>이메일</th>
-			  				<td></td>
+			  				<td>${user.u_mail}</td>
 			  			</tr>
 			  			<tr>
 			  				<td colspan="4">
-				        		<button class="btn btn-primary" onclick="location='./userModify'">수정</button>
+				        		<button class="btn btn-primary" onclick="location='./userModify?id=${user.u_id}'">수정</button>
 			  				</td>
 			  			</tr>
 			  		</table>

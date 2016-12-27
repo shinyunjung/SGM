@@ -351,6 +351,13 @@ function send(){
 		Certification=false;
 	}
 }
+
+$("#mail").change(function(){
+	if(Certification){
+		console.log("메일 변경");
+		Certification=false;
+	}
+});
  
 /******
  * ajax폼

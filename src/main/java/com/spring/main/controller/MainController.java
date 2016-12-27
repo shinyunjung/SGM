@@ -25,7 +25,7 @@ public class MainController {
 	BoardService service;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+	private static boolean modFlag=false;
 	//메인페이지
 		@RequestMapping(value = "/")
 		public String home() {
@@ -100,9 +100,29 @@ public class MainController {
 
 	//마이페이지
 	@RequestMapping(value = "/myPage")
-	public String myPage() {
-		return "myPage";
+	public ModelAndView myPage(@RequestParam("id") String id) {
+		logger.info("마이페이지 요청");
+		modFlag=false;
+		return service.myPage(id, modFlag);
 	}
+	
+	
+	//회원정보 수정페이지
+	@RequestMapping(value="/userModify")
+	public ModelAndView userModify(@RequestParam("id") String id){
+		logger.info("회원정보 수정페이지 요청");
+		modFlag=true;
+		return service.myPage(id, modFlag);
+	}
+	
+	
+	//회원정보 수정
+	@RequestMapping(value="/modify")
+	public ModelAndView modify(@RequestParam Map<String, String> params){
+		logger.info("회원정보 수정 요청");
+		return service.modify(params);
+	}
+	
 		//팀가입
 		@RequestMapping(value = "/teamJoin")
 		public String teamJoin() {
