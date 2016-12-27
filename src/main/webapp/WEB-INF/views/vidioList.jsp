@@ -59,8 +59,9 @@
 							<thead>
 								<tr>
 									<th>순번</th>
-									<th>글쓴이</th>
+									<th>작성자</th>
 									<th>제목</th>
+									<th>작성일</th>
 									<th>조회 수</th>
 								</tr>
 							</thead>
@@ -203,6 +204,7 @@ function printList(list){
 			+"<td>"+list[i].j_idx+"</td>"
 			+"<td>"+list[i].j_name+"</td>"
 			+"<td><a href='../vidio/vidioDetail?idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
+			+"<td>"+list[i].j_date+"</td>"
 			+"<td>"+list[i].j_vcount+"</td>"
 			+"</tr>";
 		}
