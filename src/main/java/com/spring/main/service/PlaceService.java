@@ -41,7 +41,7 @@ public class PlaceService {
 		//게시물 시작과 끝 번호
 		int end=pagePerNum*currPage;
 		int start=end-pagePerNum+1;
-		int allCnt = inter.allCount();
+		int allCnt = inter.a_allCount();
 		
 		int totalPage=allCnt/pagePerNum;
 		System.out.println(totalPage%pagePerNum);
@@ -50,7 +50,7 @@ public class PlaceService {
 		}
 		logger.info("전체 게시물:{}",allCnt);
 		
-		obj.put("list", inter.listCall(start, end));
+		obj.put("list", inter.a_listCall(start, end));
 		json.put("jsonList", obj);
 		json.put("currPage", currPage);
 		json.put("totalCount", allCnt);
@@ -79,11 +79,11 @@ public class PlaceService {
 		int start=end-pagePerNum+1;
 		int allCnt=0;
 		if(input!=""){
-			allCnt = inter.searhCount(input, type);
-			obj.put("list", inter.searhCall(start, end, input, type));
+			allCnt = inter.a_searhCount(input, type);
+			obj.put("list", inter.a_searhCall(start, end, input, type));
 		}else{
-			allCnt = inter.allCount();
-			obj.put("list", inter.listCall(start, end));
+			allCnt = inter.a_allCount();
+			obj.put("list", inter.a_listCall(start, end));
 		}
 		
 		int totalPage=allCnt/pagePerNum;
@@ -112,7 +112,7 @@ public class PlaceService {
 		Map<String, Object> json = new HashMap<String, Object>();
 		String input=params.get("input");
 		String type=params.get("type");
-		int allCnt = inter.searhCount(input, type);
+		int allCnt = inter.a_searhCount(input, type);
 		json.put("count", allCnt);
 		return json;
 	}
@@ -139,7 +139,7 @@ public class PlaceService {
 		String lng = position[1];
 		String state="대기";
 		logger.info(title+"/"+writer+"/"+date+"/"+time+"/"+type+"/"+age+"/"+content+"/"+lat+"/"+lng+"/"+area+"/"+ground);
-		success = inter.write(t_idx, title, writer, date, time, type, age, content, lat, lng, area, ground, state);
+		success = inter.a_write(t_idx, title, writer, date, time, type, age, content, lat, lng, area, ground, state);
 		mav.addObject("write",params);
 		mav.setViewName("PlaceList");
 		return mav;

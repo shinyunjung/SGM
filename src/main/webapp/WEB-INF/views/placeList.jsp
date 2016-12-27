@@ -52,20 +52,44 @@
 						<input type="text" size="40" />
 						<button>검색</button>
 					</div>
+					<br/>
+					<td class="left">
+					게시물 갯수 : 
+									<select id="pagePerNum">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								</td>
+								<br/>
+								
+								<!-- <tr>
+									<th value=>No</th>
+									<th value= ,class="center">작성자</th>
+									<th value= ,class="center">장소명</th>
+									<th value=>주소</th>
+									<th value=>조회수</th>
+									<th value=>날짜</th>
+									<th value=>별점</th>
+									
+								</tr> -->
+								
+								
 					<div class="placeList">
 						<table class="table table-hover totalTable">
-							<thead>
+							
 								<tr>
-									<th>No</th>
+									<th >No</th>
 									<th class="center">작성자</th>
 									<th class="center">장소명</th>
-									<th>주소</th>
-									<th>조회수</th>
-									<th>날짜</th>
-									<th>별점</th>
+									<th >주소</th>
+									<th >조회수</th>
+									<th >날짜</th>
+									<th >별점</th>
 									
 								</tr>
-							</thead>
+							
 							<tbody>
 								<tr>
 									<th>No</th>
