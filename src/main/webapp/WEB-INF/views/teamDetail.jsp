@@ -373,8 +373,8 @@
 		var range = (currPage/5);	//다음 페이지 있는지 여부
 		
 		var content = "<ul class='pagination pagination-sm'>"
-   			+"<li class='page-item first'><a href='#' onclick='listCall(1)'>First</a></li>"
-   			+"<li class='page-item prev'><a href='#' onclick='listCall("+(currPage-1)+")'>Previous</a></li>";
+   			+"<li class='page-item first'><a href='#' onclick='listCall(1,"+idx+","+value+","+type+")'>First</a></li>"
+   			+"<li class='page-item prev'><a href='#' onclick='listCall("+(currPage-1)+","+idx+","+value+","+type+")'>Previous</a></li>";
 		
 		if(range >1){//5페이지 넘었을 경우
 			end = currPage%5 == 0 ?
@@ -392,12 +392,12 @@
 				if(currPage ==i){
 					content += "<li class='page-item active'><a href='#'>"+i+"</a></li>";
 				}else{
-					content += "<li class='page-item'><a href='#' onclick='listCall("+i+")' >"+i+"</a></li>";
+					content += "<li class='page-item'><a href='#' onclick='listCall("+i+","+idx+","+value+","+type+")' >"+i+"</a></li>";
 				}					
 			}			
 		}
-		content += "<li class='page-item next'><a href='#' onclick='listCall("+(currPage+1)+")'>Next</a></li>"
-           +"<li class='page-item last'><a href='#' onclick='listCall("+pageNum+")'>Last</a></li></ul>";
+		content += "<li class='page-item next'><a href='#' onclick='listCall("+(currPage+1)+","+idx+","+value+","+type+")'>Next</a></li>"
+           +"<li class='page-item last'><a href='#' onclick='listCall("+pageNum+","+idx+","+value+","+type+")'>Last</a></li></ul>";
 		
 		$("#paging").append(content);
 		if(currPage==1){

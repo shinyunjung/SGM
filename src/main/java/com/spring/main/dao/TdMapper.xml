@@ -35,7 +35,7 @@
 	
 	<!-- 파일올리기 -->
 	<insert id="fileUp">
-		INSERT INTO forder(f_idx,j_idx,f_category,f_filename,f_newfilename)
+		INSERT INTO forder(f_idx,idx,f_category,f_filename,f_newfilename)
 		VALUES(forder_num.NEXTVAL,#{param1},#{param2},#{param3},#{param4})
 	</insert>
 	
@@ -46,7 +46,7 @@
 	
 	<!-- 글쓰기 -->
 	<insert id="write">
-		INSERT INTO board(j_idx,u_idx,j_category,j_name,j_title,j_content,j_filenum,j_vcount,j_reple)
-		VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},0,0,0)
+		INSERT INTO board(idx,j_idx,u_idx,j_category,j_name,j_title,j_content,j_filenum,j_vcount,j_reple)
+		VALUES(#{param1},td_num.NEXTVAL,#{param2},#{param3},#{param4},#{param5},#{param6},0,0,0)
 	</insert>
 </mapper>

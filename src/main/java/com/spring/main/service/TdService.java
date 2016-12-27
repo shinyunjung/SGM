@@ -93,17 +93,22 @@ public class TdService {
 			String j_content = multi.getParameter("j_content");
 			String j_name = multi.getParameter("j_name");
 			String fileName = multi.getParameter("fileName");
-			String newFileName = null;
+			Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
 			if(fileName !=null){
 				//파일 업로드
 				FileUpload upload = new FileUpload();
-				newFileName = upload.fileUp(multi);
+				newFile = upload.fileUp(multi);
 			}
-			int j_idx = inter.idxCall();
-			logger.info(j_title+"/"+j_content+"/"+j_name+"/"+fileName+"/"+newFileName);
-			int success = inter.write(j_idx,u_idx,j_category,j_name, j_title, j_content);
-			inter.fileUp(j_idx,j_category, fileName, newFileName);
-			mav.setViewName("teamDetail");
+			ArrayList<String> oldName = newFile.get("oldName");
+			ArrayList<String> newName = newFile.get("newName");
+			int idx = inter.idxCall();
+			logger.info(j_title+"/"+j_content+"/"+j_name+"/"+fileName);
+			int success = inter.write(idx,u_idx,j_category,j_name, j_title, j_content);
+			for(int i=0; i<newName.size(); i++){
+				inter.fileUp(idx,j_category, oldName.get(i),newName.get(i));
+			}
+			String t_idx = j_category.substring(1);
+			mav.setViewName("redirect:../team/teamDetail?t_idx="+t_idx);
 			return mav;
 		}
 
