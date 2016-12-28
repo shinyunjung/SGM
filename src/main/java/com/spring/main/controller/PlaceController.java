@@ -1,5 +1,6 @@
 package com.spring.main.controller;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,6 @@ public class PlaceController {
 		logger.info("장소수정");
 		return "placeModify";
 	}
+	
 
 }

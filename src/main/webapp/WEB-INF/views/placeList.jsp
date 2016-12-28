@@ -90,7 +90,7 @@
 									
 								</tr>
 							
-							<tbody>
+							<tbody id="list">
 								<tr>
 									<th>No</th>
 									<th class="center">작성자</th>
@@ -102,6 +102,9 @@
 								</tr>
 							</tbody>
 						</table>
+						<div id="paging">
+						
+						</div>
 						<div class="left">
 							<button onclick="location.href='placeDetail'">장소추가</button>
 							
@@ -176,7 +179,7 @@
 		var input = $(".input").val();
 		console.log(input);
 		$(".input").val("");
-		var url="./Place/searchCall";
+		var url="./rest/searchCall";
 		var data={};
 		data.page=currPage;
 		data.pagePerNum=$("#pagePerNum").val();
@@ -187,7 +190,7 @@
 	
 	function listCall(currPage){
 		if(currPage>=1 && currPage<=totalPage)
-		var url="./Place/listCall";
+		var url="./rest/listCall";
 		var data={};
 		data.page=currPage;
 		data.pagePerNum=$("#pagePerNum").val();
@@ -204,19 +207,19 @@
 			dataType:"JSON",
 			success:function(data){
 				console.log(data);
-				if(url=="./Place/listCall"){
+				if(url=="./rest/listCall"){
 					printList(data.jsonList.list);
 					currPage=data.currPage;
 					totalPage=data.totalPage;
 					printPaging(data.totalCount, data.totalPage); 
 				}
-				else if(url=="./Place/searchCall"){
+				else if(url=="./rest/searchCall"){
 					printList(data.jsonList.list);
 					currPage=data.currPage;
 					totalPage=data.totalPage;
 					printPaging(data.totalCount, data.totalPage); 
 				}
-				else if(url=="./Place/delete"){
+				else if(url=="./rest/delete"){
 					alert(data.msg);
 					listCall(currPage);
 				}

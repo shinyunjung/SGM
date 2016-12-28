@@ -6,15 +6,15 @@
 <mapper namespace="com.spring.main.dao.PlaceInterface">
 	
 	<!-- 게시물 전채 개수 -->
-	<select id="allCount" resultType="Integer">
+	<select id="a_allCount" resultType="Integer">
 		SELECT COUNT(*) FROM area
 	</select>
 	 <!-- 검색 후 게시물 전채 개수 -->
-   <select id="searhCount" resultType="Integer" >
+   <select id="a_searhCount" resultType="Integer" >
       SELECT COUNT(*) FROM area WHERE ${param2} like '%'||#{param1}||'%'
    </select>
 	<!-- 리스트 불러오기 -->
-   <select id="listCall" resultType="com.spring.main.dto.PlaceDto">
+   <select id="a_listCall" resultType="com.spring.main.dto.PlaceDto">
       SELECT a_idx,  u_idx,  a_name, a_area,  a_address,  a_ground,  a_content,  a_date,
 			 a_reple,  a_vcount,  a_total,  a_evalunum,  a_picfile, a_lat,  a_lng 
 			 FROM (
@@ -30,7 +30,7 @@
 	
 	
 	<!-- 리스트 추가 -->
-	<select id="searchCall" resultType="com.spring.main.dto.PlaceDto">
+	<select id="a_searhCall" resultType="com.spring.main.dto.PlaceDto">
 		SELECT a_idx,  u_idx,  a_name, a_area,  a_address,  a_ground,  a_content,  a_date,
 			 a_reple,  a_vcount,  a_total,  a_evalunum,  a_picfile, a_lat,  a_lng 
 			 FROM (
