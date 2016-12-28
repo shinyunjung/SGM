@@ -91,6 +91,13 @@ public class MainController {
 		
 		return "idFind";
 	}
+	
+	//이름으로 메일찾기(id찾기)
+	@RequestMapping(value="/mailFind")
+	public @ResponseBody Map<String, String> mailFind(@RequestParam Map<String, String> params){
+		logger.info("이름으로 메일찾기");
+		return service.mailFind(params);
+	}
 	//pw찾기
 	@RequestMapping(value = "/passFind")
 	public String pwFind() {

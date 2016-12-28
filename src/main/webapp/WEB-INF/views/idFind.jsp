@@ -60,26 +60,26 @@
 			  			<tr>
 			  				<th>성명</th>
 			  				<td>
-			  				<input type="text" class="form-control" placeholder="성명" >
+			  				<input type="text" id="name" class="form-control" placeholder="성명" >
 			  				</td>
 			  				<th></th>
 			  			</tr>
 			  			<tr>
 			  				<th>email</th>
 			  				<td>
-			  				<input type="email" class="form-control" placeholder="email" >
+			  				<input type="email" id="mail" class="form-control" placeholder="email" >
 			  				</td>
 			  				<td style="padding-left: 10px;">
-			  					<button class="btn btn-default">보내기</button>
+			  					<input type="button" class="btn btn-default" id="Certification" onclick="mailFind()" value="보내기" />
 			  				</td>
 			  			</tr>
 			  			<tr>
 			  				<th>인증번호</th>
 			  				<td>
-			  				<input type="text" class="form-control" placeholder="인증번호" >
+			  				<input type="text" class="form-control" name="Certification" placeholder="인증번호" >
 			  				</td>
 			  				<td style="padding-left: 10px;">
-			  					<button class="btn btn-primary">확인</button>
+			  					<button class="btn btn-primary" onclick="numberCheck()">확인</button>
 			  				</td>
 			  			</tr>
 			  		</table>
@@ -94,8 +94,110 @@
 	<jsp:include page="../../resources/include/footer.jsp" />	
 	</body>
 	<script>
-		$(".btn-primary").click(function(){
-			$("#popup").css("display","block");
-		});
+	
+	 /*메일 인증 유무*/
+	 var userId="";
+	 
+	 /*인증번호*/
+	 var number="";
+	 
+	 var userMail="";
+	 /***********************
+	  * 인증 번호 보내기
+	  ***********************/
+	 function mailFind(){
+	 	var email=$("input[type='email']").val();
+	 	var name=$("#name").val();
+	 	var url="./mailFind";
+	 	var data={};
+	 	if(name==""){
+	 		alert("성명을 입력해주세요");
+	 	}else{
+	 		data.name=name;
+	 		if(email==""){
+		 		alert("이메일을 입력해주세요");
+		 	}else{
+		 		data.mail=email;
+		 		reqServer(url, data);
+		 	}
+	 	}
+	 	
+	 }
+	 
+	 function send(mail){
+			var url="./certification";
+			var data={};
+			data.mail=mail;
+			reqServer(url, data);
+	 }
+	 
+
+
+	 /**********
+	  * 인증번호 확인
+	  **********/
+
+	  function numberCheck(){
+	 	var num=$("input[name='Certification']").val();
+	 	console.log(num);
+	 	console.log(number);
+	 	if(num==number){
+	 		alert("인증번호를 확인했습니다.");
+	 		printAnswer();
+	 	}else{
+	 		alert("번호가 올바르지 않습니다.");
+	 	}
+	 }
+
+	 $("#mail").change(function(){
+	 	if(Certification){
+	 		console.log("메일 변경");
+	 		Certification=false;
+	 	}
+	 });
+	 
+	 
+	 
+	 /******
+	  * ajax폼
+	  *****/
+	 function reqServer(url, data){
+	 	console.log("ajax전송");
+	 	$.ajax({
+	 		url:url,
+	 		type:"post",
+	 		data:data,
+	 		dataType:"JSON",
+	 		success:function(data){
+	 			console.log(data);
+	 			if(url=="./mailFind"){
+	 				if(data.msg=="Y"){
+	 					send(data.mail);
+	 					userId=data.userId;
+	 				}else{
+	 					alert("이름과 메일이 알맞지 않습니다.");
+	 				}
+	 			}else if(url=="./certification"){
+	 				alert(data.msg);
+					number=data.num;
+	 			}
+	 		},
+	 		error:function(error){
+	 			console.log(error);
+	 		}
+	 	});
+	 }
+	 
+	 
+	 function printAnswer(){
+		 var content="";
+		 content+="<h5>당신의 아이디는 <b>"+userId+"</b> 입니다.</h5><br/>";
+		 content+="<a href='passFind'>비밀번호 찾기</a>/"+
+			"<a href='loginPage'>로그인하러 가기</a>";
+		$("#popup").empty();
+		$("#popup").append(content);
+		$("#popup").css("display", "block");
+	 }
+	
 	</script>
 </html>

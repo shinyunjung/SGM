@@ -38,4 +38,9 @@
 		UPDATE SGM_user SET u_pass=#{u_pass}, u_mail=#{u_mail}, u_phnum=#{u_phnum} WHERE u_id=#{u_id}
 	</update>
 	
+	<!-- 유저의 메일과 이름으로 아이디 찾기 -->
+	<select id="mailFind" resultType="String">
+		SELECT u_id FROM SGM_user WHERE u_name=#{param1} AND u_mail=#{param2}
+	</select>
+	
 </mapper>

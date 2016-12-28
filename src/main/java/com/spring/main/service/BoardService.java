@@ -212,5 +212,26 @@ public class BoardService {
 		}
 
 
+		//이름으로 메일찾기
+		public Map<String, String> mailFind(Map<String, String> params) {
+			Map<String, String> map = new HashMap<String, String>();
+			inter = sqlSession.getMapper(BoardInterface.class);	
+			String userName=params.get("name");
+			String userMail=params.get("mail");
+			logger.info(userName+"/"+userMail);
+			String msg="";
+			String userId =inter.mailFind(userName, userMail);
+			if(userId==null)	{
+				msg="N";
+			}else{
+				msg="Y";
+				map.put("userId", userId);
+			}
+			map.put("mail", userMail);
+			map.put("msg", msg);
+			return map;
+		}
+
+
 }	
 

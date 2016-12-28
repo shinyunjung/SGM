@@ -148,7 +148,7 @@
 								<tr>
 									<td class="loginBox" colspan="2">
 										<a href="./joinForm">회원가입</a><br/>
-										<a href="./myPage">아이디 찾기</a>/<a href="./passFind">비밀번호 찾기</a>
+										<a href="./idFind">아이디 찾기</a>/<a href="./passFind">비밀번호 찾기</a>
 									</td>
 								</tr>
 								<tr>

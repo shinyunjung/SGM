@@ -2,6 +2,7 @@ package com.spring.main.dao;
 
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.spring.main.dto.LoginDto;
 import com.spring.main.dto.SelectTeamDto;
@@ -25,7 +26,11 @@ public interface BoardInterface {
 	//유저가 속한 팀 정보
 	ArrayList<SelectTeamDto> selectTeam(String idx);
 
+	//유저 정보 수정
 	int userModify(UserDto udt);
+
+	//유저이름과 메일찾기
+	String mailFind(String userName, String userMail);
 
 
 }
