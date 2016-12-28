@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -59,23 +58,27 @@
 						<table class="detailTable">
 							<thead>
 								<tr>
-									<td class="subject left">제목(불러오기)</td>
+									<td class="subject left">제목</td>
+									<td class="subject left">${content.j_title}</td>
 									<td class="borderLeft">날짜</td>
-									<td class="borderLeft">날짜(불러오기)</td>
+									<td class="borderLeft">${content.j_date}</td>
 									<td class="borderLeft">조회수</td>
-									<td class="borderLeft">0</td>
+									<td class="borderLeft">${content.j_vcount}</td>
 								</tr>
 							</thead>
 							<tbody class="borderTop">
 								<tr>
 									<td colspan="5">
-										내용(불러오기)
+										${content.j_content}
+										<video src="${fileName}" controls autoplay></video>
 									</td>
 								</tr>
 								<tr class="borderTop">
 									<td class="left"><a>댓글쓰기</a></td>
 									<td colspan="4" class="right ">
-										<a>수정</a> / <a>삭제</a>
+										<input type="button" onclick="location.href='./vidioList'" value="돌아가기"/>
+                              			<input type="button" onclick="location.href='./vidioModify?j_idx=${content.j_idx}'" value="수정하기"/>
+                              			<input type="button" onclick="del()" value="삭제"/>
 									</td>
 								</tr>
 							</tbody>
@@ -100,5 +103,9 @@
 			</div>
 		</div>
 	</body>
-	<script></script>
+	<script>
+	function del(){
+	      location.href="./delete?j_idx="+${content.j_idx };
+	   }
+	</script>
 </html>

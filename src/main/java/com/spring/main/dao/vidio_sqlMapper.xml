@@ -49,7 +49,7 @@
 	</select>
 	
 	 <!-- 상세 보기 -->
-    <select id="freeDetail" resultType="com.spring.main.dto.vidioDTO">
+    <select id="vidioDetail" resultType="com.spring.main.dto.vidioDTO">
        SELECT * FROM board WHERE j_idx = #{param1}
     </select>
     
@@ -59,11 +59,10 @@
     </update>
 
     <!-- 글쓰기 -->
-    <insert id="write">
+    <insert id="Write">
        INSERT INTO board(
        j_idx, j_title, j_name, j_content, j_vcount, j_reple)
-          VALUES(board_seq.NEXTVAL, #{param1}, #{param2}, #{param3}
-          ,0,0)
+          VALUES(board_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, 0, 0)
     </insert>
     
     <!-- 글삭제 -->
