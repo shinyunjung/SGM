@@ -111,6 +111,7 @@
 		
 		$("#pagePerNum").change(function(){
 			pagePerNum=$("#pagePerNum").val();
+			currPage=1;
 			searchCall(currPage);
 		});
 		
@@ -248,10 +249,10 @@
 		console.log("전체 페이지:"+page);
 		console.log("현재 페이지:"+currPage);
 		
-		if(currPage>page){
+		/* if(currPage>page){
 			currPage=page;
 			searchCall(currPage);
-		}
+		} */
 		if(totalRange>1){
 			totalEnd=page%5==0?
 					(Math.floor(totalRange))*5:
