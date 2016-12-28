@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.main.dto.TdDto;
 
-public class FileUpload {
+public class UploadFile {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	

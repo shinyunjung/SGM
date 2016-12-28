@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<% String idx = request.getParameter("idx"); %>
+<% String t_idx = request.getParameter("t_idx"); %>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -66,7 +66,7 @@
 									<td>
 									<input type="text" name="j_name" value="admin" readonly/>
 									<input type="hidden" name="u_idx" value="1"/>
-									<input type="hidden" name="j_category" value="<%=idx %>"/>
+									<input type="hidden" name="j_category" value="<%="1"+t_idx %>"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -130,7 +130,7 @@
 	<script>
 	var file = null;
 	var fileName = null;
-	var t_idx = <%=idx.substring(1) %>;
+	var t_idx = <%=t_idx %>;
 	var sw = false;
 	
 	
@@ -240,7 +240,7 @@
             +"<td><input type='text' name='p_offside[]' value='0'/></td>"
             +"<td><input type='text' name='p_effectshot[]' value='0'/></td>"
             +"<td><input type='checkbox' name='chk[]' value='"
-            +list[i].m_idx+"/"+list[i].u_idx+"'/></td></tr>";
+            +list[i].m_idx+"'/></td></tr>";
 		}
 		$("#start").empty();
 		$("#start").append(content);

@@ -37,6 +37,12 @@ public interface TeamInterface {
 	//멤버수
 	int memberCount(String t_idx);
 	
+	//팀안내
+	TeamDto teamInfo(String t_idx);
+	
+	//팀대표
+	ArrayList<MemberDto> grade(String t_idx);
+	
 	
 
 }

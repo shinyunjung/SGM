@@ -3,6 +3,7 @@ package com.spring.main.dto;
 public class PrDto {
 	private String p_idx;
 	private String m_idx;
+	private String m_name;
 	private String p_offside;
 	private String p_effectshot;
 	private String p_goal;
@@ -27,6 +28,12 @@ public class PrDto {
 	}
 	public void setM_idx(String m_idx) {
 		this.m_idx = m_idx;
+	}
+	public String getM_name() {
+		return m_name;
+	}
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
 	}
 	public String getP_offside() {
 		return p_offside;

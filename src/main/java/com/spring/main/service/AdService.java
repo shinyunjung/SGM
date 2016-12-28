@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdInterface;
 import com.spring.main.dto.TdDto;
-import com.spring.main.util.FileUpload;
+import com.spring.main.util.UploadFile;
 
 @Service
 public class AdService {
@@ -83,7 +83,7 @@ public class AdService {
 		Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
 		if(fileName !=null){
 			//파일 업로드
-			FileUpload upload = new FileUpload();
+			UploadFile upload = new UploadFile();
 			newFile = upload.fileUp(multi);
 		}
 		ArrayList<String> oldName = newFile.get("oldName");

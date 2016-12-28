@@ -6,9 +6,9 @@
 
 	<!-- 리스트보이기 -->
 	<select id="listCall" resultType="com.spring.main.dto.TdDto">
-		SELECT j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple
+		SELECT idx,j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple
 			FROM (
-				SELECT j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple,
+				SELECT idx,j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple,
 				ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board WHERE j_category=#{param3}
 				)WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
@@ -20,9 +20,9 @@
 	
 	<!-- 검색리스트보이기 -->
 	<select id="search" resultType="com.spring.main.dto.TdDto">
-		SELECT j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple
+		SELECT idx,j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple
 			FROM (
-				SELECT j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple,
+				SELECT idx,j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple,
 				ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board 
 				WHERE j_category=#{param3} AND ${param4} LIKE '%'||#{param5}||'%'
 				)WHERE rnum BETWEEN #{param1} AND #{param2}
@@ -52,10 +52,10 @@
 	
 	<!-- 개인기록 -->
 	<insert id="record">
-		INSERT INTO personal_record(p_idx,m_idx,p_offside,p_effectshot,p_goal,p_assist,p_atkpoint,
+		INSERT INTO personal_record(p_idx,idx,m_idx,p_offside,p_effectshot,p_goal,p_assist,p_atkpoint,
 		p_shoot,p_poul,p_warning,p_off,p_ck,p_pk,p_date)
 		VALUES(pr_num.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},
-		#{param8},#{param9},#{param10},#{param11},#{param12},#{param13})
+		#{param8},#{param9},#{param10},#{param11},#{param12},#{param13},#{param14})
 	</insert>
 	
 	<!-- 포인트,경기수 -->
@@ -67,4 +67,26 @@
 	<select id="member" resultType="com.spring.main.dto.MemberDto">
 		SELECT m_idx,u_idx,m_name FROM memver WHERE t_idx = #{param1}
 	</select>
+	
+	<!-- 팀잉지상세 -->
+	<select id="tdDetail" resultType="com.spring.main.dto.TdDto">
+		SELECT * FROM board WHERE idx = #{param1}
+	</select>
+	
+	<!-- 개인기록-->
+	<select id="tdRecord" resultType="com.spring.main.dto.PrDto">
+		SELECT e.m_name, d.p_offside,d.p_effectshot,d.p_goal,d.p_assist,d.p_atkpoint,
+		d.p_shoot,d.p_poul,d.p_warning,d.p_off,d.p_ck,d.p_pk,d.p_date 
+		FROM personal_record d, memver e WHERE e.m_idx = d.m_idx AND d.idx=#{param1}
+	</select>
+	
+	<!-- 파일이름가져오기 -->
+	<select id="fileDelName" resultType="String">
+		SELECT f_newfilename FROM forder WHERE idx = #{param1}
+	</select>
+	
+	<!-- 글삭제 -->
+	<delete id="delete">
+		DELETE FROM board WHERE idx = #{param1}
+	</delete>
 </mapper>

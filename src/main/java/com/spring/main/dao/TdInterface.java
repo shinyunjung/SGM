@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.spring.main.dto.FileDto;
 import com.spring.main.dto.MemberDto;
+import com.spring.main.dto.PrDto;
 import com.spring.main.dto.TdDto;
 
 public interface TdInterface {
@@ -33,12 +34,24 @@ public interface TdInterface {
 	ArrayList<MemberDto> member(String t_idx);
 
 	//개인기록
-	void record(String m_idx, String string, String string2, String string3, String string4, int p_atkpoint,
-			String string5, String string6, String string7, String string8, String string9, String string10,
-			String p_date);
+	void record(int idx, String m_idx, String string, String string2, String string3, 
+			String string4, int p_atkpoint,String string5, String string6, 
+			String string7, String string8, String string9, String string10,String p_date);
 
 	//멤버정보
-	void point(int p_atkpoint, String u_idxm);
+	void point(int p_atkpoint, String m_idx);
+
+	//상세보기
+	TdDto tdDetail(String idx);
+
+	//개인기록보기
+	ArrayList<PrDto> tdRecord(String idx);
+
+	//파일이름 가져오기
+	String[] fileDelName(String idx);
+
+	//글삭제
+	int delete(String idx);
 	
 
 }

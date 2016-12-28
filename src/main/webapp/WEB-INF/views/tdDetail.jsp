@@ -77,17 +77,21 @@
 								 	<th>글 번호</th>
 								</tr>
 								<tr>
-									<td class="subject">제목(불러오기)</td>
+									<td colspan="6" class="subject">${td.j_title}</td>
+								</tr>
+								<tr>
+									<td class="subject">작성자</td>
+									<td class="subject">${td.j_name}</td>
 									<td class="borderLeft">날짜</td>
-									<td class="borderLeft">날짜(불러오기)</td>
+									<td class="borderLeft">${td.j_date}</td>
 									<td class="borderLeft">조회수</td>
-									<td class="borderLeft">00</td>
+									<td class="borderLeft">${td.j_vcount}</td>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td colspan="5">
-										내용(불러오기)
+									<td colspan="6">
+										${td.j_content}
 									</td>
 								</tr>
 							</tbody>
@@ -97,25 +101,48 @@
 						<table class="recordTable">
 							<thead>
 								<tr>
-									<th>기록일지</th>
+									<th>개인기록</th>
+								</tr>
+								<tr>
+									<th style="width:15%">이름</th>
+									<th>득점</th>
+					                <th>도움</th>
+					                <th>슈팅</th>
+					                <th>파울</th>
+					                <th>경고</th>
+					                <th>퇴장</th>
+					                <th>코너킥</th>
+					                <th>패널티 킥</th>
+					                <th>오프 사이드</th>
+					                <th>유효 슈팅</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td class="recordList">OO</td>
-									<td class="recordList">OO</td>
-									<td class="recordList">OO</td>
-									<td class="recordList">OO</td>
-									<td class="recordList">OO</td>
-									<td class="recordList">OO</td>
-									<td class="recordList">OO</td>
-									<td class="recordList">OO</td>
-									<td class="recordList">OO</td>
-									<td class="recordList">OO</td>
-								</tr>
+								<c:forEach items="${record}" var="rec">
+									<c:if test="${rec.m_name!=null}">
+										<tr class='borderTop'>
+											<td>${rec.m_name}</td>
+											<td>${rec.p_goal}</td>
+								            <td>${rec.p_assist}</td>
+								            <td>${rec.p_shoot}</td>
+								            <td>${rec.p_poul}</td>
+								            <td>${rec.p_warning}</td>
+								            <td>${rec.p_off}</td>
+								            <td>${rec.p_ck}</td>
+								            <td>${rec.p_pk}</td>
+								            <td>${rec.p_offside}</td>
+								            <td>${rec.p_effectshot}</td>
+							            </tr>
+									</c:if>
+									<c:if test="${rec.m_name==null}">
+										<tr>
+											<td colspan="11">개인기록이 없습니다.</td>
+										</tr>
+									</c:if>
+								</c:forEach>
 								<tr class="borderTop">
 									<td class="left"><a>댓글쓰기</a></td>
-									<td colspan="9" class="right ">
+									<td colspan="10" class="right ">
 										<a>수정</a> / <a>삭제</a>
 									</td>
 								</tr>

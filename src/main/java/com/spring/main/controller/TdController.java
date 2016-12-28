@@ -31,9 +31,9 @@ public class TdController {
 	}
 	//팀일지상세
 	@RequestMapping(value = "/tdDetail")
-	public String tdDetail() {
+	public ModelAndView tdDetail(@RequestParam Map<String, String> params){
 		logger.info("팀일지상세");
-		return "tdDetail";
+		return service.tdDetail(params);
 	}
 	//팀일지쓰기
 	@RequestMapping(value = "/tdWrite")

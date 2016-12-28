@@ -237,39 +237,39 @@
 	var num = 5;
 	var value = null;
 	var type = null;
-	var idx = "1"+${team.t_idx};
+	var t_idx = ${team.t_idx};
 	
 	$(document).ready(function(){
-		listCall(currPage,idx,value,type);
+		listCall(currPage,t_idx,value,type);
 	});
 	
 	
 	
 	$("#pagePerNum").change(function(){
 		currPage = 1;
-		listCall(currPage,idx,value,type);
+		listCall(currPage,t_idx,value,type);
 	});
 	
 	//글쓰기
 	function tdWrite(){
-		console.log(idx);
-		location.href="./tdWrite?idx="+idx;
+		console.log(t_idx);
+		location.href="./tdWrite?t_idx="+t_idx;
 	}
 	
 	//검색기능
 	function Search(){
 		value = $(".input").val();
 		type = $(".type").val();
-		listCall(currPage,idx,value,type);
+		listCall(currPage,t_idx,value,type);
 		
 	}
 	
-	function listCall(currPage,idx,value,type){
+	function listCall(currPage,t_idx,value,type){
 		var url="./listCall";
 		var data = {};
 		data.page = currPage;
 		data.pagePerNum = $("#pagePerNum").val();
-		data.j_category = idx;
+		data.j_category = "1"+t_idx;
 		data.value = value;
 		data.type = type;
 		reqServer(url,data);
@@ -297,7 +297,7 @@
 		console.log(list);
 		for(var i=0; i<list.length; i++){
 			content +="<tr><td>"+list[i].j_idx+"</td><td>"
-			+"<a href='../td/tdDetail?j_idx="+list[i].j_idx+",j_category="+list[i].j_category+"'>"
+			+"<a href='./tdDetail?idx="+list[i].idx+"&t_idx="+t_idx+"'>"
 			+list[i].j_title+"</a><b>["+list[i].j_reple+"]</b></td><td>"
 			+list[i].j_name+"</td><td>"
 			+list[i].j_date.substr(0,10)+"</td><td>"
@@ -318,8 +318,8 @@
 		var range = (currPage/5);	//다음 페이지 있는지 여부
 		
 		var content = "<ul class='pagination pagination-sm'>"
-   			+"<li class='page-item first'><a href='#' onclick='listCall(1,"+idx+","+value+","+type+")'>First</a></li>"
-   			+"<li class='page-item prev'><a href='#' onclick='listCall("+(currPage-1)+","+idx+","+value+","+type+")'>Previous</a></li>";
+   			+"<li class='page-item first'><a href='#' onclick='listCall(1,"+t_idx+","+value+","+type+")'>First</a></li>"
+   			+"<li class='page-item prev'><a href='#' onclick='listCall("+(currPage-1)+","+t_idx+","+value+","+type+")'>Previous</a></li>";
 		
 		if(range >1){//5페이지 넘었을 경우
 			end = currPage%5 == 0 ?
@@ -337,12 +337,12 @@
 				if(currPage ==i){
 					content += "<li class='page-item active'><a href='#'>"+i+"</a></li>";
 				}else{
-					content += "<li class='page-item'><a href='#' onclick='listCall("+i+","+idx+","+value+","+type+")' >"+i+"</a></li>";
+					content += "<li class='page-item'><a href='#' onclick='listCall("+i+","+t_idx+","+value+","+type+")' >"+i+"</a></li>";
 				}					
 			}			
 		}
-		content += "<li class='page-item next'><a href='#' onclick='listCall("+(currPage+1)+","+idx+","+value+","+type+")'>Next</a></li>"
-           +"<li class='page-item last'><a href='#' onclick='listCall("+pageNum+","+idx+","+value+","+type+")'>Last</a></li></ul>";
+		content += "<li class='page-item next'><a href='#' onclick='listCall("+(currPage+1)+","+t_idx+","+value+","+type+")'>Next</a></li>"
+           +"<li class='page-item last'><a href='#' onclick='listCall("+pageNum+","+t_idx+","+value+","+type+")'>Last</a></li></ul>";
 		
 		$("#paging").append(content);
 		if(currPage==1){

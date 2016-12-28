@@ -6,7 +6,7 @@
 
 	<!-- 리스트보이기 -->
 	<select id="listCall" resultType="com.spring.main.dto.TeamDto">
-		SELECT t_idx,t_name,t_area,t_day,t_time,t_uniform,t_matchcount,t_rankpoint,
+		SELECT t_idx,t_name,t_area,t_day,t_time,t_uniform,t_picture,t_matchcount,t_rankpoint,
 		t_age,t_win,t_lose,t_draw,RANK() OVER (ORDER BY t_rankpoint DESC) RANK FROM team1
 	</select>
 	
@@ -17,7 +17,7 @@
 	
 	<!-- 검색 -->
 	<select id="search" resultType="com.spring.main.dto.TeamDto">
-		SELECT * FROM (SELECT t_idx,t_name,t_area,t_day,t_time,t_uniform,
+		SELECT * FROM (SELECT t_idx,t_name,t_area,t_day,t_time,t_uniform,t_picture,
 		t_matchcount,t_rankpoint,t_age,t_win,t_lose,t_draw,RANK() OVER 
 		(ORDER BY t_rankpoint DESC) RANK FROM team1)WHERE t_name LIKE '%'||#{param1}||'%'
 	</select>
@@ -52,5 +52,15 @@
 	<!-- 멤버수 -->
 	<select id="memberCount" resultType="Integer">
 		SELECT COUNT(*) FROM memver WHERE t_idx = #{param1}
+	</select>
+	
+	<!-- 팀안내 -->
+	<select id="teamInfo" resultType="com.spring.main.dto.TeamDto">
+		SELECT t_idx,t_name,t_picture FROM team1 WHERE t_idx = #{param1}
+	</select>
+	
+	<!-- 팀대표 -->
+	<select id="grade" resultType="com.spring.main.dto.MemberDto">
+		SELECT m_name,m_grade FROM memver WHERE t_idx = #{param1} AND m_grade = '대표'
 	</select>
 </mapper>

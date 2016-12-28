@@ -63,19 +63,7 @@ public class TeamService {
 		json.put("page", page);
 		return json;
 	}
-/*
-	public Map<String, String> search(String t_name) {
-		inter = sqlSession.getMapper(TeamInterface.class);
-		Map<String, String> obj = new HashMap<String, String>();
-		logger.info(t_name);
-		String result = inter.search(t_name);
-		
-			
-		obj.put("msg", msg);		
-		
-		return obj;
-	}
-*/
+
 
 	public ModelAndView teamDetail(String t_idx) {
 		

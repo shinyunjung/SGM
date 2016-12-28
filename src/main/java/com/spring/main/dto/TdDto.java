@@ -1,6 +1,7 @@
 package com.spring.main.dto;
 
 public class TdDto {
+	private String idx;
 	private String j_idx;
 	private String u_idx;
 	private String j_name;
@@ -11,7 +12,13 @@ public class TdDto {
 	private String j_filenum;
 	private String j_vcount;
 	private String j_reple;
-	
+
+	public String getIdx() {
+		return idx;
+	}
+	public void setIdx(String idx) {
+		this.idx = idx;
+	}
 	public String getJ_idx() {
 		return j_idx;
 	}
