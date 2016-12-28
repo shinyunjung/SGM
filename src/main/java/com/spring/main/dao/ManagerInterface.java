@@ -21,8 +21,6 @@ public interface ManagerInterface {
 
 	ArrayList<BoardDto> boradSearch(String idx);
 
-	void repleDelete(String j_idx, String j_category);
-
-	void fileDelete(String j_idx, String j_category);
+	void usRepleDelete(String idx);
 
 }

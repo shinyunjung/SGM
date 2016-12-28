@@ -33,5 +33,9 @@
 		DELETE FROM SGM_user WHERE u_idx=#{param1}
 	</delete>
 	
+	<!-- 유저가 쓴 댓글 삭제 -->
+	<delete id="usRepleDelete">
+		DELETE FROM reple WHERE u_idx=#{param1}
+	</delete>
 	
 </mapper>

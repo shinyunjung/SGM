@@ -27,7 +27,7 @@ public class ManagerService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public Map<String, Object> listCall(Map<String, String> params) {
+	public Map<String, Object> userListCall(Map<String, String> params) {
 		Map<String, ArrayList<UserDto>> obj = new HashMap<String, ArrayList<UserDto>>();
 		Map<String, Object> json = new HashMap<String, Object>();
 		inter=sqlSession.getMapper(ManagerInterface.class);
@@ -59,7 +59,7 @@ public class ManagerService {
 		return json;
 	}
 
-	public Map<String, Object> search(Map<String, String> params) {
+	public Map<String, Object> userSearch(Map<String, String> params) {
 		inter=sqlSession.getMapper(ManagerInterface.class);
 		Map<String, Object> json = new HashMap<String, Object>();
 		String input=params.get("input");
@@ -69,7 +69,7 @@ public class ManagerService {
 		return json;
 	}
 	
-	public Map<String, Object> searchCall(Map<String, String> params) {
+	public Map<String, Object> userSearchCall(Map<String, String> params) {
 		logger.info("유저검색중");
 		Map<String, ArrayList<UserDto>> obj = new HashMap<String, ArrayList<UserDto>>();
 		Map<String, Object> json = new HashMap<String, Object>();
@@ -101,10 +101,6 @@ public class ManagerService {
 		if(allCnt%pagePerNum!=0){
 			totalPage+=1;
 		}
-		logger.info("전체 개시물:{}",allCnt);
-		logger.info("전체 개시물:{}",allCnt);
-		logger.info("전체 개시물:{}",allCnt);
-		logger.info("전체 개시물:{}",allCnt);
 		json.put("jsonList", obj);
 		json.put("currPage", currPage);
 		json.put("totalCount", allCnt);
@@ -124,6 +120,7 @@ public class ManagerService {
 		success=inter.usDelete(idx);
 		if(success==1){
 			msg="삭제에 성공했습니다.";
+			inter.usRepleDelete(idx);
 		}
 		mav.addObject("msg",msg);
 		mav.setViewName("usManager");

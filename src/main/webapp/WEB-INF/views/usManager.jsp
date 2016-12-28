@@ -120,6 +120,7 @@
 				
 				$("#pagePerNum").change(function(){
 					pagePerNum=$("#pagePerNum").val();
+					currPage=1;
 					searchCall(currPage);
 				});
 				
@@ -129,7 +130,7 @@
 				});
 				
 				function Search(){
-					var url="../../main/manager/search";
+					var url="../../main/manager/userSearch";
 					var data={};
 					if($(".input").val()!=""){
 						console.log("검색");
@@ -150,7 +151,7 @@
 				
 				function searchCall(currPage){
 					if(currPage>=1 && currPage<=totalPage){
-						var url="../../main/manager/searchCall";
+						var url="../../main/manager/userSearchCall";
 						var data={};
 						search=true;
 						console.log($(".input").val());
@@ -181,7 +182,7 @@
 						dataType:"JSON",
 						success:function(data){
 							console.log(data);
-							if(url=="../../main/manager/search"){
+							if(url=="../../main/manager/userSearch"){
 								if(data.count!=0){
 									console.log(data.count);
 									searchCall(1);
@@ -189,7 +190,7 @@
 									alert("검색 결과가 없습니다.");
 								}
 							}
-							else if(url=="../../main/manager/searchCall"){
+							else if(url=="../../main/manager/userSearchCall"){
 								console.log("검색 종료");
 								printList(data.jsonList.list);
 								currPage=data.currPage;

@@ -54,7 +54,7 @@
 									<th>해체</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="list">
 								<tr>
 									<td>0</td>
 									<td>OOO</td>
@@ -67,6 +67,9 @@
 								</tr>
 							</tbody>
 						</table>
+						<div id="paging">
+									
+						</div>
 					</div>
 				</div>
 				
@@ -77,5 +80,210 @@
 			</div>
 		</div>
 	</body>
-	<script></script>
+	<script>
+			var url="";
+			var data={};
+			var pagePerNum=$("#pagePerNum").val();
+			var currPage=1;//현재 페이지
+			var totalPage=1;
+			var search=false;
+			var input = "";
+			var type="u_id";
+			var idx="${sessionScope.userIdx}";
+			var msg="";
+			msg="${msg}";
+			
+			if(msg!=""){
+				alert(msg);
+			}
+			
+			$("document").ready(function(){
+				searchCall(currPage);
+			});
+			
+			$("#pagePerNum").change(function(){
+				pagePerNum=$("#pagePerNum").val();
+				currPage=1;
+				searchCall(currPage);
+			});
+			
+			
+			function Search(){
+				var url="../../main/manager/teamSearch";
+				var data={};
+				if($(".input").val()!=""){
+					console.log("검색");
+					input=$(".input").val();
+					$(".input").val("");	
+				}
+				var count=input.length;
+				console.log(count);
+				if(count>1){
+					data.input=input;
+					data.type=type;
+					reqServer(url, data);	
+				}else{
+					alert("검색하실 단어는 2글자 이상이여야합니다.")
+				}
+			}
+			
+			
+			function searchCall(currPage){
+				if(currPage>=1 && currPage<=totalPage){
+					var url="../../main/manager/teamSearchCall";
+					var data={};
+					search=true;
+					console.log($(".input").val());
+					if($(".input").val()!=""){
+						console.log("검색");
+						input=$(".input").val();
+						$(".input").val("");	
+					}
+					console.log(type);
+					data.input=input;
+					data.type=type;
+					console.log(input);
+					data.page=currPage;
+					data.pagePerNum=$("#pagePerNum").val();
+					reqServer(url, data);
+				}
+				
+			}
+			
+			
+			function reqServer(url, data){
+				console.log(url);
+				console.log(data);
+				$.ajax({
+					url:url,
+					type:"post",
+					data:data,
+					dataType:"JSON",
+					success:function(data){
+						console.log(data);
+						if(url=="../../main/manager/teamSearch"){
+							if(data.count!=0){
+								console.log(data.count);
+								searchCall(1);
+							}else{
+								alert("검색 결과가 없습니다.");
+							}
+						}
+						else if(url=="../../main/manager/teamSearchCall"){
+							console.log("검색 종료");
+							printList(data.jsonList.list);
+							currPage=data.currPage;
+							totalPage=data.totalPage;
+							printPaging(data.totalCount, data.totalPage); 
+						}
+					},
+					error:function(error){
+						console.log(error);
+					}
+			});
+		}
+			
+		function printList(list){
+			var content="";
+			for(var i=0; i<list.length; i++){
+				content+="<tr>"
+					+"<td>"+list[i].t_idx+"</td>"
+					+"<td>"+list[i].t_id+"</td>"
+					+"<td>"+list[i].t_name+"</td>"
+					+"<td>"+list[i].t_age+"</td>"
+					+"<td>"+list[i].t_gender+"</td>"
+					+"<td>"+list[i].t_phnum+"</td>"
+					+"<td>"+list[i].t_mail+"</td>"
+					+"<td>"+"<a href='../../main/manager/teamDelete?idx="+list[i].u_idx+"'>탈퇴</a></td>"
+					+"</tr>";
+				}
+				
+				$("#list").empty();
+				$("#list").append(content);
+				logoId();
+			}
+		
+		
+		
+		 //페이지 그리기
+		function printPaging(count, page){
+			var totalRange=page/5;
+			var totalEnd=0;
+			
+			console.log("전체 게시물:"+count);
+			console.log("전체 페이지:"+page);
+			console.log("현재 페이지:"+currPage);
+			
+			if(currPage>page){
+				currPage=page;
+				searchCall(currPage);
+			}
+			if(totalRange>1){
+				totalEnd=page%5==0?
+						(Math.floor(totalRange))*5:
+						(Math.floor(totalRange)+1)*5;
+				totalStart=Math.floor(totalEnd-4);	
+			}else{
+				totalStart=1;
+				totalEnd=totalStart+4;
+			}
+			
+			var start; //페이지 시작
+			var end; //페이지 끝
+			
+			var pre=currPage-1;
+			
+			var next=currPage+1;
+			
+			//다음 페이지가 있는지 여부확인
+			var range=(currPage/5);
+			
+			var content = "<ul class='pagination pagination-sm'>";
+			
+			console.log(range);
+			if(range>1){//5페이지 넘었을 경우
+				end=currPage%5==0?
+						(Math.floor(range))*5:
+						(Math.floor(range)+1)*5;
+				start=Math.floor(end-4);
+			}else{//5페이지 이하일 경우
+				start=1;
+				end=start+4;
+			}
+			console.log(start+"/"+end);
+				content+="<li class='page-item first'><a href='#' onclick='searchCall("+1+")'>First</a></li>"
+				+"<li class='page-item prev'><a href='#' onclick='searchCall("+(start-1)+")'> << </a></li> "
+				+"<li class='page-item before'><a href='#' onclick='searchCall("+pre+")'> < </a></li> ";
+				for(var i=start; i<=end; i++){
+					if(i<=page){
+						if(currPage==i){
+							content+="<li class='page-item active'><a href='#'><b>"+i+"</b></a></li>";	
+						}else{
+							content+="<li class='page-item'> <a href='#' onclick='searchCall("+i+")'>"
+							+i+"</a></li> ";
+						}	
+					}
+				}
+				content+="<li class='page-item after'><a href='#' onclick='searchCall("+next+")'> > </a></li> "
+				+"<li class='page-item next'> <a href='#' onclick='searchCall("+(end+1)+")'> >> </a></li>"
+				+"<li class='page-item last'><a href='#' onclick='searchCall("+page+")'>Last</a></li>";	
+			$("#paging").empty();
+			$("#paging").append(content);
+			
+			if(range<1){
+				$(".first").addClass("disabled");
+				$(".prev").addClass("disabled");
+				if(currPage==1){
+					$(".before").addClass("disabled");	
+				}
+			}
+			if(end==totalEnd){
+				$(".next").addClass("disabled");
+				$(".last").addClass("disabled");
+				if(currPage==page){
+					$(".after").addClass("disabled");
+				}
+			}
+		} 
+</script>
 </html>

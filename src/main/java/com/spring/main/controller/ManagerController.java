@@ -24,33 +24,34 @@ public class ManagerController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	//매칭결과
+	//유저 관리
 	@RequestMapping(value = "/usManager")
 	public String usManager(){
 		logger.info("유저관리");
 		return "usManager";
 	}
 	
+	//팀 관리
+	@RequestMapping(value = "/teamManager")
+	public String teamManager(){
+		logger.info("팀 관리");
+		return "teamManager";
+	}
 	
-	//리스트 요청
-	@RequestMapping(value="/listCall")
-	public @ResponseBody Map<String, Object> listCall(@RequestParam Map<String, String> params){
-		logger.info("리스트 요청");
-		return service.listCall(params);
-		}
+	
 			
-	//검색 요청
-	@RequestMapping(value="/search")
+	//유저 검색 요청
+	@RequestMapping(value="/userSearch")
 	public @ResponseBody Map<String, Object> search(@RequestParam Map<String, String> params){
 		logger.info("검색 요청");
-		return service.search(params);
+		return service.userSearch(params);
 	}
 			
-	//검색 후 리스트 요청
-	@RequestMapping(value="/searchCall")
+	//유저 리스트 요청
+	@RequestMapping(value="/userSearchCall")
 	public @ResponseBody Map<String, Object> searchCall(@RequestParam Map<String, String> params){
 		logger.info("리스트 요청");
-		return service.searchCall(params);
+		return service.userSearchCall(params);
 	}
 	
 	//회원삭제

@@ -18,10 +18,10 @@
 	<body>
 		<div id="Category">
 			<div class="list-group">
-				<a href="#" class="list-group-item">
-				  팀 멤버
+				<a href="../../main/manager/usManager" class="list-group-item">
+				  회원관리
 				</a>
-				<a href="#" class="list-group-item">팀 멤버
+				<a href="../../main/teamManager" class="list-group-item">팀 관리
 				</a>
 				<a href="#" class="list-group-item">팀 멤버
 				</a>
