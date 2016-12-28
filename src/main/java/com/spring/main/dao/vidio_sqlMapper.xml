@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="com.spring.main.dao.BoardInterface">
+ <mapper namespace="com.spring.main.dao.VidioInterface">
  
  	<!-- 게시물 전채 개수 -->
 	<select id="v_allCount" resultType="Integer">
@@ -47,5 +47,34 @@
   					ROW_NUMBER() OVER(ORDER BY mch_idx DESC) AS rnum FROM board
   		WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
+	
+	 <!-- 상세 보기 -->
+    <select id="freeDetail" resultType="com.spring.main.dto.vidioDTO">
+       SELECT * FROM board WHERE j_idx = #{param1}
+    </select>
+    
+    <!-- 조회수 올리기 -->
+    <update id="j_vcount">
+       UPDATE board SET j_vcount = j_vcount+1 WHERE j_idx = #{param1}
+    </update>
+
+    <!-- 글쓰기 -->
+    <insert id="write">
+       INSERT INTO board(
+       j_idx, j_title, j_name, j_content, j_vcount, j_reple)
+          VALUES(board_seq.NEXTVAL, #{param1}, #{param2}, #{param3}
+          ,0,0)
+    </insert>
+    
+    <!-- 글삭제 -->
+   <delete id="delete">
+      DELETE FROM board WHERE j_idx = #{param1}
+   </delete> 
+   
+   <!-- 글 수정 -->
+    <update id="update">
+       UPDATE board SET j_title = #{param1}, j_name = #{param2}, j_content = #{param3}
+          WHERE j_idx = #{param3}
+    </update>   
 	
  </mapper>

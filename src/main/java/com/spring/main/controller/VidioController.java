@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.VidioService;
 
@@ -17,22 +18,49 @@ import com.spring.main.service.VidioService;
 public class VidioController {
 	
 	@Autowired
-	VidioService service;
+	VidioService VidioService;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	//영상상세
-	@RequestMapping(value = "/vidioDetail")
-	public String vidioDetail() {
-		logger.info("영상상세");
-		return "vidioDetail";
+	//리스트 요청
+	@RequestMapping(value="/v_listCall")
+		public @ResponseBody Map<String, Object> listCall(@RequestParam Map<String, String> params){
+		logger.info("비디오 리스트 요청");
+		return VidioService.v_listCall(params);
 	}
+			
+	//검색 요청
+	@RequestMapping(value="/v_search")
+		public @ResponseBody Map<String, Object> search(@RequestParam Map<String, String> params){
+		logger.info("검색 요청");
+		return VidioService.v_search(params);
+	}
+			
+	//검색 후 리스트 요청
+	@RequestMapping(value="/v_searchCall")
+	public @ResponseBody Map<String, Object> searchCall(@RequestParam Map<String, String> params){
+		logger.info("리스트 요청");
+		return VidioService.v_searchCall(params);
+	}
+	//글작성보기
+    @RequestMapping(value="/vidioWrite")
+    public String freeWrite() {
+       logger.info("글보기");
+       return "vidioWrite";
+    }
 	//영상쓰기
-	@RequestMapping(value = "/vidioWrite")
-	public String vidioWrite() {
+	@RequestMapping(value = "/Write")
+	public ModelAndView vidioWrite(@RequestParam Map<String, String> params){
 		logger.info("영상쓰기");
-		return "vidioWrite";
+		return VidioService.Write(params);
 	}
+	//상세보기
+    @RequestMapping(value="/vidioDetail")
+    public ModelAndView login(
+          @RequestParam("j_idx") String j_idx ){
+       logger.info("상세보기");
+       return VidioService.vidioDetail(j_idx);
+    }
 	//영상수정
 	@RequestMapping(value = "/vidioModify")
 	public String vidioModify() {

@@ -9,8 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.main.dao.BoardInterface;
+import com.spring.main.dao.VidioInterface;
 import com.spring.main.dto.vidioDTO;
 
 @Service
@@ -22,13 +24,13 @@ public class VidioService {
 	
 	Map<String, String> fileList = new HashMap<String, String>();
 	
-	BoardInterface inter = null;
+	VidioInterface inter = null;
 
 	//리스트 추가
 		public Map<String, Object> v_listCall(Map<String, String> params) {
 			Map<String, ArrayList<vidioDTO>> obj = new HashMap<String, ArrayList<vidioDTO>>();
 			Map<String, Object> json = new HashMap<String, Object>();
-			inter=sqlSession.getMapper(BoardInterface.class);
+			inter=sqlSession.getMapper(VidioInterface.class);
 			
 			int currPage=Integer.parseInt(params.get("page"));//현재 페이지
 			
@@ -61,7 +63,7 @@ public class VidioService {
 		public Map<String, Object> v_searchCall(Map<String, String> params) {
 			Map<String, ArrayList<vidioDTO>> obj = new HashMap<String, ArrayList<vidioDTO>>();
 			Map<String, Object> json = new HashMap<String, Object>();
-			inter=sqlSession.getMapper(BoardInterface.class);
+			inter=sqlSession.getMapper(VidioInterface.class);
 			
 			int currPage=Integer.parseInt(params.get("page"));//현재 페이지
 			
@@ -102,16 +104,45 @@ public class VidioService {
 		}
 
 
-		
-
-
 		public Map<String, Object> v_search(Map<String, String> params) {
-			inter=sqlSession.getMapper(BoardInterface.class);
+			inter=sqlSession.getMapper(VidioInterface.class);
 			Map<String, Object> json = new HashMap<String, Object>();
 			String input=params.get("input");
 			String type=params.get("type");
 			int allCnt = inter.v_searhCount(input, type);
 			json.put("count", allCnt);
 			return json;
+		}
+
+
+		public ModelAndView Write(Map<String, String> params) {      
+			inter=sqlSession.getMapper(VidioInterface.class);
+		    ModelAndView mav = new ModelAndView();      
+		    String j_title = params.get("j_title");
+		    String j_name = params.get("j_name");
+		    String j_content = params.get("j_content");      
+		    int success = inter.Write(j_title, j_name, j_content); 
+		    String page = "vidioList";
+		    String msg = "등록에 실패하였습니다.";   
+		    if(success == 1){
+		       msg = "등록에 성공 하였습니다.";
+		    }
+		    mav.addObject("msg", msg);
+		    mav.setViewName(page);
+		    return mav;
+		}
+
+		//상세보기
+		@Transactional
+		public ModelAndView vidioDetail(String j_idx) {
+			inter = sqlSession.getMapper(VidioInterface.class);
+			ModelAndView mav = new ModelAndView();
+			//조회수
+			inter.j_vcount(j_idx);
+			//불러오기
+			logger.info("상세보기");
+			mav.addObject("content", inter.vidioDetail(j_idx));
+			mav.setViewName("vidioDetail");      
+			return mav;
 		}
 }

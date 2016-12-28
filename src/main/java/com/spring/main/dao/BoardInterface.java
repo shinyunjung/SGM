@@ -15,11 +15,4 @@ public interface BoardInterface {
 	
 	//매치리스트
 	ArrayList<vidioDTO> v_listCall(int start, int end);
-
-	int v_searhCount(String input, String type);
-
-	ArrayList<vidioDTO> v_searhCall(int start, int end, String input, String type);
-
-	int v_allCount();
-
 }
