@@ -172,7 +172,7 @@
 	}); 
 	
 	$("#pagePerNum").change(function(){
-		listCall(currPage);
+		listCall(1);
 	});
 	
 	function searchCall(){
