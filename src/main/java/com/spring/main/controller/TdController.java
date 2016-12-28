@@ -69,11 +69,11 @@ public class TdController {
 		return service.member(t_idx);
 	}
 	
-	/*//파일올리기
-	@RequestMapping(value = "/file")
-	public  @ResponseBody Map<String, Object> fileUP(@RequestParam MultipartHttpServletRequest multi) {
-		logger.info("파일올리기");
-		return service.fileUP(multi);
+	/*//글삭제
+	@RequestMapping(value = "/delete")
+	public ModelAndView delete(@RequestParam Map<String, String> params) {
+		logger.info("글삭제");
+		return service.delete(params);
 	}*/
 
 }

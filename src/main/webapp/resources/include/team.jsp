@@ -24,7 +24,7 @@
 	<body>
 		<div id="ca">
 			<div class="thumbnail">
-				<img src="#" alt="사진" style="width:100%; height: 220px;">
+				<img src="#" alt="사진" style="width:100%; height: 220px;"/>
 			</div>
 			<h4><b>대표
 				<c:forEach items="${member}" var="dto" varStatus="status">

@@ -3,7 +3,6 @@ package com.spring.main.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.main.dao.TdInterface;
 import com.spring.main.dao.TeamInterface;
 import com.spring.main.dto.MemberDto;
+import com.spring.main.dto.PrDto;
 import com.spring.main.dto.TdDto;
 import com.spring.main.util.UploadFile;
 
@@ -159,7 +159,9 @@ public class TdService {
 			String idx = params.get("idx");
 			String t_idx = params.get("t_idx");
 
+			inter.upHit(idx);
 			mav.addObject("td",inter.tdDetail(idx));
+			mav.addObject("file",inter.fileCall(idx));
 			mav.addObject("record",inter.tdRecord(idx));
 			mav.addObject("team",team.teamInfo(t_idx));
 			mav.addObject("member",team.grade(t_idx));
@@ -168,17 +170,23 @@ public class TdService {
 			return mav;
 		}
 		
-		//삭제
-		public ModelAndView tdDel(Map<String, String> params) {
+	/*	//삭제
+		public ModelAndView delete(Map<String, String> params) {
 			
 			inter = sqlSession.getMapper(TdInterface.class);
 			team = sqlSession.getMapper(TeamInterface.class);
 			ModelAndView mav = new ModelAndView();
-			String idx = params.get("idx");
+			int idx = Integer.parseInt(params.get("idx"));
 			String t_idx = params.get("t_idx");
+			ArrayList<PrDto> del = inter.delMember(idx);
+			for(int i=0; i<del.size(); i++){
+				String m_idx = del.get(i).getM_idx();
+				int p_atkpoint = Integer.parseInt(del.get(i).getP_atkpoint());
+	        	inter.recordDel(idx);
+				inter.pointDel(p_atkpoint,m_idx);
+			}
 			
 			String[] delName = inter.fileDelName(idx);
-			logger.info("삭제할 파일 : "+delName);		
 			//글삭제		
 			String msg="삭제에 실패 했습니다.";		
 			if(inter.delete(idx) == 1){
@@ -191,21 +199,18 @@ public class TdService {
 						file.delete(delName[i]);
 					}				
 				}
-			}	
-			mav.addObject("td",inter.tdDetail(idx));
-			mav.addObject("record",inter.tdRecord(idx));
-			mav.addObject("team",team.teamInfo(t_idx));
-			mav.addObject("member",team.grade(t_idx));
-			mav.setViewName("tdList");
+			}
+			mav.addObject("msg", msg);
+			mav.setViewName("redirect:../td/tdList?t_idx="+t_idx);
 			
 			return mav;
-		}
+		}*/
 		
-		//수정(파일 업로드)
-		/*public ModelAndView modify(MultipartHttpServletRequest multi) {
+		/*//수정(파일 업로드)
+		public ModelAndView modify(MultipartHttpServletRequest multi) {
 			inter = sqlSession.getMapper(TdInterface.class);
 			ModelAndView mav = new ModelAndView();
-			String idx = multi.getParameter("idx");
+			int idx = Integer.parseInt(multi.getParameter("idx"));
 			String j_title = multi.getParameter("j_title");
 			String j_content = multi.getParameter("j_content");
 			String fileName = multi.getParameter("fileName");
@@ -223,18 +228,26 @@ public class TdService {
 				String[] p_offside = multi.getParameterValues("p_offside[]");
 				String[] p_effectshot = multi.getParameterValues("p_effectshot[]");
 				String[] m_idx = multi.getParameterValues("chk[]");
-				for(int i=0; i<m_idx.length; i++){
+				String[] set = multi.getParameterValues("set[]");
+				for(int i=0; i<m_idx.length; i++){					
 		        int p_atkpoint = Integer.parseInt(p_goal[i])+Integer.parseInt(p_assist[i]);
+		        if(set[i].equals("in")){
 				inter.record(idx,m_idx[i],p_offside[i],p_effectshot[i],p_goal[i],
 						p_assist[i],p_atkpoint,p_shoot[i],p_poul[i],p_warning[i],
 						p_off[i],p_ck[i],p_pk[i],p_date);
 				inter.point(p_atkpoint,m_idx[i]);
+		        }else if(set[i].equals("up")){
+		        	
+		        }else{
+		        	inter.recordDel(idx);
+					inter.pointDel(p_atkpoint,m_idx[i]);
+		        }
 				}
 			}
 			Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
 			if(fileName !=null){
 				//파일 업로드
-				FileUpload upload = new FileUpload();
+				UploadFile upload = new UploadFile();
 				newFile = upload.fileUp(multi);
 			}
 			ArrayList<String> oldName = newFile.get("oldName");

@@ -50,6 +50,10 @@
 				width: 100%;
 				resize: none;
 			}
+			.recordZone{
+				position: relative;
+				display: block;
+			}
 		</style>
 	</head>
 	<body>
@@ -91,7 +95,7 @@
 							<tbody>
 								<tr>
 									<td colspan="6">
-										${td.j_content}
+										<div id="content">${td.j_content}</div>
 									</td>
 								</tr>
 							</tbody>
@@ -168,8 +172,27 @@
 		</div>
 	</body>
 	<script>
-		function open(){
-			$(".recordZone").css("display","block");
+	start();
+	function start() {
+		/* var id = $("#content img").attr("id");
+		console.log(id); */
+		console.log("gg");
+		if("${record}"=="[]"){
+			$(".recordZone").css("display","none");
 		}
+		if("${file}"!="[]"){
+				var num = $("#content img").length;
+				var path = "D://java/spring/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SGM/resources/upload/";
+				for(var i=0; i<num; i++){
+					var id =  $("#content img").eq(i).attr("id");
+					var src = "${file[i].f_newfilename}";
+					$("#"+id).attr("src",path+src);
+					var ss = $("#"+id).attr("src");
+					console.log(src);
+					console.log(id);
+					console.log(ss);
+				}
+		}
+	}
 	</script>
 </html>

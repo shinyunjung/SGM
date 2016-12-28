@@ -102,31 +102,4 @@ public class UploadFile {
 	}
 
 
-	
-	//파일 다운로드
-	public void download(String file, String onFileName, HttpServletResponse resp)throws Exception {
-		
-		//한글 깨짐 방지
-		String downFile = URLEncoder.encode(onFileName,"UTF-8");
-		//파일 객체 생성
-		fullPath += file;
-		File fileObj = new File(fullPath);
-		//파일 일어들임
-		InputStream is = new FileInputStream(fileObj);
-		//반환객체설정
-		resp.setContentType("applocation/octet-stream");
-		resp.setHeader("content-Disposition", "attachment; filename=\""+downFile+"\"");
-		//반환객체에 스트링을 연결
-		OutputStream os = resp.getOutputStream();
-		//반환객체에 파잉ㄹ을 쓰기
-		byte[] buffer = new byte[1204];
-		int length;
-		while((length = is.read(buffer))!= -1){
-			os.write(buffer,0,length);
-		}
-		//자원반납
-		os.flush();
-		os.close();
-		is.close();
-	}
 }

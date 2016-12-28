@@ -38,7 +38,7 @@ public interface TdInterface {
 			String string4, int p_atkpoint,String string5, String string6, 
 			String string7, String string8, String string9, String string10,String p_date);
 
-	//멤버정보
+	//멤버정보 업
 	void point(int p_atkpoint, String m_idx);
 
 	//상세보기
@@ -47,11 +47,26 @@ public interface TdInterface {
 	//개인기록보기
 	ArrayList<PrDto> tdRecord(String idx);
 
-	//파일이름 가져오기
-	String[] fileDelName(String idx);
+	//삭제할 파일명
+	String[] fileDelName(int idx);
 
 	//글삭제
-	int delete(String idx);
+	int delete(int idx);
+
+	//조회수 올리기
+	void upHit(String idx);
+
+	//파일명불러오기
+	ArrayList<FileDto> fileCall(String idx);
+
+	//멤버정보 다운
+	void pointDel(int p_atkpoint, String string);
+
+	//개인기록 삭제
+	void recordDel(int idx);
+
+	//삭제시 멤버idx,공격포인트
+	ArrayList<PrDto> delMember(int idx);
 	
 
 }

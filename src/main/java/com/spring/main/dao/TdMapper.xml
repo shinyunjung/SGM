@@ -58,7 +58,7 @@
 		#{param8},#{param9},#{param10},#{param11},#{param12},#{param13},#{param14})
 	</insert>
 	
-	<!-- 포인트,경기수 -->
+	<!-- 포인트,경기수 Up -->
 	<update id="point">
 		UPDATE memver SET m_matchcount = m_matchcount+1, m_tpoint = m_tpoint+#{param1} WHERE u_idx = #{param2}
 	</update>
@@ -67,6 +67,10 @@
 	<select id="member" resultType="com.spring.main.dto.MemberDto">
 		SELECT m_idx,u_idx,m_name FROM memver WHERE t_idx = #{param1}
 	</select>
+	<!-- 조회수 올리기 -->
+	<update id="upHit">
+		UPDATE board SET j_vcount = j_vcount+1 WHERE idx = #{param1}
+	</update>
 	
 	<!-- 팀잉지상세 -->
 	<select id="tdDetail" resultType="com.spring.main.dto.TdDto">
@@ -80,7 +84,12 @@
 		FROM personal_record d, memver e WHERE e.m_idx = d.m_idx AND d.idx=#{param1}
 	</select>
 	
-	<!-- 파일이름가져오기 -->
+	<!-- 파일명불러오기 -->
+	<select id="fileCall" resultType="com.spring.main.dto.FileDto">
+		SELECT f_newfilename,f_filename FROM forder WHERE idx = #{param1}
+	</select>
+	
+	<!-- 삭제할 파일명 -->
 	<select id="fileDelName" resultType="String">
 		SELECT f_newfilename FROM forder WHERE idx = #{param1}
 	</select>
@@ -89,4 +98,27 @@
 	<delete id="delete">
 		DELETE FROM board WHERE idx = #{param1}
 	</delete>
+	
+	<!-- 글삭제 -->
+	<delete id="recordDel">
+		DELETE FROM personal_record WHERE idx = #{param1}
+	</delete>
+	
+	<!-- 포인트,경기수 Dn -->
+	<update id="pointDel">
+		UPDATE memver SET m_matchcount = m_matchcount-1, m_tpoint = m_tpoint-#{param1} WHERE u_idx = #{param2}
+	</update>
+	
+	<!-- 수정페이지 개인기록  -->
+	<select id="modifyRec" resultType="com.spring.main.dto.PrDto">
+		SELECT e.m_idx, e.m_name,d.p_offside,d.p_effectshot,d.p_goal,d.p_assist,d.p_atkpoint,
+		d.p_shoot,d.p_poul,d.p_warning,d.p_off,d.p_ck,d.p_pk,d.p_dateFROM memver e 
+		LEFT OUTER JOIN personal_record d ON e.m_idx = d.m_idx WHERE t_idx =#{param1} AND idx=#{param2}
+		ORDER BY d.p_date ASC
+	</select>
+	
+	<!-- 삭제할 멤버 정보  -->
+	<select id="delMember" resultType="com.spring.main.dto.PrDto">
+		SELECT m_idx,p_atkpoint FROM personal_record WHERE idx =#{param1}
+	</select>
 </mapper>
