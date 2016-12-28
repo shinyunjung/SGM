@@ -3,6 +3,7 @@ package com.spring.main.dto;
 import java.sql.Date;
 
 public class PlaceDto {
+	private int totalIdx;
 	private int a_idx;
 	private int u_idx;
 	private String a_name;
@@ -15,7 +16,8 @@ public class PlaceDto {
 	private int a_vcount;
 	private int a_total;
 	private int a_evalunum;
-	private String a_picfile;
+	private String a_oldPicture;
+	private String a_newPicture;
 	private double a_lat;
 	private double a_lng;
 	
@@ -92,12 +94,7 @@ public class PlaceDto {
 	public void setA_evalunum(int a_evalunum) {
 		this.a_evalunum = a_evalunum;
 	}
-	public String getA_picfile() {
-		return a_picfile;
-	}
-	public void setA_picfile(String a_picfile) {
-		this.a_picfile = a_picfile;
-	}
+	
 	public double getA_lat() {
 		return a_lat;
 	}
@@ -109,6 +106,24 @@ public class PlaceDto {
 	}
 	public void setA_lng(double a_lng) {
 		this.a_lng = a_lng;
+	}
+	public int getTotalIdx() {
+		return totalIdx;
+	}
+	public void setTotalIdx(int totalIdx) {
+		this.totalIdx = totalIdx;
+	}
+	public String getA_oldPicture() {
+		return a_oldPicture;
+	}
+	public void setA_oldPicture(String a_oldPicture) {
+		this.a_oldPicture = a_oldPicture;
+	}
+	public String getA_newPicture() {
+		return a_newPicture;
+	}
+	public void setA_newPicture(String a_newPicture) {
+		this.a_newPicture = a_newPicture;
 	}
 	
 	

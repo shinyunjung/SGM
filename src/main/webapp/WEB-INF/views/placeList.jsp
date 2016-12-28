@@ -234,7 +234,8 @@ function printList(list){
 	var content="";
 	for(var i=0; i<list.length; i++){
 		content+="<tr>"
-			+"<td>"+list[i].a_idx+"</td>"
+			
+			+"<td>"+list[i].totalIdx+"</td>"
 			+"<td>"+list[i].a_name+"</td>"
 			+"<td>"+list[i].a_ground+"</td>"
 			+"<td>"+list[i].a_address+"</td>"

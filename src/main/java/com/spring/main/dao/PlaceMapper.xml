@@ -15,15 +15,16 @@
    </select>
 	<!-- 리스트 불러오기 -->
    <select id="a_listCall" resultType="com.spring.main.dto.PlaceDto">
-      SELECT a_idx,  u_idx,  a_name, a_area,  a_address,  a_ground,  a_content,  a_date,
-			 a_reple,  a_vcount,  a_total,  a_evalunum,  a_picfile, a_lat,  a_lng 
+      SELECT totalIdx, a_idx,  u_idx,  a_name, a_area,  a_address,  a_ground,  a_content,  
+      		 a_date, a_reple,  a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
+      		 a_lat,  a_lng 
 			 FROM (
 				SELECT 
-				a_idx,  u_idx,  a_name, 
+				totalIdx, a_idx,  u_idx,  a_name, 
 			 	a_area,  a_address,  a_ground,  
 			 	a_content,  a_date, a_reple,  
-			 	a_vcount,  a_total,  a_evalunum,  
-			 	a_picfile, a_lat,  a_lng, 
+			 	a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
+			 	a_lat,  a_lng, 
 			 	ROW_NUMBER() OVER(ORDER BY a_idx DESC) AS rnum FROM area)
 			 	WHERE rnum BETWEEN #{param1} AND #{param2}
    </select>
@@ -31,15 +32,16 @@
 	
 	<!-- 리스트 추가 -->
 	<select id="a_searhCall" resultType="com.spring.main.dto.PlaceDto">
-		SELECT a_idx,  u_idx,  a_name, a_area,  a_address,  a_ground,  a_content,  a_date,
-			 a_reple,  a_vcount,  a_total,  a_evalunum,  a_picfile, a_lat,  a_lng 
+		SELECT totalIdx, a_idx,  u_idx,  a_name, a_area,  a_address,  a_ground,  a_content,  
+		       a_date, a_reple,  a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
+		       a_lat,  a_lng 
 			 FROM (
 				SELECT 
-				a_idx,  u_idx,  a_name, 
+				totalIdx, a_idx,  u_idx,  a_name, 
 			 	a_area,  a_address,  a_ground,  
 			 	a_content,  a_date, a_reple,  
-			 	a_vcount,  a_total,  a_evalunum,  
-			 	a_picfile, a_lat,  a_lng, 
+			 	a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
+			 	a_lat,  a_lng, 
 			 	ROW_NUMBER() OVER(ORDER BY a_idx DESC) AS rnum FROM area)
 			  WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>

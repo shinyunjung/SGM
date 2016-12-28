@@ -68,7 +68,7 @@
 								</tr>
 								<tr class="borderTop">
 									<td colspan="3">
-										<jsp:include page="../../resources/include/mapWrite.jsp" />
+										<%-- <jsp:include page="../../resources/include/mapWrite.jsp" /> --%>
 										<input type="hidden" name="lat" />
 										<input type="hidden" name="lng" />
 										<button type="button" class="bt">취소</button><!-- 테스트용 -->
@@ -88,7 +88,7 @@
 				</div>
 			</div>
 		</div>	
-		<jsp:include page="../../resources/include/footer.jsp" />
+		<%-- <jsp:include page="../../resources/include/footer.jsp" /> --%>
 	</body>
 	<script>
 	$(".bt").click(function() {/* 테스트용 */
