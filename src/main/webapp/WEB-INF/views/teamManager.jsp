@@ -48,7 +48,6 @@
 									<th>팀명</th>
 									<th>지역</th>
 									<th>대표</th>
-									<th>성명</th>
 									<th>번호</th>
 									<th>이메일</th>
 									<th>해체</th>
@@ -59,7 +58,6 @@
 									<td>0</td>
 									<td>OOO</td>
 									<td>OOOOO</td>
-									<td>0</td>
 									<td>0</td>
 									<td>OOO</td>
 									<td>OOOOO</td>

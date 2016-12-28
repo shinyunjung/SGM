@@ -216,16 +216,30 @@ public class BoardService {
 		public Map<String, String> mailFind(Map<String, String> params) {
 			Map<String, String> map = new HashMap<String, String>();
 			inter = sqlSession.getMapper(BoardInterface.class);	
-			String userName=params.get("name");
+			String userFind=params.get("find");
 			String userMail=params.get("mail");
-			logger.info(userName+"/"+userMail);
+			String findType=params.get("type");
 			String msg="";
-			String userId =inter.mailFind(userName, userMail);
-			if(userId==null)	{
-				msg="N";
+			
+			logger.info("findType:{}",findType);
+			if(findType.equals("name")){
+				logger.info(userFind+"/"+userMail);
+				String userId =inter.idFind(userFind, userMail);
+				if(userId==null)	{
+					msg="N";
+				}else{
+					msg="Y";
+					map.put("userId", userId);
+				}
 			}else{
-				msg="Y";
-				map.put("userId", userId);
+				logger.info(userFind+"/"+userMail);
+				String userPass=inter.passFind(userFind, userMail);
+				if(userPass==null){
+					msg="N";
+				}else{
+					msg="Y";
+					map.put("userPass", userPass);
+				}
 			}
 			map.put("mail", userMail);
 			map.put("msg", msg);

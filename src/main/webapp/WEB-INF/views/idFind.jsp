@@ -113,11 +113,12 @@
 	 	if(name==""){
 	 		alert("성명을 입력해주세요");
 	 	}else{
-	 		data.name=name;
+	 		data.find=name;
 	 		if(email==""){
 		 		alert("이메일을 입력해주세요");
 		 	}else{
 		 		data.mail=email;
+		 		data.type="name";
 		 		reqServer(url, data);
 		 	}
 	 	}

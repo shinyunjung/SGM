@@ -39,8 +39,12 @@
 	</update>
 	
 	<!-- 유저의 메일과 이름으로 아이디 찾기 -->
-	<select id="mailFind" resultType="String">
+	<select id="idFind" resultType="String">
 		SELECT u_id FROM SGM_user WHERE u_name=#{param1} AND u_mail=#{param2}
 	</select>
 	
+	<!-- 유저의 메일과 아이디로 비밀번호 찾기 -->
+	<select id="passFind" resultType="String">
+		SELECT u_pass FROM SGM_user WHERE u_id=#{param1} AND u_mail=#{param2}
+	</select>
 </mapper>

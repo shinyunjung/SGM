@@ -51,16 +51,12 @@
 			  	<legend>비밀번호 찾기</legend>
 			  	<div id="popup">
 				<!-- 아이디 -->	
-					<br>
-					<h5>님의 아이디는 입니다.</h5><br>
-					<a href="idFind">아이디 찾기</a><br>
-					<a href="loginPage">로그인하러 가기</a>
 				</div>
 			  		<table>
 			  			<tr>
-			  				<th>아이디</th>
+			  				<th></th>
 			  				<td>
-			  				<input type="text" id="name" class="form-control" placeholder="아이디" >
+			  				<input type="text" id="id" class="form-control" placeholder="아이디" >
 			  				</td>
 			  				<th></th>
 			  			</tr>
@@ -95,8 +91,8 @@
 	</body>
 	<script>
 	
-	 /*메일 인증 유무*/
-	 var userId="";
+	 /*비밀번호*/
+	 var userPass="";
 	 
 	 /*인증번호*/
 	 var number="";
@@ -107,17 +103,18 @@
 	  ***********************/
 	 function mailFind(){
 	 	var email=$("input[type='email']").val();
-	 	var name=$("#name").val();
+	 	var id=$("#id").val();
 	 	var url="./mailFind";
 	 	var data={};
-	 	if(name==""){
-	 		alert("성명을 입력해주세요");
+	 	if(id==""){
+	 		alert("ID를 입력해주세요");
 	 	}else{
-	 		data.name=name;
+	 		data.find=id;
 	 		if(email==""){
 		 		alert("이메일을 입력해주세요");
 		 	}else{
 		 		data.mail=email;
+		 		data.type="id";
 		 		reqServer(url, data);
 		 	}
 	 	}
@@ -173,7 +170,7 @@
 	 			if(url=="./mailFind"){
 	 				if(data.msg=="Y"){
 	 					send(data.mail);
-	 					userId=data.userId;
+	 					userPass=data.userPass;
 	 				}else{
 	 					alert("이름과 메일이 알맞지 않습니다.");
 	 				}
@@ -191,8 +188,8 @@
 	 
 	 function printAnswer(){
 		 var content="";
-		 content+="<h5>당신의 아이디는 <b>"+userId+"</b> 입니다.</h5><br/>";
-		 content+="<a href='passFind'>비밀번호 찾기</a>/"+
+		 content+="<h5>당신의 비밀번호는 <b>"+userPass+"</b> 입니다.</h5><br/>";
+		 content+="<a href='idFind'>아이디 찾기</a>/"+
 			"<a href='loginPage'>로그인하러 가기</a>";
 		$("#popup").empty();
 		$("#popup").append(content);

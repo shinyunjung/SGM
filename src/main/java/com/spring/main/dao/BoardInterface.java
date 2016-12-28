@@ -30,7 +30,9 @@ public interface BoardInterface {
 	int userModify(UserDto udt);
 
 	//유저이름과 메일찾기
-	String mailFind(String userName, String userMail);
+	String idFind(String userFind, String userMail);
+	
+	String passFind(String userFind, String userMail);
 
 
 }
