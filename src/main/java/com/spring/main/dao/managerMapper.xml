@@ -6,45 +6,32 @@
 <mapper namespace="com.spring.main.dao.ManagerInterface">
 	<!-- 유저수 -->
 	<select id="us_allCnt" resultType="Integer">
-		SELECT COUNT(*) FROM user1
+		SELECT COUNT(*) FROM SGM_user
 	</select>
 	
 	<!-- 유저 리스트 -->
 	<select id="us_listCall" resultType="com.spring.main.dto.UserDto">
 		SELECT u_idx,u_id , u_pass, u_name, u_age, u_gender, u_phnum, u_mail, u_grade FROM (
-			SELECT u_idx, u_id , u_pass, u_name, u_age, u_gender, u_phnum, u_mail, u_grade, ROW_NUMBER() OVER(ORDER BY u_idx DESC) AS rnum FROM user1
+			SELECT u_idx, u_id , u_pass, u_name, u_age, u_gender, u_phnum, u_mail, u_grade, ROW_NUMBER() OVER(ORDER BY u_idx DESC) AS rnum FROM SGM_user
   		)WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
 	<!-- 유저수 검색 -->
 	<select id="us_searhCount" resultType="Integer">
-		SELECT COUNT(*) FROM user1 WHERE ${param2} like '%'||#{param1}||'%'
+		SELECT COUNT(*) FROM SGM_user WHERE ${param2} like '%'||#{param1}||'%'
 	</select>
 	
 	<!-- 유저 검색 리스트 -->
 	<select id="us_searhCall" resultType="com.spring.main.dto.UserDto">
 		SELECT u_idx,u_id , u_pass, u_name, u_age, u_gender, u_phnum, u_mail, u_grade FROM (
-			SELECT u_idx, u_id , u_pass, u_name, u_age, u_gender, u_phnum, u_mail, u_grade, ROW_NUMBER() OVER(ORDER BY u_idx DESC) AS rnum FROM user1
+			SELECT u_idx, u_id , u_pass, u_name, u_age, u_gender, u_phnum, u_mail, u_grade, ROW_NUMBER() OVER(ORDER BY u_idx DESC) AS rnum FROM SGM_user
   		WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
 	<!-- 유저 삭제 -->
 	<delete id="usDelete">
-		DELETE FROM user1 WHERE u_idx=#{param1}
+		DELETE FROM SGM_user WHERE u_idx=#{param1}
 	</delete>
 	
-	<!-- 삭제된 유저의 개시글 검색 -->
-	<select id="boradSearch" resultType="com.spring.main.dto.BoardDto">
-		SELECT * FROM board WHERE u_idx=#{param1}
-	</select>
 	
-	<!-- 게시글 삭제 -->
-	<delete id="boradDelete">
-		DELETE FROM board WHERE u_idx=#{param1} AND j_category=#{param2}
-	</delete>
-	
-	<!-- 댓글 삭제 -->
-	<delete id="repleDelete">
-		DELETE FROM reple WHERE parent_idx=#{param1} AND r_category=#{param2}
-	</delete>
 </mapper>

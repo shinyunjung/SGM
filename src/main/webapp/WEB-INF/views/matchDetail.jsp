@@ -250,7 +250,7 @@
 			console.log("댓글 전송");
 			var url="../match/replyRegist";
 			var data={};
-			data.idx="${detail.mch_idx}";
+			data.idx="${detail.totalIdx}";
 			data.category=4;
 			data.replyer="${sessionScope.userId}"; 
 			data.reple=$("#reple").val();
@@ -261,7 +261,7 @@
 		function replyList(){
 			var url="../match/replyList";
 			var data={};
-			data.idx="${detail.mch_idx}";
+			data.idx="${detail.totalIdx}";
 			data.category=4;
 			console.log(data);
 			console.log("댓글 리스트");
@@ -287,6 +287,8 @@
 			
 			if(repleCnt>0){
 				$(".repCnt").html("댓글 "+repleCnt);	
+			}else{
+				$(".repCnt").html("댓글쓰기");	
 			}
 			$("#repleList").empty();
 			$("#repleList").append(content);
@@ -296,7 +298,7 @@
 			var url="../match/replyDel";
 			var data={};
 			data.idx=idx;
-			data.parent="${detail.mch_idx }";
+			data.parent="${detail.totalIdx}";
 			data.category=4;
 			console.log(data);
 			reqServer(url, data);

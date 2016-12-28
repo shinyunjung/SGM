@@ -3,6 +3,7 @@ package com.spring.main.dto;
 import java.sql.Date;
 
 public class MatchDto {
+	private String totalIdx;
 	private String mch_idx;
 	private String t_idx;
 	private String mch_name;
@@ -21,6 +22,14 @@ public class MatchDto {
 	private String mch_lat;
 	private String mch_lng;
 	
+	
+	
+	public String getTotalIdx() {
+		return totalIdx;
+	}
+	public void setTotalIdx(String totalIdx) {
+		this.totalIdx = totalIdx;
+	}
 	public String getMch_idx() {
 		return mch_idx;
 	}

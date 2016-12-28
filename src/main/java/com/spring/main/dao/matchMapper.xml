@@ -36,8 +36,8 @@
 	
 	<!-- 매칭 리스트 추가 -->
 	<insert id="mch_write">
-		INSERT INTO matching(mch_idx, t_idx, mch_title, mch_name, mch_date, mch_time, mch_type, mch_age, mch_content, mch_lat, mch_lng, mch_area, mch_ground, mch_state) 
-		VALUES(matching_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10}, #{param11}, #{param12}, #{param13})
+		INSERT INTO matching(totalIdx, mch_idx, t_idx, mch_title, mch_name, mch_date, mch_time, mch_type, mch_age, mch_content, mch_lat, mch_lng, mch_area, mch_ground, mch_state) 
+		VALUES(total_seq.NEXTVAL, matching_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10}, #{param11}, #{param12}, #{param13})
 	</insert>
 	
 	<!-- 매칭 수정 -->
@@ -52,22 +52,22 @@
 	
 	<!-- 댓글 등록 -->
 	<insert id="mch_replyRegist">
-		INSERT INTO reple(r_idx, r_category, parent_idx, r_writer, r_reple) VALUES(reple_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4})
+		INSERT INTO reple(r_idx, r_category, mch_idx, r_writer, r_reple) VALUES(reple_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4})
 	</insert>
 	
 	<!-- 댓글 수 업 -->
 	<update id="mch_replyUp">
-		UPDATE matching SET mch_reple=mch_reple+1 WHERE mch_idx=#{param1}
+		UPDATE matching SET mch_reple=mch_reple+1 WHERE totalIdx=#{param1}
 	</update>
 	
 	<!-- 댓글 수 다운 -->
 	<update id="mch_repleDown">
-		UPDATE matching SET mch_reple=mch_reple-1 WHERE mch_idx=#{param1}
+		UPDATE matching SET mch_reple=mch_reple-1 WHERE totalIdx=#{param1}
 	</update>
 	
 	<!-- 댓글 리스트 -->
 	<select id="mch_replyList" resultType="com.spring.main.dto.RepleDto">
-		SELECT * FROM reple WHERE parent_idx=#{param1} AND r_category=#{param2} ORDER BY r_idx ASC
+		SELECT * FROM reple WHERE mch_idx=#{param1} AND r_category=#{param2} ORDER BY r_idx ASC
 	</select>
 	
 	<!-- 댓글 삭제(개인) -->
@@ -77,7 +77,7 @@
 	
 	<!-- 유저가 속한 팀 정보(대표만) -->
 	<select id="selectTeam" resultType="com.spring.main.dto.SelectTeamDto">
-		SELECT m.t_idx, t.t_name FROM memver m, team t WHERE m.u_idx=(SELECT u_idx FROM user1 WHERE u_idx=#{param1}) and m.t_idx=t.t_idx and m_grade='대표'
+		SELECT m.t_idx, t.t_name FROM member m, team t WHERE m.u_idx=(SELECT u_idx FROM SGM_user WHERE u_idx=#{param1}) and m.t_idx=t.t_idx and m_grade='대표'
 	</select>
 	
 	<!-- 글 삭제 -->
@@ -85,10 +85,6 @@
 		DELETE FROM matching WHERE mch_idx=#{param1}
 	</delete>
 	
-	<!-- 댓글 삭제(전체) -->
-	<delete id="repleDelete">
-		DELETE FROM reple WHERE parent_idx=#{param1} AND r_category=#{param2}
-	</delete>
 	
 	<!-- 조회수 -->
 	<update id="vcountUp">

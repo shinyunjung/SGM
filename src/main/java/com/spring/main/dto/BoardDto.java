@@ -3,7 +3,7 @@ package com.spring.main.dto;
 import java.sql.Date;
 
 public class BoardDto {
-	private String j_idx;
+	private String totalIdx;
 	private String u_idx;
 	private String j_name;
 	private String j_category;
@@ -15,11 +15,11 @@ public class BoardDto {
 	private String j_reple;
 	
 	
-	public String getJ_idx() {
-		return j_idx;
+	public String getTotalIdx() {
+		return totalIdx;
 	}
-	public void setJ_idx(String j_idx) {
-		this.j_idx = j_idx;
+	public void setTotalIdx(String totalIdx) {
+		this.totalIdx = totalIdx;
 	}
 	public String getU_idx() {
 		return u_idx;

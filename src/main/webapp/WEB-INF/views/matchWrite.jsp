@@ -248,7 +248,7 @@
 	
 	function checkMap(lat, lng, i){
 		console.log(lat, lng);
-		console.log($("input[name='position']:checked").val());
+		console.log($("input[name='areaInfo']:checked").val());
 		areaSearch(lat, lng);
 		
 		areaCheck=true;

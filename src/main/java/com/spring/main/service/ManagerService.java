@@ -123,13 +123,7 @@ public class ManagerService {
 		
 		success=inter.usDelete(idx);
 		if(success==1){
-			bdt = inter.boradSearch(idx);
 			msg="삭제에 성공했습니다.";
-		}
-		for(int i=0; i<bdt.size(); i++){
-			inter.boradDelete(bdt.get(i).getU_idx(), bdt.get(i).getJ_category());
-			inter.repleDelete(bdt.get(i).getJ_idx(), bdt.get(i).getJ_category());
-			/*inter.fileDelete(bdt.get(i).getJ_idx(), bdt.get(i).getJ_category());*/
 		}
 		mav.addObject("msg",msg);
 		mav.setViewName("usManager");
