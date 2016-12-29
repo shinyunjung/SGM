@@ -40,6 +40,8 @@ public class MainController {
 			
 			return "index";
 	}
+	
+	
 	@RequestMapping(value = "/msgpage")
 	public String msgpage() {
 		

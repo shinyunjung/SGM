@@ -79,12 +79,18 @@
 							로그인
 						</div>
 						<div class="option">
-							<a>아이디 찾기</a> | <a>비밀번호 찾기</a> | <a>회원가입</a>
+							<a href="./idFind">아이디 찾기</a> | <a href="./passFind">비밀번호 찾기</a> | <a href="./joinForm">회원가입</a>
 						</div>
 					</div>
 				</div>	
 			</div>
 		</div>	
 	</body>
-	<script></script>
+	<script>
+	$("login").click(function(){
+		
+	})
+	
+	
+	</script>
 </html>
