@@ -6,8 +6,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>로그인 페이지</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="resources/bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
+		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>		
 			.detailTable{
 				width: 100%;
@@ -44,7 +44,7 @@
 				</div>
 				<div class="col5 content">
 				<fieldset>
-					<legend>글쓰기</legend>
+					<legend>장소 추가</legend>
 				</fieldset>
 					<form action="" method="post">
 						<table class="detailTable">
@@ -61,7 +61,7 @@
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<input type="file" name=""/>
+										<input type="file" name="a_picfile"/>
 									</td>
 								</tr>
 								<tr class="borderTop">

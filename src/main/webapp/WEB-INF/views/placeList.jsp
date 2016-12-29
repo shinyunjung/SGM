@@ -19,6 +19,10 @@
 			th{
 				text-align: center;
 			}
+			.ad{
+				right: 1000px;
+			}
+			
 			 .map_wrap {position:relative;width:100%;height:350px;}
    			 .title {font-weight:bold;display:block;}
 		     .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
@@ -115,8 +119,15 @@
 				
 				
 			</div>
-		</div>				
+		</div>
+		<div id="ad">
+			광고
+		</div>
+		
+						
 	</body>
+	
+	
 	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=4c80c1326b8411cbdc60e962e2c46260&libraries=services"></script>
 	<script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -145,7 +156,7 @@
 	// 마커 이미지의 이미지 주소입니다
 	var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
 	    
-	for (var i = 0; i < positions.length; i ++) {
+	/* for (var i = 0; i < positions.length; i ++) {
 	    
 	    // 마커 이미지의 이미지 크기 입니다
 	    var imageSize = new daum.maps.Size(24, 35); 
@@ -160,7 +171,25 @@
 	        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
 	        image : markerImage // 마커 이미지 
 	    });
-	}
+	} */
+	
+	//DB 에서 정보 받아와 마커 생성해보기
+	function addMarker(lat, lng){
+	    //마커가 표시될 위치입니다 
+	      var markerPosition  = new daum.maps.LatLng(lat, lng);    
+	   
+	   //마커를 생성합니다
+	   var marker = new daum.maps.Marker({
+	      position: markerPosition
+	     
+		   	});
+	   for(var i=0; i<list.length; i++){
+	         addMarker(list[i].a_lat, list[i].a_lng);
+	   	}
+	   
+	   
+	  
+	   }
 	
 	
 	var url="";
@@ -180,7 +209,7 @@
 		var input = $(".input").val();
 		console.log(input);
 		$(".input").val("");
-		var url="./rest/searchCall";
+		var url="./searchCall";
 		var data={};
 		data.page=currPage;
 		data.pagePerNum=$("#pagePerNum").val();
@@ -191,7 +220,7 @@
 	
 	function listCall(currPage){
 		if(currPage>=1 && currPage<=totalPage)
-		var url="./rest/listCall";
+		var url="./listCall";
 		var data={};
 		data.page=currPage;
 		data.pagePerNum=$("#pagePerNum").val();
@@ -208,19 +237,19 @@
 			dataType:"JSON",
 			success:function(data){
 				console.log(data);
-				if(url=="./rest/listCall"){
+				if(url=="./listCall"){
 					printList(data.jsonList.list);
 					currPage=data.currPage;
 					totalPage=data.totalPage;
 					printPaging(data.totalCount, data.totalPage); 
 				}
-				else if(url=="./rest/searchCall"){
+				else if(url=="./searchCall"){
 					printList(data.jsonList.list);
 					currPage=data.currPage;
 					totalPage=data.totalPage;
 					printPaging(data.totalCount, data.totalPage); 
 				}
-				else if(url=="./rest/delete"){
+				else if(url=="./delete"){
 					alert(data.msg);
 					listCall(currPage);
 				}
@@ -234,9 +263,10 @@
 function printList(list){
 	var content="";
 	for(var i=0; i<list.length; i++){
+		addMarker(list[i].a_lat, list[i].a_lng);
 		content+="<tr>"
 			
-			+"<td>"+list[i].totalIdx+"</td>"
+			+"<td>"+list[i].a_idx+"</td>"
 			+"<td>"+list[i].a_name+"</td>"
 			+"<td>"+list[i].a_ground+"</td>"
 			+"<td>"+list[i].a_address+"</td>"
