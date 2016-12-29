@@ -34,5 +34,7 @@ public interface BoardInterface {
 	
 	String passFind(String userFind, String userMail);
 
+	String logout(String idx);
+
 
 }

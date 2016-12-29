@@ -81,36 +81,7 @@
 								</tr>
 							</thead>
 							<tbody id="list">
-								<tr>
-									<td>ddddd</td>
-									<td class="center">fdsfdsfsdfsdfdsfsdfsdf</td>
-									<td class="center">12/02</td>
-									<td>상대대기</td>
-								</tr>
-								<tr>
-									<td>글쓴이</td>
-									<td class="center">제목</td>
-									<td class="center">날짜</td>
-									<td>상태</td>
-								</tr>
-								<tr>
-									<td>글쓴이</td>
-									<td class="center">제목</td>
-									<td class="center">날짜</td>
-									<td>상태</td>
-								</tr>
-								<tr>
-									<td>글쓴이</td>
-									<td class="center">제목</td>
-									<td class="center">날짜</td>
-									<td>상태</td>
-								</tr>
-								<tr>
-									<td>글쓴이</td>
-									<td class="center">제목</td>
-									<td class="center">날짜</td>
-									<td>상태</td>
-								</tr>
+								
 							</tbody>
 						</table>
 					</div>
@@ -172,7 +143,8 @@
 	</body>
 	<script>
 		var user="${sessionScope.userId}";
-		console.log(user);
+		var idx="${sessionScope.userIdx}";
+		console.log(user+"/"+idx);
 		var currPage=1;//현재 페이지
 		
 		var msg="";
@@ -259,8 +231,8 @@
 					content+="<tr>"
 						+"<td>"+list[i].mch_idx+"</td>"
 						+"<td>"+list[i].mch_name+"</td>"
-						+"<td><a href='../../main/match/matchDetail?idx="+list[i].mch_idx+"'>"+list[i].mch_title+"</a></td>"
-						+"<td>"+list[i].mch_vcount+"</td>"
+						+"<td><a href='../../main/match/matchDetail?idx="+list[i].mch_idx+"&userIdx="+idx+"'>"+list[i].mch_title+"</a></td>"
+						+"<td>"+list[i].mch_date+"</td>"
 						+"<td>"+list[i].mch_state+"</td>"
 						+"</tr>";
 					}

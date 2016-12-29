@@ -94,11 +94,12 @@
 						content+="<option value="+data[i].t_idx+" >"+data[i].t_name+"</option>";
 					}
 					content+="</select>";
-					content+=" "+name+" 님 안녕하세요";	
+					content+=" "+name+" 님 안녕하세요";
 			}
 			else{
-				content+=" <a href='../../main/manager/usManager'>"+manager+" 님 안녕하세요</a>";
+				content+=" <a href='../../main/manager/usManager'>"+manager+" 님 안녕하세요</a> ";
 			}
+			content+="<a href=../../main/logout?idx="+${sessionScope.userIdx}+" >로그아웃</a>";
 			$(".userMsg").empty();
 			$(".userMsg").append(content);
 		}

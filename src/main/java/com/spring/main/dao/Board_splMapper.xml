@@ -5,8 +5,13 @@
  
  	<!-- 로그인 처리 -->
  	<select id="login" resultType="com.spring.main.dto.LoginDto">
- 		SELECT u_id, u_idx, u_grade FROM SGM_user 
+ 		SELECT u_id, u_idx, u_grade, u_name FROM SGM_user 
  			WHERE u_id=#{param1} AND u_pass=#{param2}
+ 	</select>
+ 	
+ 	<!-- 로그아웃 -->
+ 	<select id="logout" resultType="String">
+ 		SELECT u_id FROM SGM_user WHERE u_idx=#{param1}
  	</select>
  	
  	<!-- 중복 체크 -->

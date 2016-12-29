@@ -57,6 +57,14 @@ public class MainController {
 		return service.login(params);
 	}
 	
+	
+	@RequestMapping(value="/logout")
+	public ModelAndView logout(@RequestParam Map<String, Object> params, HttpSession session){
+		logger.info("로그아웃 처리");
+		params.put("session", session);
+		return service.logout(params);
+	}
+	
 	//회원가입 이동
 	@RequestMapping(value="/joinForm")
 	public String join() {

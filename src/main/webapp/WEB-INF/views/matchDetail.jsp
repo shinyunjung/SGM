@@ -130,16 +130,16 @@
 									</td>
 								</tr>
 								<tr class="borderTop">
-									<c:if test="${detail.mch_reple==0}">
-										<td class="left"><a onclick="reple()" class="repCnt">댓글쓰기</a></td>
-									</c:if>
-									<c:if test="${detail.mch_reple!=0}">
-										<td class="left"><a onclick="reple()" class="repCnt">댓글 ${detail.mch_reple}</a></td>
-									</c:if>
-									<c:if test="${sessionScope.userIdx==''}">
+									<c:if test="${sessionScope.userIdx==null}">
 										<h1>세션 구별</h1>
 									</c:if>
-									<c:if test="${sessionScope.userIdx!=''}">
+									<c:if test="${sessionScope.userIdx!=null}">
+										<c:if test="${detail.mch_reple==0}">
+											<td class="left"><a onclick="reple()" class="repCnt">댓글쓰기</a></td>
+										</c:if>
+										<c:if test="${detail.mch_reple!=0}">
+											<td class="left"><a onclick="reple()" class="repCnt">댓글 ${detail.mch_reple}</a></td>
+										</c:if>
 										<c:set var="detailTeam" value="${detail.mch_name }" />
 										<c:forEach items="${teamList}" var="team">
 											<c:if test="${team.t_name==detailTeam}">
@@ -159,7 +159,7 @@
 						<div id="replyZone">
 							<table class="repleBox borderTop">
 								<tr>
-									<td class="user">${sessionScope.userId}</td>
+									<td class="user">${sessionScope.userName}(${sessionScope.userId})</td>
 									<td class="data"><textarea rows="3" id="reple"></textarea></td>
 									<td class="repleBtn"><button class="repleGo">댓글등록</button></td>
 								</tr>
@@ -211,6 +211,7 @@
 		var url="";
 		var data={};
 		var userIdx="${sessionScope.userIdx}";
+		var user="${sessionScope.userName}"+"(${sessionScope.userId})";
 		var repleCnt=0;
 		areaSearch("${detail.mch_lat}", "${detail.mch_lng}");
 		
@@ -252,7 +253,7 @@
 			var data={};
 			data.idx="${detail.totalIdx}";
 			data.category=4;
-			data.replyer="${sessionScope.userId}"; 
+			data.replyer=user; 
 			data.reple=$("#reple").val();
 			console.log(data);
 			reqServer(url, data);
@@ -270,7 +271,6 @@
 		
 		function printReple(list){
 			var content="";
-			var user="${sessionScope.userId}";
 			console.log(user);
 			repleCnt=list.length;
 			for(var i=0; i<list.length; i++){

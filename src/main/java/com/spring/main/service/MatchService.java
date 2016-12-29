@@ -168,7 +168,8 @@ public class MatchService {
 		MatchDto mdt = new MatchDto();
 		ModelAndView mav = new ModelAndView();
 		String idx=params.get("idx");
-		String userIdx=params.get("userIdx");
+		String userIdx="";
+		userIdx=params.get("userIdx");
 		logger.info("userIdx:{}",userIdx);
 		if(!modFlag){
 			inter.vcountUp(idx);

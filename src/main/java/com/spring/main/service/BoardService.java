@@ -38,6 +38,7 @@ public class BoardService {
 		String u_pass = (String) params.get("u_pass");
 		String u_idx="";
 		String u_grade="";
+		String u_name="";
 
 		HttpSession session = (HttpSession) params.get("session");
 		ModelAndView mav = new ModelAndView();
@@ -52,7 +53,9 @@ public class BoardService {
 			if(login != null){
 				u_idx=login.getU_idx();
 				u_grade=login.getU_grade();
+				u_name=login.getU_name();
 				logger.info("grade:{}",u_grade);
+				logger.info("name:{}",u_name);
 				if(u_grade.equals("관리자")){
 					page="usManager";
 					session.setAttribute("manager", u_grade);
@@ -62,6 +65,7 @@ public class BoardService {
 					session.setAttribute("userIdx", u_idx);
 				}
 				session.setAttribute("userId", u_id);
+				session.setAttribute("userName", u_name);
 			}else{
 				mav.addObject("msg","아이디 또는 비밀번호를 확인 하세요");
 			}			
@@ -244,6 +248,26 @@ public class BoardService {
 			map.put("mail", userMail);
 			map.put("msg", msg);
 			return map;
+		}
+
+
+		public ModelAndView logout(Map<String, Object> params) {
+			String idx=(String)params.get("idx");
+			HttpSession session=(HttpSession)params.get("session");
+			ModelAndView mav = new ModelAndView();
+			inter = sqlSession.getMapper(BoardInterface.class);
+			String id = inter.logout(idx);
+			String msg="로그아웃에 실패했습니다.";
+			String page="index";
+			if(id!=null){
+				session.removeAttribute("userName");
+				session.removeAttribute("userId");
+				session.removeAttribute("userIdx");
+				msg="로그아웃에 성공했습니다.";
+			}
+			mav.addObject("msg", msg);
+			mav.setViewName(page);
+			return mav;
 		}
 
 
