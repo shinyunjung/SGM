@@ -47,6 +47,13 @@ public class MainController {
 		logger.info("회원가입 페이지");
 		return "join";
 	}
+	
+	//회원가입 이동
+	@RequestMapping(value="/freeList")
+	public String freeList() {
+		logger.info("자유리스트 뛰우기");
+		return "freeList";
+		}
 		
 	//id찾기
 	@RequestMapping(value = "/idFind")

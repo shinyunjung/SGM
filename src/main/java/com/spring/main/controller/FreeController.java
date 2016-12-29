@@ -72,13 +72,37 @@ public class FreeController {
 				return FreeService.write(params);	
 			}	
 					
-	      //상세보기
+	  	//상세보기
 	  		@RequestMapping(value="/freeDetail")
-	  		public String freeDetail() {
-	  			logger.info("자유리스트 상세보기");
-	  			return "freeDetail";
+	  		public ModelAndView login(
+	  				@RequestParam("j_idx") String j_idx ){
+	  			logger.info("상세보기");
+	  			return FreeService.freeDetail(j_idx);
 	  		}
-
+	  	//글 삭제
+	  		@RequestMapping(value="/delete")
+	  		public ModelAndView delete(
+	  				@RequestParam("j_idx") String j_idx){
+	  			logger.info("글 삭제");
+	  			return FreeService.delete(j_idx);
+	  		}
+	  		
+	  	//수정 페이지 이동
+	  		@RequestMapping(value="/freeModify")
+	  		public ModelAndView freeModify(
+	  				@RequestParam("j_idx") String j_idx ){
+	  			logger.info("수정페이지 이동");
+	  			return FreeService.freeModify(j_idx);
+	  		}
+	  	//수정
+	  		@RequestMapping(value="/update")
+	  		public ModelAndView update(
+	  				@RequestParam Map<String, String> params
+	  				){
+	  			logger.info("수정 요청");
+	  			return FreeService.update(params);
+	  		}	
+	  		
 	  		
 	}
 

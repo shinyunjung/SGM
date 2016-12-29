@@ -101,7 +101,7 @@
    });
    
    function Search(){
-      var url="./free/f_search";
+      var url="./f_search";
       var data={};
       if($(".input").val()!=""){
          console.log("검색");
@@ -169,7 +169,7 @@
                totalPage=data.totalPage;
                printPaging(data.totalCount, data.totalPage); 
             }
-            else if(url=="./free/f_search"){
+            else if(url=="./f_search"){
                if(data.count!=0){
                   console.log(data.count);
                   f_searchCall(1);
@@ -177,7 +177,7 @@
                   alert("검색 결과가 없습니다.");
                }
             }
-            else if(url=="./free/f_searchCall"){
+            else if(url=="./f_searchCall"){
                console.log("검색 종료");
                printList(data.jsonList.list);
                currPage=data.currPage;
@@ -197,7 +197,7 @@ function printList(list){
       content+="<tr>"
          +"<td>"+list[i].j_idx+"</td>"
          +"<td>"+list[i].j_name+"</td>"
-         +"<td><a href='../free/freeDetail?j_idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
+         +"<td><a href='../../main/free/freeDetail?j_idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
          +"<td>"+list[i].j_date+"</td>"		 
          +"<td>"+list[i].j_vcount+"</td>"
          +"</tr>";

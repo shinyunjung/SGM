@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.main.dao.BoardInterface;
+import com.spring.main.dao.FreeInterface;
 import com.spring.main.dto.freelistDTO;
 
 @Service
@@ -23,14 +23,14 @@ public class FreeService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	BoardInterface inter = null;
+	FreeInterface inter = null;
 
 	//리스트 보여주기
 	   public Map<String, Object> f_listCall(Map<String, String> params) {
 	         Map<String, ArrayList<freelistDTO>> obj = 
 	        		 new HashMap<String, ArrayList<freelistDTO>>();
 	         Map<String, Object> json = new HashMap<String, Object>();
-	         inter=sqlSession.getMapper(BoardInterface.class);
+	         inter=sqlSession.getMapper(FreeInterface.class);
 	         
 	         int currPage=Integer.parseInt(params.get("page"));//현재 페이지
 	         
@@ -66,7 +66,7 @@ public class FreeService {
 		 Map<String, ArrayList<freelistDTO>> obj = 
 				 new HashMap<String, ArrayList<freelistDTO>>();
          Map<String, Object> json = new HashMap<String, Object>();
-         inter=sqlSession.getMapper(BoardInterface.class);
+         inter=sqlSession.getMapper(FreeInterface.class);
          
          int currPage=Integer.parseInt(params.get("page"));//현재 페이지
          
@@ -109,7 +109,7 @@ public class FreeService {
 	
 	
 		public Map<String, Object> f_searchCall(Map<String, String> params) {
-			inter=sqlSession.getMapper(BoardInterface.class);
+			inter=sqlSession.getMapper(FreeInterface.class);
 	         Map<String, Object> json = new HashMap<String, Object>();
 	         String input=params.get("input");
 	         String type=params.get("type");
@@ -122,22 +122,21 @@ public class FreeService {
 		
 		//상세보기
 		@Transactional
-		public ModelAndView contentView(String j_idx) {		
-			inter = sqlSession.getMapper(BoardInterface.class);
+		public ModelAndView freeDetail(String j_idx) {		
+			inter = sqlSession.getMapper(FreeInterface.class);
 			ModelAndView mav = new ModelAndView();
-			
 			//조회수
 			inter.j_vcount(j_idx);
 			//불러오기
 			logger.info("상세보기");
-			mav.addObject("content", inter.contentView(j_idx));
-			mav.setViewName("contentView");		
+			mav.addObject("content", inter.freeDetail(j_idx));
+			mav.setViewName("freeDetail");		
 			return mav;
 		}
 		
 		//글쓰기(일반)
 		public ModelAndView write(Map<String, String> params) {		
-			inter = sqlSession.getMapper(BoardInterface.class);
+			inter = sqlSession.getMapper(FreeInterface.class);
 			ModelAndView mav = new ModelAndView();		
 			String j_title = params.get("j_title");
 			String j_name = params.get("j_name");
@@ -150,6 +149,57 @@ public class FreeService {
 			}
 			mav.addObject("msg", msg);
 			mav.setViewName(page);		
+			return mav;
+		}
+
+		//글삭제
+		public ModelAndView delete(String j_idx) {
+			inter = sqlSession.getMapper(FreeInterface.class);
+		      ModelAndView mav = new ModelAndView();
+		      logger.info(j_idx);
+	
+			         
+		      String msg="삭제에 성공 했습니다.";
+		     
+		      //글삭제
+		      if(inter.delete(j_idx) == 1){
+		         msg="삭제에 성공 했습니다.";
+		         
+		      }
+		      mav.addObject("msg", msg);      
+		      mav.setViewName("freeList");
+		      return mav;
+		   }
+
+
+		//수정 보기
+		public ModelAndView freeModify(String j_idx) {
+			inter = sqlSession.getMapper(FreeInterface.class);
+			ModelAndView mav = new ModelAndView();
+			//불러오기
+			logger.info("수정페이지1");
+			mav.addObject("content", inter.freeDetail(j_idx));
+			mav.setViewName("freeModify");		
+			return mav;
+		}
+
+		//수정하기
+		public ModelAndView update(Map<String, String> params) {
+			inter = sqlSession.getMapper(FreeInterface.class);
+			ModelAndView mav = new ModelAndView();		
+			String j_title = params.get("j_title");
+			String j_name = params.get("j_name");
+			String j_content = params.get("j_content");
+			String j_idx = params.get("j_idx");
+			logger.info(j_title+" / "+j_name+" / "+j_content);
+			String msg = "수정에 실패 했습니다.";
+			int success = inter.update(j_title, j_name, j_content, j_idx);
+			if(success == 1){
+				msg = "수정에 성공 했습니다.";
+			}
+			mav.addObject("msg", msg);
+			mav.setViewName("freeList");
+			
 			return mav;
 		}
 		

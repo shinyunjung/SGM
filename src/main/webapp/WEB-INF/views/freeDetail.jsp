@@ -14,7 +14,7 @@
 				width: 100%;
 			}
 			.subject{
-				width: 55%;
+				width: 40%;
 			}
 			.user{
 				text-align: center;
@@ -59,6 +59,7 @@
 						<table class="detailTable">
 							<thead>
 								<tr>
+									<td class="subject left">제목</td>
 									<td class="subject left">${content.j_title}</td>
 									<td class="borderLeft">날짜</td>
 									<td class="borderLeft">${content.j_date}</td>
@@ -68,7 +69,7 @@
 							</thead>
 							<tbody class="borderTop">
 								<tr>
-									<td colspan="5">
+									<td colspan="5" >
 										${content.j_content}
 									</td>
 								</tr>
@@ -76,8 +77,8 @@
 									<td class="left"><a>댓글쓰기</a></td>
 									<td colspan="4" class="right ">
 										<input type="button" onclick="location.href='./freeList'" value="돌아가기"/>
-										<input type="button" onclick="location.href='./freeModify?idx=${content.j_idx}'" value="수정하기"/>
-										<a>삭제</a>
+										<input type="button" onclick="location.href='./freeModify?j_idx=${content.j_idx}'" value="수정하기"/>
+										<input type="button" onclick="del()" value="삭제"/>
 									</td>
 								</tr>
 							</tbody>
@@ -102,5 +103,9 @@
 			</div>
 		</div>
 	</body>
-	<script></script>
+	<script>
+	function del(){
+		location.href="./delete?j_idx="+${content.j_idx };
+	}
+	</script>
 </html>
