@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,6 +14,7 @@
 				background-color: orange; 
 				display: inline-block;
 				margin: 0 auto;
+				margin-bottom: 20px;
 			}
 			ul.nav li{
 				float: left;
@@ -29,7 +29,7 @@
 	<div class="layer">
     <div class="menu">
       <ul class="nav">
-        <li class="active"><a href="matchList"><h4><b>매칭게시판</b></h4><span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="../../main/match/matchList"><h4><b>매칭게시판</b></h4><span class="sr-only">(current)</span></a></li>
         <li><a href="calendar"><h4><b>매칭일정</b></h4></a></li>
         <li>
           <a href="placeList" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h4><b>장소목록</b></h4></a>

@@ -7,8 +7,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>장소목록 게시판</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="resources/bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
+		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
 			.map{
 				margin-bottom: 2%;
@@ -106,7 +106,8 @@
 						
 						</div>
 						<div class="left">
-							<button onclick="location.href='placeDetail'">장소추가</button>
+							<button onclick="location.href='placeDetail'">상세보기</button>
+							<button onclick="location.href='placeWrite'">장소추가</button>
 							
 						</div>
 					</div>

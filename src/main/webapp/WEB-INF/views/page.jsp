@@ -10,8 +10,7 @@
 		<style></style>
 	</head>
 	<body>
-		<button onclick="location.href='index'">index</button>
-		<br/>
+		
 		<button onclick="location.href='loginForm'">login</button>
 		<br/>
 		<button onclick="location.href='matchList'">matchList</button>
