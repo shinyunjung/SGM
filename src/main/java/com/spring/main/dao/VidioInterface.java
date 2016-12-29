@@ -25,4 +25,10 @@ public interface VidioInterface {
 		//조회수카운트
 		void j_vcount(String j_idx);
 
+		int delete(String j_idx);
+
+		Object freeDetail(String j_idx);
+
+		int update(String j_title, String j_name, String j_content, String j_idx);
+
 }

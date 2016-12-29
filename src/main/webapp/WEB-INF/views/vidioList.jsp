@@ -6,8 +6,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>영상 게시판</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="resources/bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
+		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
 			th{
 				text-align: center;
@@ -203,7 +203,7 @@ function printList(list){
 		content+="<tr>"
 			+"<td>"+list[i].j_idx+"</td>"
 			+"<td>"+list[i].j_name+"</td>"
-			+"<td><a href='../vidio/vidioDetail?idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
+			+"<td><a href='./vidio/vidioDetail?j_idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
 			+"<td>"+list[i].j_date+"</td>"
 			+"<td>"+list[i].j_vcount+"</td>"
 			+"</tr>";

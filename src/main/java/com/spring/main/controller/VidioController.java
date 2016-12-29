@@ -50,22 +50,39 @@ public class VidioController {
     }
 	//영상쓰기
 	@RequestMapping(value = "/Write")
-	public ModelAndView vidioWrite(@RequestParam Map<String, String> params){
+	public ModelAndView vidioWrite(
+			@RequestParam Map<String, String> params){
 		logger.info("영상쓰기");
 		return VidioService.Write(params);
 	}
 	//상세보기
     @RequestMapping(value="/vidioDetail")
-    public ModelAndView login(
+    public ModelAndView vidioDetail(
           @RequestParam("j_idx") String j_idx ){
        logger.info("상세보기");
        return VidioService.vidioDetail(j_idx);
     }
-	//영상수정
-	@RequestMapping(value = "/vidioModify")
-	public String vidioModify() {
-		logger.info("영상수정");
-		return "vidioModify";
-	}
+    //글 삭제
+    @RequestMapping(value="/delete")
+    public ModelAndView delete(
+          @RequestParam("j_idx") String j_idx){
+       logger.info("글 삭제");
+       return VidioService.delete(j_idx);
+    }
+    //수정 페이지 이동
+    @RequestMapping(value="/freeModify")
+    public ModelAndView freeModify(
+          @RequestParam("j_idx") String j_idx ){
+       logger.info("수정페이지 이동");
+       return VidioService.freeModify(j_idx);
+    }
+    //수정
+    @RequestMapping(value="/update")
+    public ModelAndView update(
+          @RequestParam Map<String, String> params
+          ){
+       logger.info("수정 요청");
+       return VidioService.update(params);
+    }
 
 }

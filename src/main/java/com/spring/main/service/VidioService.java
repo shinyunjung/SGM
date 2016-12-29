@@ -114,13 +114,13 @@ public class VidioService {
 			return json;
 		}
 
-
+		//글등록
 		public ModelAndView Write(Map<String, String> params) {      
 			inter=sqlSession.getMapper(VidioInterface.class);
 		    ModelAndView mav = new ModelAndView();      
-		    String j_title = params.get("j_title");
-		    String j_name = params.get("j_name");
-		    String j_content = params.get("j_content");      
+		    String j_title = params.get("v_title");
+		    String j_name = params.get("v_name");
+		    String j_content = params.get("v_content");      
 		    int success = inter.Write(j_title, j_name, j_content); 
 		    String page = "vidioList";
 		    String msg = "등록에 실패하였습니다.";   
@@ -145,4 +145,56 @@ public class VidioService {
 			mav.setViewName("vidioDetail");      
 			return mav;
 		}
+
+
+		//글삭제
+	    public ModelAndView delete(String j_idx) {
+	      inter = sqlSession.getMapper(VidioInterface.class);
+	         ModelAndView mav = new ModelAndView();
+	         logger.info(j_idx);
+	   
+	                  
+	         String msg="삭제에 성공 했습니다.";
+	        
+	         //글삭제
+	         if(inter.delete(j_idx) == 1){
+	            msg="삭제에 성공 했습니다.";
+	            
+	         }
+	         mav.addObject("msg", msg);      
+	         mav.setViewName("freeList");
+	         return mav;
+	      }
+
+
+	    //수정 보기
+	    public ModelAndView freeModify(String j_idx) {
+	       inter = sqlSession.getMapper(VidioInterface.class);
+	       ModelAndView mav = new ModelAndView();
+	       //불러오기
+	       logger.info("수정페이지1");
+	       mav.addObject("content", inter.freeDetail(j_idx));
+	       mav.setViewName("freeModify");      
+	       return mav;
+	    }
+
+	    //수정하기
+	    public ModelAndView update(Map<String, String> params) {
+	       inter = sqlSession.getMapper(VidioInterface.class);
+	       ModelAndView mav = new ModelAndView();      
+	       String j_title = params.get("j_title");
+	       String j_name = params.get("j_name");
+	       String j_content = params.get("j_content");
+	       String j_idx = params.get("j_idx");
+	        logger.info(j_title+" / "+j_name+" / "+j_content);
+	      String msg = "수정에 실패 했습니다.";
+	       int success = inter.update(j_title, j_name, j_content, j_idx);
+	       if(success == 1){
+	          msg = "수정에 성공 했습니다.";
+	       }
+	       mav.addObject("msg", msg);
+	       mav.setViewName("freeList");
+	       
+	       return mav;
+	    }
 }
