@@ -241,9 +241,9 @@
 				+"<td>"+"<input type='radio' name='areaInfo' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+", "+i+")' value='"+list[i].a_lat+"/"+list[i].a_lng+"/"+list[i].a_ground+"' />"+"</td>"
 				+"</tr>";
 			}
-			
 			$(".areaList").empty();
 			$(".areaList").append(content);
+			
 	}
 	
 	function checkMap(lat, lng, i){
@@ -279,10 +279,11 @@
 			alert("운동장을 입력해주세요");
 			document.writeForm.area.focus();
 		}else{
-			
 			 document.writeForm.submit(); 
 			return true; 
 		}
 	}
+	
+	
 	</script>
 </html>
