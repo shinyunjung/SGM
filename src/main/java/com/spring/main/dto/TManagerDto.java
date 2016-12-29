@@ -5,8 +5,9 @@ public class TManagerDto {
 	private String t_name;
 	private String t_area;
 	private String m_name;
-	private String u_phnum;
-	private String u_mail;
+	private String m_idx;
+	private String u_idx;
+	
 	public String getT_idx() {
 		return t_idx;
 	}
@@ -31,17 +32,17 @@ public class TManagerDto {
 	public void setM_name(String m_name) {
 		this.m_name = m_name;
 	}
-	public String getU_phnum() {
-		return u_phnum;
+	public String getM_idx() {
+		return m_idx;
 	}
-	public void setU_phnum(String u_phnum) {
-		this.u_phnum = u_phnum;
+	public void setM_idx(String m_idx) {
+		this.m_idx = m_idx;
 	}
-	public String getU_mail() {
-		return u_mail;
+	public String getU_idx() {
+		return u_idx;
 	}
-	public void setU_mail(String u_mail) {
-		this.u_mail = u_mail;
+	public void setU_idx(String u_idx) {
+		this.u_idx = u_idx;
 	}
 	
 	

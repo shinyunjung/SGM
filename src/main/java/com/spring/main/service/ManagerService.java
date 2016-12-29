@@ -15,6 +15,7 @@ import com.spring.main.dao.ManagerInterface;
 import com.spring.main.dao.MatchInterface;
 import com.spring.main.dto.BoardDto;
 import com.spring.main.dto.MatchDto;
+import com.spring.main.dto.TManagerDto;
 import com.spring.main.dto.UserDto;
 
 @Service
@@ -27,38 +28,7 @@ public class ManagerService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public Map<String, Object> userListCall(Map<String, String> params) {
-		Map<String, ArrayList<UserDto>> obj = new HashMap<String, ArrayList<UserDto>>();
-		Map<String, Object> json = new HashMap<String, Object>();
-		inter=sqlSession.getMapper(ManagerInterface.class);
-		
-		int currPage=Integer.parseInt(params.get("page"));//현재 페이지
-		
-		int pagePerNum=Integer.parseInt(params.get("pagePerNum"));//페이지에 넣을 데이터 갯수
-		
-		logger.info(currPage+"/"+pagePerNum);
-		
-		//게시물 시작과 끝 번호
-		int end=pagePerNum*currPage;
-		int start=end-pagePerNum+1;
-		int allCnt = inter.us_allCnt();
-		
-		int totalPage=allCnt/pagePerNum;
-		System.out.println(totalPage%pagePerNum);
-		if(allCnt%pagePerNum!=0){
-			totalPage+=1;
-		}
-		logger.info("전체 개시물:{}",allCnt);
-		
-		obj.put("list", inter.us_listCall(start, end));
-		json.put("jsonList", obj);
-		json.put("currPage", currPage);
-		json.put("totalCount", allCnt);
-		json.put("totalPage", totalPage);
-		
-		return json;
-	}
-
+	//유저 검색
 	public Map<String, Object> userSearch(Map<String, String> params) {
 		inter=sqlSession.getMapper(ManagerInterface.class);
 		Map<String, Object> json = new HashMap<String, Object>();
@@ -69,6 +39,7 @@ public class ManagerService {
 		return json;
 	}
 	
+	//유저 리스트 요청
 	public Map<String, Object> userSearchCall(Map<String, String> params) {
 		logger.info("유저검색중");
 		Map<String, ArrayList<UserDto>> obj = new HashMap<String, ArrayList<UserDto>>();
@@ -125,6 +96,57 @@ public class ManagerService {
 		mav.addObject("msg",msg);
 		mav.setViewName("usManager");
 		return mav;
+	}
+
+	public Map<String, Object> teamSearchCall(Map<String, String> params) {
+		Map<String, Object> json = new HashMap<String, Object>();
+		Map<String, ArrayList<TManagerDto>> obj = new HashMap<String, ArrayList<TManagerDto>>();
+		inter=sqlSession.getMapper(ManagerInterface.class);
+		
+		int currPage=Integer.parseInt(params.get("page"));//현재 페이지
+		
+		int pagePerNum=Integer.parseInt(params.get("pagePerNum"));//페이지에 넣을 데이터 갯수
+		
+		String input = params.get("input");
+		
+		logger.info(currPage+"/"+pagePerNum+"/"+input);
+		
+		//게시물 시작과 끝 번호
+		int end=pagePerNum*currPage;
+		int start=end-pagePerNum+1;
+		int allCnt=0;
+		if(input!=""){
+			allCnt = inter.TManger_searhCount(input);
+			obj.put("list", inter.TManger_searhCall(start, end, input));
+		}else{
+			allCnt = inter.TManger_allCnt();
+			obj.put("list", inter.TManger_listCall(start, end));
+		}
+		
+		int totalPage=allCnt/pagePerNum;
+		System.out.println(totalPage%pagePerNum);
+		if(allCnt%pagePerNum!=0){
+			totalPage+=1;
+		}
+		json.put("jsonList", obj);
+		json.put("currPage", currPage);
+		json.put("totalCount", allCnt);
+		json.put("totalPage", totalPage);
+		
+		return json;
+	}
+
+	public Map<String, Object> teamSearch(String input) {
+		inter=sqlSession.getMapper(ManagerInterface.class);
+		Map<String, Object> json = new HashMap<String, Object>();
+		int allCnt = inter.TManger_searhCount(input);
+		json.put("count", allCnt);
+		return json;
+	}
+
+	public Map<String, Object> memberInfo(String idx) {
+		
+		return null;
 	}
 
 	

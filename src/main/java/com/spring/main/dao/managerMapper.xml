@@ -38,4 +38,28 @@
 		DELETE FROM reple WHERE u_idx=#{param1}
 	</delete>
 	
+	<!-- 팀수 -->
+	<select id="TManger_allCnt" resultType="Integer">
+		SELECT COUNT(*) FROM team
+	</select>
+	
+	<!-- 팀수 검색 -->
+	<select id="TManger_searhCount" resultType="Integer">
+		SELECT COUNT(*) FROM team WHERE t_name like '%'||#{param1}||'%'
+	</select>
+	
+	<!-- 팀(관리) 리스트 -->
+	<select id="TManger_listCall" resultType="com.spring.main.dto.TManagerDto">
+		SELECT t_idx, t_name, t_area, m_name, m_idx, u_idx FROM (SELECT t.t_idx, t.t_name, t.t_area, m.m_name, m.m_idx, m.u_idx, ROW_NUMBER() 
+		OVER(ORDER BY t.t_idx DESC) AS rnum FROM team t, member m WHERE m.m_grade='대표' AND m.t_idx=t.t_idx)
+		WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<select id="TManger_searhCall" resultType="com.spring.main.dto.TManagerDto">
+		SELECT t_idx, t_name, t_area, m_name, m_idx, u_idx FROM (SELECT t.t_idx, t.t_name, t.t_area, m.m_name, m.m_idx, m.u_idx, ROW_NUMBER() 
+		OVER(ORDER BY t.t_idx DESC) AS rnum FROM team t, member m WHERE m.m_grade='대표' AND m.t_idx=t.t_idx AND t.t_name like '%'||#{param3}||'%' )
+		WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	
 </mapper>

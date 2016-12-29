@@ -68,18 +68,19 @@
 						<table class="table table-hover">
 							<thead>
 								<tr class="matching">
-									<td colspan="4">
+									<td colspan="5">
 										<h4><b>매칭보드</b></h4>
 									</td>
 								</tr>
 								<tr>
+									<th>번호</th>
 									<th>글쓴이</th>
 									<th class="center">제목</th>
 									<th class="center">날짜</th>
 									<th>상태</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="list">
 								<tr>
 									<td>ddddd</td>
 									<td class="center">fdsfdsfsdfsdfdsfsdfsdf</td>
@@ -172,6 +173,7 @@
 	<script>
 		var user="${sessionScope.userId}";
 		console.log(user);
+		var currPage=1;//현재 페이지
 		
 		var msg="";
 		msg="${msg}";
@@ -186,8 +188,18 @@
 			sendServer(url, data);
 		}
 			
+		$("document").ready(function(){
+			listCall(currPage);
+		});
 			
-			
+		function listCall(currPage){
+			var url="../../main/match/listCall";
+			var data={};
+			data.count=6;
+			sendServer(url, data);
+		}
+		
+		
 			function selectTeam(u_idx){
 				console.log("selectTeam");
 				var url="./selectTeam";
@@ -215,6 +227,9 @@
 							console.log(teamData.length);
 							printUser(userData.u_name, teamData);
 							
+						}else if(url=="../../main/match/listCall"){
+							console.log("매칭리스트");
+							printList(data.list);
 						}
 					},
 					error:function(error){
@@ -237,5 +252,22 @@
 				$(".userLogin").empty();
 				$(".userLogin").append(content);
 			}
+			
+			function printList(list){
+				var content="";
+				for(var i=0; i<list.length; i++){
+					content+="<tr>"
+						+"<td>"+list[i].mch_idx+"</td>"
+						+"<td>"+list[i].mch_name+"</td>"
+						+"<td><a href='../../main/match/matchDetail?idx="+list[i].mch_idx+"'>"+list[i].mch_title+"</a></td>"
+						+"<td>"+list[i].mch_vcount+"</td>"
+						+"<td>"+list[i].mch_state+"</td>"
+						+"</tr>";
+					}
+					
+					$("#list").empty();
+					$("#list").append(content);
+				}
+			
 	</script>
 </html>

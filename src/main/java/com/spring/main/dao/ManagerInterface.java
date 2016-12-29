@@ -3,6 +3,7 @@ package com.spring.main.dao;
 import java.util.ArrayList;
 
 import com.spring.main.dto.BoardDto;
+import com.spring.main.dto.TManagerDto;
 import com.spring.main.dto.UserDto;
 
 public interface ManagerInterface {
@@ -22,5 +23,16 @@ public interface ManagerInterface {
 	ArrayList<BoardDto> boradSearch(String idx);
 
 	void usRepleDelete(String idx);
+	
+
+/***********************************/
+	
+	int TManger_searhCount(String input);
+
+	ArrayList<TManagerDto> TManger_searhCall(int start, int end, String input);
+
+	int TManger_allCnt();
+
+	ArrayList<TManagerDto> TManger_listCall(int start, int end);
 
 }

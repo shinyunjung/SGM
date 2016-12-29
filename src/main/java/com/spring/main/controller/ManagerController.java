@@ -42,14 +42,14 @@ public class ManagerController {
 			
 	//유저 검색 요청
 	@RequestMapping(value="/userSearch")
-	public @ResponseBody Map<String, Object> search(@RequestParam Map<String, String> params){
+	public @ResponseBody Map<String, Object> userSearch(@RequestParam Map<String, String> params){
 		logger.info("검색 요청");
 		return service.userSearch(params);
 	}
 			
 	//유저 리스트 요청
 	@RequestMapping(value="/userSearchCall")
-	public @ResponseBody Map<String, Object> searchCall(@RequestParam Map<String, String> params){
+	public @ResponseBody Map<String, Object> userSearchCall(@RequestParam Map<String, String> params){
 		logger.info("리스트 요청");
 		return service.userSearchCall(params);
 	}
@@ -60,4 +60,26 @@ public class ManagerController {
 		return service.usDelete(idx);
 	}
 	
+	
+	//팀 리스트 요청
+	@RequestMapping(value="/teamSearchCall")
+	public @ResponseBody Map<String, Object> teamSearchCall(@RequestParam Map<String, String> params){
+		logger.info("팀 리스트 요청");
+		return service.teamSearchCall(params);
+	}
+	
+	/*//팀 검색
+	@RequestMapping(value="/teamSearch")
+	public @ResponseBody Map<String, Object> teamSearch(@RequestParam("input") String input){
+		logger.info("팀 검색 요청");
+		return service.teamSearch(input);
+	}*/
+	
+	
+	//팀 대표 정보
+	@RequestMapping(value="/teamSearch")
+	public @ResponseBody Map<String, Object> memberInfo(@RequestParam("idx") String idx){
+		logger.info("팀대표 정보 요청");
+		return service.memberInfo(idx);
+	}
 }

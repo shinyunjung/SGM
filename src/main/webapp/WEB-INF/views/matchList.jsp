@@ -106,7 +106,7 @@
 		}
 		
 		$("document").ready(function(){
-			listCall(currPage);
+			searchCall(currPage);
 		});
 		
 		$("#pagePerNum").change(function(){

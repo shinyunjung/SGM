@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.AreaDto;
+import com.spring.main.dto.MatchDto;
 import com.spring.main.dto.RepleDto;
 import com.spring.main.service.MatchService;
 
@@ -34,11 +35,11 @@ public class MatchController {
 		return "matchList";
 	}
 	
-	//리스트 요청
+	//리스트 요청(메인 화면)
 		@RequestMapping(value="/listCall")
-		public @ResponseBody Map<String, Object> listCall(@RequestParam Map<String, String> params){
+		public @ResponseBody Map<String, ArrayList<MatchDto>> listCall(@RequestParam("count") int count){
 			logger.info("리스트 요청");
-			return service.listCall(params);
+			return service.listCall(count);
 		}
 		
 		//검색 요청

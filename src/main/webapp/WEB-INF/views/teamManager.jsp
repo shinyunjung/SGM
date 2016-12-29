@@ -16,10 +16,19 @@
 			th{
 				text-align: center;
 			}
+			#popup{
+	     	position:absolute;
+			z-index:2;
+			width: 400px;
+			height: 150px;
+			background-color:#f5f5f5;
+			display:none;
+		}
 		</style>
 	</head>
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
+		<jsp:include page="../../resources/include/loginBox.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div class="layer">
 			<div class="page">
@@ -36,10 +45,34 @@
 				
 				<!-- 두 번째 구역 -->
 				<div class="col5 content">
-					<div class="right">
-						<button>검색</button>
-						<input type="text" />
+					<div id="popup">
+					<!-- 아이디 -->	
+						<br>
+						<h5>님의 아이디는 입니다.</h5><br>
+						<a href="pwFind">비밀번호 찾기</a><br>
+						<a href="login">로그인하러 가기</a>
 					</div>
+					<table width="100%">
+							<tr>
+								<td class="left">
+									게시물 갯수 : 
+									<select id="pagePerNum">
+										<option value="10">10</option>
+										<option value="20">20</option>
+										<option value="30">30</option>
+										<option value="40">40</option>
+									</select>
+								</td>
+								<td class="right">
+									<input type="text" size="20" class="input"/>
+									<button onclick="Search()">검색</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+							</tr>
+						</table>
 					<div class="teamManager">
 						<table class="table table-hover totalTable">
 							<thead>
@@ -48,8 +81,6 @@
 									<th>팀명</th>
 									<th>지역</th>
 									<th>대표</th>
-									<th>번호</th>
-									<th>이메일</th>
 									<th>해체</th>
 								</tr>
 							</thead>
@@ -59,9 +90,7 @@
 									<td>OOO</td>
 									<td>OOOOO</td>
 									<td>0</td>
-									<td>OOO</td>
-									<td>OOOOO</td>
-									<td>0</td>
+									<td>해체</td>
 								</tr>
 							</tbody>
 						</table>
@@ -86,7 +115,6 @@
 			var totalPage=1;
 			var search=false;
 			var input = "";
-			var type="u_id";
 			var idx="${sessionScope.userIdx}";
 			var msg="";
 			msg="${msg}";
@@ -118,7 +146,6 @@
 				console.log(count);
 				if(count>1){
 					data.input=input;
-					data.type=type;
 					reqServer(url, data);	
 				}else{
 					alert("검색하실 단어는 2글자 이상이여야합니다.")
@@ -137,9 +164,7 @@
 						input=$(".input").val();
 						$(".input").val("");	
 					}
-					console.log(type);
 					data.input=input;
-					data.type=type;
 					console.log(input);
 					data.page=currPage;
 					data.pagePerNum=$("#pagePerNum").val();
@@ -173,6 +198,9 @@
 							currPage=data.currPage;
 							totalPage=data.totalPage;
 							printPaging(data.totalCount, data.totalPage); 
+						}else if(url=="../../main/manager/memberInfo"){
+							console.log("대표 정보");
+							
 						}
 					},
 					error:function(error){
@@ -186,13 +214,10 @@
 			for(var i=0; i<list.length; i++){
 				content+="<tr>"
 					+"<td>"+list[i].t_idx+"</td>"
-					+"<td>"+list[i].t_id+"</td>"
 					+"<td>"+list[i].t_name+"</td>"
-					+"<td>"+list[i].t_age+"</td>"
-					+"<td>"+list[i].t_gender+"</td>"
-					+"<td>"+list[i].t_phnum+"</td>"
-					+"<td>"+list[i].t_mail+"</td>"
-					+"<td>"+"<a href='../../main/manager/teamDelete?idx="+list[i].u_idx+"'>탈퇴</a></td>"
+					+"<td>"+list[i].t_area+"</td>"
+					+"<td><a href='#' onclick='memberInfo("+list[i].u_idx+")' >"+list[i].m_name+"</a></td>"
+					+"<td>"+"<a href='../../main/manager/teamDelete?idx="+list[i].t_idx+"'>해체</a></td>"
 					+"</tr>";
 				}
 				
@@ -283,5 +308,14 @@
 				}
 			}
 		} 
+		 
+		 
+	//대표 정보
+	function memberInfo(idx){
+		var url="../../main/manager/memberInfo";
+		var data={};
+		data.idx=idx;
+		reqServer(url, data);
+	}
 </script>
 </html>
