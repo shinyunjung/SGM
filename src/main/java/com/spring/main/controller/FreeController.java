@@ -1,5 +1,6 @@
 package com.spring.main.controller;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import com.spring.main.service.FreeService;
 
@@ -101,8 +103,9 @@ public class FreeController {
 	  				){
 	  			logger.info("수정 요청");
 	  			return FreeService.update(params);
-	  		}	
+	  		}
 	  		
+
 	  		
 	}
 

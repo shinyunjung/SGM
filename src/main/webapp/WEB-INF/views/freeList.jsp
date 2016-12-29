@@ -43,7 +43,7 @@
                            </select>
                            </td>
                            <td class="right">
-                           <button>검색</button>
+                           <button onclick="Search()">검색</button>
                            <input type="text" size="20" />
                         </td>
                      </tr>

@@ -74,7 +74,6 @@
 									</td>
 								</tr>
 								<tr class="borderTop">
-									<td class="left"><a>댓글쓰기</a></td>
 									<td colspan="4" class="right ">
 										<input type="button" onclick="location.href='./freeList'" value="돌아가기"/>
 										<input type="button" onclick="location.href='./freeModify?j_idx=${content.j_idx}'" value="수정하기"/>
@@ -84,15 +83,7 @@
 							</tbody>
 						</table>
 						<!-- 댓글 -->
-						<div id="replyZone">
-							<table id="repleBox">
-								<tr class="borderTop">
-									<td class="user">등록자</td>
-									<td class="data"><textarea rows="3"></textarea></td>
-									<td class="repleBtn"><button id="go">댓글등록</button></td>
-								</tr>
-							</table>
-						</div>
+						
 					</div>
 				</div>
 				
@@ -104,8 +95,6 @@
 		</div>
 	</body>
 	<script>
-	function del(){
-		location.href="./delete?j_idx="+${content.j_idx };
-	}
+
 	</script>
 </html>
