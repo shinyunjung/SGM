@@ -69,15 +69,17 @@
 				<!-- 두 번째 구역 -->
 				<div class="col5 content">
 					<div class="loginBox">
-						<div class="id">
-							<input type="text" size="40" style="border:none" placeholder="아이디"/>
-						</div>
-						<div class="pass">
-							<input type="password" size="40" placeholder="비밀번호"/>
-						</div>
-						<div class="login">
-							로그인
-						</div>
+						<form action="login" method="post" name="login">
+							<div class="id">
+								<input type="text" name="u_id" size="40" style="border:none" placeholder="아이디"/>
+							</div>
+							<div class="pass">
+								<input type="password" name="u_pass" size="40" placeholder="비밀번호"/>
+							</div>
+							<div class="login" onclick="loginCheck()">
+								로그인
+							</div>
+						</form>	
 						<div class="option">
 							<a href="./idFind">아이디 찾기</a> | <a href="./passFind">비밀번호 찾기</a> | <a href="./joinForm">회원가입</a>
 						</div>
@@ -87,9 +89,18 @@
 		</div>	
 	</body>
 	<script>
-	$("login").click(function(){
-		
-	})
+	function loginCheck(){
+		if(document.login.u_id.value==""){
+			alert("아이디를 입력해주세요");
+			return false;
+		}else if(document.login.u_pass.value==""){
+			alert("비밀번호를 입력해주세요");
+			return false;
+		}else{
+			document.login.submit(); 
+			return true; 
+		}
+	}
 	
 	
 	</script>

@@ -102,7 +102,7 @@
 				      
 				      <!-- 로그인 box -->
 				      <c:if test="${sessionScope.userId==null}">
-					      <form action="login" method="post" id="login">
+					      <form action="login" method="post" name="login" onSubmit="loginCheck();return false">
 							<table class="loginBox">
 								<tr>
 									<td class="loginBox">
@@ -240,6 +240,17 @@
 					$("#list").empty();
 					$("#list").append(content);
 				}
+		
 			
+			function loginCheck(){
+				if(document.login.u_id.value==""){
+					alert("아이디를 입력해주세요");
+				}else if(document.login.u_pass.value==""){
+					alert("비밀번호를 입력해주세요");
+				}else{
+					document.login.submit(); 
+					return true; 
+				}
+			}
 	</script>
 </html>
