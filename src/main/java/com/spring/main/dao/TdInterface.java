@@ -22,19 +22,19 @@ public interface TdInterface {
 	int searchCount( String j_category, String type, String value);
 	
 	//idx받아오기
-	int idxCall();
+	String idxCall();
 
 	//글쓰기
-	void write(int idx, String u_idx, String j_category, String j_name, String j_title, String j_content);
+	void write(String idx, String u_idx, String j_category, String j_name, String j_title, String j_content);
 	
 	//파일 업로드
-	void fileUp(int idx, String j_category, String fileName, String newFileName);
+	void fileUp(String idx, String j_category, String fileName, String newFileName);
 
 	//멤버정보
 	ArrayList<MemberDto> member(String t_idx);
 
 	//개인기록
-	void record(int idx, String m_idx, String string, String string2, String string3, 
+	void record(String idx, String m_idx, String string, String string2, String string3, 
 			String string4, int p_atkpoint,String string5, String string6, 
 			String string7, String string8, String string9, String string10,String p_date);
 
@@ -48,10 +48,10 @@ public interface TdInterface {
 	ArrayList<PrDto> tdRecord(String idx);
 
 	//삭제할 파일명
-	String[] fileDelName(int idx);
+	String[] fileDelName(String idx);
 
 	//글삭제
-	int delete(int idx);
+	int delete(String idx);
 
 	//조회수 올리기
 	void upHit(String idx);
@@ -63,13 +63,19 @@ public interface TdInterface {
 	void pointDel(int p_atkpoint, String string);
 
 	//개인기록 삭제
-	void recordDel(int idx);
+	void recordDel(String idx);
 
 	//삭제시 멤버idx,공격포인트
-	ArrayList<PrDto> delMember(int idx);
+	ArrayList<PrDto> delMember(String idx);
 
 	//수정페이지 개인기록
 	ArrayList<PrDto> modifyRec(String t_idx, String idx);
+
+	//글수정
+	void update(String idx, String j_title, String j_content);
+
+	//파일 수정
+	void fileModify(String idx, String string, String string2);
 	
 
 }

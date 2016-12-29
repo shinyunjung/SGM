@@ -40,7 +40,7 @@
 	</insert>
 	
 	<!-- idx받아오기 -->
-	<select id="idxCall" resultType="Integer">
+	<select id="idxCall" resultType="String">
         SELECT board_num.NEXTVAL FROM DUAL
     </select>
 	
@@ -86,7 +86,7 @@
 	
 	<!-- 파일명불러오기 -->
 	<select id="fileCall" resultType="com.spring.main.dto.FileDto">
-		SELECT f_newfilename,f_filename FROM forder WHERE idx = #{param1}
+		SELECT f_idx,f_newfilename,f_filename FROM forder WHERE idx = #{param1}
 	</select>
 	
 	<!-- 삭제할 파일명 -->

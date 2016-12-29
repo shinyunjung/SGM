@@ -173,24 +173,17 @@
 	</body>
 	<script>
 	start();
-	function start() {
-		/* var id = $("#content img").attr("id");
-		console.log(id); */
-		console.log("gg");
+	function start(){
 		/* if("${record}"=="[]"){
 			$(".recordZone").css("display","none");
 		} */
 		if("${file}"!="[]"){
 				var num = $("#content img").length;
-				var path = "./resources/upload/";
+				var path = "../../main/resources/upload/";
 				for(var i=0; i<num; i++){
 					var id =  $("#content img").eq(i).attr("id");
 					var src = "${file[0].f_newfilename}";
 					$("#"+id).attr("src",path+src);
-					var ss = $("#"+id).attr("src");
-					console.log(src);
-					console.log(id);
-					console.log(ss);
 				}
 		}
 	}

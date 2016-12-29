@@ -55,7 +55,7 @@ public class TdController {
 		return service.listCall(params);
 	}
 	
-	//글쓰기(파일추가)
+	//글쓰기
 	@RequestMapping(value="/write")
 	public ModelAndView write(MultipartHttpServletRequest multi){
 		logger.info("글쓰기 요청");
@@ -67,6 +67,13 @@ public class TdController {
 	public @ResponseBody Map<String, Object> member(@RequestParam("t_idx") String t_idx) {
 		logger.info("멩버목록");
 		return service.member(t_idx);
+	}
+	
+	//글수정
+	@RequestMapping(value="/modify")
+	public ModelAndView modify(MultipartHttpServletRequest multi){
+		logger.info("글수정 요청");
+		return service.modify(multi);
 	}
 	
 	//글삭제

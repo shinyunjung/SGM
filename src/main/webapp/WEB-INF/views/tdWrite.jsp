@@ -25,7 +25,7 @@
 				font-size: 14px;
 				
 			}
-			#div1{
+			#content{
 				width: 100%;
 				min-height: 300px;
 				font-size: 14px;
@@ -71,7 +71,7 @@
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<div id="div1" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+										<div id="content" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 										<input type="hidden" name="j_content"/>
 									</td>
 								</tr>
@@ -163,7 +163,7 @@
             	var img = "<img id='"+file+"' src='"+e.target.result+"' alt='"
             	+fileName+"' draggable='true' ondragstart='drag(event)'/>";
         		$("#"+file).detach();   
-                $("#div1").append(img);
+                $("#content").append(img);
                 var imgW = $("#"+file).width();
             	var imgH = $("#"+file).height();
             	console.log(imgW);
@@ -266,8 +266,8 @@
 				}
 			}
 		}
-		$("#div1 img").attr("src","#");
-		var text = $("#div1").html();
+		$("#content img").attr("src","#");
+		var text = $("#content").html();
 		$("input[name=j_content]").val(text);
 		console.log($("input[name=j_content]").val());
 		
@@ -275,7 +275,7 @@
 	} 
 	//리셋
 	function html() {
-		$("#div1").empty();
+		$("#content").empty();
 	}
 	
 	

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.TdInterface;
 import com.spring.main.dao.TeamInterface;
+import com.spring.main.dto.FileDto;
 import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.PrDto;
 import com.spring.main.dto.TdDto;
@@ -96,7 +97,7 @@ public class TdService {
 		String j_name = multi.getParameter("j_name");
 		String fileName = multi.getParameter("fileName");
 		String tf = multi.getParameter("tf");
-		int idx = inter.idxCall();
+		String idx = inter.idxCall();
 		logger.info(j_title+"/"+j_content+"/"+j_name+"/"+fileName);
 		inter.write(idx,u_idx,j_category,j_name, j_title, j_content);
 		if(tf.equals("t")){
@@ -175,7 +176,7 @@ public class TdService {
 			inter = sqlSession.getMapper(TdInterface.class);
 			team = sqlSession.getMapper(TeamInterface.class);
 			ModelAndView mav = new ModelAndView();
-			int idx = Integer.parseInt(params.get("idx"));
+			String idx = params.get("idx");
 			String t_idx = params.get("t_idx");
 			ArrayList<PrDto> del = inter.delMember(idx);
 			for(int i=0; i<del.size(); i++){
@@ -223,16 +224,17 @@ public class TdService {
 			return mav;
 		}
 		
-		/*//수정(파일 업로드)
+		//수정(파일 업로드)
 		public ModelAndView modify(MultipartHttpServletRequest multi) {
 			inter = sqlSession.getMapper(TdInterface.class);
 			ModelAndView mav = new ModelAndView();
-			int idx = Integer.parseInt(multi.getParameter("idx"));
+			String idx = multi.getParameter("idx");
+			String t_idx = multi.getParameter("t_idx");
 			String j_title = multi.getParameter("j_title");
 			String j_content = multi.getParameter("j_content");
 			String fileName = multi.getParameter("fileName");
 			String tf = multi.getParameter("tf");
-			if(tf!=""){
+			if(tf!="t"){
 				String p_date = multi.getParameter("p_date");
 				String[] p_goal = multi.getParameterValues("p_goal[]");
 				String[] p_assist = multi.getParameterValues("p_assist[]");
@@ -263,21 +265,21 @@ public class TdService {
 			}
 			Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
 			if(fileName !=null){
+				ArrayList<FileDto> forder = inter.fileCall(idx);
 				//파일 업로드
 				UploadFile upload = new UploadFile();
-				newFile = upload.fileUp(multi);
+				newFile = upload.fileModify(multi,forder);
 			}
 			ArrayList<String> oldName = newFile.get("oldName");
 			ArrayList<String> newName = newFile.get("newName");
-			logger.info(j_title+"/"+j_content+"/"+j_name+"/"+fileName);
-			inter.write(idx,u_idx,j_category,j_name, j_title, j_content);
+			inter.update(idx, j_title, j_content);
 			for(int i=0; i<newName.size(); i++){
-				inter.fileUp(idx,j_category, oldName.get(i),newName.get(i));
+				
+				inter.fileModify(idx, oldName.get(i),newName.get(i));
 			}
-			String t_idx = j_category.substring(1);
 			mav.setViewName("redirect:../td/tdList?t_idx="+t_idx);
 			return mav;
-		}*/
+		}
 
 		
 

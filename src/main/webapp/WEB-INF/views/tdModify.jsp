@@ -25,7 +25,7 @@
 				font-size: 14px;
 				
 			}
-			#div1{
+			#content{
 				width: 100%;
 				min-height: 300px;
 				font-size: 14px;
@@ -34,15 +34,14 @@
 				text-align: right;
 				position: relative;
 				z-index: 2;
-				display: block;
+				display: none;
 			}
 			#pr th,#pr td{
-				width: 7%;
+				width: 7.7%;
 				text-align: center;
 			}
-			#up,#del{
-				height: 30px;
-				font-size: 11px;
+			input[type='text']{
+				height: 100%;
 			}
 			
 		</style>
@@ -54,14 +53,17 @@
 			<div class="page">
 				<div class="col2 content">
 					<fieldset>
-				  		<legend>팀일지</legend>
-				  	</fieldset>
+						<legend>팀 일지</legend>
+					</fieldset>
+					<div class="team">
+						<jsp:include page="../../resources/include/team.jsp" />
+					</div>
 				</div>
 				<div class="col5 content">
 				<fieldset>
-					<legend>글쓰기</legend>
+					<legend>글수정</legend>
 				</fieldset>
-					<form action="write" method="post" enctype="multipart/form-data" id="td" onsubmit="return CheckForm(this)">
+					<form action="modify" method="post" enctype="multipart/form-data" id="td" onsubmit="return CheckForm(this)">
 						<table class="detailTable">
 								<tr class="borderTop">
 									<td><input type="text" name="j_title" placeholder="제목" value="${td.j_title}"/></td>
@@ -70,18 +72,18 @@
 									<td>
 									<input type="text" name="j_name" value="admin" readonly/>
 									<input type="hidden" name="u_idx" value="1"/>
-									<input type="hidden" name="j_category" value="<%="1"+t_idx %>"/>
+									<input type="hidden" name="t_idx" value="<%=t_idx %>"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<div id="div1" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)">${td.j_content}</div>
+										<div id="content" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)">${td.j_content}</div>
 										<input type="hidden" name="j_content"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<input type="file"name="file1" id="imgInp" onchange="fileView(this)"/>
+										<input type="file" name="file1" id="imgInp" onchange="fileView(this)"/><div class="file1"></div>
 										<input type="file" name="file2" id="imgInp" onchange="fileView(this)"/>
 										<input type="file" name="file3" id="imgInp" onchange="fileView(this)"/>
 										<input id="fileName" type="hidden" name="fileName"/>
@@ -92,7 +94,7 @@
 										<button type="button" id="toggle" class="btn btn-success">개인기록</button>
 										<input id="tf" type="hidden" name="tf" value=""/>
 										<div id="pr">
-										<input type="date" name="p_date"/>
+										<input type="date" name="p_date" value="${record[0].p_date}"/>
 										<table class="detailTable tog">
 										<tr>
 											<th style="width:15%">이름</th>
@@ -106,7 +108,7 @@
 							                <th>패널티 킥</th>
 							                <th>오프 사이드</th>
 							                <th>유효 슈팅</th>
-							                <th style="width:17%">선택</th>
+							                <th>선택</th>
 										</tr>
 										<tbody id="start">
 										<c:if test="${record!='[]'}">
@@ -125,8 +127,8 @@
 										        <td><input type="text" name="p_offside[]" value="${rec.p_offside}"/></td>
 										        <td><input type="text" name="p_effectshot[]" value="${rec.p_effectshot}"/></td>
 										        <td>
-											        <input id="del" type="button" onclick="setDel(${num.index})" value="삭제"/>
-											        <input id="up" type="button" onclick="setUp(${num.index})" value="수정"/>
+											        <input id="click" type="button" onclick="setClick(${num.index})" value="선택"/>
+											        <input type="hidden" name="chk[]" value="${rec.m_idx}"/>
 											        <input type="hidden" name="set[]" value=""/>
 										        </td>
 										    </c:if>
@@ -177,34 +179,42 @@
 	var fileName = null;
 	var t_idx = <%=t_idx %>;
 	var sw = false;
-	//개인기록수정
-	function setUp(num) {
-		sw = $("input[name='set[]']").eq(num).val(); 
-        console.log(sw);        
+	
+	start();
+	function start(){
+		if("${file}"!="[]"){
+				var num = $("#content img").length;
+				var path = "../../main/resources/upload/";
+				for(var i=0; i<num; i++){
+					var id =  $("#content img").eq(i).attr("id");
+					var src = "${file[0].f_newfilename}";
+					$("#"+id).attr("src",path+src);
+					var ss = $("#"+id).attr("src");
+					console.log(src);
+					console.log(id);
+					console.log(ss);
+				}
+		}
+	}
+	
+	//개인기록 수정/삭제
+	function setClick(num) {
+		sw = $("input[name='set[]']").eq(num).val();       
 		if(sw == "up"){
-			$("#up").val("수정");
-			$("input[name='set[]']").eq(num).val("");
-			$(".tog tr").eq(num+1).css("background-color","white");
-		}else{
-			$("#up").val("취소");
-			$("input[name='set[]']").eq(num).val("up");
-			$(".tog tr").eq(num+1).css("background-color","aqua");
-		}
-	}
-	//기록삭제
-	function setDel(num) {
-		sw = $("input[name='set[]']").eq(num).val(); 
-        console.log(sw);            
-		if(sw == "del"){
-			$("#del").val("삭제")
-			$("input[name='set[]']").eq(num).val("");
-			$(".tog tr").eq(num+1).css("background-color","white");			
-		}else{
-			$("#del").val("취소");
+			$("#click").val("삭제");
 			$("input[name='set[]']").eq(num).val("del");
-			$(".tog tr").eq(num+1).css("background-color","red");
+			$(".tog tr").eq(num+1).css("background-color","red");  
+		}else if(sw == "del"){
+			$("#click").val("선택");
+			$("input[name='set[]']").eq(num).val("");
+			$(".tog tr").eq(num+1).css("background-color","white");  
+		}else{
+			$("#click").val("수정");
+			$("input[name='set[]']").eq(num).val("up");
+			$(".tog tr").eq(num+1).css("background-color","aqua");  
 		}
 	}
+	
 	//기록추가
 	function setAdd(num) {         
         sw = $("input[name='set[]']").eq(num).val(); 
@@ -249,7 +259,7 @@
             	var img = "<img id='"+file+"' src='"+e.target.result+"' alt='"
             	+fileName+"' draggable='true' ondragstart='drag(event)'/>";
         		$("#"+file).detach();   
-                $("#div1").append(img);
+                $("#content").append(img);
                 var imgW = $("#"+file).width();
             	var imgH = $("#"+file).height();
             	console.log(imgW);
@@ -266,7 +276,7 @@
           reader.readAsDataURL(input.files[0]);
         }$("#"+file).detach(); 
     }
-	
+	//개인기록 보이기 토글
     $("#toggle").click(function(){
         $(this).toggleClass("ex");            
         sw = $(this).hasClass("ex");            
@@ -274,17 +284,25 @@
 			$(this).text("취소");
 			$("#pr").css("display","block");
 			$("#tf").val("t");
-			member();
+			if("${record}"=="[]"){
+				member();
+			}
 		}else{
 			$(this).text("개인기록");
-			/* $("#pr").css("display","none"); */
+			$("#pr").css("display","none");
 			$("#start").empty();
 			$("#tf").val("");
 		}
         
     });
     
-	
+  //개인기록 멤버정보 불러오기
+	function member(){
+		var url="./member";
+		var data = {};
+		data.t_idx = t_idx;
+		reqServer(url,data);
+	}
 	
 	
 	function reqServer(url,data){
@@ -304,12 +322,12 @@
 	}
 	
 	
-	/* //submit체크
+	//submit체크
 	function CheckForm(f){
 		if(sw==true){
-			for(var i=0; i<f.elements['chk[]'].length; i++){
+			for(var i=0; i<f.elements['set[]'].length; i++){
 				console.log("for"+i);
-				if(f.elements['chk[]'][i].checked==false){
+				if(f.elements['set[]'][i].val==""){
 					console.log(i);
 					f.elements['p_goal[]'][i].disabled=true;
 					f.elements['p_assist[]'][i].disabled=true;
@@ -324,16 +342,16 @@
 				}
 			}
 		}
-		$("#div1 img").attr("src","#");
-		var text = $("#div1").html();
+		$("#content img").attr("src","#");
+		var text = $("#content").html();
 		$("input[name=j_content]").val(text);
 		console.log($("input[name=j_content]").val());
 		
 	    return true; 
-	}  */
+	}
 	//리셋
 	function html() {
-		$("#div1").empty();
+		$("#content").empty();
 	}
 	
 	
