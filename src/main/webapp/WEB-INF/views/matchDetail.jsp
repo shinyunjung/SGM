@@ -117,9 +117,16 @@
 									</td>
 								</tr>
 								<tr>
-									<td colspan="5" class="right">
-										<button onclick="mchMsg()">매칭 신청</button>
-									</td>
+									<c:if test="${sessionScope.userIdx!=null}">
+										<td colspan="5" class="right">
+											<button onclick="mchMsg()">매칭 신청</button>
+										</td>
+									</c:if>
+									<c:if test="${sessionScope.userIdx==null}">
+										<td colspan="5" class="right">
+											
+										</td>
+									</c:if>
 								</tr>
 								<tr class="borderTop">
 									<td colspan="5">${detail.mch_ground}</td>
@@ -159,11 +166,7 @@
 						<div id="replyZone">
 							<table class="repleBox borderTop">
 								<tr>
-<<<<<<< HEAD
 									<td class="user">${sessionScope.userName}(${sessionScope.userId})</td>
-=======
-									<td class="user">${sessionScope.userId}</td>
->>>>>>> anizmi
 									<td class="data"><textarea rows="3" id="reple"></textarea></td>
 									<td class="repleBtn"><button class="repleGo">댓글등록</button></td>
 								</tr>
@@ -215,10 +218,7 @@
 		var url="";
 		var data={};
 		var userIdx="${sessionScope.userIdx}";
-<<<<<<< HEAD
 		var user="${sessionScope.userName}"+"(${sessionScope.userId})";
-=======
->>>>>>> anizmi
 		var repleCnt=0;
 		areaSearch("${detail.mch_lat}", "${detail.mch_lng}");
 		
@@ -260,11 +260,7 @@
 			var data={};
 			data.idx="${detail.totalIdx}";
 			data.category=4;
-<<<<<<< HEAD
 			data.replyer=user; 
-=======
-			data.replyer="${sessionScope.userId}"; 
->>>>>>> anizmi
 			data.reple=$("#reple").val();
 			console.log(data);
 			reqServer(url, data);
@@ -282,10 +278,6 @@
 		
 		function printReple(list){
 			var content="";
-<<<<<<< HEAD
-=======
-			var user="${sessionScope.userId}";
->>>>>>> anizmi
 			console.log(user);
 			repleCnt=list.length;
 			for(var i=0; i<list.length; i++){
