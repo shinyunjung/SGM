@@ -147,7 +147,7 @@
 								<tr class="borderTop">
 									<td class="left"><a>댓글쓰기</a></td>
 									<td colspan="10" class="right ">
-										<a>수정</a> / <a>삭제</a>
+										<a href="./tdModify?idx=${td.idx}&t_idx=${team.t_idx}">수정</a> / <a href="./delete?idx=${td.idx}&t_idx=${team.t_idx}">삭제</a>
 									</td>
 								</tr>
 							</tbody>
@@ -177,15 +177,15 @@
 		/* var id = $("#content img").attr("id");
 		console.log(id); */
 		console.log("gg");
-		if("${record}"=="[]"){
+		/* if("${record}"=="[]"){
 			$(".recordZone").css("display","none");
-		}
+		} */
 		if("${file}"!="[]"){
 				var num = $("#content img").length;
-				var path = "D://java/spring/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SGM/resources/upload/";
+				var path = "./resources/upload/";
 				for(var i=0; i<num; i++){
 					var id =  $("#content img").eq(i).attr("id");
-					var src = "${file[i].f_newfilename}";
+					var src = "${file[0].f_newfilename}";
 					$("#"+id).attr("src",path+src);
 					var ss = $("#"+id).attr("src");
 					console.log(src);

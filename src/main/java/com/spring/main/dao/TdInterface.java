@@ -67,6 +67,9 @@ public interface TdInterface {
 
 	//삭제시 멤버idx,공격포인트
 	ArrayList<PrDto> delMember(int idx);
+
+	//수정페이지 개인기록
+	ArrayList<PrDto> modifyRec(String t_idx, String idx);
 	
 
 }

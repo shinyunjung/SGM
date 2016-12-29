@@ -106,15 +106,16 @@
 	
 	<!-- 포인트,경기수 Dn -->
 	<update id="pointDel">
-		UPDATE memver SET m_matchcount = m_matchcount-1, m_tpoint = m_tpoint-#{param1} WHERE u_idx = #{param2}
+		UPDATE memver SET m_matchcount = m_matchcount-1, m_tpoint = m_tpoint-#{param1} 
+		WHERE u_idx = #{param2}
 	</update>
 	
 	<!-- 수정페이지 개인기록  -->
 	<select id="modifyRec" resultType="com.spring.main.dto.PrDto">
-		SELECT e.m_idx, e.m_name,d.p_offside,d.p_effectshot,d.p_goal,d.p_assist,d.p_atkpoint,
-		d.p_shoot,d.p_poul,d.p_warning,d.p_off,d.p_ck,d.p_pk,d.p_dateFROM memver e 
-		LEFT OUTER JOIN personal_record d ON e.m_idx = d.m_idx WHERE t_idx =#{param1} AND idx=#{param2}
-		ORDER BY d.p_date ASC
+		SELECT e.m_idx, e.m_name,d.p_offside,d.p_effectshot,d.p_goal,d.p_assist,
+		d.p_atkpoint,d.p_shoot,d.p_poul,d.p_warning,d.p_off,d.p_ck,d.p_pk,d.p_date 
+		FROM memver e LEFT OUTER JOIN (SELECT * FROM personal_record WHERE idx = #{param2}) d 
+		ON e.m_idx = d.m_idx WHERE t_idx =#{param1}ORDER BY d.p_date ASC
 	</select>
 	
 	<!-- 삭제할 멤버 정보  -->

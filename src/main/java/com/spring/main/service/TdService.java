@@ -97,10 +97,9 @@ public class TdService {
 		String fileName = multi.getParameter("fileName");
 		String tf = multi.getParameter("tf");
 		int idx = inter.idxCall();
-		logger.info(Integer.toString(idx));
 		logger.info(j_title+"/"+j_content+"/"+j_name+"/"+fileName);
 		inter.write(idx,u_idx,j_category,j_name, j_title, j_content);
-		if(tf!=""){
+		if(tf.equals("t")){
 			String p_date = multi.getParameter("p_date");
 			String[] p_goal = multi.getParameterValues("p_goal[]");
 			String[] p_assist = multi.getParameterValues("p_assist[]");
@@ -170,7 +169,7 @@ public class TdService {
 			return mav;
 		}
 		
-	/*	//삭제
+		//삭제
 		public ModelAndView delete(Map<String, String> params) {
 			
 			inter = sqlSession.getMapper(TdInterface.class);
@@ -187,6 +186,7 @@ public class TdService {
 			}
 			
 			String[] delName = inter.fileDelName(idx);
+			logger.info(Integer.toString(delName.length));
 			//글삭제		
 			String msg="삭제에 실패 했습니다.";		
 			if(inter.delete(idx) == 1){
@@ -204,7 +204,24 @@ public class TdService {
 			mav.setViewName("redirect:../td/tdList?t_idx="+t_idx);
 			
 			return mav;
-		}*/
+		}
+
+		public ModelAndView tdModify(Map<String, String> params) {
+			inter = sqlSession.getMapper(TdInterface.class);
+			team = sqlSession.getMapper(TeamInterface.class);
+			ModelAndView mav = new ModelAndView();
+			String idx = params.get("idx");
+			String t_idx = params.get("t_idx");
+			
+			mav.addObject("td",inter.tdDetail(idx));
+			mav.addObject("file",inter.fileCall(idx));
+			mav.addObject("record",inter.modifyRec(t_idx,idx));
+			mav.addObject("team",team.teamInfo(t_idx));
+			mav.addObject("member",team.grade(t_idx));
+			mav.setViewName("tdModify");
+			
+			return mav;
+		}
 		
 		/*//수정(파일 업로드)
 		public ModelAndView modify(MultipartHttpServletRequest multi) {

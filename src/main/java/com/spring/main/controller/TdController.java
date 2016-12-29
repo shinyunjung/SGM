@@ -43,9 +43,9 @@ public class TdController {
 	}
 	//팀일지수정
 	@RequestMapping(value = "/tdModify")
-	public String tdModify() {
+	public ModelAndView tdModify(@RequestParam Map<String, String> params) {
 		logger.info("팀일지수정");
-		return "tdModify";
+		return service.tdModify(params);
 	}
 	
 	//팀일지리스트
@@ -69,11 +69,11 @@ public class TdController {
 		return service.member(t_idx);
 	}
 	
-	/*//글삭제
+	//글삭제
 	@RequestMapping(value = "/delete")
 	public ModelAndView delete(@RequestParam Map<String, String> params) {
 		logger.info("글삭제");
 		return service.delete(params);
-	}*/
+	}
 
 }

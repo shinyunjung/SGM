@@ -24,8 +24,8 @@ public class UploadFile {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	//파일 경로(다운로드/
-	String fullPath = "D:/java/spring/workspace/SGM/src/main/webapp/resources/upload/";
+	
+	
 	
 	//파일 업로드
 	public Map<String, ArrayList<String>> fileUp(MultipartHttpServletRequest multi){
@@ -89,7 +89,7 @@ public class UploadFile {
 	
 	//파일 삭제
 	public void delete(String delName) {
-		
+		String fullPath = "D:/spring/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SGM/resources/upload/";
 		fullPath +=delName;
 		logger.info(fullPath);
 		File file = new File(fullPath);
