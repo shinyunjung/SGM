@@ -88,7 +88,8 @@
 				</div>
 			</div>
 		</div>	
-		<jsp:include page="../../resources/include/footer.jsp" />
+		<jsp:include page="../../resources/include/footer.jsp" /> 
+
 	</body>
 	<script>
 	$(".bt").click(function() {/* 테스트용 */

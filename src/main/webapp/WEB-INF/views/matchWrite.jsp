@@ -241,9 +241,9 @@
 				+"<td>"+"<input type='radio' name='areaInfo' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+", "+i+")' value='"+list[i].a_lat+"/"+list[i].a_lng+"/"+list[i].a_ground+"' />"+"</td>"
 				+"</tr>";
 			}
+
 			$(".areaList").empty();
 			$(".areaList").append(content);
-			
 	}
 	
 	function checkMap(lat, lng, i){
@@ -283,7 +283,6 @@
 			return true; 
 		}
 	}
-	
-	
+
 	</script>
 </html>

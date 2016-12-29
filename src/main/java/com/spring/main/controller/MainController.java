@@ -27,11 +27,11 @@ public class MainController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private static boolean modFlag=false;
 	//메인페이지
-		@RequestMapping(value = "/")
-		public String home() {
-			
-			return "index";
-		}
+	@RequestMapping(value = "/")
+	public String home() {
+		
+		return "index";
+	}
 		
 		
 	//메인페이지
@@ -39,6 +39,11 @@ public class MainController {
 		public String index() {
 			
 			return "index";
+	}
+	@RequestMapping(value = "/msgpage")
+	public String msgpage() {
+		
+		return "msgpage";
 	}
 	
 	//메인페이지
@@ -173,4 +178,29 @@ public class MainController {
 		logger.info("회원정보 찾기");
 		return service.userSearch(params);
 	}
+
+	//쪽지함
+		@RequestMapping(value = "/msg")
+		public String msg() {
+			logger.info("쪽지함");
+			return "msgpage";
+		}
+	
+	
+
+	//매칭 상세보기
+	@RequestMapping(value = "/matchDetail")
+	public String matchDetail() {
+		logger.info("매칭 상세보기");
+		return "matchDetail";
+	}
+	
+	//매칭 글작성
+		@RequestMapping(value = "/matchWrite")
+		public String matchWrite() {
+			logger.info("매칭 상세보기");
+			return "matchWrite";
+		}
+	
+	
 }
