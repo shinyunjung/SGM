@@ -156,6 +156,7 @@
 	var data={};
 	var areaCheck=false;
 	var userIdx="${sessionScope.userIdx}";
+	var gu=0;
 	
 	
 	$(".btn-info").click(function(){
@@ -164,16 +165,20 @@
 			var flag=$("#popup").css("display");
 			console.log(flag);
 			if(flag=="block"){
+				data.area=gu;
 				reqServer(url, data);
 			}
 		});
 	});
 	
-	$("select[name='gu']").change(function(){
+	$("select[name='mch_area']").change(function(){
 		console.log("구 변경");
-		var url="../match/selectAreaList";
+		var url="../match/areaList";
 		var data={};
-		data.area=$("select[name='area']").val();
+		gu=$("select[name='mch_area']").val();
+		console.log(gu);
+		data.area=gu;
+		reqServer(url, data);
 		
 	});
 	

@@ -147,8 +147,10 @@ public class MatchService {
 
 	public Map<String, ArrayList<AreaDto>> areaList(Map<String, String> params) {
 		Map<String, ArrayList<AreaDto>> obj = new HashMap<String, ArrayList<AreaDto>>();
+		String area=params.get("area");
+		logger.info("area:{}",area);
 		inter=sqlSession.getMapper(MatchInterface.class);
-		obj.put("area", inter.mch_areaList());
+		obj.put("area", inter.mch_areaList(area));
 		return obj;
 	}
 

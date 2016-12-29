@@ -45,6 +45,7 @@
 				<div class="col5 content">
 					<!-- 지도 -->
 					<div class="map_wrap">
+					<jsp:include page="../../resources/include/mapSearch.jsp" />
 		   			 <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 		   				 <div class="hAddr">
 		      			  <span class="title">지도중심기준 행정동 주소정보</span>

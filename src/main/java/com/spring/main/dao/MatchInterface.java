@@ -24,7 +24,7 @@ public interface MatchInterface {
     ArrayList<MatchDto> mch_searhCall(int start, int end, String input, String type);
 	
 	//장소목록
-	ArrayList<AreaDto> mch_areaList();
+	ArrayList<AreaDto> mch_areaList(String area);
 
 	//매칭 글 쓰기
 	int mch_write(String t_idx, String title, String writer, String date, String time, String type, String age, String content,
