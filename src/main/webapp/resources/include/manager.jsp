@@ -21,9 +21,9 @@
 				<a href="../../main/manager/usManager" class="list-group-item">
 				  회원관리
 				</a>
-				<a href="../../main/teamManager" class="list-group-item">팀 관리
+				<a href="../../main/manager/teamManager" class="list-group-item">팀 관리
 				</a>
-				<a href="#" class="list-group-item">팀 멤버
+				<a href="../../main/place/placeList" class="list-group-item">장소 관리
 				</a>
 				<a href="#" class="list-group-item">팀 탈퇴</a>
 			</div>

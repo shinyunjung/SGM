@@ -27,6 +27,7 @@
 	</head>
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
+		<jsp:include page="../../resources/include/loginBox.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div class="layer">
 			<div class="page">
@@ -36,9 +37,11 @@
 					<fieldset>
 						<legend>장소목록</legend>
 					</fieldset>
-					<div class="manager">
-						<jsp:include page="../../resources/include/manager.jsp" />
-					</div>
+					<c:if test="${sessionScope.userId=='admin'}">
+						<div class="manager">
+							<jsp:include page="../../resources/include/manager.jsp" />
+						</div>
+					</c:if>
 				</div>
 				
 				<!-- 두 번째 구역 -->
@@ -104,7 +107,9 @@
 						</div>
 						<div class="left">
 							<button onclick="location.href='placeDetail'">상세보기</button>
-							<button onclick="location.href='placeWrite'">장소추가</button>
+							<c:if test="${sessionScope.userId=='admin'}">
+								<button onclick="location.href='placeWrite'">장소추가</button>
+							</c:if>
 						</div>
 					</div>
 				</div>

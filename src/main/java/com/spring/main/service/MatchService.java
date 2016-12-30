@@ -317,6 +317,43 @@ public class MatchService {
 	}
 
 
+	public Map<String, Object> gradeCheck(String idx) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		inter=sqlSession.getMapper(MatchInterface.class);
+		ArrayList<TeamDto> obj = new ArrayList<TeamDto>();
+		int count=0;
+		int success=0;
+		obj=inter.selectTeam(idx);
+		count=obj.size();
+		String msg="신청권한이 없습니다.";
+		logger.info("count:{}",count);
+		if(count>0){
+			map.put("teamList",obj);
+			success=1;
+		}else{
+			map.put("msg", msg);
+		}
+		map.put("success", success);
+		return map;
+	}
+
+
+	public ModelAndView sendNote(Map<String, String> params) {
+		ModelAndView mav = new ModelAndView();
+		String writer=params.get("writer")+"(";
+		writer+=params.get("t_idx")+")";
+		String recever = params.get("recever");
+		String receverIdx=params.get("receverIdx");
+		String content=params.get("noteContent");
+		String title=params.get("noteTitle");
+		String userIdx=params.get("userIdx");
+		String contentIdx=params.get("contentIdx");
+		logger.info(writer+"/"+recever+"/"+receverIdx+"/"+content+"/"+title+"/"+userIdx+"/"+contentIdx);
+		mav.setViewName("redirect:matchDetail?idx="+contentIdx+"&userIdx="+userIdx);
+		return mav;
+	}
+
+
 	
 	
 	

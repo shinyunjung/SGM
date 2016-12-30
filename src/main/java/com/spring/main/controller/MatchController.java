@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.main.dto.AreaDto;
 import com.spring.main.dto.MatchDto;
 import com.spring.main.dto.RepleDto;
+import com.spring.main.dto.TeamDto;
 import com.spring.main.service.MatchService;
 
 @Controller("MatchController")
@@ -31,7 +32,7 @@ public class MatchController {
 	//매칭게시판
 	@RequestMapping(value = "/matchList")
 	public String matchList() {
-		
+		logger.info("매칭리스트 요청");
 		return "matchList";
 	}
 	
@@ -102,6 +103,13 @@ public class MatchController {
 		return service.memberCheck(idx);
 	}
 	
+	//매칭 신청 권한 검색
+	@RequestMapping(value="/gradeCheck")
+	public @ResponseBody Map<String, Object> gradeCheck(@RequestParam("idx") String idx){
+		logger.info("신청 권한 검색");
+		return service.gradeCheck(idx);
+	}
+	
 	//매칭쓰기
 	@RequestMapping(value = "/write")
 	public ModelAndView write(@RequestParam Map<String, String> params) {
@@ -148,6 +156,13 @@ public class MatchController {
 		return service.delete(idx, category);
 	}
 	
+	
+	//쪽지
+	@RequestMapping(value = "/sendNote")
+	public ModelAndView sendNote(@RequestParam Map<String, String> params) {
+		logger.info("매칭쪽지");
+		return service.sendNote(params);
+	}
 	
 	//경기일정
 	@RequestMapping(value = "/calendar")

@@ -76,6 +76,9 @@
 				width: 100%;
 				resize: none;
 			}
+			input[name='writer']{
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -186,30 +189,38 @@
 				</div>
 				
 				<div id="matchMsg">
-					<table class="matchMsg">
-						<tr>
-							<td>매칭쪽지 보내기</td>
-							<td class="right"><button onclick="delMsg()">x</button></td>
-						</tr>
-						<tr class="center borderTop">
-							<td class="borderRight sender" id="sender">보낸 이 : </td>
-							<td class="sender">받는 이 : <input type="text" value="${detail.mch_name}" id="reception" readonly/></td>
-						</tr>
-						<tr class="borderTop">
-							<td colspan="2">
-								내용<br/>
-								<div class="msg">
-									<textarea></textarea>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="center borderTop" colspan="2" style="padding: 5px">
-								<button onclick="sendMsg()">보내기</button>
-								<button onclick="delMsg()">취소</button>
-							</td>
-						</tr>
-					</table>
+					<form action="sendNote" method="post">
+						<table class="matchMsg">
+							<tr>
+								<td>매칭쪽지 보내기</td>
+								<td class="right"><input type="button" onclick="delMsg()">x</button></td>
+							</tr>
+							<tr class="center borderTop">
+								<td class="borderRight sender" id="sender">보낸 이 : </td>
+								<td class="sender">
+									받는 이 : <input type="text" name="recever" value="${detail.mch_name}" id="reception" readonly/><input type="text" name="writer" value="" />
+									<input type="hidden" name="receverIdx" value="${detail.t_idx}" />
+									<input type="hidden" name="noteTitle" value="[${detail.mch_title}] 의 글에서 신청한 쪽지가 왔습니다." />
+									<input type="hidden" name="userIdx" value="${sessionScope.userIdx}" />
+									<input type="hidden" name="contentIdx" value="${detail.mch_idx}" />
+								</td>
+							</tr>
+							<tr class="borderTop">
+								<td colspan="2">
+									내용<br/>
+									<div class="msg">
+										<textarea class="msgContent" name="noteContent"></textarea>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="center borderTop" colspan="2" style="padding: 5px">
+									<input type="submit" value="보내기" />
+									<input type="button" onclick="delMsg()" value="취소" />
+								</td>
+							</tr>
+						</table>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -224,8 +235,10 @@
 		
 		function mchMsg(){
 			console.log("신청");
-			$("#matchMsg").css("display","block");
-			selectTeam(userIdx);
+			var url="../match/gradeCheck"
+			var data={};
+			data.idx=userIdx;
+			reqServer(url, data);
 		}
 		
 		function selectTeam(idx){
@@ -237,10 +250,12 @@
 		
 		
 		function sendMsg(){
+			console.log("신청");
 			
 		}
 		function delMsg(){
-			console.log("신청");
+			console.log("취소");
+			$(".msgContent").val("");
 			$("#matchMsg").css("display","none");
 		}
 		
@@ -332,6 +347,13 @@
 						console.log("댓글 삭제");
 						alert(data.msg);
 						replyList();
+					}else if(url=="../match/gradeCheck"){
+						if(data.success==1){
+							$("#matchMsg").css("display","block");
+							printSelect(data.teamList);
+						}else{
+							alert(data.msg);
+						}
 					}else if(url=="../selectTeam"){
 						console.log("쪽지에서 함");
 						console.log(data.userTeam);
@@ -348,7 +370,7 @@
 		function printSelect(data){
 			console.log("printSelect")
 			var content="보낸이 : ";
-			content+="<input type='hidden' name='mch_name' value="+data[0].t_name+" />";
+			$("input[name='writer']").val(data[0].t_name);
 			content+="<select name='t_idx' class='select' onchange='teamValue()'>";
 			for(var i=0; i<data.length; i++){
 				content+="<option value="+data[i].t_idx+"  >"+data[i].t_name+"</option>";
@@ -356,13 +378,15 @@
 			content+="</select>";
 			$("#sender").empty();
 			$("#sender").append(content);
+			console.log($("input[name='writer']").val())
 		}
 		
 		function teamValue(){
-			var input = document.getElementsByName("mch_name");
 			var value = $("select[name='t_idx']").val();
 			var t_name=$("option[value='"+value+"']").html();
-			input.value=t_name;
+			$("input[name='writer']").val(t_name);
+			console.log(t_name);
+			console.log($("input[name='writer']").val());
 			
 		}
 	</script>

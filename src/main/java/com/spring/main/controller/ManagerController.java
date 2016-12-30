@@ -38,6 +38,13 @@ public class ManagerController {
 		return "teamManager";
 	}
 	
+	//장소 관리
+	@RequestMapping(value = "/placeManager")
+	public String placeManager(){
+		logger.info("장소 관리");
+		return "placeList";
+	}
+	
 	
 			
 	//유저 검색 요청
