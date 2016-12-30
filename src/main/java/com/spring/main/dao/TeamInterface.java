@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.spring.main.dto.EntirelyDto;
 import com.spring.main.dto.EvalueDto;
 import com.spring.main.dto.MemberDto;
+import com.spring.main.dto.PrDto;
 import com.spring.main.dto.TeamDto;
 
 public interface TeamInterface {
@@ -42,6 +43,9 @@ public interface TeamInterface {
 	
 	//팀대표
 	ArrayList<MemberDto> grade(String t_idx);
+	
+	//멤버개인기록
+	PrDto memberDetail(String m_idx);
 	
 	
 

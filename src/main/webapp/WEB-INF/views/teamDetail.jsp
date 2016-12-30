@@ -205,7 +205,7 @@
 								<c:when test="${dto.rank==1 && dto.m_tpoint!=0 }">
 									<tr id="ace">
 										<td>ace</td>
-										<td>${dto.m_name}</td>
+										<td><a href="./memberDetail?m_idx=${dto.m_idx}&t_idx=${team.t_idx}">${dto.m_name}</a></td>
 										<td>${dto.m_position}</td>
 										<td>${dto.m_tpoint}</td>
 										<td>${dto.m_matchcount}</td>
@@ -214,7 +214,7 @@
 								<c:otherwise>
 									<tr>
 										<td>${status.count}</td>
-										<td>${dto.m_name}</td>
+										<td><a href="./memberDetail?m_idx=${dto.m_idx}&t_idx=${team.t_idx}">${dto.m_name}</a></td>
 										<td>${dto.m_position}</td>
 										<td>${dto.m_tpoint}</td>
 										<td>${dto.m_matchcount}</td>

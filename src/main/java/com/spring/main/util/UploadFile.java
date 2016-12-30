@@ -75,9 +75,10 @@ public class UploadFile {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}else{
+				oldName.add("");
+				newName.add("");
 			}
-			oldName.add(null);
-			newName.add(null);
 		}
 		name.put("oldName", oldName);
 		name.put("newName", newName);

@@ -40,17 +40,17 @@ public class TeamController {
 		logger.info("팀상세");
 		return service.teamDetail(t_idx);
 	}
-	//멤버등록
-	@RequestMapping(value = "/memberUpdate")
+	//팀수정
+	@RequestMapping(value = "/teamModify")
 	public String memberUpdate() {
-		logger.info("멤버등록");
-		return "memberUpdate";
+		logger.info("팀수정");
+		return "teamModify";
 	}
 	//멤버상세
 	@RequestMapping(value = "/memberDetail")
-	public String memberDetail() {
+	public ModelAndView memberDetail(@RequestParam("m_idx,t_idx") String m_idx,String t_idx) {
 		logger.info("멤버상세");
-		return "memberDetail";
+		return service.memberDetail(m_idx,t_idx);
 	}
 	
 	//리스트보여주기

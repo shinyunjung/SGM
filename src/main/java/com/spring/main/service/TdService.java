@@ -198,6 +198,7 @@ public class TdService {
 					for(int i=0 ; i<delName.length;i++){
 						logger.info("지운다 : "+delName[i]);
 						file.delete(delName[i]);
+						
 					}				
 				}
 			}
@@ -246,6 +247,7 @@ public class TdService {
 				String[] p_pk = multi.getParameterValues("p_pk[]");
 				String[] p_offside = multi.getParameterValues("p_offside[]");
 				String[] p_effectshot = multi.getParameterValues("p_effectshot[]");
+				String[] oldAtk = multi.getParameterValues("oldAtk[]");
 				String[] m_idx = multi.getParameterValues("chk[]");
 				String[] set = multi.getParameterValues("set[]");
 				for(int i=0; i<m_idx.length; i++){					
@@ -256,8 +258,12 @@ public class TdService {
 						p_off[i],p_ck[i],p_pk[i],p_date);
 				inter.point(p_atkpoint,m_idx[i]);
 		        }else if(set[i].equals("up")){
-		        	
-		        }else{
+		        	int pointUp = p_atkpoint - Integer.parseInt(oldAtk[i]);
+		        	inter.recordUP(idx,m_idx[i],p_offside[i],p_effectshot[i],p_goal[i],
+							p_assist[i],p_atkpoint,p_shoot[i],p_poul[i],p_warning[i],
+							p_off[i],p_ck[i],p_pk[i],p_date);
+					inter.pointUp(pointUp,m_idx[i]);
+		        }else if(set[i].equals("del")){
 		        	inter.recordDel(idx);
 					inter.pointDel(p_atkpoint,m_idx[i]);
 		        }
@@ -274,12 +280,15 @@ public class TdService {
 			ArrayList<String> newName = newFile.get("newName");
 			inter.update(idx, j_title, j_content);
 			for(int i=0; i<newName.size(); i++){
-				
-				inter.fileModify(idx, oldName.get(i),newName.get(i));
+				if(oldName.get(i)!=""){
+					inter.fileModify(idx, oldName.get(i),newName.get(i));
+				}
 			}
 			mav.setViewName("redirect:../td/tdList?t_idx="+t_idx);
 			return mav;
 		}
+		
+		
 
 		
 

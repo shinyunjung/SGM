@@ -80,4 +80,17 @@ public class TeamService {
 		return mav;
 	}
 
+
+	public ModelAndView memberDetail(String m_idx,String t_idx) {
+		
+		inter = sqlSession.getMapper(TeamInterface.class);
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("team",inter.memberDetail(m_idx));
+		mav.addObject("team",inter.teamInfo(t_idx));
+		mav.addObject("member",inter.grade(t_idx));
+		mav.setViewName("memberDetail");
+		return mav;
+	}
+
 }

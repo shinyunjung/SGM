@@ -76,6 +76,14 @@ public interface TdInterface {
 
 	//파일 수정
 	void fileModify(String idx, String string, String string2);
+
+	//개인기록 수정
+	void recordUP(String idx, String string, String string2, String string3, String string4, String string5,
+			int p_atkpoint, String string6, String string7, String string8, String string9, String string10,
+			String string11, String p_date);
+
+	//멤버포인트 수정
+	void pointUp(int pointUp, String string);
 	
 
 }

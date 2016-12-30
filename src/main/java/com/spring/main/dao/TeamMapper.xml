@@ -63,4 +63,9 @@
 	<select id="grade" resultType="com.spring.main.dto.MemberDto">
 		SELECT m_name,m_grade FROM memver WHERE t_idx = #{param1} AND m_grade = '대표'
 	</select>
+	
+	<!-- 팀대표 -->
+	<select id="memberDetail" resultType="com.spring.main.dto.PrDto">
+		SELECT * FROM personal_record WHERE m_idx = #{param1}
+	</select>
 </mapper>

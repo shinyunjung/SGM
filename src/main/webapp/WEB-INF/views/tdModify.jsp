@@ -72,6 +72,7 @@
 									<td>
 									<input type="text" name="j_name" value="admin" readonly/>
 									<input type="hidden" name="u_idx" value="1"/>
+									<input type="hidden" name="idx" value="${td.idx}"/>
 									<input type="hidden" name="t_idx" value="<%=t_idx %>"/>
 									</td>
 								</tr>
@@ -127,7 +128,8 @@
 										        <td><input type="text" name="p_offside[]" value="${rec.p_offside}"/></td>
 										        <td><input type="text" name="p_effectshot[]" value="${rec.p_effectshot}"/></td>
 										        <td>
-											        <input id="click" type="button" onclick="setClick(${num.index})" value="선택"/>
+											        <input name="click[]" type="button" onclick="setClick(${num.index})" value="선택"/>
+											        <input type="hidden" name="oldAtk[]" value="${rec.p_atkpoint}"/>
 											        <input type="hidden" name="chk[]" value="${rec.m_idx}"/>
 											        <input type="hidden" name="set[]" value=""/>
 										        </td>
@@ -135,17 +137,19 @@
 										    <c:if test="${rec.p_goal==null}">
 												<td>${rec.m_name}</td>
 												<td><input type="text" name="p_goal[]" value="0"/></td>
-												<td><input type="text" name="p_assist[]" value="0" readonly/></td>
-												<td><input type="text" name="p_shoot[]" value="0" readonly/></td>
-												<td><input type="text" name="p_poul[]" value="0" readonly/></td>
-												<td><input type="text" name="p_warning[]" value="0" readonly/></td>
-												<td><input type="text" name="p_off[]" value="0" readonly/></td>
-												<td><input type="text" name="p_ck[]" value="0" readonly/></td>
-												<td><input type="text" name="p_pk[]" value="0" readonly/></td>
-												<td><input type="text" name="p_offside[]" value="0" readonly/></td>
-												<td><input type="text" name="p_effectshot[]" value="0" readonly/></td>
+												<td><input type="text" name="p_assist[]" value="0"/></td>
+												<td><input type="text" name="p_shoot[]" value="0"/></td>
+												<td><input type="text" name="p_poul[]" value="0"/></td>
+												<td><input type="text" name="p_warning[]" value="0"/></td>
+												<td><input type="text" name="p_off[]" value="0"/></td>
+												<td><input type="text" name="p_ck[]" value="0"/></td>
+												<td><input type="text" name="p_pk[]" value="0"/></td>
+												<td><input type="text" name="p_offside[]" value="0"/></td>
+												<td><input type="text" name="p_effectshot[]" value="0"/></td>
 												<td>
 													<input id="add" type="button" onclick="setAdd(${num.index})" value="추가"/>
+													<input type="hidden" name="oldAtk[]" value="${rec.p_atkpoint}"/>
+											        <input type="hidden" name="chk[]" value="${rec.m_idx}"/>
 													<input type="hidden" name="set[]" value=""/>
 												</td>
 										    </c:if>
@@ -183,16 +187,20 @@
 	start();
 	function start(){
 		if("${file}"!="[]"){
-				var num = $("#content img").length;
+			console.log("s");
+				/* var num = $("#content img").length; */
 				var path = "../../main/resources/upload/";
-				for(var i=0; i<num; i++){
-					var id =  $("#content img").eq(i).attr("id");
-					var src = "${file[0].f_newfilename}";
-					$("#"+id).attr("src",path+src);
-					var ss = $("#"+id).attr("src");
-					console.log(src);
-					console.log(id);
-					console.log(ss);
+				for(var i=0; i<3; i++){
+					/* var id =  $("#content img").eq(i).attr("id"); */
+					var src = ["${file[0].f_newfilename}","${file[1].f_newfilename}","${file[2].f_newfilename}"];
+					if(src[i]!=""){
+					$("#file"+(i+1)).attr("src",path+src[i]);
+						var ss = $("#file"+(i+1)).attr("src");
+						console.log("d");
+						console.log(src);
+						/* console.log(id); */
+						console.log(ss);
+					}
 				}
 		}
 	}
@@ -201,15 +209,15 @@
 	function setClick(num) {
 		sw = $("input[name='set[]']").eq(num).val();       
 		if(sw == "up"){
-			$("#click").val("삭제");
+			$("input[name='click[]']").eq(num).val("삭제");
 			$("input[name='set[]']").eq(num).val("del");
 			$(".tog tr").eq(num+1).css("background-color","red");  
 		}else if(sw == "del"){
-			$("#click").val("선택");
+			$("input[name='click[]']").eq(num).val("선택");
 			$("input[name='set[]']").eq(num).val("");
 			$(".tog tr").eq(num+1).css("background-color","white");  
 		}else{
-			$("#click").val("수정");
+			$("input[name='click[]']").eq(num).val("수정");
 			$("input[name='set[]']").eq(num).val("up");
 			$(".tog tr").eq(num+1).css("background-color","aqua");  
 		}
@@ -227,6 +235,17 @@
 			$("input[name='set[]']").eq(num).val("in");
 			$(".tog tr").eq(num+1).css("background-color","green");
 			$("#add").val("취소");
+		}
+	}
+	
+	//개인기록 없어서 작성할때
+	function chk(num){         
+        sw = $("input[name='set[]']").eq(num).val(); 
+        console.log(sw);
+		if(sw == "in"){
+			$("input[name='set[]']").eq(num).val("");
+		}else{
+			$("input[name='set[]']").eq(num).val("in");
 		}
 	}
 	
@@ -279,7 +298,8 @@
 	//개인기록 보이기 토글
     $("#toggle").click(function(){
         $(this).toggleClass("ex");            
-        sw = $(this).hasClass("ex");            
+        sw = $(this).hasClass("ex");
+        console.log("f");
 		if(sw == true){
 			$(this).text("취소");
 			$("#pr").css("display","block");
@@ -321,13 +341,39 @@
 		});
 	}
 	
+	//개인기록그리기
+	function printList(list){
+		console.log(list);
+		var content = "";
+		for(var i=0; i<list.length; i++){
+			content +="<tr class='borderTop'><td>"+list[i].m_name
+			+"</td><td><input type='text' name='p_goal[]' value='0'/></td>"
+            +"<td><input type='text' name='p_assist[]' value='0'/></td>"
+            +"<td><input type='text' name='p_shoot[]' value='0'/></td>"
+            +"<td><input type='text' name='p_poul[]' value='0'/></td>"
+            +"<td><input type='text' name='p_warning[]' value='0'/></td>"
+            +"<td><input type='text' name='p_off[]' value='0'/></td>"
+            +"<td><input type='text' name='p_ck[]' value='0'/></td>"
+            +"<td><input type='text' name='p_pk[]' value='0'/></td>"
+            +"<td><input type='text' name='p_offside[]' value='0'/></td>"
+            +"<td><input type='text' name='p_effectshot[]' value='0'/></td>"
+            +"<td><input type='checkbox' onclick='chk("+i+")' name='chk[]' value='"
+            +list[i].m_idx+"'/><input type='hidden' name='set[]' value=''/></td></tr>";
+		}
+		$("#start").empty();
+		$("#start").append(content);
+	}
+	
+	
 	
 	//submit체크
 	function CheckForm(f){
+		console.log("for"+f.elements['set[]'].length);
 		if(sw==true){
 			for(var i=0; i<f.elements['set[]'].length; i++){
-				console.log("for"+i);
-				if(f.elements['set[]'][i].val==""){
+				var rr = f.elements['set[]'][i].value;
+				console.log(rr);
+				if(f.elements['set[]'][i].value==""){
 					console.log(i);
 					f.elements['p_goal[]'][i].disabled=true;
 					f.elements['p_assist[]'][i].disabled=true;
