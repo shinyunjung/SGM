@@ -40,6 +40,7 @@
 			.col2{
 				width:20%;
 				padding-top: 30px;
+				border: 1px solid blue;
 			}
 			.col5{
 				width: 60%;
@@ -47,9 +48,11 @@
 				padding-left: 1%;
 				padding-right: 1%;
 				/* border: 1px solid; */
+				border: 1px solid red;
 			}
 			.col3{
 				width: 20%;
+				border: 1px solid ;
 			}
 		    
 				

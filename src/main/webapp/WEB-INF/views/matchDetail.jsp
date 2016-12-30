@@ -141,7 +141,7 @@
 								</tr>
 								<tr class="borderTop">
 									<c:if test="${sessionScope.userIdx==null}">
-										<h1>세션 구별</h1>
+									
 									</c:if>
 									<c:if test="${sessionScope.userIdx!=null}">
 										<c:if test="${detail.mch_reple==0}">

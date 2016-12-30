@@ -343,15 +343,15 @@ public class MatchService {
 		inter=sqlSession.getMapper(MatchInterface.class);
 		int success=0;
 		String msg="신청 쪽지 보내기가 실패했습니다.";
-		String writer=params.get("writer")+"/";
-		writer+=params.get("t_idx");
-		String recever = params.get("recever")+"/";
-		recever+=params.get("receverIdx");
+		String writer=params.get("writer");
+		String writer_idx=params.get("t_idx");
+		String receiver = params.get("recever");
+		String receiver_idx=params.get("receverIdx");
 		String content=params.get("noteContent");
 		String title=params.get("noteTitle");
-		logger.info(writer+"/"+recever+"/"+content+"/"+title);
+		logger.info(writer+"/"+receiver+"/"+content+"/"+title);
 		String confirm="No";
-		success=inter.sendNote(writer, recever, title, content, confirm);
+		success=inter.sendNote(writer, writer_idx, receiver, receiver_idx, title, content, confirm);
 		if(success==1){
 			msg="신청 쪽지 보내기가 성공했습니다.";
 		}

@@ -14,6 +14,9 @@
 				border: 1px solid;
 				text-align: center;
 			}
+			.search{
+				border: 1px solid;
+			}
 		</style>
 	</head>
 	<body>
@@ -62,7 +65,7 @@
 						</table>
 					</div>
 					<div class="matchList">
-						<table class="table table-hover totalTable">
+						<table class="table table-hover">
 							<thead class="center">
 								<tr>
 									<td><b>순번</b></td>
@@ -83,7 +86,7 @@
 				
 				<!-- 세 번째 구역 -->
 				<div class="col3 content">
-					
+					광고 배너 공간
 				</div>
 			</div>
 		</div>

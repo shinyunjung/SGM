@@ -75,7 +75,7 @@
 				
 				<!-- 세 번째 구역 -->
 				<div class="col3 content">
-				
+					<jsp:include page="../../resources/include/loginBox.jsp" />
 				</div>	
 			</div>
 		</div>
