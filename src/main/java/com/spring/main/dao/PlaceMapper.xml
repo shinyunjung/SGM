@@ -45,4 +45,22 @@
 			 	ROW_NUMBER() OVER(ORDER BY a_idx DESC) AS rnum FROM area)
 			  WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
+	
+	<!--  매칭 리스트 추가 --> 
+  <insert id="a_write">
+  INSERT INTO matching(
+  	totalIdx, a_idx, t_idx, a_title, a_name, a_date, 
+  	a_time, a_type, a_age, a_content, a_lat, a_lng, 
+  	a_area, a_ground, a_state
+  	) VALUES(
+  	total_seq.NEXTVAL, area_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, 
+  	#{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10}, 
+  	#{param11}, #{param12}, #{param13})
+  </insert> 
+	
+	
+	
+	
+	
+	
 </mapper>

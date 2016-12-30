@@ -19,50 +19,21 @@
 
 
 	
+
 	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=4c80c1326b8411cbdc60e962e2c46260&libraries=services"></script>
 	<script>
+	$("#map").empty();
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-   			 mapOption = {
-      	     center: new daum.maps.LatLng(37.447357, 126.6824384), // 지도의 중심좌표
-      	     level: 7 // 지도의 확대 레벨
-    		 };
-
-	
-
-	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-	var map = new daum.maps.Map(mapContainer, mapOption); 
-
-	var positions = [
-	    {
-            content: '<div>인천축구전용경기장</div>', 
-            latlng: new daum.maps.LatLng(37.4660211, 126.64305495)
-        },
-        {
-            content: '<div>인천문학경기장</div>', 
-            latlng: new daum.maps.LatLng(37.43514542, 126.6909023)
-        }
+	    mapOption = { 
+			center: new daum.maps.LatLng(37.447357, 126.6824384), // 지도의 중심좌표
+			
+	        level: 7 // 지도의 확대 레벨
+	    };
 	   
-	];
-	
-	// 마커 이미지의 이미지 주소입니다
-	var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-	    
-		 for (var i = 0; i < positions.length; i ++) {
-	    
-	    // 마커 이미지의 이미지 크기 입니다
-	    var imageSize = new daum.maps.Size(24, 35); 
-	    
-	    // 마커 이미지를 생성합니다    
-	    var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize); 
-	    
-	    // 마커를 생성합니다
-	    var marker = new daum.maps.Marker({
-	        map: map, // 마커를 표시할 지도
-	        position: positions[i].latlng, // 마커를 표시할 위치
-	        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-	        image : markerImage // 마커 이미지 
-	    });
-	} 
+		//지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+		var map = new daum.maps.Map(mapContainer, mapOption); 
+		
+
 	
    function areaSearch(lat, lng){
 	   $("#map").empty();
@@ -70,7 +41,7 @@
 	    mapOption = { 
 			center: new daum.maps.LatLng(lat, lng), // 지도의 중심좌표
 			
-	        level: 3 // 지도의 확대 레벨
+	        level:  3// 지도의 확대 레벨
 	    };
 	   
 		//지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
@@ -89,6 +60,19 @@
 		
 		//아래 코드는 지도 위의 마커를 제거하는 코드입니다
 		//marker.setMap(null);    
+   }
+   
+   function addMarker(lat, lng){
+	   console.log(lat+"/"+lng);
+		var markerPosition  = new daum.maps.LatLng(lat, lng); 	
+		
+		//마커를 생성합니다
+		var marker = new daum.maps.Marker({
+		   position: markerPosition
+		});
+		
+		//마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
    }
 </script>
 </body>

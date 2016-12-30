@@ -19,31 +19,42 @@
 			th{
 				text-align: center;
 			}
+			.ad{
+				right: 1000px;
+			}
 			
-			
-			 .map_wrap {position:relative;width:100%;height:350px;}
-   			 .title {font-weight:bold;display:block;}
-		     .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
-    		 #centerAddr {display:block;margin-top:2px;font-weight: normal;}
-    		 .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 		</style>
 	</head>
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
+		<jsp:include page="../../resources/include/loginBox.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div class="layer">
 			<div class="page">
-			<div class="map_wrap">
-   			 <div>
-   				<jsp:include page='../../resources/include/placeMap.jsp' />	
-   			 </div>
-	    </div>
-			
 				
-				
+				<!-- 첫 번째 구역 -->
+				<div class="col2 content">
+					<fieldset>
+						<legend>장소목록</legend>
+					</fieldset>
+					<c:if test="${sessionScope.userId=='admin'}">
+						<div class="manager">
+							<jsp:include page="../../resources/include/manager.jsp" />
+						</div>
+					</c:if>
+				</div>
 				
 				<!-- 두 번째 구역 -->
 				<div class="col5 content">
+					<!-- 지도 -->
+					<div class="map_wrap">
+					<jsp:include page="../../resources/include/placeMap.jsp" />
+		   			 <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+		   				 <div class="hAddr">
+		      			  <span class="title">지도중심기준 행정동 주소정보</span>
+		       			 <span id="centerAddr"></span>
+		    			 </div>
+					 </div>
 					
 					<div class="center">
 						<select>
@@ -51,34 +62,23 @@
 						</select>
 						<input type="text" size="40" />
 						<button>검색</button>
-					</div>
-					<br/>
-					<td class="left">
-					게시물 갯수 : 
-									<select id="pagePerNum">
-										<option value="5">5</option>
-										<option value="10">10</option>
-										<option value="15">15</option>
-										<option value="20">20</option>
-									</select>
-					</td>
-								<br/>
-								
-								<!-- <tr>
-									<th value=>No</th>
-									<th value= ,class="center">작성자</th>
-									<th value= ,class="center">장소명</th>
-									<th value=>주소</th>
-									<th value=>조회수</th>
-									<th value=>날짜</th>
-									<th value=>별점</th>
-									
-								</tr> -->
+					</div>			
 								
 								
 					<div class="placeList">
 						<table class="table table-hover totalTable">
-							
+							<thead>
+							<tr>
+								<td class="left">
+										게시물 갯수 : 
+										<select id="pagePerNum">
+											<option value="5">5</option>
+											<option value="10">10</option>
+											<option value="15">15</option>
+											<option value="20">20</option>
+										</select>
+									</td>
+								</tr>
 								<tr>
 									<th >No</th>
 									<th class="center">작성자</th>
@@ -89,7 +89,7 @@
 									<th >별점</th>
 									
 								</tr>
-							
+							</thead>
 							<tbody id="list">
 								<tr>
 									<th>No</th>
@@ -107,44 +107,24 @@
 						</div>
 						<div class="left">
 							<button onclick="location.href='placeDetail'">상세보기</button>
-							<button onclick="location.href='placeWrite'">장소추가</button>
-							
+							<%-- <c:if test="${sessionScope.userId=='admin'}"> --%>
+								<button onclick="location.href='placeWrite'">장소추가</button>
+								
+							<%-- </c:if> --%>
 						</div>
 					</div>
-				</div>	
-				
-				
+				</div>
+				<!-- 세 번째 구역 -->
+				<div class="col3 content">
+					<div id="ad">
+						광고
+					</div>
+				</div>
 			</div>
-		</div>
+		</div>				
 		
-		
-						
 	</body>
-	
-	
-	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=4c80c1326b8411cbdc60e962e2c46260&libraries=services"></script>
 	<script>
-	
-	
-	//DB 에서 정보 받아와 마커 생성해보기
-	function addMarker(lat, lng){
-	    //마커가 표시될 위치입니다 
-	      var markerPosition  = new daum.maps.LatLng(lat, lng);    
-	   
-	   //마커를 생성합니다
-	   var marker = new daum.maps.Marker({
-	      position: markerPosition
-	     
-		   	});
-	   for(var i=0; i<list.length; i++){
-	         addMarker(list[i].a_lat, list[i].a_lng);
-	   	}
-	   
-	   
-	  
-	   }
-	
-	
 	var url="";
 	var data={};
 	var currPage=1;//현재 페이지

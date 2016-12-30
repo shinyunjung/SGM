@@ -93,5 +93,31 @@
 		var lat = $("input[name=lat]").val();
 		console.log(lat);
 	});
+	
+	
+	$(".btn-primary").click(function(){
+		var a_date=$("input[type='date']").val();
+		console.log(a_date);
+		
+		var a_time=$("input[type='time']").val();
+		console.log(a_time);
+	});
+	
+	function printArea(list){
+		var content="";
+		for(var i=0; i<list.length; i++){
+			content+="<tr>"
+				+"<td>"+list[i].a_idx+"</td>"
+				+"<td class='ground"+i+"'>"+list[i].a_ground+"</td>"
+				+"<td>"+list[i].a_address+"</td>"
+				+"<td>"+"<input type='radio' name='areaInfo' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+", "+i+")' value='"+list[i].a_lat+"/"+list[i].a_lng+"/"+list[i].a_ground+"' />"+"</td>"
+				+"</tr>";
+			}
+
+			$(".areaList").empty();
+			$(".areaList").append(content);
+	}
+	
+	
 	</script>
 </html>

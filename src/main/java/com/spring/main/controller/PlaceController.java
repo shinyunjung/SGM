@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.PlaceService;
 
@@ -63,7 +64,12 @@ public class PlaceController {
 			logger.info("리스트 요청");
 			return service.searchCall(params);
 		}
-	
+		//매칭쓰기
+		@RequestMapping(value = "/write")
+		public ModelAndView write(@RequestParam Map<String, String> params) {
+			logger.info("매칭쓰기");
+			return service.write(params);
+		}
 	
 	
 
