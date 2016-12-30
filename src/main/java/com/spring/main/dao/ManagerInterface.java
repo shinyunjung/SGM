@@ -35,4 +35,6 @@ public interface ManagerInterface {
 
 	ArrayList<TManagerDto> TManger_listCall(int start, int end);
 
+	UserDto memberInfo(String idx);
+
 }

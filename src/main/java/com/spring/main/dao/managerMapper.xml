@@ -55,11 +55,16 @@
 		WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
+	<!-- 팀(검색) 리스트 -->
 	<select id="TManger_searhCall" resultType="com.spring.main.dto.TManagerDto">
 		SELECT t_idx, t_name, t_area, m_name, m_idx, u_idx FROM (SELECT t.t_idx, t.t_name, t.t_area, m.m_name, m.m_idx, m.u_idx, ROW_NUMBER() 
 		OVER(ORDER BY t.t_idx DESC) AS rnum FROM team t, member m WHERE m.m_grade='대표' AND m.t_idx=t.t_idx AND t.t_name like '%'||#{param3}||'%' )
 		WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
+	<!-- 대표 정보 -->
+	<select id="memberInfo" resultType="com.spring.main.dto.UserDto">
+		SELECT * FROM SGM_user WHERE u_idx=#{param1}
+	</select>
 	
 </mapper>

@@ -75,18 +75,25 @@ public class ManagerController {
 		return service.teamSearchCall(params);
 	}
 	
-	/*//팀 검색
+	//팀 검색
 	@RequestMapping(value="/teamSearch")
 	public @ResponseBody Map<String, Object> teamSearch(@RequestParam("input") String input){
 		logger.info("팀 검색 요청");
 		return service.teamSearch(input);
-	}*/
+	}
 	
 	
 	//팀 대표 정보
-	@RequestMapping(value="/teamSearch")
+	@RequestMapping(value="/memberInfo")
 	public @ResponseBody Map<String, Object> memberInfo(@RequestParam("idx") String idx){
 		logger.info("팀대표 정보 요청");
 		return service.memberInfo(idx);
 	}
+	
+	//팀 대표 정보
+		@RequestMapping(value="/infoCheck")
+		public @ResponseBody Map<String, Object> infoCheck(@RequestParam("data") Object data){
+			logger.info("팀대표 정보 요청");
+			return service.infoCheck(data);
+		}
 }

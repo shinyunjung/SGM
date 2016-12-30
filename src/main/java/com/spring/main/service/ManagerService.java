@@ -145,6 +145,15 @@ public class ManagerService {
 	}
 
 	public Map<String, Object> memberInfo(String idx) {
+		inter=sqlSession.getMapper(ManagerInterface.class);
+		Map<String, Object> map = new HashMap<String, Object>();
+		UserDto udt = new UserDto();
+		udt=inter.memberInfo(idx);
+		map.put("info", udt);
+		return map;
+	}
+
+	public Map<String, Object> infoCheck(Object data) {
 		
 		return null;
 	}

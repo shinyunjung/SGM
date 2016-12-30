@@ -17,12 +17,23 @@
 				text-align: center;
 			}
 			#popup{
-	     	position:absolute;
+	     	 position:absolute; 
 			z-index:2;
-			width: 400px;
-			height: 150px;
+			width: 50%;
+			height: 53px;
 			background-color:#f5f5f5;
 			display:none;
+		}
+		
+		#myimporm{
+	        text-align: right;
+	        width: 20%;
+		}
+		#myimporm{
+		  padding-bottom: 10px;
+		   width: 100%;
+		   height: 100%;
+		   text-align: center;
 		}
 		</style>
 	</head>
@@ -47,10 +58,29 @@
 				<div class="col5 content">
 					<div id="popup">
 					<!-- 아이디 -->	
-						<br>
-						<h5>님의 아이디는 입니다.</h5><br>
-						<a href="pwFind">비밀번호 찾기</a><br>
-						<a href="login">로그인하러 가기</a>
+						<table id="myimporm">
+			  			<tr>
+			  				<th>아이디</th>
+			  				<td class=infoId></td>
+			  				<th>성명</th>
+			  				<td class="infoName"></td>
+			  			</tr>
+			  			<tr>
+			  				<th>성별</th>
+			  				<td class="infoGender"></td>
+			  				<th>생년월일</th>
+			  				<td class="infoAge"></td>
+			  			</tr>
+			  			<tr>
+			  				<th>핸드폰</th>
+			  				<td class="infoPhun"></td>
+			  				<th>이메일</th>
+			  				<td class="infoEmail"></td>
+			  			</tr>
+			  			<tr>
+			  				<td colspan="4" class="center"><button class="infoDel">취소</button></td>
+			  			</tr>
+			  		</table>
 					</div>
 					<table width="100%">
 							<tr>
@@ -74,7 +104,7 @@
 							</tr>
 						</table>
 					<div class="teamManager">
-						<table class="table table-hover totalTable">
+						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th>NO</th>
@@ -200,7 +230,7 @@
 							printPaging(data.totalCount, data.totalPage); 
 						}else if(url=="../../main/manager/memberInfo"){
 							console.log("대표 정보");
-							
+							printInfo(data.info);
 						}
 					},
 					error:function(error){
@@ -317,5 +347,34 @@
 		data.idx=idx;
 		reqServer(url, data);
 	}
+	
+	
+	//대표정보 그리기
+	function printInfo(data){
+		$("#popup").css("display","block");
+		$(".infoId").html(data.u_id);
+		$(".infoName").html(data.u_name);
+		$(".infoGender").html(data.u_gender);
+		$(".infoEmail").html(data.u_mail);
+		$(".infoAge").html(data.u_age);
+		$(".infoPhun").html(data.u_phnum);
+		$(".teamManager").css("display","none");
+	}
+	$(".infoDel").click(function(){
+		$(".infoId").html("");
+		$(".infoName").html("");
+		$(".infoGender").html("");
+		$(".infoEmail").html("");
+		$(".infoAge").html("");
+		$(".infoPhun").html("");
+		$("#popup").css("display","none");
+		$(".teamManager").css("display","block");
+	});
+	
+	/* function popupOpen(data){
+		var popUrl = "../../main/manager/infoCheck?id="+data.id"&;	//팝업창에 출력될 페이지 URL
+		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+			window.open(popUrl,"",popOption);
+		} */
 </script>
 </html>
