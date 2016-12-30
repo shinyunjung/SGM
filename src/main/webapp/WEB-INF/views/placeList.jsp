@@ -19,9 +19,7 @@
 			th{
 				text-align: center;
 			}
-			.ad{
-				right: 1000px;
-			}
+			
 			
 			 .map_wrap {position:relative;width:100%;height:350px;}
    			 .title {font-weight:bold;display:block;}
@@ -36,12 +34,10 @@
 		<div class="layer">
 			<div class="page">
 			<div class="map_wrap">
-   			 <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-   				 <div class="hAddr">
-      			  <span class="title">지도중심기준 행정동 주소정보</span>
-       			 <span id="centerAddr"></span>
-    			 </div>
-			 </div>
+   			 <div>
+   				<jsp:include page='../../resources/include/placeMap.jsp' />	
+   			 </div>
+	    </div>
 			
 				
 				
@@ -65,7 +61,7 @@
 										<option value="15">15</option>
 										<option value="20">20</option>
 									</select>
-								</td>
+					</td>
 								<br/>
 								
 								<!-- <tr>
@@ -120,9 +116,7 @@
 				
 			</div>
 		</div>
-		<div id="ad">
-			광고
-		</div>
+		
 		
 						
 	</body>
@@ -130,48 +124,7 @@
 	
 	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=4c80c1326b8411cbdc60e962e2c46260&libraries=services"></script>
 	<script>
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new daum.maps.LatLng(37.447357, 126.6824384), // 지도의 중심좌표
-        level: 7 // 지도의 확대 레벨
-    			};
 	
-	
-	// 지도를 생성합니다    
-	var map = new daum.maps.Map(mapContainer, mapOption); 
-
-	
-	var positions = [
-	    {
-            content: '<div>인천축구전용경기장</div>', 
-            latlng: new daum.maps.LatLng(37.4660211, 126.64305495)
-        },
-        {
-            content: '<div>인천문학경기장</div>', 
-            latlng: new daum.maps.LatLng(37.43514542, 126.6909023)
-        }
-	   
-	];
-
-	// 마커 이미지의 이미지 주소입니다
-	var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-	    
-	/* for (var i = 0; i < positions.length; i ++) {
-	    
-	    // 마커 이미지의 이미지 크기 입니다
-	    var imageSize = new daum.maps.Size(24, 35); 
-	    
-	    // 마커 이미지를 생성합니다    
-	    var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize); 
-	    
-	    // 마커를 생성합니다
-	    var marker = new daum.maps.Marker({
-	        map: map, // 마커를 표시할 지도
-	        position: positions[i].latlng, // 마커를 표시할 위치
-	        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-	        image : markerImage // 마커 이미지 
-	    });
-	} */
 	
 	//DB 에서 정보 받아와 마커 생성해보기
 	function addMarker(lat, lng){
