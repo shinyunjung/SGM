@@ -4,6 +4,7 @@ import oracle.sql.DATE;
 
 public class vidioDTO {
 	
+	private int totalidx;
 	private int j_idx;
 	private int u_idx;
 	private String j_name;
@@ -15,6 +16,13 @@ public class vidioDTO {
 	private int j_vcount;
 	private int j_reple;
 	
+	
+	public int getTotalidx() {
+		return totalidx;
+	}
+	public void setTotalidx(int totalidx) {
+		this.totalidx = totalidx;
+	}
 	public int getJ_idx() {
 		return j_idx;
 	}

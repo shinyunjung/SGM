@@ -152,8 +152,8 @@
 			var url="./vidio/v_listCall";
 			var data={};
 			data.page=currPage;
-
 			data.pagePerNum=$("#pagePerNum").val();
+			data.j_category = "2";
 			reqServer(url, data);
 		}
 	}

@@ -41,8 +41,8 @@ public class VidioService {
 			//게시물 시작과 끝 번호
 			int end=pagePerNum*currPage;
 			int start=end-pagePerNum+1;
-			int allCnt = inter.v_allCount();
-			
+			String j_category = params.get("j_category");
+			int allCnt = inter.v_allCount(j_category);
 			int totalPage=allCnt/pagePerNum;
 			System.out.println(totalPage%pagePerNum);
 			if(allCnt%pagePerNum!=0){
@@ -50,7 +50,7 @@ public class VidioService {
 			}
 			logger.info("전체 개시물:{}",allCnt);
 			
-			obj.put("list", inter.v_listCall(start, end));
+			obj.put("list", inter.v_listCall(start, end, j_category));
 			json.put("jsonList", obj);
 			json.put("currPage", currPage);
 			json.put("totalCount", allCnt);
@@ -71,6 +71,7 @@ public class VidioService {
 			
 			String input = params.get("input");
 			String type = params.get("type");
+			String j_category = params.get("j_category");
 			
 			logger.info(currPage+"/"+pagePerNum+"/"+input);
 			
@@ -79,11 +80,11 @@ public class VidioService {
 			int start=end-pagePerNum+1;
 			int allCnt=0;
 			if(input!=""){
-				allCnt = inter.v_searhCount(input, type);
-				obj.put("list", inter.v_searhCall(start, end, input, type));
+				allCnt = inter.v_searhCount(input, type, j_category);
+				obj.put("list", inter.v_searhCall(start, end, input, type, j_category));
 			}else{
-				allCnt = inter.allCount();
-				obj.put("list", inter.v_listCall(start, end));
+				allCnt = inter.v_allCount(j_category);
+				obj.put("list", inter.v_listCall(start, end, j_category));
 			}
 			
 			int totalPage=allCnt/pagePerNum;
@@ -109,7 +110,8 @@ public class VidioService {
 			Map<String, Object> json = new HashMap<String, Object>();
 			String input=params.get("input");
 			String type=params.get("type");
-			int allCnt = inter.v_searhCount(input, type);
+			String j_category = params.get("j_category");
+			int allCnt = inter.v_searhCount(input, type, j_category);
 			json.put("count", allCnt);
 			return json;
 		}
@@ -121,7 +123,8 @@ public class VidioService {
 		    String j_title = params.get("v_title");
 		    String j_name = params.get("v_name");
 		    String j_content = params.get("v_content");      
-		    int success = inter.Write(j_title, j_name, j_content); 
+		    String j_category = params.get("j_category");
+		    int success = inter.Write(j_title, j_name, j_content, j_category); 
 		    String page = "vidioList";
 		    String msg = "등록에 실패하였습니다.";   
 		    if(success == 1){
@@ -134,30 +137,30 @@ public class VidioService {
 
 		//상세보기
 		@Transactional
-		public ModelAndView vidioDetail(String j_idx) {
+		public ModelAndView vidioDetail(String totalidx) {
 			inter = sqlSession.getMapper(VidioInterface.class);
 			ModelAndView mav = new ModelAndView();
 			//조회수
-			inter.j_vcount(j_idx);
+			inter.j_vcount(totalidx);
 			//불러오기
 			logger.info("상세보기");
-			mav.addObject("content", inter.vidioDetail(j_idx));
+			mav.addObject("content", inter.vidioDetail(totalidx));
 			mav.setViewName("vidioDetail");      
 			return mav;
 		}
 
 
 		//글삭제
-	    public ModelAndView delete(String j_idx) {
+	    public ModelAndView delete(String totalidx) {
 	      inter = sqlSession.getMapper(VidioInterface.class);
 	         ModelAndView mav = new ModelAndView();
-	         logger.info(j_idx);
+	         logger.info(totalidx);
 	   
 	                  
 	         String msg="삭제에 성공 했습니다.";
 	        
 	         //글삭제
-	         if(inter.delete(j_idx) == 1){
+	         if(inter.delete(totalidx) == 1){
 	            msg="삭제에 성공 했습니다.";
 	            
 	         }
@@ -168,12 +171,12 @@ public class VidioService {
 
 
 	    //수정 보기
-	    public ModelAndView vidioModify(String j_idx) {
+	    public ModelAndView vidioModify(String totalidx) {
 	       inter = sqlSession.getMapper(VidioInterface.class);
 	       ModelAndView mav = new ModelAndView();
 	       //불러오기
 	       logger.info("수정페이지1");
-	       mav.addObject("content", inter.vidioDetail(j_idx));
+	       mav.addObject("content", inter.vidioDetail(totalidx));
 	       mav.setViewName("vidioModify");      
 	       return mav;
 	    }
@@ -185,10 +188,10 @@ public class VidioService {
 	       String j_title = params.get("j_title");
 	       String j_name = params.get("j_name");
 	       String j_content = params.get("j_content");
-	       String j_idx = params.get("j_idx");
+	       String totalidx = params.get("totalidx");
 	        logger.info(j_title+" / "+j_name+" / "+j_content);
 	      String msg = "수정에 실패 했습니다.";
-	       int success = inter.update(j_title, j_name, j_content, j_idx);
+	       int success = inter.update(j_title, j_name, j_content, totalidx);
 	       if(success == 1){
 	          msg = "수정에 성공 했습니다.";
 	       }

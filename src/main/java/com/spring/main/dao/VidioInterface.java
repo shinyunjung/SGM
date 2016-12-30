@@ -7,26 +7,26 @@ import com.spring.main.dto.vidioDTO;
 public interface VidioInterface {
 
 	//게시물 전체 갯수
-		int allCount();
+		int allCount(String j_category);
 
-		int v_searhCount(String input, String type);
+		int v_searhCount(String input, String type, String j_category);
 
-		ArrayList<vidioDTO> v_searhCall(int start, int end, String input, String type);
+		ArrayList<vidioDTO> v_searhCall(int start, int end, String input, String type, String j_category);
 
-		int v_allCount();
+		int v_allCount(String j_category);
 
-		ArrayList<vidioDTO> v_listCall(int start, int end);
+		ArrayList<vidioDTO> v_listCall(int start, int end, String j_category);
 
 
-		int Write(String j_title, String j_name, String j_content);
+		int Write(String j_title, String j_name, String j_content, String j_category);
 
-		vidioDTO vidioDetail(String j_idx);
+		vidioDTO vidioDetail(String totalidx);
 
 		//조회수카운트
-		void j_vcount(String j_idx);
+		void j_vcount(String totalidx);
 
-		int delete(String j_idx);
+		int delete(String totalidx);
 
-		int update(String j_title, String j_name, String j_content, String j_idx);
+		int update(String j_title, String j_name, String j_content, String totalidx);
 
 }
