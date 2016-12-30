@@ -201,8 +201,6 @@
 									받는 이 : <input type="text" name="recever" value="${detail.mch_name}" id="reception" readonly/><input type="text" name="writer" value="" />
 									<input type="hidden" name="receverIdx" value="${detail.t_idx}" />
 									<input type="hidden" name="noteTitle" value="[${detail.mch_title}] 의 글에서 신청한 쪽지가 왔습니다." />
-									<input type="hidden" name="userIdx" value="${sessionScope.userIdx}" />
-									<input type="hidden" name="contentIdx" value="${detail.mch_idx}" />
 								</td>
 							</tr>
 							<tr class="borderTop">

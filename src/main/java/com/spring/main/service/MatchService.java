@@ -340,16 +340,23 @@ public class MatchService {
 
 	public ModelAndView sendNote(Map<String, String> params) {
 		ModelAndView mav = new ModelAndView();
-		String writer=params.get("writer")+"(";
-		writer+=params.get("t_idx")+")";
-		String recever = params.get("recever");
-		String receverIdx=params.get("receverIdx");
+		inter=sqlSession.getMapper(MatchInterface.class);
+		int success=0;
+		String msg="신청 쪽지 보내기가 실패했습니다.";
+		String writer=params.get("writer")+"/";
+		writer+=params.get("t_idx");
+		String recever = params.get("recever")+"/";
+		recever+=params.get("receverIdx");
 		String content=params.get("noteContent");
 		String title=params.get("noteTitle");
-		String userIdx=params.get("userIdx");
-		String contentIdx=params.get("contentIdx");
-		logger.info(writer+"/"+recever+"/"+receverIdx+"/"+content+"/"+title+"/"+userIdx+"/"+contentIdx);
-		mav.setViewName("redirect:matchDetail?idx="+contentIdx+"&userIdx="+userIdx);
+		logger.info(writer+"/"+recever+"/"+content+"/"+title);
+		String confirm="No";
+		success=inter.sendNote(writer, recever, title, content, confirm);
+		if(success==1){
+			msg="신청 쪽지 보내기가 성공했습니다.";
+		}
+		mav.addObject("msg",msg);
+		mav.setViewName("matchList");
 		return mav;
 	}
 

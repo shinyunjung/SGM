@@ -55,6 +55,12 @@
 		INSERT INTO reple(r_idx, r_category, mch_idx, r_writer, r_reple) VALUES(reple_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4})
 	</insert>
 	
+	
+	<!-- 쪽지 신청 -->
+	<insert id="sendNote">
+		INSERT INTO note(n_idx, n_writer, n_receiver, n_title, n_content, n_confirm) VALUES(note_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5})
+	</insert>
+	
 	<!-- 댓글 수 업 -->
 	<update id="mch_replyUp">
 		UPDATE matching SET mch_reple=mch_reple+1 WHERE totalIdx=#{param1}

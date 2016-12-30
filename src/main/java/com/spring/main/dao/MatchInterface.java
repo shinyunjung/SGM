@@ -59,6 +59,8 @@ public interface MatchInterface {
 			String mch_content, String mch_lat, String mch_lng, String mch_area, String mch_ground, String mch_state,
 			String mch_idx);
 
+	int sendNote(String writer, String recever, String title, String content, String confirm);
+
 
 
 

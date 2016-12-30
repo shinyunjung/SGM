@@ -189,14 +189,6 @@ public class MainController {
 		}
 	
 	
-
-	//매칭 상세보기
-	@RequestMapping(value = "/matchDetail")
-	public String matchDetail() {
-		logger.info("매칭 상세보기");
-		return "matchDetail";
-	}
-	
 	//매칭 글작성
 		@RequestMapping(value = "/matchWrite")
 		public String matchWrite() {
