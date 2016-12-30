@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<% 
+	String j_idx = (String)session.getAttribute("j_idx");
+    boolean check=false;
+%>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -82,19 +86,146 @@
 								</tr>
 							</tbody>
 						</table>
+						<div class="col3 content">
+					<div>
+						<table>
+						<tr class="borderTop">
+									<c:if test="${detail.free_reple==0}">
+										<td class="left"><a onclick="reple()" class="repCnt">댓글쓰기</a></td>
+									</c:if>
+									<c:if test="${detail.free_reple!=0}">
+										<td class="left"><a onclick="reple()" class="repCnt">댓글 ${detail.r_reple}</a></td>
+									</c:if>
+									<c:if test="${sessionScope.j_idx==''}">
+										<h1>세션 구별</h1>
+									</c:if>
+									<c:if test="${sessionScope.j_idx!=''}">
+										<c:set var="detailFree" value="${detail.free_name}" />
+										<c:forEach items="${teamList}" var="team">
+											<c:if test="${team.j_name==detailTeam}">
+												<%check=true; %>
+											</c:if>
+										</c:forEach>
+									</c:if>
+								</tr>
+							</table>
+						</div>
+				</div>
 						<!-- 댓글 -->
 						
 					</div>
 				</div>
 				
 				<!-- 세 번째 구역 -->
-				<div class="col3 content">
-					
-				</div>
+				
 			</div>
 		</div>
 	</body>
 	<script>
-
+	function del(){
+		location.href="./delete?j_idx="+${content.j_idx };
+	}
+	function reple(){
+		var display=$("#replyZone").css("display");
+		if(display=="none"){
+			$("#replyZone").css("display","block");
+			 replyList(); 
+		}else{
+			$("#replyZone").css("display","none");
+		}
+	}
+	
+	$(".repleGo").click(function(){
+		console.log("댓글 전송");
+		var url="../free/replyRegist";
+		var data={};
+		data.r_idx="${detail.totalIdx}";
+		data.r_category=3;
+		data.r_replyer="${sessionScope.j_idx}"; 
+		data.r_reple=$("#reple").val();
+		console.log(data);
+		reqServer(url, data);
+	});
+	
+	function replyList(){
+		var url="../free/replyList";
+		var data={};
+		data.r_idx="${detail.totalIdx}";
+		data.r_category=3;
+		console.log(data);
+		console.log("댓글 리스트");
+		reqServer(url, data);
+	}
+	
+	function printReple(list){
+		var content="";
+		var user="${sessionScope.j_idx}";
+		console.log(user);
+		repleCnt=list.length;
+		for(var i=0; i<list.length; i++){
+			content+="<tr>"
+				+"<td class='user'>"+list[i].r_writer+"</td>"
+				+"<td class='data'>"+list[i].r_reple;
+				if(user==list[i].r_writer){
+				content+="<a href='#' onclick='repleDel("+list[i].r_idx+")'><sup>X</sup></a>";
+				}
+				content+="</td>"
+				+"<td>"+list[i].r_date+"</td>"
+				+"</tr>";
+		}
+		
+		if(repleCnt>0){
+			$(".repCnt").html("댓글 "+repleCnt);	
+		}else{
+			$(".repCnt").html("댓글쓰기");	
+		}
+		
+		$("#repleList").empty();
+		$("#repleList").append(content);
+	}		
+	
+	function repleDel(r_idx){
+		var url="../free/replyDel";
+		var data={};
+		data.r_idx=r_idx;
+		data.r_parent="${detail.totalIdx}";
+		data.r_category=3;
+		console.log(data);
+		reqServer(url, data);
+	}
+	
+	function reqServer(url, obj){
+		console.log(url);
+		console.log(obj);
+		$.ajax({
+			url:url,
+			type:"get",
+			data:obj,
+			dataType:"JSON",
+			success:function(data){
+				console.log(data);
+				if(url=="../free/replyRegist"){
+					console.log(data.msg);
+					$("#reple").val("");
+					 replyList(); 
+				}else if(url=="../free/replyList"){
+					console.log("댓글 리스트 호출");
+					printReple(data.replyList); 
+				}else if(url=="../free/replyDel"){
+					console.log("댓글 삭제");
+					alert(data.msg);
+					replyList();
+				}else if(url=="../selectTeam"){
+					console.log("쪽지에서 함");
+					console.log(data.userTeam);
+					printSelect(data.userTeam);
+				}
+			},
+			error:function(error){
+				console.log(error);
+			}
+		});
+	}
+	
 	</script>
 </html>

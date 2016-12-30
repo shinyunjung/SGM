@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.spring.main.dto.RepleDto;
 import com.spring.main.service.FreeService;
 
 
@@ -103,6 +103,30 @@ public class FreeController {
 	  				){
 	  			logger.info("수정 요청");
 	  			return FreeService.update(params);
+	  		}
+	  	//댓글 등록
+	  		@RequestMapping(value = "/replyRegist")
+	  		public @ResponseBody Map<String, String> replyRegist(
+	  				@RequestParam Map<String, String> params) {
+	  			logger.info("매칭댓글등록");
+	  			return FreeService.replyRegist(params);
+	  		}
+	  		
+	  		//댓글 요청	
+	  		@RequestMapping(value="/replyList")
+	  		public @ResponseBody Map<String, ArrayList<RepleDto>> replyList(
+	  				@RequestParam Map<String, String> params){
+	  			logger.info("댓글 리스트 요청");
+	  			return FreeService.replyList(params);
+	  		}
+	  		
+	  		
+	  		//댓글 삭제
+	  		@RequestMapping(value="/replyDel")
+	  		public @ResponseBody Map<String, String> replyDel(
+	  				@RequestParam Map<String, String> params){
+	  			logger.info("삭제 요청");
+	  			return FreeService.replyDel(params);
 	  		}
 	  		
 

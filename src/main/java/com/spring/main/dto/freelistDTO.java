@@ -4,6 +4,8 @@ import oracle.sql.DATE;
 
 public class freelistDTO {
    
+	
+   private int totalidx;
    private int j_idx;
    private int u_idx;
    private String j_name;
@@ -14,6 +16,14 @@ public class freelistDTO {
    private int j_filenum;
    private int j_vcount;
    private int j_reple;
+   
+   
+   public int getTotalidx() {
+	   return totalidx;
+   }
+   public void setTotalidx(int totalidx) {
+	   this.totalidx = totalidx;
+   }
    
    public int getJ_idx() {
       return j_idx;

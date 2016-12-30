@@ -2,6 +2,7 @@ package com.spring.main.dao;
 
 import java.util.ArrayList;
 
+import com.spring.main.dto.RepleDto;
 import com.spring.main.dto.freelistDTO;
 
 public interface FreeInterface {
@@ -35,6 +36,25 @@ public interface FreeInterface {
 	
 	//글 수정하기
 	int update(String j_title, String j_name, String j_content, String j_idx);
+
+	//댓글 달기
+	int f_replyRegist(int r_category, String r_idx, String r_replyer, String r_reple);
+
+	
+	void f_replyUp(String r_idx);
+	
+	void f_repleDown(String r_idx);
+
+	
+	ArrayList<RepleDto> f_replyList(String r_idx, String r_category);
+
+	
+	int f_replyDel(String r_idx, String r_category);
+
+	
+	
+
+
 
 
 	

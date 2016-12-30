@@ -43,9 +43,14 @@
                            </select>
                            </td>
                            <td class="right">
-                           <button onclick="Search()">검색</button>
-                           <input type="text" size="20" />
-                        </td>
+									<select class="type">
+										<option value="j_title">제목</option>
+										<option value="j_content">내용</option>
+										<option value="j_name">글쓴이</option>
+									</select>
+									<input type="text" size="20" class="input"/>
+									<button onclick="Search()">검색</button>
+								</td>
                      </tr>
                   </table>
                </div>
@@ -86,7 +91,7 @@
    var totalPage=1;
    var search=false;
    var input = "";
-   var type="free_title";
+   var type="j_title";
     $("document").ready(function(){
        f_listCall(currPage);
    }); 
@@ -101,7 +106,7 @@
    });
    
    function Search(){
-      var url="./f_search";
+      var url="../free/f_search";
       var data={};
       if($(".input").val()!=""){
          console.log("검색");
@@ -122,7 +127,7 @@
    
    function f_searchCall(currPage){
       if(currPage>=1 && currPage<=totalPage){
-         var url="./f_searchCall";
+         var url="../free/f_searchCall";
          var data={};
          search=true;
          console.log($(".input").val());
@@ -144,7 +149,7 @@
    
    function f_listCall(currPage){
       if(currPage>=1 && currPage<=totalPage){
-         var url="./f_listCall";
+         var url="../free/f_listCall";
          var data={};
          data.page=currPage;
          data.pagePerNum=$("#pagePerNum").val();
@@ -163,13 +168,13 @@
          dataType:"JSON",
          success:function(data){
             console.log(data);
-            if(url=="./f_listCall"){
+            if(url=="../free/f_listCall"){
                printList(data.jsonList.list);
                currPage=data.currPage;
                totalPage=data.totalPage;
                printPaging(data.totalCount, data.totalPage); 
             }
-            else if(url=="./f_search"){
+            else if(url=="../free/f_search"){
                if(data.count!=0){
                   console.log(data.count);
                   f_searchCall(1);
@@ -177,7 +182,7 @@
                   alert("검색 결과가 없습니다.");
                }
             }
-            else if(url=="./f_searchCall"){
+            else if(url=="../free/f_searchCall"){
                console.log("검색 종료");
                printList(data.jsonList.list);
                currPage=data.currPage;
@@ -197,7 +202,7 @@ function printList(list){
       content+="<tr>"
          +"<td>"+list[i].j_idx+"</td>"
          +"<td>"+list[i].j_name+"</td>"
-         +"<td><a href='../../main/free/freeDetail?j_idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
+         +"<td><a href='../free/freeDetail?j_idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
          +"<td>"+list[i].j_date+"</td>"		 
          +"<td>"+list[i].j_vcount+"</td>"
          +"</tr>";

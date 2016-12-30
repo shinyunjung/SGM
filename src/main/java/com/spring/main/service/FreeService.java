@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.FreeInterface;
+import com.spring.main.dto.RepleDto;
 import com.spring.main.dto.freelistDTO;
 
 @Service
@@ -61,7 +62,7 @@ public class FreeService {
 
 	   
 	//리스트 검색
-	public Map<String, Object> f_search(
+	public Map<String, Object> f_searchCall(
 			Map<String, String> params) {
 		 Map<String, ArrayList<freelistDTO>> obj = 
 				 new HashMap<String, ArrayList<freelistDTO>>();
@@ -76,6 +77,7 @@ public class FreeService {
          String type = params.get("type");
          
          logger.info(currPage+"/"+pagePerNum+"/"+input);
+         logger.info("검색요청11");
          
          //게시물 시작과 끝 번호
          int end=pagePerNum*currPage;
@@ -103,12 +105,14 @@ public class FreeService {
          json.put("totalCount", allCnt);
          json.put("totalPage", totalPage);
          
+         logger.info("검색요청2");
+         
          return json;
 
 	}
 	
-	
-		public Map<String, Object> f_searchCall(Map<String, String> params) {
+		//검색 요청
+		public Map<String, Object> f_search(Map<String, String> params) {
 			inter=sqlSession.getMapper(FreeInterface.class);
 	         Map<String, Object> json = new HashMap<String, Object>();
 	         String input=params.get("input");
@@ -201,6 +205,58 @@ public class FreeService {
 			mav.setViewName("freeList");
 			
 			return mav;
+		}
+		
+		//댓글 등록
+		public Map<String, String> replyRegist(Map<String, String> params) {
+			Map<String, String> obj = new HashMap<String, String>();
+			inter=sqlSession.getMapper(FreeInterface.class);
+			int success=0;
+			String msg="댓글 등록에 실패하셨습니다.";
+			String r_idx=params.get("r_idx");
+			String r_replyer=params.get("r_replyer");
+			String r_reple=params.get("r_reple");
+			int r_category = Integer.parseInt(params.get("r_category"));
+			logger.info(r_idx);
+			logger.info(r_replyer);
+			logger.info(r_reple);
+			success=inter.f_replyRegist(r_category, r_idx, r_replyer, r_reple);
+			if(success==1){
+				inter.f_replyUp(r_idx);
+				msg="댓글 등록에 성공하셨습니다.";
+			}
+			obj.put("msg", msg);
+			return obj;
+		}
+
+
+		public Map<String, ArrayList<RepleDto>> replyList(Map<String, String> params) {
+			Map<String, ArrayList<RepleDto>> obj = new HashMap<String, ArrayList<RepleDto>>();
+			inter=sqlSession.getMapper(FreeInterface.class);
+			String r_idx=params.get("r_idx");
+			String r_category=params.get("r_category");
+			obj.put("replyList", inter.f_replyList(r_idx, r_category));
+			
+			return obj;
+		}
+
+
+		public Map<String, String> replyDel(Map<String, String> params) {
+			Map<String, String> obj = new HashMap<String, String>();
+			int success=0;
+			inter=sqlSession.getMapper(FreeInterface.class);
+			String r_idx=params.get("r_idx");
+			String r_category=params.get("r_category");
+			String r_parentIdx = params.get("r_parent");
+			String msg="삭제에 실패했습니다.";
+			
+			success=inter.f_replyDel(r_idx, r_category);
+			if(success==1){
+				inter.f_repleDown(r_parentIdx);
+				msg="삭제에 성공했습니다.";
+			}
+			obj.put("msg", msg);
+			return obj;
 		}
 		
 }
