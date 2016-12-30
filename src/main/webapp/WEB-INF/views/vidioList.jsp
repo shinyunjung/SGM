@@ -44,9 +44,9 @@
 									</td>
 									<td class="right">
 									<select class="type">
-										<option value="mch_title">제목</option>
-										<option value="mch_content">내용</option>
-										<option value="mch_name">글쓴이</option>
+										<option value="j_title">제목</option>
+										<option value="j_content">내용</option>
+										<option value="j_name">글쓴이</option>
 									</select>
 									<input type="text" size="20" class="input"/>
 									<button onclick="Search()">검색</button>
@@ -91,7 +91,7 @@
 	var totalPage=1;
 	var search=false;
 	var input = "";
-	var type="vidio_title";
+	var type="j_title";
 	 $("document").ready(function(){
 		 v_listCall(currPage);
 	}); 

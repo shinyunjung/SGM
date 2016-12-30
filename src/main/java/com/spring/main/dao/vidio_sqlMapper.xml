@@ -2,53 +2,55 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.spring.main.dao.VidioInterface">
- 
- 	<!-- 게시물 전채 개수 -->
-	<select id="v_allCount" resultType="Integer">
-		SELECT COUNT(*) FROM board
-	</select>
-	
-	<!-- 검색 후 게시물 전채 개수 -->
-	<select id="v_searhCount" resultType="Integer" >
-		SELECT COUNT(*) FROM board WHERE ${param2} like '%'||#{param1}||'%'
-	</select>
-	
-	<!-- 리스트 불러오기 -->
-	<select id="v_listCall" resultType="com.spring.main.dto.vidioDTO">
-		SELECT j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
- 		j_filenum, j_vcount, j_reple
- 			FROM (
-  				SELECT j_idx,
-  				u_idx, j_name,
-  				j_category,
-  				j_title,
-  				j_content, 
-  				j_date,
-  				j_filenum,
-  				j_vcount,
-  				j_reple,
-  					ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board)
-		WHERE rnum BETWEEN #{param1} AND #{param2}
-	</select>
-	
-	<!-- 검색 후 리스트 추가 -->
-	<select id="v_searhCall" resultType="com.spring.main.dto.vidioDTO">
-		SELECT j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
- 		j_filenum, j_vcount, j_reple FROM (
-			SELECT j_idx,
-  				u_idx, j_name,
-  				j_category,
-  				j_title,
-  				j_content, 
-  				j_date,
-  				j_filenum,
-  				j_vcount,
-  				j_reple, 
-  					ROW_NUMBER() OVER(ORDER BY mch_idx DESC) AS rnum FROM board
-  		WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
-	</select>
-	
-	 <!-- 상세 보기 -->
+
+    <!-- 자유게시판 리스트 뛰우기 -->
+    <!-- 게시물 전채 개수 -->
+   <select id="v_allCount" resultType="Integer">
+      SELECT COUNT(*) FROM board
+   </select>
+   
+   <!-- 검색 후 게시물 전채 개수 -->
+   <select id="v_searhCount" resultType="Integer" >
+      SELECT COUNT(*) FROM board WHERE ${param2} like '%'||#{param1}||'%'
+   </select>
+   
+   <!-- 리스트 불러오기 -->
+   <select id="v_listCall" resultType="com.spring.main.dto.vidioDTO">
+      SELECT totalidx, j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
+       j_filenum, j_vcount, j_reple
+          FROM (
+              SELECT totalidx,
+              j_idx,
+              u_idx, j_name,
+              j_category,
+              j_title,
+              j_content, 
+              j_date,
+              j_filenum,
+              j_vcount,
+              j_reple,
+                 ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board)
+      WHERE rnum BETWEEN #{param1} AND #{param2}
+   </select>
+   
+   <!-- 검색 후 리스트 추가 -->
+   <select id="v_searhCall" resultType="com.spring.main.dto.vidioDTO">
+      SELECT j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
+       j_filenum, j_vcount, j_reple FROM (
+         SELECT j_idx,
+              u_idx, j_name,
+              j_category,
+              j_title,
+              j_content, 
+              j_date,
+              j_filenum,
+              j_vcount,
+              j_reple, 
+                 ROW_NUMBER() OVER(ORDER BY j_idx DESC) AS rnum FROM board
+        WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
+   </select>
+   
+   <!-- 상세 보기 -->
     <select id="vidioDetail" resultType="com.spring.main.dto.vidioDTO">
        SELECT * FROM board WHERE j_idx = #{param1}
     </select>
@@ -61,8 +63,9 @@
     <!-- 글쓰기 -->
     <insert id="Write">
        INSERT INTO board(
-       j_idx, j_title, j_name, j_content, j_vcount, j_reple)
-          VALUES(board_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, 0, 0)
+       totalidx, j_idx, j_title, j_name, j_content, j_vcount, j_reple)
+          VALUES(total_seq.NEXTVAL, free_seq.NEXTVAL, #{param1}, #{param2}, #{param3}
+          ,0,0)
     </insert>
     
     <!-- 글삭제 -->
@@ -73,7 +76,36 @@
    <!-- 글 수정 -->
     <update id="update">
        UPDATE board SET j_title = #{param1}, j_name = #{param2}, j_content = #{param3}
-          WHERE j_idx = #{param3}
+          WHERE j_idx = #{param4}
     </update>   
-	
- </mapper>
+    
+    <!-- 댓글 등록 -->
+   <insert id="v_replyRegist">
+      INSERT INTO reple(r_idx, r_category, j_idx, r_writer, r_reple) 
+         VALUES(reple_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4})
+   </insert>
+   
+   <!-- 댓글 수 업 -->
+   <update id="v_replyUp">
+      UPDATE board SET j_reple=j_reple+1 WHERE totalIdx=#{param1}
+   </update>
+   
+   <!-- 댓글 수 다운 -->
+   <update id="v_repleDown">
+      UPDATE board SET j_reple=j_reple-1 WHERE totalIdx=#{param1}
+   </update>
+   
+   <!-- 댓글 리스트 -->
+   <select id="v_replyList" resultType="com.spring.main.dto.RepleDTO">
+      SELECT * FROM reple WHERE r_idx=#{param1} 
+         AND r_category=#{param2} ORDER BY r_idx ASC
+   </select>
+   
+   <!-- 댓글 삭제(개인) -->
+   <delete id="v_replyDel">
+      DELETE FROM reple WHERE r_idx=#{param1} 
+         AND r_category=#{param2}
+   </delete>
+    
+       
+</mapper>

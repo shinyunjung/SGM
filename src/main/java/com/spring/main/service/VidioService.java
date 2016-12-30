@@ -162,19 +162,19 @@ public class VidioService {
 	            
 	         }
 	         mav.addObject("msg", msg);      
-	         mav.setViewName("freeList");
+	         mav.setViewName("vidioList");
 	         return mav;
 	      }
 
 
 	    //수정 보기
-	    public ModelAndView freeModify(String j_idx) {
+	    public ModelAndView vidioModify(String j_idx) {
 	       inter = sqlSession.getMapper(VidioInterface.class);
 	       ModelAndView mav = new ModelAndView();
 	       //불러오기
 	       logger.info("수정페이지1");
-	       mav.addObject("content", inter.freeDetail(j_idx));
-	       mav.setViewName("freeModify");      
+	       mav.addObject("content", inter.vidioDetail(j_idx));
+	       mav.setViewName("vidioModify");      
 	       return mav;
 	    }
 
@@ -193,7 +193,7 @@ public class VidioService {
 	          msg = "수정에 성공 했습니다.";
 	       }
 	       mav.addObject("msg", msg);
-	       mav.setViewName("freeList");
+	       mav.setViewName("vidioList");
 	       
 	       return mav;
 	    }

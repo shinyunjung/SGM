@@ -27,8 +27,6 @@ public interface VidioInterface {
 
 		int delete(String j_idx);
 
-		Object freeDetail(String j_idx);
-
 		int update(String j_title, String j_name, String j_content, String j_idx);
 
 }

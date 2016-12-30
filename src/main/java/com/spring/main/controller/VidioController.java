@@ -31,14 +31,16 @@ public class VidioController {
 			
 	//검색 요청
 	@RequestMapping(value="/v_search")
-		public @ResponseBody Map<String, Object> search(@RequestParam Map<String, String> params){
+		public @ResponseBody Map<String, Object> v_search(
+				@RequestParam Map<String, String> params){
 		logger.info("검색 요청");
 		return VidioService.v_search(params);
 	}
 			
 	//검색 후 리스트 요청
 	@RequestMapping(value="/v_searchCall")
-	public @ResponseBody Map<String, Object> searchCall(@RequestParam Map<String, String> params){
+	public @ResponseBody Map<String, Object> v_searchCall(
+			@RequestParam Map<String, String> params){
 		logger.info("리스트 요청");
 		return VidioService.v_searchCall(params);
 	}
@@ -70,11 +72,11 @@ public class VidioController {
        return VidioService.delete(j_idx);
     }
     //수정 페이지 이동
-    @RequestMapping(value="/freeModify")
-    public ModelAndView freeModify(
+    @RequestMapping(value="/vidioModify")
+    public ModelAndView vidioModify(
           @RequestParam("j_idx") String j_idx ){
        logger.info("수정페이지 이동");
-       return VidioService.freeModify(j_idx);
+       return VidioService.vidioModify(j_idx);
     }
     //수정
     @RequestMapping(value="/update")
