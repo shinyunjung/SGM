@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.TeamService;
@@ -42,9 +43,9 @@ public class TeamController {
 	}
 	//팀수정
 	@RequestMapping(value = "/teamModify")
-	public String memberUpdate() {
+	public ModelAndView memberUpdate(@RequestParam("t_idx") String t_idx) {
 		logger.info("팀수정");
-		return "teamModify";
+		return service.teamModify(t_idx);
 	}
 	//멤버상세
 	@RequestMapping(value = "/memberDetail")
@@ -60,10 +61,61 @@ public class TeamController {
 		return service.listCall(params);
 	}
 	
-	/*//검색하기
-	@RequestMapping(value = "/search")
-	public @ResponseBody Map<String, String> search(@RequestParam("t_name") String t_name) {
-		logger.info("검색");
-		return service.search(t_name);
-	}*/
+	//중복체크
+	@RequestMapping(value = "/tName")
+	public @ResponseBody Map<String, String> tName(@RequestParam("t_name") String t_name) {
+		logger.info("중복체크");
+		return service.tName(t_name);
+	}
+	
+	//팀생성
+	@RequestMapping(value = "/insertTeam")
+	public ModelAndView insertTeam(MultipartHttpServletRequest multi) {
+		logger.info("팀생성");
+		return service.insertTeam(multi);
+	}
+	
+	//팀수정
+	@RequestMapping(value = "/teamUpdate")
+	public ModelAndView teamUpdate(MultipartHttpServletRequest multi) {
+		logger.info("팀수정");
+		return service.teamUpdate(multi);
+	}
+		
+	//팀삭제
+	@RequestMapping(value = "/teamDel")
+	public @ResponseBody Map<String, String> teamDel(@RequestParam("t_idx") String t_idx) {
+		logger.info("팀삭제");
+		return service.teamDel(t_idx);
+	}
+	
+	//멤버추가
+	@RequestMapping(value = "/memberAdd")
+	public @ResponseBody Map<String, Object> memberAdd(@RequestParam Map<String, String> params) {
+		logger.info("멤버추가");
+		return service.memberAdd(params);
+	}
+	
+	//멤버수정
+	@RequestMapping(value = "/memberup")
+	public @ResponseBody Map<String, Object> memberup(@RequestParam Map<String, String> params) {
+		logger.info("멤버수정");
+		return service.memberup(params);
+	}
+	
+	//멤버삭제
+	@RequestMapping(value = "/memberDel")
+	public @ResponseBody Map<String, Object> memberDel(@RequestParam Map<String, String> params) {
+		logger.info("멤버삭제");
+		return service.memberDel(params);
+	}
+	
+	//대표변경
+	@RequestMapping(value = "/leader")
+	public @ResponseBody Map<String, String> leader(@RequestParam Map<String, String> params) {
+		logger.info("대표변경");
+		return service.leader(params);
+	}
+	
+	
 }

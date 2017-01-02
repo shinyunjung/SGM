@@ -188,21 +188,17 @@ public class TdService {
 			
 			String[] delName = inter.fileDelName(idx);
 			logger.info(Integer.toString(delName.length));
-			//글삭제		
-			String msg="삭제에 실패 했습니다.";		
+			//글삭제
 			if(inter.delete(idx) == 1){
-				msg="삭제에 성공 했습니다.";
 				//파일삭제
 				if(delName != null){				
 					UploadFile file = new UploadFile();
 					for(int i=0 ; i<delName.length;i++){
 						logger.info("지운다 : "+delName[i]);
 						file.delete(delName[i]);
-						
 					}				
 				}
 			}
-			mav.addObject("msg", msg);
 			mav.setViewName("redirect:../td/tdList?t_idx="+t_idx);
 			
 			return mav;

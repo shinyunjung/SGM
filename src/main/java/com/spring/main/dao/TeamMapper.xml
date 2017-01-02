@@ -6,36 +6,36 @@
 
 	<!-- 리스트보이기 -->
 	<select id="listCall" resultType="com.spring.main.dto.TeamDto">
-		SELECT t_idx,t_name,t_area,t_day,t_time,t_uniform,t_picture,t_matchcount,t_rankpoint,
-		t_age,t_win,t_lose,t_draw,RANK() OVER (ORDER BY t_rankpoint DESC) RANK FROM team1
+		SELECT t_idx,t_name,t_area,t_day,t_time,t_uniform,t_newPicture,t_oldPicture,t_matchcount,t_rankpoint,
+		t_age,t_win,t_lose,t_draw,RANK() OVER (ORDER BY t_rankpoint DESC) RANK FROM team
 	</select>
 	
 	<!-- 게시물 수 -->
 	<select id="allCount" resultType="Integer">
-		SELECT COUNT(*) FROM team1
+		SELECT COUNT(*) FROM team
 	</select>
 	
 	<!-- 검색 -->
 	<select id="search" resultType="com.spring.main.dto.TeamDto">
-		SELECT * FROM (SELECT t_idx,t_name,t_area,t_day,t_time,t_uniform,t_picture,
+		SELECT * FROM (SELECT t_idx,t_name,t_area,t_day,t_time,t_uniform,t_newPicture,t_oldPicture,
 		t_matchcount,t_rankpoint,t_age,t_win,t_lose,t_draw,RANK() OVER 
-		(ORDER BY t_rankpoint DESC) RANK FROM team1)WHERE t_name LIKE '%'||#{param1}||'%'
+		(ORDER BY t_rankpoint DESC) RANK FROM team)WHERE t_name LIKE '%'||#{param1}||'%'
 	</select>
 	
 	<!-- 검색게시물 수 -->
 	<select id="searchCount" resultType="Integer">
-		SELECT COUNT(*) FROM team1 WHERE t_name LIKE '%'||#{param1}||'%'
+		SELECT COUNT(*) FROM team WHERE t_name LIKE '%'||#{param1}||'%'
 	</select>
 	
 	<!-- 팀상세 -->
 	<select id="teamDetail" resultType="com.spring.main.dto.TeamDto">
-		SELECT * FROM team1 WHERE t_idx = #{param1}
+		SELECT * FROM team WHERE t_idx = #{param1}
 	</select>
 	
 	<!-- 멤버 -->
 	<select id="memberCall" resultType="com.spring.main.dto.MemberDto">
 		SELECT m_idx,u_idx,t_idx,m_name,m_matchcount,m_tpoint,m_position,m_grade
-		,RANK() OVER (ORDER BY m_tpoint DESC) RANK FROM memver WHERE t_idx = #{param1}
+		,RANK() OVER (ORDER BY m_tpoint DESC) RANK FROM member WHERE t_idx = #{param1}
 	</select>
 	
 	<!-- 평가 -->
@@ -51,21 +51,99 @@
 	
 	<!-- 멤버수 -->
 	<select id="memberCount" resultType="Integer">
-		SELECT COUNT(*) FROM memver WHERE t_idx = #{param1}
+		SELECT COUNT(*) FROM member WHERE t_idx = #{param1}
 	</select>
 	
 	<!-- 팀안내 -->
 	<select id="teamInfo" resultType="com.spring.main.dto.TeamDto">
-		SELECT t_idx,t_name,t_picture FROM team1 WHERE t_idx = #{param1}
+		SELECT t_idx,t_name,t_picture FROM team WHERE t_idx = #{param1}
 	</select>
 	
 	<!-- 팀대표 -->
 	<select id="grade" resultType="com.spring.main.dto.MemberDto">
-		SELECT m_name,m_grade FROM memver WHERE t_idx = #{param1} AND m_grade = '대표'
+		SELECT m_name,m_grade FROM member WHERE t_idx = #{param1} AND m_grade = '대표'
 	</select>
 	
 	<!-- 팀대표 -->
 	<select id="memberDetail" resultType="com.spring.main.dto.PrDto">
 		SELECT * FROM personal_record WHERE m_idx = #{param1}
 	</select>
+	
+	<!-- 중복체크 -->
+	<select id="tName" resultType="String">
+		SELECT t_name FROM team WHERE t_name = #{param1}
+	</select>
+	
+	<!-- 팀생성 -->
+	<insert id="insertTeam">
+		INSERT INTO team(t_idx,t_name,t_area,t_day,t_time,t_uniform,t_oldPicture,t_newPicture,t_matchcount,t_rankpoint,t_age,t_win,t_lose,t_draw)
+		VALUES(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8},0,0, #{param9},0,0,0)
+	</insert>
+	
+	<!-- 팀수정 -->
+	<update id="teamUpdate">
+		UPDATE team SET t_name = #{param1}, t_area = #{param2},t_day = #{param3},t_time = #{param4},t_uniform = #{param5},t_age = #{param6} WHERE t_idx = #{param7}
+	</update>
+	
+	<!-- 엠블럼수정 -->
+	<update id="picture">
+		UPDATE team SET t_oldPicture = #{param1}, t_newPicture = #{param2} WHERE t_idx = #{param3}
+	</update>
+	
+	<!-- 팀삭제 -->
+	<delete id="teamDel">
+		DELETE FROM team WHERE t_idx = #{param1}
+	</delete>
+	
+	<!-- 삭제할 파일 이름 -->
+	<select id="oldName" resultType="String">
+		SELECT t_newPicture FROM team WHERE t_idx = #{param1}
+	</select>
+	
+	<!-- 멤버추가 -->
+	<insert id="memberAdd">
+		INSERT INTO member(m_idx,u_idx,t_idx,m_name,m_matchcount,m_tpoint,m_position,m_grade)
+		VALUES(member_seq.NEXTVAL,#{param1},#{param2},#{param3},0,0,#{param4},#{param5})
+	</insert>
+	
+	<!-- idx받아오기 -->
+	<select id="idxCall" resultType="String">
+        SELECT team_seq.NEXTVAL FROM DUAL
+    </select>
+    
+    <!-- 멤버등록시 목록 -->
+	<select id="updateCall" resultType="com.spring.main.dto.MemberDto">
+	    SELECT m.m_idx,m.u_idx,e.u_id,m.m_name,m.m_matchcount,m.m_tpoint,m.m_position,m.m_grade FROM member m 
+	    LEFT OUTER JOIN SGM_user e  ON m.u_idx = e.u_idx WHERE t_idx = #{param1} ORDER BY m_grade ASC
+    </select>
+    
+    <!-- u_idx 가져오기 -->
+	<select id="uidx" resultType="String">
+	    SELECT u_idx FROM SGM_user WHERE u_id = #{param1}
+    </select>
+    
+    <!-- 가입한 팀수 -->
+	<select id="uCount" resultType="Integer">
+	    SELECT COUNT(*) FROM member WHERE u_idx = #{param1}
+    </select>
+    
+    <!-- 멤버수정 -->
+	<update id="memberup" >
+    	UPDATE member SET u_idx = #{param1}, m_position = #{param2} WHERE m_idx = #{param3}
+    </update>
+    
+    <!-- 멤버삭제 -->
+	<delete id="memberDel">
+		DELETE FROM member WHERE m_idx = #{param1}
+	</delete>
+    
+    <!-- 대표->멤버 -->
+	<update id="leaderDn" >
+   		UPDATE member SET m_grade = '멤버' WHERE m_grade = '대표' AND t_idx = #{param1}
+    </update>
+    
+    <!-- 멤버->대표 -->
+	<update id="leaderUp" >
+    	UPDATE member SET m_grade = '대표' WHERE m_idx = #{param1}
+    </update>
 </mapper>

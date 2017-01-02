@@ -9,10 +9,19 @@
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 		<style>
 			#ca{
-				padding-top: 20px;
+				padding-top: 10px;
 				/* border: 1px solid; */
 			}
-			
+			.thumbnail{
+				width: 190px;
+				height: 220px;
+	            margin-left: 10px;
+	            margin-bottom: 10px; 
+			}
+			#file{
+				width:100%; 
+				height: 100%;
+			}
 			#Category{
 				width: 100%;
 				height: 220px;
@@ -24,7 +33,7 @@
 	<body>
 		<div id="ca">
 			<div class="thumbnail">
-				<img src="#" alt="사진" style="width:100%; height: 220px;"/>
+				<%-- <img src="../../main/resources/upload/${team.t_newPicture}" style="width:100%; height: 220px;"/> --%>
 			</div>
 			<h4><b>대표
 				<c:forEach items="${member}" var="dto" varStatus="status">
@@ -45,5 +54,9 @@
 		</div>
 	</body>
 	<script>
+	$(document).ready(function(){
+		var img = "<img id='file' src='../../main/resources/upload/${team.t_newPicture}' alt='${team.t_oldPicture}'/>";   
+        $(".thumbnail").append(img);
+	});
 	</script>
 </html>

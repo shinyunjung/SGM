@@ -10,6 +10,9 @@ public class TeamDto {
 	private String t_day;
 	private String t_time;
 	private String t_uniform;
+	private String t_type;
+	private String t_newPicture;
+	private String t_oldPicture;
 	private int t_matchcount;
 	private int t_rankpoint;
 	private String t_age;
@@ -61,6 +64,24 @@ public class TeamDto {
 	}
 	public void setT_uniform(String t_uniform) {
 		this.t_uniform = t_uniform;
+	}
+	public String getT_type() {
+		return t_type;
+	}
+	public void setT_type(String t_type) {
+		this.t_type = t_type;
+	}
+	public String getT_newPicture() {
+		return t_newPicture;
+	}
+	public void setT_newPicture(String t_newPicture) {
+		this.t_newPicture = t_newPicture;
+	}
+	public String getT_oldPicture() {
+		return t_oldPicture;
+	}
+	public void setT_oldPicture(String t_oldPicture) {
+		this.t_oldPicture = t_oldPicture;
 	}
 	public int getT_matchcount() {
 		return t_matchcount;

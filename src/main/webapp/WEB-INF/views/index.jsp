@@ -151,6 +151,7 @@
 								</td>
 							</tr>
 						</table>
+						<button onclick="location.href='./team/teamJoin'">팀만들기</button>
 			      
 		    	</div>
 		  </div>

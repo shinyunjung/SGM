@@ -47,6 +47,54 @@ public interface TeamInterface {
 	//멤버개인기록
 	PrDto memberDetail(String m_idx);
 	
+	//팀생성
+	void insertTeam(String t_idx, String t_name, String t_area, String t_day, String t_time, String t_uniform, String t_oldPicture,
+			String t_newPicture, String t_age);
+	
+	//중복체크
+	String tName(String t_name);
+	
+	//엠블럼수정
+	void picture(String fileName, String string, String t_idx);
+	
+	//삭제할 파일 이름
+	String oldName(String t_idx);
+	
+	//팀수정
+	void teamUpdate(String t_name, String t_area, String t_day, String t_time, String t_uniform, String t_age,
+			String t_idx);
+	
+	//팀삭제
+	int teamDel(String t_idx);
+	
+	//t_idx
+	String idxCall();
+	
+	//멤버추가
+	int memberAdd(String u_idx, String t_idx, String u_name, String m_position, String m_grade);
+	
+	//멤버삭제
+	int memberDel(String m_idx);
+	
+	//u_idx 가져오기
+	String uidx(String u_id);
+	
+	//가입된 팀 수
+	int uCount(String idx);
+	
+	//팀수정 페이지 멤버목록
+	ArrayList<MemberDto> updateCall(String t_idx);
+	
+	//대표->멤버
+	int leaderDn(String t_idx);
+	
+	//멤버->대표
+	int leaderUp(String m_idx);
+	
+	//멤버수정
+	int memberup(String u_idx, String m_position, String m_idx);
+	
+	
 	
 
 }

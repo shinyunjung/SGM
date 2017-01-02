@@ -90,7 +90,7 @@ public class AdService {
 		ArrayList<String> newName = newFile.get("newName");
 		int ad_idx = inter.idxCall();
 		logger.info(ad_URL[1]+"/"+ad_URL[2]+"/"+ad_URL[0]+"/"+ad_type+"/"+ad_area);
-		int success = inter.write(ad_idx,ad_host,ad_manager,ad_type,ad_title,ad_content,ad_area,ad_address,ad_lat,ad_lng,s_date,e_date,ad_count);
+		int success = inter.write(ad_host,ad_manager,ad_type,ad_title,ad_content,ad_area,ad_address,ad_lat,ad_lng,s_date,e_date,ad_count);
 		for(int i=0; i<oldName.size(); i++){
 			logger.info(ad_URL[i]+"/"+oldName.get(i)+"/"+newName.get(i));
 		inter.fileUp(ad_idx,oldName.get(i),newName.get(i),ad_URL[i]);

@@ -36,7 +36,7 @@
 	<!-- 파일올리기 -->
 	<insert id="fileUp">
 		INSERT INTO banner(b_idx,ad_idx,ad_imgo,ad_imgn,ad_URL)
-		VALUES(banner_num.NEXTVAL,#{param1},#{param2},#{param3},#{param4})
+		VALUES(banner_seq.NEXTVAL,#{param1},#{param2},#{param3},#{param4})
 	</insert>
 	
 	<!-- idx받아오기 -->
@@ -48,7 +48,7 @@
 	<insert id="write">
 		INSERT INTO ad(ad_idx,ad_host,ad_manager,ad_type,ad_title,ad_content,ad_area,
 		ad_address,ad_vcount,ad_exposure,ad_lat,ad_lng,s_date,e_date,ad_count,ad_state)
-		VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},
-		#{param7},#{param8},0,0,#{param9},#{param10},#{param11},#{param12},#{param13},'진행')
+		VALUES(ad_seq.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},
+		#{param7},0,0,#{param8},#{param9},#{param10},#{param11},#{param12},'진행')
 	</insert>
 </mapper>

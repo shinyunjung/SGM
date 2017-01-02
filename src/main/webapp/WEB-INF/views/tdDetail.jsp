@@ -179,14 +179,12 @@
 		} */
 		var path = "../../main/resources/upload/";
 		for(var i=0; i<3; i++){
-			/* var id =  $("#content img").eq(i).attr("id"); */
 			var src = ["${file[0].f_newfilename}","${file[1].f_newfilename}","${file[2].f_newfilename}"];
 			if(src[i]!=""){
 			$("#file"+(i+1)).attr("src",path+src[i]);
 				var ss = $("#file"+(i+1)).attr("src");
 				console.log("d");
 				console.log(src);
-				/* console.log(id); */
 				console.log(ss);
 			}
 		}
