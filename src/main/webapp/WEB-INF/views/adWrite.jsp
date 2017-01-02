@@ -108,8 +108,8 @@
 								<tr class="borderTop">
 									<td>
 										<jsp:include page="../../resources/include/mapWrite.jsp" />
-										<input type="hidden" name="ad_lat" value="2"/>
-										<input type="hidden" name="ad_lng" value="2"/>
+										<input type="hidden" name="ad_lat" value=""/>
+										<input type="hidden" name="ad_lng" value=""/>
 										<button type="button" class="bt">취소</button><!-- 테스트용 -->
 									</td>
 								</tr>
