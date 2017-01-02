@@ -82,7 +82,7 @@
 			  			<tr>
 			  				<th>팀명</th>
 			  				<td>${team.t_name}</td>
-			  				<td></td>
+			  				<td><input type="hidden" name="t_idx" value="${team.t_idx}"></td>
 			  			</tr>
 			  			<tr>
 			  				<th>지역</th>
@@ -112,7 +112,7 @@
 			  			<tr>
 			  				<th>모임시간</th>
 			  				<td>
-			  					<input type="time" class="form-control" value="${team.t_time}" >
+			  					<input type="time" class="form-control" name="t_time" value="${team.t_time}" >
 			  				</td>
 			  				<th></th>
 			  			</tr>
@@ -132,13 +132,14 @@
 			  			<tr>
 			  				<th>유니폼색</th>
 			  				<td>
-			  					<input type="text" class="form-control" value="${team.t_uniform}">
+			  					<input type="text" class="form-control" name="t_uniform" value="${team.t_uniform}">
 			  				</td>
 			  				<th></th>
 			  			</tr>
 			  			<tr>
 			  				<td colspan="3" style="text-align: center;">
 			        		<button type="submit" class="btn btn-primary">등록</button>
+			        		<button type="button" onclick="teamDel()" class="btn btn-default">해체</button>
 			  				</td>
 			  			</tr>
 			  		</table>
@@ -168,7 +169,7 @@
 								</span>
 							</th>
 							<th>
-								<button class="btn btn-default">추가</button>
+								<button class="btn btn-default tog">추가</button>
 							</th>
 						</tr>
 						<tr>
@@ -241,7 +242,7 @@
         $("select[name='t_type'] option[value='${team.t_type}']").attr("selected", "selected");
         console.log("${member[2].m_name}");
 	});
-	$(".btn-default").click(function(){
+	$(".tog").click(function(){
 		var num = $("input[name=m_idx]").length;
 		if(num<25){
 			$(this).toggleClass("ex");            
@@ -307,6 +308,19 @@
 		data.t_idx = t_idx;
 		reqServer(url,data);
 	}
+	
+	//팀해체
+	function teamDel(){
+		if (confirm("정말로 해체하시겠습니까?") == true){ 
+			var url="./teamDel";
+			var data = {};
+			data.t_idx = t_idx;
+			reqServer(url,data);
+		}else{
+		    return;
+		}
+	}
+	
 	//파일이름추출
 	function fileView(elem){
 		console.log(elem);
@@ -367,10 +381,13 @@
 			dataType:"json",
 			success:function(d){
 				console.log(d)
-				alert(d.msg);
-				if(url == "./memberAdd"||url == "./memberDel"){
+				if(url == "./teamDel"){
+					location.href="../"
+				}else{
+					alert(d.msg);
 					printList(d.list.member);
 				}
+				
 			},error:function(e){
 				console.log(e)
 			}

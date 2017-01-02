@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spring.main.dto.BannerDto;
 import com.spring.main.dto.FileDto;
 import com.spring.main.dto.TdDto;
 
@@ -87,7 +88,7 @@ public class UploadFile {
 	}
 	
 	//파일 수정
-	public Map<String, ArrayList<String>> fileModify(MultipartHttpServletRequest multi, ArrayList<FileDto> forder){
+	public Map<String, ArrayList<String>> fileModify(MultipartHttpServletRequest multi, String[] delName){
 		ArrayList<String> oldName = new ArrayList<String>();
 		ArrayList<String> newName = new ArrayList<String>();
 		Map<String, ArrayList<String>> name = new HashMap<String, ArrayList<String>>();
@@ -114,7 +115,7 @@ public class UploadFile {
 			String originFileName = mFile.getOriginalFilename();
 			
 			if(originFileName != null && originFileName!=""){
-				path +=forder.get(i).getF_filename();
+				path +=delName[i];
 				logger.info("삭제"+path);
 				if(file.exists()){
 					file.delete();
@@ -140,7 +141,8 @@ public class UploadFile {
 			}
 			name.put("oldName", oldName);
 			name.put("newName", newName);
-		}
+			i++;
+			}
 		
 		return name;
 	}

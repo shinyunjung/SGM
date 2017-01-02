@@ -13,6 +13,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdInterface;
+import com.spring.main.dao.TdInterface;
+import com.spring.main.dao.TeamInterface;
+import com.spring.main.dto.BannerDto;
+import com.spring.main.dto.FileDto;
+import com.spring.main.dto.PrDto;
 import com.spring.main.dto.TdDto;
 import com.spring.main.util.UploadFile;
 
@@ -62,6 +67,7 @@ public class AdService {
 		return json;
 	}
 
+	//광고 글쓰기
 	public ModelAndView write(MultipartHttpServletRequest multi) {
 		
 		inter = sqlSession.getMapper(AdInterface.class);
@@ -94,6 +100,68 @@ public class AdService {
 		for(int i=0; i<oldName.size(); i++){
 			logger.info(ad_URL[i]+"/"+oldName.get(i)+"/"+newName.get(i));
 		inter.fileUp(ad_idx,oldName.get(i),newName.get(i),ad_URL[i]);
+		}
+		mav.setViewName("adList");
+		return mav;
+	}
+	
+	//삭제
+	public ModelAndView delete(Map<String, String> params) {
+		
+		inter = sqlSession.getMapper(AdInterface.class);
+		ModelAndView mav = new ModelAndView();
+		String ad_idx = params.get("ad_idx");
+		
+		String[] delName = inter.fileDelName(ad_idx);
+		logger.info(Integer.toString(delName.length));
+		//글삭제
+		if(inter.delete(ad_idx) == 1){
+			//파일삭제
+			if(delName != null){				
+				UploadFile file = new UploadFile();
+				for(int i=0 ; i<delName.length;i++){
+					logger.info("지운다 : "+delName[i]);
+					file.delete(delName[i]);
+				}				
+			}
+		}
+		mav.setViewName("adList");
+		return mav;
+	}
+	
+	//수정(파일 업로드)
+	public ModelAndView modify(MultipartHttpServletRequest multi) {
+		inter = sqlSession.getMapper(AdInterface.class);
+		ModelAndView mav = new ModelAndView();
+		String ad_idx = multi.getParameter("ad_idx");
+		String ad_title = multi.getParameter("ad_title");
+		String ad_manager = multi.getParameter("ad_manager");
+		String ad_host = multi.getParameter("ad_host");
+		String ad_type = multi.getParameter("ad_type");
+		String ad_count = multi.getParameter("ad_count");
+		String s_date = multi.getParameter("s_date");
+		String e_date = multi.getParameter("e_date");
+		String[] ad_URL = multi.getParameterValues("ad_URL");
+		String ad_area = multi.getParameter("ad_area");
+		String ad_address = multi.getParameter("ad_address");
+		String ad_lat = multi.getParameter("ad_lat");
+		String ad_lng = multi.getParameter("ad_lng");
+		String ad_content = multi.getParameter("ad_content");
+		String fileName = multi.getParameter("fileName");
+		Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
+		if(fileName !=null){
+			String[] delName = inter.fileDelName(ad_idx);
+			//파일 업로드
+			UploadFile upload = new UploadFile();
+			newFile = upload.fileModify(multi,delName);
+		}
+		ArrayList<String> oldName = newFile.get("oldName");
+		ArrayList<String> newName = newFile.get("newName");
+		inter.update(ad_idx,ad_host,ad_manager,ad_type,ad_title,ad_content,ad_area,ad_address,ad_lat,ad_lng,s_date,e_date,ad_count);
+		for(int i=0; i<newName.size(); i++){
+			if(oldName.get(i)!=""){
+				inter.fileModify(ad_idx, oldName.get(i),newName.get(i),ad_URL[i]);
+			}
 		}
 		mav.setViewName("adList");
 		return mav;

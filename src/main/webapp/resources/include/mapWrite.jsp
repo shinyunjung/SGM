@@ -139,9 +139,8 @@ function displayPlaces(places) {
             	removeMarker();
             	placePosition = new daum.maps.LatLng(latitude,longitude);
             	addMarker(placePosition,0);
-            	console.log("lat:"+latitude);
-               	console.log("lng:"+longitude);
                	$("input[name=lat]").val(latitude);
+               	$("input[name=lng]").val(longitude);
             });
             daum.maps.event.addListener(marker, 'mouseout', function() {
                 infowindow.close();

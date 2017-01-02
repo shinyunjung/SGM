@@ -267,10 +267,10 @@ public class TdService {
 			}
 			Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
 			if(fileName !=null){
-				ArrayList<FileDto> forder = inter.fileCall(idx);
+				String[] delName = inter.fileDelName(idx);
 				//파일 업로드
 				UploadFile upload = new UploadFile();
-				newFile = upload.fileModify(multi,forder);
+				newFile = upload.fileModify(multi,delName);
 			}
 			ArrayList<String> oldName = newFile.get("oldName");
 			ArrayList<String> newName = newFile.get("newName");

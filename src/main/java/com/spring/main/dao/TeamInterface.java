@@ -12,6 +12,7 @@ public interface TeamInterface {
 
 	//리스트
 	ArrayList<TeamDto> listCall();
+	
 	//게시물 전체수
 	int allCount();
 	//검색
@@ -61,7 +62,7 @@ public interface TeamInterface {
 	String oldName(String t_idx);
 	
 	//팀수정
-	void teamUpdate(String t_name, String t_area, String t_day, String t_time, String t_uniform, String t_age,
+	void teamUpdate(String t_area, String t_day, String t_time, String t_uniform, String t_age,
 			String t_idx);
 	
 	//팀삭제

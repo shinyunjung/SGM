@@ -151,7 +151,6 @@ public class TeamService {
 		ModelAndView mav = new ModelAndView();
 		
 		String t_idx = multi.getParameter("t_idx");
-		String t_name = multi.getParameter("t_name");
 		String t_area = multi.getParameter("t_area");
 		String t_day = multi.getParameter("t_day");
 		String t_time = multi.getParameter("t_time");
@@ -165,8 +164,8 @@ public class TeamService {
 			UploadFile upload = new UploadFile();
 			newFile = upload.fileUp(multi);
 			ArrayList<String> newName = newFile.get("newName");
-			inter.picture(fileName,newName.get(0),t_idx);
 			String delName = inter.oldName(t_idx);
+			inter.picture(fileName,newName.get(0),t_idx);
 			//파일삭제
 			if(delName != null){				
 				UploadFile file = new UploadFile();
@@ -174,7 +173,7 @@ public class TeamService {
 				file.delete(delName);			
 			}
 		}
-		inter.teamUpdate(t_name,t_area,t_day,t_time,t_uniform,t_age,t_idx);
+		inter.teamUpdate(t_area,t_day,t_time,t_uniform,t_age,t_idx);
 		
 		mav.setViewName("redirect:../team/teamDetail?t_idx="+t_idx);
 		return mav;

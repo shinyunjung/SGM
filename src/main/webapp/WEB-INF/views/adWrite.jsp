@@ -72,7 +72,7 @@
 										<option value="CPM">CPM</option>
 										<option value="기간">기간</option>
 										</select>
-										<input type="text" name="ad_count" readonly />
+										<input type="text" name="ad_count" placeholder="클릭수" />
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -150,6 +150,11 @@
 		}else{
 			$("input[name='ad_count']").attr("placeholder","일수");
 		}
+	});
+	//지도 검색
+	$("#search").click(function(){
+		var keyword = $("#keyword").val();
+		searchPlaces(keyword);
 	});
 	
 	function fileView(elem){

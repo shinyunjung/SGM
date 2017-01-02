@@ -64,7 +64,7 @@
 		SELECT m_name,m_grade FROM member WHERE t_idx = #{param1} AND m_grade = '대표'
 	</select>
 	
-	<!-- 팀대표 -->
+	<!-- 팀개인기록 -->
 	<select id="memberDetail" resultType="com.spring.main.dto.PrDto">
 		SELECT * FROM personal_record WHERE m_idx = #{param1}
 	</select>
@@ -82,7 +82,7 @@
 	
 	<!-- 팀수정 -->
 	<update id="teamUpdate">
-		UPDATE team SET t_name = #{param1}, t_area = #{param2},t_day = #{param3},t_time = #{param4},t_uniform = #{param5},t_age = #{param6} WHERE t_idx = #{param7}
+		UPDATE team SET t_area = #{param1},t_day = #{param2},t_time = #{param3},t_uniform = #{param4},t_age = #{param5} WHERE t_idx = #{param6}
 	</update>
 	
 	<!-- 엠블럼수정 -->
