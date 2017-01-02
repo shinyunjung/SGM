@@ -64,10 +64,10 @@ public class PlaceController {
 			logger.info("리스트 요청");
 			return service.searchCall(params);
 		}
-		//매칭쓰기
+		//장소 쓰기
 		@RequestMapping(value = "/write")
 		public ModelAndView write(@RequestParam Map<String, String> params) {
-			logger.info("매칭쓰기");
+			logger.info("장소쓰기");
 			return service.write(params);
 		}
 	

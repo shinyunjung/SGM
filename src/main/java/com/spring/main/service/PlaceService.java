@@ -123,25 +123,20 @@ public class PlaceService {
 		ModelAndView mav = new ModelAndView();
 		inter=sqlSession.getMapper(PlaceInterface.class);
 		int success=0;
-		int t_idx=1;
-		String title = params.get("a_title");
-		String name = params.get("a_name");
- 		String date = params.get("a_date");
- 		String time = params.get("a_time");
-		String type = params.get("a_type");
-		String age = params.get("a_age");
-		String content = params.get("a_content");
-		String prePosition = params.get("position");
-		String ground = params.get("ground");
-		int area = Integer.parseInt(params.get("gu"));
-		String[] position = prePosition.split("/");
-		String lat = position[0];
-		String lng = position[1];
-		String state="대기";
-		logger.info(title+"/"+name+"/"+date+"/"+time+"/"+type+"/"+age+"/"+content+"/"+lat+"/"+lng+"/"+area+"/"+ground);
-		success = inter.a_write(t_idx, title, name, date, time, type, age, content, lat, lng, area, ground, state);
-		mav.addObject("write",params);
+		PlaceDto mdt = new PlaceDto();
+		
+		String a_name = params.get("a_name");
+ 		
+		String a_content = params.get("a_content");
+		String a_ground = params.get("a_ground");
+		String a_lat = params.get("lat");
+		String a_lng = params.get("lng");
+		String a_area="0";
+		logger.info(a_ground+"/"+a_name+"/"+a_content+"/"+a_lat+"/"+a_lng+"/"+a_area);
+		success = inter.a_write(a_ground, a_name, a_content, a_lat, a_lng, a_area);
+		mav.addObject("success",success);
 		mav.setViewName("placeList");
+		logger.info("장소추가");
 		return mav;
 	}
 

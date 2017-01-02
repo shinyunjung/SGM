@@ -46,13 +46,13 @@
 				<fieldset>
 					<legend>장소 추가</legend>
 				</fieldset>
-					<form action="" method="post">
+					<form action="write" method="post">
 						<table class="detailTable">
 								<tr class="borderTop">
 									<td><input type="text" name="a_ground" placeholder="운동장"/></td>
 								</tr>
 								<tr class="borderTop">
-									<td><input type="text" name="a_name" value="" readonly/></td>
+									<td><input type="text" name="a_name" value="${sessionScope.manager}" readonly/></td>
 								</tr>
 								<tr class="borderTop">
 									<td>
@@ -89,10 +89,7 @@
 		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
-	$(".bt").click(function() {/* 테스트용 */
-		var lat = $("input[name=lat]").val();
-		console.log(lat);
-	});
+
 	
 	
 	$(".btn-primary").click(function(){

@@ -65,7 +65,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=4c80c1326b8411cbdc60e962e2c46260&libraries=services"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=eea8daf781b745669919ab906f673fea&libraries=services"></script>
 <script>
 // 마커를 담을 배열입니다
 var markers = [];
@@ -126,8 +126,8 @@ function displayPlaces(places) {
         var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
             marker = addMarker(placePosition, i), 
             itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
-        	  //console.log(i+"lat:"+places[i].latitude);
-          	//console.log(i+"lng:"+places[i].longitude);
+             //console.log(i+"lat:"+places[i].latitude);
+             //console.log(i+"lng:"+places[i].longitude);
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
@@ -140,12 +140,13 @@ function displayPlaces(places) {
             });
             
             daum.maps.event.addListener(marker, 'click', function() {
-            	removeMarker();
-            	placePosition = new daum.maps.LatLng(latitude,longitude);
-            	addMarker(placePosition,0);
-            	console.log("lat:"+latitude);
-               	console.log("lng:"+longitude);
-               	$("input[name=lat]").val(latitude);
+               removeMarker();
+               placePosition = new daum.maps.LatLng(latitude,longitude);
+               addMarker(placePosition,0);
+               console.log("lat:"+latitude);
+                  console.log("lng:"+longitude);
+                  $("input[name=lat]").val(latitude);
+                  $("input[name=lng]").val(longitude);
             });
             daum.maps.event.addListener(marker, 'mouseout', function() {
                 infowindow.close();

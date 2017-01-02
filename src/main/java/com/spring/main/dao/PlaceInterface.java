@@ -21,10 +21,6 @@ public interface PlaceInterface {
 	//장소목록
 	ArrayList<PlaceDto> a_PlaceList();
 
-	//장소 글 쓰기
-	int a_write(int totalIdx, String title, String name, String date, String time, 
-			String type, String age, String content,
-			String lat, String lng, int area, String ground, String state);
 
 	//장소 상세보기
 	PlaceDto a_detail(String idx);
@@ -34,6 +30,11 @@ public interface PlaceInterface {
 
 	//장소 댓글 up
 	void a_replyUp(String idx);
+	
+	//장소 글 쓰기
+	
+	int a_write( String a_title, String a_name, String a_content, String a_lat,
+			String a_lng, String a_area);
 
 	
 	
