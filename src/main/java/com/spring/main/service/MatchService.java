@@ -350,8 +350,9 @@ public class MatchService {
 		String content=params.get("noteContent");
 		String title=params.get("noteTitle");
 		logger.info(writer+"/"+receiver+"/"+content+"/"+title);
-		String confirm="No";
-		success=inter.sendNote(writer, writer_idx, receiver, receiver_idx, title, content, confirm);
+		String confirm="N";
+		String newState="Y";
+		success=inter.sendNote(writer, writer_idx, receiver, receiver_idx, title, content, confirm, newState);
 		if(success==1){
 			msg="신청 쪽지 보내기가 성공했습니다.";
 		}

@@ -153,9 +153,21 @@ public class ManagerService {
 		return map;
 	}
 
-	public Map<String, Object> infoCheck(Object data) {
+	public Map<String, String> teamDelete(String idx) {
+		Map<String, String> map = new HashMap<String, String>();
+		inter=sqlSession.getMapper(ManagerInterface.class);
+		String msg="해체에 실패했습니다.";
+		int success=0;
 		
-		return null;
+		logger.info("teamIdx:{}",idx);
+		
+		success=inter.teamDelete(idx);
+		if(success==1){
+			msg="해체에 성공했습니다.";
+			inter.noteConfirm(idx);
+		}
+		map.put("msg", msg);
+		return map;
 	}
 
 	

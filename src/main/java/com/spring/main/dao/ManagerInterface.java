@@ -37,4 +37,8 @@ public interface ManagerInterface {
 
 	UserDto memberInfo(String idx);
 
+	int teamDelete(String idx);
+
+	void noteConfirm(String idx);
+
 }

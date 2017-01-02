@@ -91,9 +91,9 @@ public class ManagerController {
 	}
 	
 	//팀 대표 정보
-		@RequestMapping(value="/infoCheck")
-		public @ResponseBody Map<String, Object> infoCheck(@RequestParam("data") Object data){
-			logger.info("팀대표 정보 요청");
-			return service.infoCheck(data);
+		@RequestMapping(value="/teamDelete")
+		public @ResponseBody Map<String, String> teamDelete(@RequestParam("idx") String idx){
+			logger.info("팀 해체 요청");
+			return service.teamDelete(idx);
 		}
 }

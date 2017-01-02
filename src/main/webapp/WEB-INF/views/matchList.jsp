@@ -109,6 +109,7 @@
 		}
 		
 		$("document").ready(function(){
+			console.log("페이지 생성시 시작");
 			searchCall(currPage);
 		});
 		
@@ -178,7 +179,6 @@
 		
 		function reqServer(url, data){
 			console.log(url);
-			console.log(data);
 			$.ajax({
 				url:url,
 				type:"post",

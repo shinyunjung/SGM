@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.spring.main.dao.NoteInterface">
+	
+	<!-- 게시물 전채 개수 -->
+	<select id="note_allCount" resultType="Integer">
+		SELECT COUNT(*) FROM note
+	</select>
+	
+	<!-- 검색 후 게시물 전채 개수 -->
+	<select id="note_searhCount" resultType="Integer" >
+		SELECT COUNT(*) FROM note WHERE ${param2} like '%'||#{param1}||'%'
+	</select>
+	
+	<!-- 리스트 불러오기 -->
+	<select id="note_listCall" resultType="com.spring.main.dto.NoteDto">
+		SELECT n_idx,n_writer , writer_idx, n_receiver, receiver_idx, n_title, n_content, n_date, n_confirm, n_new FROM (
+			SELECT n_idx,n_writer , writer_idx, n_receiver, receiver_idx, n_title, n_content, n_date, n_confirm, n_new, ROW_NUMBER() OVER(ORDER BY n_idx DESC) AS rnum FROM note
+  		)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<!-- 검색 후 리스트 추가 -->
+	<select id="note_searhCall" resultType="com.spring.main.dto.NoteDto">
+		SELECT n_idx,n_writer , writer_idx, n_receiver, receiver_idx, n_title, n_content, n_date, n_confirm, n_new FROM (
+			SELECT n_idx,n_writer , writer_idx, n_receiver, receiver_idx, n_title, n_content, n_date, n_confirm, n_new, ROW_NUMBER() OVER(ORDER BY n_idx DESC) AS rnum FROM note
+  		WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<!-- 새로운 쪽지 리스트 추가 -->
+	<select id="newListCall" resultType="com.spring.main.dto.NoteDto">
+		SELECT * FROM note WHERE receiver_idx=#{param1} OR receiver_idx=#{param2} OR receiver_idx=#{param3}
+	</select>
+	
+</mapper>

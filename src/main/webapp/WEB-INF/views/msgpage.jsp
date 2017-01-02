@@ -39,7 +39,6 @@
 						<table width="100%">
 							<tr>
 								<td class="left">
-									<button onclick="mchWrite()">글작성</button>
 									게시물 갯수 : 
 									<select id="pagePerNum">
 										<option value="5">5</option>
@@ -64,14 +63,13 @@
 							</tr>
 						</table>
 					</div>
-					<div class="matchList">
+					<div class="noteList">
 						<table class="table table-hover">
 							<thead class="center">
 								<tr>
 									<td><b>순번</b></td>
-									<td><b>글쓴이</b></td>
+									<td><b>보낸이</b></td>
 									<td><b>제목</b></td>
-									<td><b>조회 수</b></td>
 									<td><b>상태</b></td>
 								</tr>
 							</thead>
@@ -124,7 +122,7 @@
 		});
 		
 		function Search(){
-			var url="../note/search";
+			var url="./note/search";
 			var data={};
 			if($(".input").val()!=""){
 				console.log("검색");
@@ -145,7 +143,7 @@
 		
 		function searchCall(currPage){
 			if(currPage>=1 && currPage<=totalPage){
-				var url="../match/searchCall";
+				var url="./note/searchCall";
 				var data={};
 				search=true;
 				console.log($(".input").val());
@@ -165,16 +163,6 @@
 			
 		}
 		
-		function listCall(currPage){
-			if(currPage>=1 && currPage<=totalPage){
-				var url="../match/listCall";
-				var data={};
-				data.page=currPage;
-				data.pagePerNum=$("#pagePerNum").val();
-				reqServer(url, data);
-			}
-		}
-		
 		
 		function reqServer(url, data){
 			console.log(url);
@@ -186,13 +174,7 @@
 				dataType:"JSON",
 				success:function(data){
 					console.log(data);
-					if(url=="../match/listCall"){
-						printList(data.jsonList.list);
-						currPage=data.currPage;
-						totalPage=data.totalPage;
-						printPaging(data.totalCount, data.totalPage); 
-					}
-					else if(url=="../match/search"){
+					if(url=="./note/search"){
 						if(data.count!=0){
 							console.log(data.count);
 							searchCall(1);
@@ -200,7 +182,7 @@
 							alert("검색 결과가 없습니다.");
 						}
 					}
-					else if(url=="../match/searchCall"){
+					else if(url=="./note/searchCall"){
 						console.log("검색 종료");
 						printList(data.jsonList.list);
 						currPage=data.currPage;
@@ -218,11 +200,14 @@
 		var content="";
 		for(var i=0; i<list.length; i++){
 			content+="<tr>"
-				+"<td>"+list[i].mch_idx+"</td>"
-				+"<td>"+list[i].mch_name+"</td>"
-				+"<td><a href='../match/matchDetail?idx="+list[i].mch_idx+"&userIdx="+idx+"'>"+list[i].mch_title+"</a></td>"
-				+"<td>"+list[i].mch_vcount+"</td>"
-				+"<td>"+list[i].mch_state+"</td>"
+				+"<td>"+list[i].n_idx+"</td>"
+				+"<td>"+list[i].n_writer+"</td>"
+				+"<td>"+list[i].n_title+"</td>";
+				if(list[i].n_confirm=="N"){
+					content+="<td><a href='#' class='disabled'>삭제N</a></td>";
+				}else{
+					content+="<td><a href='#'>삭제Y</a></td>";
+				}
 				+"</tr>";
 			}
 			
@@ -230,16 +215,6 @@
 			$("#list").append(content);
 			logoId();
 		}
-	
-	function mchWrite(){
-		if(idx!=""){
-			var userIdx="${sessionScope.userIdx}";
-			console.log(userIdx);
-			location.href="../../main/match/memberCheck?idx="+userIdx; 
-		}else{
-			alert("로그인이 필요한 권한입니다.");
-		}
-	}
 	
 	
 	

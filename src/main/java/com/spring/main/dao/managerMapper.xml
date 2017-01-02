@@ -67,4 +67,14 @@
 		SELECT * FROM SGM_user WHERE u_idx=#{param1}
 	</select>
 	
+	<!-- 팀 해체 -->
+	<delete id="teamDelete">
+		DELETE FROM team WHERE t_idx=#{param1}
+	</delete>
+	
+	<!-- 해체 당한 팀이 쓴 쪽지의 상태 변경 -->
+	<update id="noteConfirm">
+		UPDATE note SET n_confirm='Y' WHERE writer_idx=#{param1}
+	</update>
+	
 </mapper>

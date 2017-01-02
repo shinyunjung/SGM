@@ -231,6 +231,9 @@
 						}else if(url=="../../main/manager/memberInfo"){
 							console.log("대표 정보");
 							printInfo(data.info);
+						}else if(url=="../../main/manager/teamDelete"){
+							alert(data.msg);
+							searchCall(currPage);
 						}
 					},
 					error:function(error){
@@ -247,7 +250,7 @@
 					+"<td>"+list[i].t_name+"</td>"
 					+"<td>"+list[i].t_area+"</td>"
 					+"<td><a href='#' onclick='memberInfo("+list[i].u_idx+")' >"+list[i].m_name+"</a></td>"
-					+"<td>"+"<a href='../../main/manager/teamDelete?idx="+list[i].t_idx+"'>해체</a></td>"
+					+"<td>"+"<a href='#' onclick='teamDelete("+list[i].t_idx+")'>해체</a></td>"
 					+"</tr>";
 				}
 				
@@ -371,10 +374,11 @@
 		$(".teamManager").css("display","block");
 	});
 	
-	/* function popupOpen(data){
-		var popUrl = "../../main/manager/infoCheck?id="+data.id"&;	//팝업창에 출력될 페이지 URL
-		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-			window.open(popUrl,"",popOption);
-		} */
+	function teamDelete(idx){
+		var url="../../main/manager/teamDelete";
+		data={};
+		data.idx=idx;
+		reqServer(url, data);
+	}
 </script>
 </html>
