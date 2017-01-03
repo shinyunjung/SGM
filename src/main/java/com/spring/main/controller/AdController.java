@@ -31,9 +31,9 @@ public class AdController {
 	}
 	//광고상세
 	@RequestMapping(value = "/adDetail")
-	public String adDetail() {
+	public ModelAndView adDetail(@RequestParam("ad_idx") String ad_idx) {
 		logger.info("광고상세");
-		return "adDetail";
+		return service.adDetail(ad_idx);
 	}
 	//광고쓰기
 	@RequestMapping(value = "/adWrite")

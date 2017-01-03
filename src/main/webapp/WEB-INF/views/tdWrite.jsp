@@ -249,8 +249,11 @@
 	//submit체크
 	function CheckForm(f){
 		if(sw==true){
+			var j=0;
 			for(var i=0; i<f.elements['chk[]'].length; i++){
-				console.log("for"+i);
+				if(f.elements['chk[]'][i].checked==true){
+					j++;
+				}
 				if(f.elements['chk[]'][i].checked==false){
 					console.log(i);
 					f.elements['p_goal[]'][i].disabled=true;
@@ -264,6 +267,9 @@
 					f.elements['p_offside[]'][i].disabled=true;
 					f.elements['p_effectshot[]'][i].disabled=true;
 				}
+			}
+			if(j==0){
+				$("#tf").val("");
 			}
 		}
 		$("#content img").attr("src","#");

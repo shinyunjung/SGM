@@ -204,6 +204,7 @@ public class TdService {
 			return mav;
 		}
 
+		//수정보기
 		public ModelAndView tdModify(Map<String, String> params) {
 			inter = sqlSession.getMapper(TdInterface.class);
 			team = sqlSession.getMapper(TeamInterface.class);

@@ -54,6 +54,11 @@
 				position: relative;
 				display: block;
 			}
+			#content{
+				width: 100%;
+				min-height: 300px;
+				font-size: 14px;
+			}
 		</style>
 	</head>
 	<body>
@@ -147,7 +152,7 @@
 								<tr class="borderTop">
 									<td class="left"><a>댓글쓰기</a></td>
 									<td colspan="10" class="right ">
-										<a href="./tdModify?idx=${td.idx}&t_idx=${team.t_idx}">수정</a> / <a href="./delete?idx=${td.idx}&t_idx=${team.t_idx}">삭제</a>
+										<a href="./tdModify?idx=${td.totalIdx}&t_idx=${team.t_idx}">수정</a> / <a href="./delete?idx=${td.totalIdx}&t_idx=${team.t_idx}">삭제</a>
 									</td>
 								</tr>
 							</tbody>

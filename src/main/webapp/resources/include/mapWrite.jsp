@@ -122,8 +122,6 @@ function displayPlaces(places) {
         var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
             marker = addMarker(placePosition, i), 
             itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
-        	  //console.log(i+"lat:"+places[i].latitude);
-          	//console.log(i+"lng:"+places[i].longitude);
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
@@ -135,7 +133,7 @@ function displayPlaces(places) {
                 displayInfowindow(marker, title);
             });
             
-            daum.maps.event.addListener(marker, 'click', function() {
+            daum.maps.event.addListener(marker, 'click', function() {//추가
             	removeMarker();
             	placePosition = new daum.maps.LatLng(latitude,longitude);
             	addMarker(placePosition,0);
@@ -150,6 +148,15 @@ function displayPlaces(places) {
             };
             itemEl.onmouseout =  function () {
                 infowindow.close();
+            };
+            itemEl.onclick =  function () {//추가
+            	removeMarker();
+            	placePosition = new daum.maps.LatLng(latitude,longitude);
+            	addMarker(placePosition,0);
+               	$("input[name=lat]").val(latitude);
+               	$("input[name=lng]").val(longitude);
+               	var address = $(".jibun").html();
+            	$("input[name=address]").val(address);
             };
         })(marker, places[i].title,places[i].latitude, places[i].longitude);
         fragment.appendChild(itemEl);

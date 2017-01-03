@@ -40,15 +40,15 @@
 	</insert>
 	
 	<!-- idx받아오기 -->
-	<select id="idxCall" resultType="Integer">
-        SELECT ad_num.NEXTVAL FROM DUAL
+	<select id="idxCall" resultType="String">
+        SELECT ad_seq.NEXTVAL FROM DUAL
     </select>
 	
 	<!-- 글쓰기 -->
 	<insert id="write">
 		INSERT INTO ad(ad_idx,ad_host,ad_manager,ad_type,ad_title,ad_content,ad_area,
 		ad_address,ad_vcount,ad_exposure,ad_lat,ad_lng,s_date,e_date,ad_count,ad_state)
-		VALUES(ad_seq.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},
-		#{param7},0,0,#{param8},#{param9},#{param10},#{param11},#{param12},'진행')
+		VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},
+		#{param7},#{param8},0,0,#{param9},#{param10},#{param11},#{param12},#{param13},'진행')
 	</insert>
 </mapper>

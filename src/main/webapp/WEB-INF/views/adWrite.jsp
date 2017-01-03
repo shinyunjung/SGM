@@ -102,14 +102,14 @@
 												<option value="${gu.index}">${ad}</option>
 											</c:forEach>
 										</select>
-									<input type="text" name="ad_address" placeholder="주소" />
+									<input type="text" name="address" placeholder="지도에서 장소 선택시 자동 입력됩니다." />
 									</td>
 								</tr>
 								<tr class="borderTop">
 									<td>
 										<jsp:include page="../../resources/include/mapWrite.jsp" />
-										<input type="hidden" name="ad_lat" value=""/>
-										<input type="hidden" name="ad_lng" value=""/>
+										<input type="hidden" name="lat" value=""/>
+										<input type="hidden" name="lng" value=""/>
 										<button type="button" class="bt">취소</button><!-- 테스트용 -->
 									</td>
 								</tr>

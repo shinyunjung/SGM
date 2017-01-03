@@ -13,11 +13,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdInterface;
-import com.spring.main.dao.TdInterface;
-import com.spring.main.dao.TeamInterface;
-import com.spring.main.dto.BannerDto;
-import com.spring.main.dto.FileDto;
-import com.spring.main.dto.PrDto;
 import com.spring.main.dto.TdDto;
 import com.spring.main.util.UploadFile;
 
@@ -81,9 +76,9 @@ public class AdService {
 		String e_date = multi.getParameter("e_date");
 		String[] ad_URL = multi.getParameterValues("ad_URL");
 		String ad_area = multi.getParameter("ad_area");
-		String ad_address = multi.getParameter("ad_address");
-		String ad_lat = multi.getParameter("ad_lat");
-		String ad_lng = multi.getParameter("ad_lng");
+		String ad_address = multi.getParameter("address");
+		String ad_lat = multi.getParameter("lat");
+		String ad_lng = multi.getParameter("lng");
 		String ad_content = multi.getParameter("ad_content");
 		String fileName = multi.getParameter("fileName");
 		Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
@@ -94,9 +89,9 @@ public class AdService {
 		}
 		ArrayList<String> oldName = newFile.get("oldName");
 		ArrayList<String> newName = newFile.get("newName");
-		int ad_idx = inter.idxCall();
+		String ad_idx = inter.idxCall();
 		logger.info(ad_URL[1]+"/"+ad_URL[2]+"/"+ad_URL[0]+"/"+ad_type+"/"+ad_area);
-		int success = inter.write(ad_host,ad_manager,ad_type,ad_title,ad_content,ad_area,ad_address,ad_lat,ad_lng,s_date,e_date,ad_count);
+		int success = inter.write(ad_idx,ad_host,ad_manager,ad_type,ad_title,ad_content,ad_area,ad_address,ad_lat,ad_lng,s_date,e_date,ad_count);
 		for(int i=0; i<oldName.size(); i++){
 			logger.info(ad_URL[i]+"/"+oldName.get(i)+"/"+newName.get(i));
 		inter.fileUp(ad_idx,oldName.get(i),newName.get(i),ad_URL[i]);
@@ -164,6 +159,13 @@ public class AdService {
 			}
 		}
 		mav.setViewName("adList");
+		return mav;
+	}
+
+	//광고 상세보기
+	public ModelAndView adDetail(String ad_idx) {
+		inter = sqlSession.getMapper(AdInterface.class);
+		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
 

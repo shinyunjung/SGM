@@ -148,7 +148,7 @@
 								<th>실력</th>
 								<td>
 								<div class="pro">
-								  <div class="progress-bar progress-bar-info" " role="progressbar" style="width:${evalue.ev_level*10}%">
+								  <div class="progress-bar progress-bar-info" role="progressbar" style="width:${evalue.ev_level*10}%">
 								  </div>
 								</div>
 								</td>
@@ -168,7 +168,7 @@
 								<th>수비력</th>
 								<td>
 								<div class="pro">
-								  <div class="progress-bar progress-bar-warning" " role="progressbar" style="width:${evalue.ev_defe*10}%">
+								  <div class="progress-bar progress-bar-warning" role="progressbar" style="width:${evalue.ev_defe*10}%">
 								  </div>
 								</div>
 								</td>
@@ -297,7 +297,7 @@
 		console.log(list);
 		for(var i=0; i<list.length; i++){
 			content +="<tr><td>"+list[i].j_idx+"</td><td>"
-			+"<a href='./tdDetail?idx="+list[i].idx+"&t_idx="+t_idx+"'>"
+			+"<a href='./tdDetail?idx="+list[i].totalIdx+"&t_idx="+t_idx+"'>"
 			+list[i].j_title+"</a><b>["+list[i].j_reple+"]</b></td><td>"
 			+list[i].j_name+"</td><td>"
 			+list[i].j_date.substr(0,10)+"</td><td>"

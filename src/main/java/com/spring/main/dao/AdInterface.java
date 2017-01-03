@@ -19,15 +19,15 @@ public interface AdInterface {
 	ArrayList<TdDto> search(int start, int end, String type, String value);
 
 	//ad_idx불러오기
-	int idxCall();
+	String idxCall();
 
 	//광고등록
-	int write(String ad_host, String ad_manager, String ad_type, String ad_title, String ad_content,
+	int write(String ad_idx,String ad_host, String ad_manager, String ad_type, String ad_title, String ad_content,
 			String ad_area, String ad_address, String ad_lat, String ad_lng, String s_date, String e_date,
 			String ad_count);
 
 	//파일등록
-	void fileUp(int ad_idx, String ad_imgo, String ad_imgn, String ad_URL);
+	void fileUp(String ad_idx, String ad_imgo, String ad_imgn, String ad_URL);
 
 	//삭제할 파일이름
 	String[] fileDelName(String ad_idx);

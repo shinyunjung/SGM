@@ -72,7 +72,7 @@
 									<td>
 									<input type="text" name="j_name" value="admin" readonly/>
 									<input type="hidden" name="u_idx" value="1"/>
-									<input type="hidden" name="idx" value="${td.idx}"/>
+									<input type="hidden" name="idx" value="${td.totalIdx}"/>
 									<input type="hidden" name="t_idx" value="<%=t_idx %>"/>
 									</td>
 								</tr>

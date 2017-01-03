@@ -1,7 +1,7 @@
 package com.spring.main.dto;
 
 public class TdDto {
-	private String idx;
+	private String totalIdx;
 	private String j_idx;
 	private String u_idx;
 	private String j_name;
@@ -13,11 +13,11 @@ public class TdDto {
 	private String j_vcount;
 	private String j_reple;
 
-	public String getIdx() {
-		return idx;
+	public String getTotalIdx() {
+		return totalIdx;
 	}
-	public void setIdx(String idx) {
-		this.idx = idx;
+	public void setTotalIdx(String totalIdx) {
+		this.totalIdx = totalIdx;
 	}
 	public String getJ_idx() {
 		return j_idx;

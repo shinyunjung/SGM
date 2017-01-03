@@ -56,7 +56,7 @@
 	
 	<!-- 팀안내 -->
 	<select id="teamInfo" resultType="com.spring.main.dto.TeamDto">
-		SELECT t_idx,t_name,t_picture FROM team WHERE t_idx = #{param1}
+		SELECT t_idx,t_name,t_newPicture FROM team WHERE t_idx = #{param1}
 	</select>
 	
 	<!-- 팀대표 -->
