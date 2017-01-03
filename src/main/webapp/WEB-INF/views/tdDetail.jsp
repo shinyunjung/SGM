@@ -40,6 +40,7 @@
 				
 				width: 100%;
 				margin-top: 10px;
+				display: none;
 			}
 			#repleBox{
 				
@@ -161,9 +162,12 @@
 							<table id="repleBox">
 							<tr>
 								<td class="user">등록자</td>
-								<td class="data"><textarea rows="3"></textarea></td>
-								<td class="repleBtn"><button id="go">댓글등록</button></td>
+								<td class="data"><textarea rows="3" id="reple"></textarea></td>
+								<td class="repleBtn"><button id="repleGo">댓글등록</button></td>
 							</tr>
+						</table>
+						<!-- 댓글 리스트 -->
+						<table id="repleList">
 						</table>
 					</div>
 					</div>
@@ -179,20 +183,102 @@
 	<script>
 	start();
 	function start(){
-		/* if("${record}"=="[]"){
+		if("${record}"=="[]"){
 			$(".recordZone").css("display","none");
-		} */
+		}
 		var path = "../../main/resources/upload/";
 		for(var i=0; i<3; i++){
 			var src = ["${file[0].f_newfilename}","${file[1].f_newfilename}","${file[2].f_newfilename}"];
 			if(src[i]!=""){
 			$("#file"+(i+1)).attr("src",path+src[i]);
-				var ss = $("#file"+(i+1)).attr("src");
-				console.log("d");
 				console.log(src);
-				console.log(ss);
 			}
 		}
+	}
+	
+	function reple(){
+		var display=$("#replyZone").css("display");
+		if(display=="none"){
+			$("#replyZone").css("display","block");
+			 replyList(); 
+		}else{
+			$("#replyZone").css("display","none");
+		}
+	}
+	
+	$(".repleGo").click(function(){
+		console.log("댓글 전송");
+		var url="./replyRegist";
+		var data={};
+		data.idx="${td.totalIdx}";
+		data.replyer=user; 
+		data.reple=$("#reple").val();
+		console.log(data);
+		reqServer(url, data);
+	});
+	
+	function replyList(){
+		var url="../match/replyList";
+		var data={};
+		data.idx="${td.totalIdx}";
+		data.category=4;
+		console.log(data);
+		console.log("댓글 리스트");
+		reqServer(url, data);
+	}
+	
+	function printReple(list){
+		var content="";
+		console.log(user);
+		repleCnt=list.length;
+		for(var i=0; i<list.length; i++){
+			content+="<tr>"
+				+"<td class='user'>"+list[i].r_writer+"</td>"
+				+"<td class='data'>"+list[i].r_reple;
+				if(user==list[i].r_writer){
+				content+="<a href='#' onclick='repleDel("+list[i].r_idx+")'><sup>X</sup></a>";
+				}
+				content+="</td>"
+				+"<td>"+list[i].r_date+"</td>"
+				+"</tr>";
+		}
+		$("#repleList").empty();
+		$("#repleList").append(content);
+	}		
+	
+	function repleDel(idx){
+		var url="./replyDel";
+		var data={};
+		data.idx="${td.totalIdx}";
+		console.log(data);
+		reqServer(url, data);
+	}
+	
+	function reqServer(url, data){
+		console.log(url);
+		console.log(obj);
+		$.ajax({
+			url:url,
+			type:"post",
+			data:obj,
+			dataType:"JSON",
+			success:function(d){
+				console.log(d);
+				if(url=="../match/replyRegist"){
+					$("#reple").val("");
+					 replyList(); 
+				}else if(url=="./replyList"){
+					console.log("댓글 리스트 호출");
+					printReple(data.replyList); 
+				}else if(url=="./replyDel"){
+					console.log("댓글 삭제");
+					replyList();
+				}
+			},
+			error:function(error){
+				console.log(error);
+			}
+		});
 	}
 	</script>
 </html>

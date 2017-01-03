@@ -75,7 +75,7 @@ public interface TdInterface {
 	void update(String idx, String j_title, String j_content);
 
 	//파일 수정
-	void fileModify(String idx, String string, String string2);
+	void fileModify(String del, String oldName, String newName);
 
 	//개인기록 수정
 	void recordUP(String idx, String string, String string2, String string3, String string4, String string5,

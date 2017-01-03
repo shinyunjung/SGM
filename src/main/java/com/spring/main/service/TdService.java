@@ -232,7 +232,7 @@ public class TdService {
 			String j_content = multi.getParameter("j_content");
 			String fileName = multi.getParameter("fileName");
 			String tf = multi.getParameter("tf");
-			if(tf!="t"){
+			if(tf.equals("t")){
 				String p_date = multi.getParameter("p_date");
 				String[] p_goal = multi.getParameterValues("p_goal[]");
 				String[] p_assist = multi.getParameterValues("p_assist[]");
@@ -275,10 +275,11 @@ public class TdService {
 			}
 			ArrayList<String> oldName = newFile.get("oldName");
 			ArrayList<String> newName = newFile.get("newName");
+			ArrayList<String> del = newFile.get("del");
 			inter.update(idx, j_title, j_content);
 			for(int i=0; i<newName.size(); i++){
 				if(oldName.get(i)!=""){
-					inter.fileModify(idx, oldName.get(i),newName.get(i));
+					inter.fileModify(del.get(i),oldName.get(i),newName.get(i));
 				}
 			}
 			mav.setViewName("redirect:../td/tdList?t_idx="+t_idx);

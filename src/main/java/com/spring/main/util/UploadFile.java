@@ -91,6 +91,7 @@ public class UploadFile {
 	public Map<String, ArrayList<String>> fileModify(MultipartHttpServletRequest multi, String[] delName){
 		ArrayList<String> oldName = new ArrayList<String>();
 		ArrayList<String> newName = new ArrayList<String>();
+		ArrayList<String> del = new ArrayList<String>();
 		Map<String, ArrayList<String>> name = new HashMap<String, ArrayList<String>>();
 		String newFileName = "";//반환될 파일명
 		int i = 0;
@@ -115,8 +116,10 @@ public class UploadFile {
 			String originFileName = mFile.getOriginalFilename();
 			
 			if(originFileName != null && originFileName!=""){
-				path +=delName[i];
-				logger.info("삭제"+path);
+				String fullPath = "D:/spring/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SGM/resources/upload/";
+				fullPath += delName[i];
+				del.add(delName[i]);
+				logger.info("삭제"+fullPath);
 				if(file.exists()){
 					file.delete();
 				}else{
@@ -129,6 +132,7 @@ public class UploadFile {
 					logger.info("저장 파일명:{}",newFileName);
 					oldName.add(originFileName);
 					newName.add(newFileName);
+					logger.info(originFileName+"/"+newFileName+"/"+delName[i]);
 				}
 				
 				//메모리 -> 실제파일
@@ -141,6 +145,7 @@ public class UploadFile {
 			}
 			name.put("oldName", oldName);
 			name.put("newName", newName);
+			name.put("del", del);
 			i++;
 			}
 		

@@ -47,7 +47,7 @@
 	<!-- 글쓰기 -->
 	<insert id="write">
 		INSERT INTO board(totalIdx,j_idx,u_idx,j_category,j_name,j_title,j_content,j_filenum,j_vcount,j_reple)
-		VALUES(#{param1},td_num.NEXTVAL,#{param2},#{param3},#{param4},#{param5},#{param6},0,0,0)
+		VALUES(#{param1},tr_seq.NEXTVAL,#{param2},#{param3},#{param4},#{param5},#{param6},0,0,0)
 	</insert>
 	
 	<!-- 개인기록 -->
@@ -86,12 +86,12 @@
 	
 	<!-- 파일명불러오기 -->
 	<select id="fileCall" resultType="com.spring.main.dto.FileDto">
-		SELECT f_idx,f_newfilename,f_filename FROM SGM_file WHERE totalIdx = #{param1} ORDER BY f_idx ASC
+		SELECT f_idx,f_newfilename,f_filename FROM SGM_file WHERE totalIdx = #{param1}
 	</select>
 	
 	<!-- 삭제할 파일명 -->
 	<select id="fileDelName" resultType="String">
-		SELECT f_newfilename FROM SGM_file WHERE totalIdx = #{param1}
+		SELECT f_newfilename FROM SGM_file WHERE totalIdx = #{param1} ORDER BY f_idx ASC
 	</select>
 	
 	<!-- 글삭제 -->
@@ -131,7 +131,7 @@
 	<!-- 파일 수정 -->
 	<update id="fileModify">
 		UPDATE SGM_file SET f_filename = #{param2}, f_newfilename = #{param3}
-		WHERE f_idx = #{param1}
+		WHERE f_newfilename = #{param1}
 	</update>
 
 	<!-- 개인기록 수정 -->
