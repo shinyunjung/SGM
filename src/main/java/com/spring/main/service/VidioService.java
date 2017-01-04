@@ -41,7 +41,7 @@ public class VidioService {
 			//게시물 시작과 끝 번호
 			int end=pagePerNum*currPage;
 			int start=end-pagePerNum+1;
-			String j_category = params.get("j_category");
+			int j_category = 2;
 			int allCnt = inter.v_allCount(j_category);
 			int totalPage=allCnt/pagePerNum;
 			System.out.println(totalPage%pagePerNum);
@@ -71,7 +71,7 @@ public class VidioService {
 			
 			String input = params.get("input");
 			String type = params.get("type");
-			String j_category = params.get("j_category");
+			int j_category = 2;
 			
 			logger.info(currPage+"/"+pagePerNum+"/"+input);
 			
@@ -110,7 +110,7 @@ public class VidioService {
 			Map<String, Object> json = new HashMap<String, Object>();
 			String input=params.get("input");
 			String type=params.get("type");
-			String j_category = params.get("j_category");
+			int j_category = 2;
 			int allCnt = inter.v_searhCount(input, type, j_category);
 			json.put("count", allCnt);
 			return json;
@@ -123,7 +123,7 @@ public class VidioService {
 		    String j_title = params.get("v_title");
 		    String j_name = params.get("v_name");
 		    String j_content = params.get("v_content");      
-		    String j_category = params.get("j_category");
+		    int j_category = 2;
 		    int success = inter.Write(j_title, j_name, j_content, j_category); 
 		    String page = "vidioList";
 		    String msg = "등록에 실패하였습니다.";   

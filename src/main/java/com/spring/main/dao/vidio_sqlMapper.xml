@@ -11,7 +11,7 @@
    
    <!-- 검색 후 게시물 전채 개수 -->
    <select id="v_searhCount" resultType="Integer" >
-      SELECT COUNT(*) FROM board WHERE ${param2} like '%'||#{param1}||'%'
+      SELECT COUNT(*) FROM board WHERE j_category=#{param3} WHERE ${param2} like '%'||#{param1}||'%'
    </select>
    
    <!-- 리스트 불러오기 -->
@@ -29,15 +29,15 @@
               j_filenum,
               j_vcount,
               j_reple,
-                 ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board)
-      WHERE rnum BETWEEN #{param1} AND #{param2}
+                 ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board WHERE j_category=#{param3}
+            )WHERE rnum BETWEEN #{param1} AND #{param2}
    </select>
    
    <!-- 검색 후 리스트 추가 -->
    <select id="v_searhCall" resultType="com.spring.main.dto.vidioDTO">
-      SELECT j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
+      SELECT totalidx, j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
        j_filenum, j_vcount, j_reple FROM (
-         SELECT j_idx,
+         SELECT totalidx, j_idx,
               u_idx, j_name,
               j_category,
               j_title,
@@ -46,42 +46,43 @@
               j_filenum,
               j_vcount,
               j_reple, 
-                 ROW_NUMBER() OVER(ORDER BY j_idx DESC) AS rnum FROM board
-        WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
+                 ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board 
+            WHERE j_category=#{param3} AND ${param4} LIKE '%'||#{param5}||'%'
+            )WHERE rnum BETWEEN #{param1} AND #{param2}  
    </select>
    
    <!-- 상세 보기 -->
     <select id="vidioDetail" resultType="com.spring.main.dto.vidioDTO">
-       SELECT * FROM board WHERE j_idx = #{param1}
+       SELECT * FROM board WHERE totalidx = #{param1}
     </select>
     
     <!-- 조회수 올리기 -->
     <update id="j_vcount">
-       UPDATE board SET j_vcount = j_vcount+1 WHERE j_idx = #{param1}
+       UPDATE board SET j_vcount = j_vcount+1 WHERE totalidx = #{param1}
     </update>
 
     <!-- 글쓰기 -->
     <insert id="Write">
        INSERT INTO board(
-       totalidx, j_idx, j_title, j_name, j_content, j_vcount, j_reple)
-          VALUES(total_seq.NEXTVAL, free_seq.NEXTVAL, #{param1}, #{param2}, #{param3}
+       totalidx, j_idx, j_title, j_name, j_content, j_category, j_vcount, j_reple)
+          VALUES(total_seq.NEXTVAL, vidio_seq.NEXTVAL, #{param1}, #{param2}, #{param3},#{param4}
           ,0,0)
     </insert>
     
     <!-- 글삭제 -->
    <delete id="delete">
-      DELETE FROM board WHERE j_idx = #{param1}
+      DELETE FROM board WHERE totalidx = #{param1}
    </delete> 
    
    <!-- 글 수정 -->
     <update id="update">
        UPDATE board SET j_title = #{param1}, j_name = #{param2}, j_content = #{param3}
-          WHERE j_idx = #{param4}
+          WHERE totalidx = #{param4}
     </update>   
     
     <!-- 댓글 등록 -->
    <insert id="v_replyRegist">
-      INSERT INTO reple(r_idx, r_category, j_idx, r_writer, r_reple) 
+      INSERT INTO reple(r_idx, r_category, totalidx, r_writer, r_reple) 
          VALUES(reple_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4})
    </insert>
    

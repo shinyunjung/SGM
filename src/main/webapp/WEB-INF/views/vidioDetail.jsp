@@ -82,7 +82,7 @@
 									<td class="left"><a>댓글쓰기</a></td>
 									<td colspan="4" class="right ">
 										<input type="button" onclick="location.href='./vidioList'" value="돌아가기"/>
-                              			<input type="button" onclick="location.href='./vidioModify?j_idx=${content.j_idx}'" value="수정하기"/>
+                              			<input type="button" onclick="location.href='./vidioModify?totalidx=${content.totalidx}'" value="수정하기"/>
                               			<input type="button" onclick="del()" value="삭제"/>
 									</td>
 								</tr>
@@ -110,7 +110,7 @@
 	</body>
 	<script>
 	function del(){
-	      location.href="./delete?j_idx="+${content.j_idx };
+	      location.href="./delete?totalidx="+${content.j_idx };
 	   }
 	</script>
 </html>

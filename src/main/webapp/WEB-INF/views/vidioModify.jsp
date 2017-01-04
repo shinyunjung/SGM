@@ -56,7 +56,7 @@
                         		</tr>
                         		<tr class="borderTop">
                            			<td>
-                              			<input type="hidden" name="j_idx" value="${content.j_idx}"/>
+                              			<input type="hidden" name="j_idx" value="${content.totalidx}"/>
                               			<input type="text" name="j_name" value="${content.j_name}"/>
                            			</td>
                         		</tr>

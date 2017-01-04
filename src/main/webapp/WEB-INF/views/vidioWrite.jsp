@@ -52,7 +52,10 @@
 									<td><input type="text" name="v_title" placeholder="제목"/></td>
 								</tr>
 								<tr class="borderTop">
-									<td><input type="text" name="v_name" value="" readonly/></td>
+									<td>
+										<input type="hidden" name="j_category" value="2"/>
+										<input type="text" name="v_name" value="" readonly/>
+									</td>
 								</tr>
 								<tr class="borderTop">
 									<td>
