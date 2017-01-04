@@ -50,8 +50,11 @@
 			<div class="page">
 				<div class="col2 content">
 					<fieldset>
-				  		<legend>팀일지</legend>
-				  	</fieldset>
+						<legend>${team.t_name}</legend>
+					</fieldset>
+					<div class="team">
+						<jsp:include page="../../resources/include/team.jsp" />
+					</div>
 				</div>
 				<div class="col5 content">
 				<fieldset>
@@ -64,8 +67,8 @@
 								</tr>
 								<tr class="borderTop">
 									<td>
-									<input type="text" name="j_name" value="admin" readonly/>
-									<input type="hidden" name="u_idx" value="1"/>
+									<input type="text" name="j_name" value="${sessionScope.userName}(${sessionScope.userId})" readonly/>
+									<input type="hidden" name="u_idx" value="${sessionScope.userIdx}"/>
 									<input type="hidden" name="j_category" value="<%="1"+t_idx %>"/>
 									</td>
 								</tr>

@@ -10,7 +10,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<style>
-			.teamList{
+			.table{
 				width: 100%;
 			}
 			th{
@@ -32,7 +32,7 @@
 				
 				<!-- 두 번째 구역 -->
 				<div class="col5 content">
-					<table class="table table-hover totalTable">
+					<table class="table table-hover">
 						<thead>
 							<tr>
 								<td style="text-align: left;">
@@ -51,7 +51,7 @@
 							</tr>
 						</thead>
 					</table>
-					<table class="table table-hover totalTable">
+					<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>랭킹</th>

@@ -49,7 +49,7 @@
 			}
 			textarea{
 				width: 100%;
-				resize: none;
+				resize: block;
 			}
 			.recordZone{
 				position: relative;
@@ -59,6 +59,7 @@
 				width: 100%;
 				min-height: 300px;
 				font-size: 14px;
+				text-align: left;
 			}
 		</style>
 	</head>
@@ -90,8 +91,8 @@
 									<td colspan="6" class="subject">${td.j_title}</td>
 								</tr>
 								<tr>
-									<td class="subject">작성자</td>
-									<td class="subject">${td.j_name}</td>
+									<td>작성자</td>
+									<td class="borderLeft">${td.j_name}</td>
 									<td class="borderLeft">날짜</td>
 									<td class="borderLeft">${td.j_date}</td>
 									<td class="borderLeft">조회수</td>
@@ -150,8 +151,13 @@
 										</tr>
 									</c:if>
 								</c:forEach>
-								<tr class="borderTop">
+								</tbody>
+							</table>
+					</div>
+							<table>
+								<tr>
 									<td class="left"><a>댓글쓰기</a></td>
+									<td style="width: 500px"></td>
 									<td colspan="10" class="right ">
 										<a href="./tdModify?idx=${td.totalIdx}&t_idx=${team.t_idx}">수정</a> / <a href="./delete?idx=${td.totalIdx}&t_idx=${team.t_idx}">삭제</a>
 									</td>
@@ -170,7 +176,6 @@
 						<table id="repleList">
 						</table>
 					</div>
-					</div>
 				</div>
 				
 				<!-- 세 번째 구역 -->
@@ -179,6 +184,7 @@
 				</div>
 			</div>
 		</div>
+		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
 	start();
@@ -196,7 +202,7 @@
 		}
 	}
 	
-	function reple(){
+	/* function reple(){
 		var display=$("#replyZone").css("display");
 		if(display=="none"){
 			$("#replyZone").css("display","block");
@@ -279,6 +285,6 @@
 				console.log(error);
 			}
 		});
-	}
+	} */
 	</script>
 </html>

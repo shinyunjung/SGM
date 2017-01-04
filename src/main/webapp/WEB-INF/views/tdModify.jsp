@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<% String t_idx = request.getParameter("t_idx"); %>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -70,10 +69,9 @@
 								</tr>
 								<tr class="borderTop">
 									<td>
-									<input type="text" name="j_name" value="admin" readonly/>
-									<input type="hidden" name="u_idx" value="1"/>
+									<input type="text" name="j_name" value="${td.j_name}" readonly/>
 									<input type="hidden" name="idx" value="${td.totalIdx}"/>
-									<input type="hidden" name="t_idx" value="<%=t_idx %>"/>
+									<input type="hidden" name="t_idx" value="${team.t_idx}"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -181,7 +179,7 @@
 	<script>
 	var file = null;
 	var fileName = null;
-	var t_idx = <%=t_idx %>;
+	var t_idx = "${team.t_idx}";
 	var sw = false;
 	
 	start();

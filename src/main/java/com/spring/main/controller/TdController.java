@@ -37,9 +37,9 @@ public class TdController {
 	}
 	//팀일지쓰기
 	@RequestMapping(value = "/tdWrite")
-	public String tdWrite() {
+	public ModelAndView tdWrite(@RequestParam("t_idx") String t_idx) {
 		logger.info("팀일지쓰기");
-		return "tdWrite";
+		return service.tdWrite(t_idx);
 	}
 	//팀일지수정
 	@RequestMapping(value = "/tdModify")

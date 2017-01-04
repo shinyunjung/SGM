@@ -48,7 +48,7 @@
 			input[name="u_id"],
 			input[name="m_name"],
 			input[name="m_position"]{
-				width: 80px;
+				width: 90px;
 			}
 			#leader{
 				height: 30px;
@@ -71,6 +71,14 @@
 						<input id="fileName" type="hidden" name="fileName"/>
 						</div>
 					</fieldset>
+					<div id="Category">
+						<div class="list-group">
+							<a href="../team/teamDetail?t_idx=${team.t_idx}" class="list-group-item">팀 멤버</a>
+							<a href="../td/tdList?t_idx=${team.t_idx}" class="list-group-item">팀 일지</a>
+							<a href="../team/teamModify?t_idx=${team.t_idx}" class="list-group-item">팀 수정</a>
+							<a href="../team/Delete?t_idx=${team.t_idx}" class="list-group-item">팀 탈퇴</a>
+						</div>
+					</div>
 				</div>
 				
 				<!-- 두 번째 구역 -->
@@ -383,10 +391,12 @@
 				console.log(d)
 				if(url == "./teamDel"){
 					location.href="../"
-				}else{
+				}else if(url == "./memberAdd"){
+					$(".tog").toggleClass("ex"); 
+					$(".tog").text("추가");
+				}
 					alert(d.msg);
 					printList(d.list.member);
-				}
 				
 			},error:function(e){
 				console.log(e)

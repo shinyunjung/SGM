@@ -285,6 +285,18 @@ public class TdService {
 			mav.setViewName("redirect:../td/tdList?t_idx="+t_idx);
 			return mav;
 		}
+
+		//글쓰기 페이지 이동
+		public ModelAndView tdWrite(String t_idx) {
+			team = sqlSession.getMapper(TeamInterface.class);
+			ModelAndView mav = new ModelAndView();
+			
+			mav.addObject("team",team.teamInfo(t_idx));
+			mav.addObject("member",team.grade(t_idx));
+			mav.setViewName("tdWrite");
+			
+			return mav;
+		}
 		
 		
 

@@ -72,8 +72,8 @@
 			  				<th>팀명</th>
 			  				<td>
 			  					<input type="text" class="form-control" name="t_name" placeholder="팀명">
-			  					<input type="hidden" name="u_idx" value="1">
-			  					<input type="hidden" name="u_name" value="홍길동">
+			  					<input type="hidden" name="u_idx" value="${sessionScope.userIdx}">
+			  					<input type="hidden" name="u_name" value="${sessionScope.userName}">
 			  				</td>
 			  				<td style="padding-left: 10px;">
 			  					<button type="button" onclick="overlay()" class="btn btn-default">중복체크</button>
