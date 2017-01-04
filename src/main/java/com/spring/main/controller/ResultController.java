@@ -24,4 +24,11 @@ public class ResultController {
 		logger.info("매칭결과");
 		return "result";
 	}
+	
+	//무승부
+	@RequestMapping(value = "/tie")
+	public ModelAndView tie(){
+		logger.info("무승부");
+		return service.tie();
+	}
 }
