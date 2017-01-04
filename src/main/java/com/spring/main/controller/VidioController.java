@@ -22,6 +22,14 @@ public class VidioController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	//영상게시판 이동
+	@RequestMapping(value="/vidioList")
+	public String vidioList() {
+		logger.info("비디오리스트");
+		return "vidioList";
+	}
+			
+	
 	//리스트 요청
 	@RequestMapping(value="/v_listCall")
 		public @ResponseBody Map<String, Object> listCall(@RequestParam Map<String, String> params){

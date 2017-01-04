@@ -106,7 +106,7 @@
 	});
 	
 	function Search(){
-		var url="./vidio/v_search";
+		var url="./v_search";
 		var data={};
 		if($(".input").val()!=""){
 			console.log("검색");
@@ -127,7 +127,7 @@
 	
 	function v_searchCall(currPage){
 		if(currPage>=1 && currPage<=totalPage){
-			var url="./vidio/v_searchCall";
+			var url="./v_searchCall";
 			var data={};
 			search=true;
 			console.log($(".input").val());
@@ -149,7 +149,7 @@
 	
 	function v_listCall(currPage){
 		if(currPage>=1 && currPage<=totalPage){
-			var url="./vidio/v_listCall";
+			var url="./v_listCall";
 			var data={};
 			data.page=currPage;
 			data.pagePerNum=$("#pagePerNum").val();
@@ -169,13 +169,13 @@
 			dataType:"JSON",
 			success:function(data){
 				console.log(data);
-				if(url=="./vidio/v_listCall"){
+				if(url=="./v_listCall"){
 					printList(data.jsonList.list);
 					currPage=data.currPage;
 					totalPage=data.totalPage;
 					printPaging(data.totalCount, data.totalPage); 
 				}
-				else if(url=="./vidio/v_search"){
+				else if(url=="./v_search"){
 					if(data.count!=0){
 						console.log(data.count);
 						v_searchCall(1);
@@ -183,7 +183,7 @@
 						alert("검색 결과가 없습니다.");
 					}
 				}
-				else if(url=="./vidio/v_searchCall"){
+				else if(url=="./v_searchCall"){
 					console.log("검색 종료");
 					printList(data.jsonList.list);
 					currPage=data.currPage;
@@ -203,7 +203,7 @@ function printList(list){
 		content+="<tr>"
 			+"<td>"+list[i].j_idx+"</td>"
 			+"<td>"+list[i].j_name+"</td>"
-			+"<td><a href='./vidio/vidioDetail?j_idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
+			+"<td><a href='./vidioDetail?j_idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
 			+"<td>"+list[i].j_date+"</td>"
 			+"<td>"+list[i].j_vcount+"</td>"
 			+"</tr>";

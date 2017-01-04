@@ -97,7 +97,7 @@
    </update>
    
    <!-- 댓글 리스트 -->
-   <select id="v_replyList" resultType="com.spring.main.dto.RepleDTO">
+   <select id="v_replyList" resultType="com.spring.main.dto.RepleDto">
       SELECT * FROM reple WHERE r_idx=#{param1} 
          AND r_category=#{param2} ORDER BY r_idx ASC
    </select>
