@@ -25,9 +25,9 @@ public class NoteController {
 	
 	//쪽지함 페이지 이동
 	@RequestMapping(value = "/msgPage")
-	public ModelAndView msgPage(@RequestParam("t_idx") String t_idx) {
+	public ModelAndView msgPage(@RequestParam("idx") String idx) {
 		
-		return service.msgPage(t_idx);
+		return service.msgPage(idx);
 	}
 	
 	

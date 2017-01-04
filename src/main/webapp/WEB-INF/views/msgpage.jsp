@@ -17,6 +17,15 @@
 			.search{
 				border: 1px solid;
 			}
+			.title td{
+				cursor: pointer;
+			}
+			.hide{
+				display: none;
+			}
+			.show{
+				display: table-row;
+			}
 		</style>
 	</head>
 	<body>
@@ -64,7 +73,7 @@
 						</table>
 					</div>
 					<div class="noteList">
-						<table class="table table-hover">
+						<table class="table table-hover recruit">
 							<thead class="center">
 								<tr>
 									<td><b>순번</b></td>
@@ -98,7 +107,9 @@
 		var search=false;
 		var input = "";
 		var type="n_title";
-		var idx="${sessionScope.userIdx}";
+		var idx="${idx}";
+		console.log(idx);
+		
 		var msg="";
 		msg="${msg}";
 		
@@ -122,7 +133,7 @@
 		});
 		
 		function Search(){
-			var url="./note/search";
+			var url="./search";
 			var data={};
 			if($(".input").val()!=""){
 				console.log("검색");
@@ -134,6 +145,7 @@
 			if(count>1){
 				data.input=input;
 				data.type=type;
+				data.idx=idx;
 				reqServer(url, data);	
 			}else{
 				alert("검색하실 단어는 2글자 이상이여야합니다.")
@@ -143,7 +155,7 @@
 		
 		function searchCall(currPage){
 			if(currPage>=1 && currPage<=totalPage){
-				var url="./note/searchCall";
+				var url="./searchCall";
 				var data={};
 				search=true;
 				console.log($(".input").val());
@@ -156,6 +168,7 @@
 				data.input=input;
 				data.type=type;
 				console.log(input);
+				data.idx=idx;
 				data.page=currPage;
 				data.pagePerNum=$("#pagePerNum").val();
 				reqServer(url, data);
@@ -174,7 +187,7 @@
 				dataType:"JSON",
 				success:function(data){
 					console.log(data);
-					if(url=="./note/search"){
+					if(url=="./search"){
 						if(data.count!=0){
 							console.log(data.count);
 							searchCall(1);
@@ -182,7 +195,7 @@
 							alert("검색 결과가 없습니다.");
 						}
 					}
-					else if(url=="./note/searchCall"){
+					else if(url=="./searchCall"){
 						console.log("검색 종료");
 						printList(data.jsonList.list);
 						currPage=data.currPage;
@@ -199,7 +212,7 @@
 	function printList(list){
 		var content="";
 		for(var i=0; i<list.length; i++){
-			content+="<tr>"
+			content+="<tr id='"+i+"' onclick='showContent("+i+")'>"
 				+"<td>"+list[i].n_idx+"</td>"
 				+"<td>"+list[i].n_writer+"</td>"
 				+"<td>"+list[i].n_title+"</td>";
@@ -208,6 +221,8 @@
 				}else{
 					content+="<td><a href='#'>삭제Y</a></td>";
 				}
+				content+="</tr>"
+				+"<tr class='hide'><td colspan=4 class='center'>"+list[i].n_content+"</td>"
 				+"</tr>";
 			}
 			
@@ -216,8 +231,19 @@
 			logoId();
 		}
 	
-	
-	
+	function showContent(num){
+		var article = (".show");
+		var myArticle =$("#"+num).next("tr");
+		if(myArticle.hasClass("hide")){
+			$(article).removeClass('show').addClass('hide'); 
+			$(myArticle).removeClass('hide').addClass('show');  
+		}else{
+			$(myArticle).removeClass('show').addClass('hide');
+		}
+	}
+		
+		
+		
 	 //페이지 그리기
 	function printPaging(count, page){
 		var totalRange=page/5;

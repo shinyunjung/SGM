@@ -42,7 +42,7 @@ public class NoteService {
 		int currPage=Integer.parseInt(params.get("page"));//현재 페이지
 		
 		int pagePerNum=Integer.parseInt(params.get("pagePerNum"));//페이지에 넣을 데이터 갯수
-		
+		String idx=params.get("idx");
 		String input = params.get("input");
 		String type = params.get("type");
 		
@@ -53,12 +53,13 @@ public class NoteService {
 		int start=end-pagePerNum+1;
 		int allCnt=0;
 		if(input!=""){
-			allCnt = inter.note_searhCount(input, type);
-			obj.put("list", inter.note_searhCall(start, end, input, type));
+			allCnt = inter.note_searhCount(input, type, idx);
+			obj.put("list", inter.note_searhCall(start, end, input, type, idx));
 		}else{
-			allCnt = inter.note_allCount();
-			obj.put("list", inter.note_listCall(start, end));
+			allCnt = inter.note_allCount(idx);
+			obj.put("list", inter.note_listCall(start, end, idx));
 		}
+		inter.note_newChange(idx);
 		int totalPage=allCnt/pagePerNum;
 		System.out.println(totalPage%pagePerNum);
 		if(allCnt%pagePerNum!=0){
@@ -82,7 +83,8 @@ public class NoteService {
 		Map<String, Object> json = new HashMap<String, Object>();
 		String input=params.get("input");
 		String type=params.get("type");
-		int allCnt = inter.note_searhCount(input, type);
+		String idx=params.get("idx");
+		int allCnt = inter.note_searhCount(input, type, idx);
 		json.put("count", allCnt);
 		return json;
 	}
@@ -105,7 +107,7 @@ public class NoteService {
 			}
 		}
 		logger.info(idx0+"/"+idx1+"/"+idx2);
-		map.put("list", inter.newListCall(idx0, idx1, idx2));
+		map.put("list", inter.note_newListCall(idx0, idx1, idx2));
 		return map;
 	}
 }

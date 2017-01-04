@@ -13,9 +13,20 @@
 				text-align: right;
 			}
 			.msgPannel{
-				display: block;
-				width: 1080px;
-				text-align: right;
+				border: 1px solid blue;
+				display: none;
+				width: 500px;
+				height: 150px;
+				position:absolute;
+				left: 620px;
+				overflow:auto;
+				z-index: 2;
+				background-color: white;
+				
+			}
+			.msgTable{
+				border: 1px solid;
+				width: 100%;
 			}
 			
 		</style>
@@ -27,7 +38,7 @@
 				<button class="joinBtn" onclick="location.href='../join'">회원가입</button>
 			</div>
 			<div class="msgPannel">
-				<table class="table" width="200px">
+				<table class="table msgTable">
 					<thead>
 						<tr>
 							<td>받은 팀</td>
@@ -37,6 +48,7 @@
 					<tbody id="msgList">
 						<tr>
 							<td>dlwnaud</td>
+							<td>test</td>
 						</tr>
 					</tbody>
 				</table>
@@ -129,10 +141,10 @@
 		}
 		
 		function msgPannel(){
-			/* $(".msgPannel").slideToggle("fast",function(){
+			 $(".msgPannel").slideToggle("fast",function(){
 				console.log("토글");
-			}); */
-			msgList();
+			}); 
+			 msgList(); 
 		}
 		
 		function msgList(){
@@ -158,10 +170,11 @@
 		content="";
 		for(var i=0; i<list.length; i++){
 			console.log(i);
-			content+="<tr>";
-			+"<td>"+list[i].n_receiver+"</td>"
+			content+="<tr>"
+			+"<td><a href='../../main/note/msgPage?idx="+list[i].receiver_idx+"' >"+list[i].n_receiver+"</a></td>"
 			+"<td>"+list[i].n_title+"</td>"
 			+"</tr>";
+			console.log(content);
 		}
 		$("#msgList").empty();
 		$("#msgList").append(content);

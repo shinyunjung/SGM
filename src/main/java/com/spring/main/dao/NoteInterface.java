@@ -7,16 +7,18 @@ import com.spring.main.dto.NoteDto;
 
 public interface NoteInterface {
 
-	int note_searhCount(String input, String type);
+	int note_searhCount(String input, String type, String idx);
 
-	ArrayList<NoteDto> note_searhCall(int start, int end, String input, String type);
+	ArrayList<NoteDto> note_searhCall(int start, int end, String input, String type, String idx);
 
-	int note_allCount();
+	int note_allCount(String idx);
 
-	ArrayList<NoteDto> note_listCall(int start, int end);
+	ArrayList<NoteDto> note_listCall(int start, int end, String idx);
 
-	void confirmUpdate();
+	void note_confirmUpdate();
 
-	ArrayList<NoteDto> newListCall(String idx0, String idx1, String idx2);
+	ArrayList<NoteDto> note_newListCall(String idx0, String idx1, String idx2);
+
+	void note_newChange(String idx);
 
 }

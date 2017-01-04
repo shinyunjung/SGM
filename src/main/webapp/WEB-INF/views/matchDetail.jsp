@@ -193,7 +193,7 @@
 						<table class="matchMsg">
 							<tr>
 								<td>매칭쪽지 보내기</td>
-								<td class="right"><input type="button" onclick="delMsg()">x</button></td>
+								<td class="right"><input type="button" onclick="delMsg()" value="X"></td>
 							</tr>
 							<tr class="center borderTop">
 								<td class="borderRight sender" id="sender">보낸 이 : </td>
