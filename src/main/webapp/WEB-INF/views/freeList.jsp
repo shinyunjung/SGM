@@ -153,6 +153,7 @@
          var data={};
          data.page=currPage;
          data.pagePerNum=$("#pagePerNum").val();
+         data.j_category = "3";
          reqServer(url, data);
       }
    }
@@ -203,7 +204,7 @@ function printList(list){
          +"<td>"+list[i].j_idx+"</td>"
          +"<td>"+list[i].j_name+"</td>"
          +"<td><a href='../free/freeDetail?j_idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
-         +"<td>"+list[i].j_date+"</td>"		 
+         +"<td>"+list[i].j_date+"</td>" 
          +"<td>"+list[i].j_vcount+"</td>"
          +"</tr>";
       }

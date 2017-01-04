@@ -14,6 +14,13 @@
 		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
+			
+			#repleBox{
+				
+				width: 100%;
+				padding: 10px;
+			}
+			
 			.detailTable{
 				width: 100%;
 			}
@@ -86,42 +93,34 @@
 								</tr>
 							</tbody>
 						</table>
-						<div class="col3 content">
-					<div>
-						<table>
-						<tr class="borderTop">
-									<c:if test="${detail.free_reple==0}">
-										<td class="left"><a onclick="reple()" class="repCnt">댓글쓰기</a></td>
-									</c:if>
-									<c:if test="${detail.free_reple!=0}">
-										<td class="left"><a onclick="reple()" class="repCnt">댓글 ${detail.r_reple}</a></td>
-									</c:if>
-									<c:if test="${sessionScope.j_idx==''}">
-										<h1>세션 구별</h1>
-									</c:if>
-									<c:if test="${sessionScope.j_idx!=''}">
-										<c:set var="detailFree" value="${detail.free_name}" />
-										<c:forEach items="${teamList}" var="team">
-											<c:if test="${team.j_name==detailTeam}">
-												<%check=true; %>
-											</c:if>
-										</c:forEach>
-									</c:if>
+						<!-- 댓글 -->
+					<div id="replyZone">
+							<table class="repleBox borderTop">
+								<tr>
+									<td class="user">${sessionScope.userName}(${sessionScope.userId})</td>
+									<td class="data"><textarea rows="3" id="reple"></textarea></td>
+									<td class="repleBtn"><button class="repleGo">댓글등록</button></td>
 								</tr>
 							</table>
+							<!-- 댓글 리스트 -->
+							<table id="repleList">
+							</table>
 						</div>
+					</div>			
 				</div>
-						<!-- 댓글 -->
-						
-					</div>
-				</div>
+			</div>
 				
 				<!-- 세 번째 구역 -->
 				
 			</div>
-		</div>
 	</body>
 	<script>
+	var url="";
+	var data={};
+	var userIdx="${sessionScope.userIdx}";
+	var user="${sessionScope.userName}"+"(${sessionScope.userId})";
+	var repleCnt=0;
+	
 	function del(){
 		location.href="./delete?j_idx="+${content.j_idx };
 	}
@@ -141,7 +140,7 @@
 		var data={};
 		data.r_idx="${detail.totalIdx}";
 		data.r_category=3;
-		data.r_replyer="${sessionScope.j_idx}"; 
+		data.r_replyer=user; 
 		data.r_reple=$("#reple").val();
 		console.log(data);
 		reqServer(url, data);
@@ -159,7 +158,6 @@
 	
 	function printReple(list){
 		var content="";
-		var user="${sessionScope.j_idx}";
 		console.log(user);
 		repleCnt=list.length;
 		for(var i=0; i<list.length; i++){

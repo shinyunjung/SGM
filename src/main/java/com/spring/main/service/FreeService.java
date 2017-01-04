@@ -42,8 +42,8 @@ public class FreeService {
 	         //게시물 시작과 끝 번호
 	         int end=pagePerNum*currPage;
 	         int start=end-pagePerNum+1;
-	         int allCnt = inter.f_allCount();
-	         
+	         int j_category = 3;
+	         int allCnt = inter.f_allCount(j_category);
 	         int totalPage=allCnt/pagePerNum;
 	         System.out.println(totalPage%pagePerNum);
 	         if(allCnt%pagePerNum!=0){
@@ -51,7 +51,7 @@ public class FreeService {
 	         }
 	         logger.info("전체 개시물:{}",allCnt);
 	         
-	         obj.put("list", inter.f_listCall(start, end));
+	         obj.put("list", inter.f_listCall(start, end, j_category));
 	         json.put("jsonList", obj);
 	         json.put("currPage", currPage);
 	         json.put("totalCount", allCnt);
@@ -75,6 +75,7 @@ public class FreeService {
          
          String input = params.get("input");
          String type = params.get("type");
+         int j_category = 3;
          
          logger.info(currPage+"/"+pagePerNum+"/"+input);
          logger.info("검색요청11");
@@ -84,11 +85,11 @@ public class FreeService {
          int start=end-pagePerNum+1;
          int allCnt=0;
          if(input!=""){
-            allCnt = inter.f_searhCount(input, type);
-            obj.put("list", inter.f_searhCall(start, end, input, type));
+            allCnt = inter.f_searhCount(input, type, j_category);
+            obj.put("list", inter.f_searhCall(start, end, input, type, j_category));
          }else{
-            allCnt = inter.allCount();
-            obj.put("list", inter.f_listCall(start, end));
+            allCnt = inter.allCount(j_category);
+            obj.put("list", inter.f_listCall(start, end, j_category));
          }
          
          int totalPage=allCnt/pagePerNum;
@@ -117,7 +118,8 @@ public class FreeService {
 	         Map<String, Object> json = new HashMap<String, Object>();
 	         String input=params.get("input");
 	         String type=params.get("type");
-	         int allCnt = inter.f_searhCount(input, type);
+	         int j_category = 3;
+	         int allCnt = inter.f_searhCount(input, type, j_category);
 	         json.put("count", allCnt);
 
        
@@ -144,8 +146,9 @@ public class FreeService {
 			ModelAndView mav = new ModelAndView();		
 			String j_title = params.get("j_title");
 			String j_name = params.get("j_name");
-			String j_content = params.get("j_content");		
-			int success = inter.write(j_title, j_name, j_content);	
+			String j_content = params.get("j_content");	
+			int j_category = 3;
+			int success = inter.write(j_title, j_name, j_content, j_category);	
 			String page = "freeList";
 			String msg = "등록에 실패하였습니다.";	
 			if(success == 1){

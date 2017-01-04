@@ -7,12 +7,12 @@
  	<!-- 자유게시판 리스트 뛰우기 -->
  	<!-- 게시물 전채 개수 -->
    <select id="f_allCount" resultType="Integer">
-      SELECT COUNT(*) FROM board
+      SELECT COUNT(*) FROM board WHERE j_category = #{param1}
    </select>
    
    <!-- 검색 후 게시물 전채 개수 -->
    <select id="f_searhCount" resultType="Integer" >
-      SELECT COUNT(*) FROM board WHERE ${param2} like '%'||#{param1}||'%'
+      SELECT COUNT(*) FROM board WHERE j_category=${param3} WHERE ${param2} like '%'||#{param1}||'%'
    </select>
    
    <!-- 리스트 불러오기 -->
@@ -30,7 +30,7 @@
               j_filenum,
               j_vcount,
               j_reple,
-                 ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board)
+                 ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board WHERE j_category=#{param3})
       WHERE rnum BETWEEN #{param1} AND #{param2}
    </select>
    
@@ -48,7 +48,8 @@
               j_vcount,
               j_reple, 
                  ROW_NUMBER() OVER(ORDER BY j_idx DESC) AS rnum FROM board
-        WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
+        WHERE j_category=#{param3} AND ${param4} like '%'||#{param3}||'%' 
+        )WHERE rnum BETWEEN #{param1} AND #{param2}
    </select>
    
    <!-- 상세 보기 -->
@@ -61,11 +62,13 @@
  		UPDATE board SET j_vcount = j_vcount+1 WHERE j_idx = #{param1}
  	</update>
 
+
+
  	<!-- 글쓰기 -->
  	<insert id="write">
  		INSERT INTO board(
- 		totalidx, j_idx, j_title, j_name, j_content, j_vcount, j_reple)
- 			VALUES(total_seq.NEXTVAL, free_seq.NEXTVAL, #{param1}, #{param2}, #{param3}
+ 		totalidx, j_idx, j_title, j_name, j_content, j_category, j_vcount, j_reple)
+ 			VALUES(total_seq.NEXTVAL, free_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}
  			,0,0)
  	</insert>
  	
