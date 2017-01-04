@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.main.dao.AdInterface">
+
+	<!-- 리스트보이기 -->
+	<select id="listCall" resultType="com.spring.main.dto.AdDto">
+		SELECT ad_idx,ad_host,ad_manager,ad_type,ad_title,ad_area,ad_vcount,ad_exposure,s_date,e_date,ad_count,ad_state
+			FROM (
+				SELECT ad_idx,ad_host,ad_manager,ad_type,ad_title,ad_area,ad_vcount,ad_exposure,s_date,e_date,ad_count,ad_state,
+				ROW_NUMBER() OVER(ORDER BY ad_idx DESC)AS rnum FROM ad
+				)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<!-- 게시물 수 -->
+	<select id="allCount" resultType="Integer">
+		SELECT COUNT(*) FROM ad
+	</select>
+	
+	<!-- 검색리스트보이기 -->
+	<select id="search" resultType="com.spring.main.dto.AdDto">
+		SELECT ad_idx,ad_host,ad_manager,ad_type,ad_title,ad_area,ad_vcount,ad_exposure,s_date,e_date,ad_count,ad_state
+			FROM (
+				SELECT ad_idx,ad_host,ad_manager,ad_type,ad_title,ad_area,ad_vcount,ad_exposure,s_date,e_date,ad_count,ad_state,
+				ROW_NUMBER() OVER(ORDER BY ad_idx DESC)AS rnum FROM ad 
+				WHERE ${param3} LIKE '%'||#{param4}||'%'
+				)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<!-- 검색수 -->
+	<select id="searchCount" resultType="Integer">
+		SELECT COUNT(*) FROM ad WHERE ${param1} LIKE '%'||#{param2}||'%'
+	</select>
+	
+	<!-- 파일올리기 -->
+	<insert id="fileUp">
+		INSERT INTO banner(b_idx,ad_idx,ad_imgo,ad_imgn,ad_URL)
+		VALUES(banner_seq.NEXTVAL,#{param1},#{param2},#{param3},#{param4})
+	</insert>
+	
+	<!-- idx받아오기 -->
+	<select id="idxCall" resultType="String">
+        SELECT ad_seq.NEXTVAL FROM DUAL
+    </select>
+	
+	<!-- 글쓰기 -->
+	<insert id="write">
+		INSERT INTO ad(ad_idx,ad_host,ad_manager,ad_type,ad_title,ad_content,ad_area,
+		ad_address,ad_vcount,ad_exposure,ad_lat,ad_lng,s_date,e_date,ad_count,ad_state)
+		VALUES(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},
+		#{param7},#{param8},0,0,#{param9},#{param10},#{param11},#{param12},#{param13},'진행')
+	</insert>
+</mapper>
