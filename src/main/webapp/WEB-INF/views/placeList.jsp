@@ -104,7 +104,7 @@
 						
 						</div>
 						<div class="left">
-							<button onclick="location.href='placeDetail'">상세보기</button>
+							
 							<%-- <c:if test="${sessionScope.userId=='admin'}"> --%>
 								<button onclick="location.href='placeWrite'">장소추가</button>
 								

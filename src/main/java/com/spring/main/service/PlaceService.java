@@ -26,6 +26,7 @@ public class PlaceService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
+	
 	//리스트 추가
 	public Map<String, Object> listCall(Map<String, String> params) {
 		Map<String, ArrayList<PlaceDto>> obj = new HashMap<String, ArrayList<PlaceDto>>();

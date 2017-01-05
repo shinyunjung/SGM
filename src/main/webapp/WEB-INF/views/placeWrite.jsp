@@ -75,7 +75,7 @@
 									</td>
 								<tr class="borderTop">
 									<td>
-										<jsp:include page="../../resources/include/mapWrite.jsp" />
+										<jsp:include page="../../resources/include/placeWrite.jsp" />
 										<input type="hidden" name="lat" />
 										<input type="hidden" name="lng" />
 										
@@ -102,7 +102,7 @@
 	<script>
 
 	
-	
+	// 등록시 날짜 시간 표시 
 	$(".btn-primary").click(function(){
 		var a_date=$("input[type='date']").val();
 		console.log(a_date);
@@ -110,6 +110,12 @@
 		var a_time=$("input[type='time']").val();
 		console.log(a_time);
 	});
+	
+	$(".btn btn-default").click(function(){
+		
+		
+	});
+	
 	
 	//지도 검색
 	$("#search").click(function(){
