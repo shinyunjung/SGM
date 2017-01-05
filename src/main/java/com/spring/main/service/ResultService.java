@@ -23,7 +23,7 @@ public class ResultService {
 	SqlSession sqlSession;
 	
 	ResultInterface inter=null;
-	MatchInterface match=null;
+	Thread thread =null;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -32,19 +32,42 @@ public class ResultService {
 		ModelAndView mav = new ModelAndView();
 		return mav;
 	}
-
-	//무승부
-	public ModelAndView tie() {
+	
+	// 스레드
+	public ModelAndView threadRun(String chk) {
 		ModelAndView mav = new ModelAndView();
+
+		thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					while (true) {
+						logger.info("스레드 실행중");
+						tie();
+						thread.sleep(1000*60*2);
+					}
+
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		thread.start();
+		mav.setViewName("index");
+		return mav;
+	}
+
+	//승부처리
+	public void tie() {
 		inter = sqlSession.getMapper(ResultInterface.class);
 		
-		/*Date date = new Date();*/
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.add(cal.DATE, -3);
 		Date date = cal.getTime();
 		String Dday = format.format(date);
 		ArrayList<EntirelyDto> ent = inter.matchDay(Dday);
+		logger.info(Dday);
 		
 		for(int i=0; i<ent.size(); i+=2){
 			int j=i+1;
@@ -52,31 +75,30 @@ public class ResultService {
 			String con2 = ent.get(j).getE_condition();
 			String team = ent.get(i).getE_team();
 			String[] tname = team.split(":");
-			logger.info(tname[0]+"/"+tname[1]);
+			String dif = ent.get(i).getE_difference();
+			if(con2.equals("1")){
+				dif = ent.get(j).getE_difference();
+			}
+			String[] score = dif.split(":");
 			String idx = ent.get(i).getMch_idx();
-			if(con1.equals(con2)){
-				inter.difference("0:0",idx);/*
+			logger.info(tname[0]+"/"+tname[1]);
+			logger.info(score[0]+"/"+score[1]);
+			
+			inter.difference(dif,idx);
+			
+			if(Integer.parseInt(score[0])>Integer.parseInt(score[1])){
+				logger.info(score[0]);
+				inter.rankpoint(3,"t_win",tname[0]);
+				inter.rankpoint(1,"t_lose",tname[1]);
+			}else if(score[0].equals(score[1])){
 				inter.rankpoint(2,"t_draw",tname[0]);
-				inter.rankpoint(2,"t_draw",tname[1]);*/
+				inter.rankpoint(2,"t_draw",tname[1]);
 			}else{
-				if(con1.equals("1")){
-					String dif = ent.get(i).getE_difference();
-					String[] score = dif.split(":");
-					inter.difference(dif,idx);
-					logger.info(score[0]+"/"+score[1]);
-					/*if(score[0]>score[1]){
-						inter.rankpoint(3,"t_draw",tname[0]);
-					}*/
-				}else{
-					String dif = ent.get(j).getE_difference();
-					String[] score = dif.split(":");
-					inter.difference(dif,idx);
-					logger.info(score[0]+"/"+score[1]);
-				}
+				logger.info(score[1]);
+				inter.rankpoint(1,"t_win",tname[0]);
+				inter.rankpoint(3,"t_lose",tname[1]);
 			}
 		}
-		logger.info(Dday);
-		return null;
 	}
 
 }

@@ -13,6 +13,6 @@ public interface ResultInterface {
 	void difference(String string, String idx);
 
 	//t_rankpoint
-	void rankpoint(int t_rankpoint, String result, String t_idx);
+	void rankpoint(int t_rankpoint, String result, String t_name);
 
 }

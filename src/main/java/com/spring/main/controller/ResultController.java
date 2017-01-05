@@ -25,10 +25,11 @@ public class ResultController {
 		return "result";
 	}
 	
-	//무승부
-	@RequestMapping(value = "/tie")
-	public ModelAndView tie(){
-		logger.info("무승부");
-		return service.tie();
+	//스레드
+	@RequestMapping(value = "/threadRun")
+	public ModelAndView threadRun(){
+		logger.info("스레드");
+		String chk = "on";
+		return service.threadRun(chk);
 	}
 }
