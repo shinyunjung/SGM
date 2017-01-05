@@ -199,7 +199,7 @@ function printList(list){
 			
 			+"<td>"+list[i].a_idx+"</td>"
 			+"<td>"+list[i].a_name+"</td>"
-			+"<td>"+list[i].a_ground+"</td>"
+			+"<td><a href='../place/placeDetail?idx="+list[i].a_idx+"'>"+list[i].a_ground+"</td>"
 			+"<td>"+list[i].a_address+"</td>"
 			+"<td>"+list[i].a_vocunt+"</td>"
 			+"<td>"+list[i].a_date+"</td>"

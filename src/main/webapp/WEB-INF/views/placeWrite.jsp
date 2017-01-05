@@ -65,13 +65,24 @@
 									</td>
 								</tr>
 								<tr class="borderTop">
+									<td colspan="4">
+										
+										<c:set var="area" ></c:set>
+											<c:forEach items="${area}" var="ad" varStatus="gu">
+											</c:forEach>
+									
+									<input type="text" name="address" placeholder="지도에서 장소 선택시 자동 입력됩니다." />
+									</td>
+								<tr class="borderTop">
 									<td>
 										<jsp:include page="../../resources/include/mapWrite.jsp" />
 										<input type="hidden" name="lat" />
 										<input type="hidden" name="lng" />
-										<button type="button" class="bt">취소</button><!-- 테스트용 -->
+										
 									</td>
 								</tr>
+								
+								
 								<tr class="borderTop">
 									<td style="text-align: center;">
 					  				<button type="reset" class="btn btn-default">취소</button>
@@ -100,20 +111,11 @@
 		console.log(a_time);
 	});
 	
-	function printArea(list){
-		var content="";
-		for(var i=0; i<list.length; i++){
-			content+="<tr>"
-				+"<td>"+list[i].a_idx+"</td>"
-				+"<td class='ground"+i+"'>"+list[i].a_ground+"</td>"
-				+"<td>"+list[i].a_address+"</td>"
-				+"<td>"+"<input type='radio' name='areaInfo' onclick='checkMap("+list[i].a_lat+", "+list[i].a_lng+", "+i+")' value='"+list[i].a_lat+"/"+list[i].a_lng+"/"+list[i].a_ground+"' />"+"</td>"
-				+"</tr>";
-			}
-
-			$(".areaList").empty();
-			$(".areaList").append(content);
-	}
+	//지도 검색
+	$("#search").click(function(){
+		var keyword = $("#keyword").val();
+		searchPlaces(keyword);
+	});
 	
 	
 	</script>

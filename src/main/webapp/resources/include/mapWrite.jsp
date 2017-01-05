@@ -50,13 +50,11 @@
 <div class="map_wrap">
     <div id="map" style="width:100%;height:300px;position:relative;overflow:hidden;"></div>
 
-    <div id="menu_wrap" class="bg_white">
+   <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
-                <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="문학경기장" id="keyword" size="1"> 
-                    <button type="submit">검색하기</button> 
-                </form>
+                    키워드 : <input type="text" id="keyword" size="1"> 
+                    <button id="search" type="button">검색하기</button> 
             </div>
         </div>
         <hr>
@@ -72,7 +70,7 @@ var markers = [];
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 6 // 지도의 확대 레벨
     };  
 // 지도를 생성합니다    
 var map = new daum.maps.Map(mapContainer, mapOption); 
@@ -83,11 +81,9 @@ var infowindow = new daum.maps.InfoWindow({zIndex:1});
 // 키워드로 장소를 검색합니다
 searchPlaces();
 // 키워드 검색을 요청하는 함수입니다
-function searchPlaces() {
-    var keyword = document.getElementById('keyword').value;
+function searchPlaces(keyword) {
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
         alert('키워드를 입력해주세요!');
-        return false;
     }
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
     ps.keywordSearch( keyword, placesSearchCB); 
@@ -126,8 +122,6 @@ function displayPlaces(places) {
         var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
             marker = addMarker(placePosition, i), 
             itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
-             //console.log(i+"lat:"+places[i].latitude);
-             //console.log(i+"lng:"+places[i].longitude);
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
@@ -139,15 +133,13 @@ function displayPlaces(places) {
                 displayInfowindow(marker, title);
             });
             
-            daum.maps.event.addListener(marker, 'click', function() {
-               removeMarker();
-               placePosition = new daum.maps.LatLng(latitude,longitude);
-               addMarker(placePosition,0);
-               console.log("lat:"+latitude);
-                  console.log("lng:"+longitude);
-                  $("input[name=lat]").val(latitude);
-                  $("input[name=lng]").val(longitude);
-            });
+            /* daum.maps.event.addListener(marker, 'click', function() {//추가
+            	removeMarker();
+            	placePosition = new daum.maps.LatLng(latitude,longitude);
+            	addMarker(placePosition,0);
+               	$("input[name=lat]").val(latitude);
+               	$("input[name=lng]").val(longitude);
+            }); */
             daum.maps.event.addListener(marker, 'mouseout', function() {
                 infowindow.close();
             });
@@ -156,6 +148,15 @@ function displayPlaces(places) {
             };
             itemEl.onmouseout =  function () {
                 infowindow.close();
+            };
+            itemEl.onclick =  function () {//추가
+            	removeMarker();
+            	placePosition = new daum.maps.LatLng(latitude,longitude);
+            	addMarker(placePosition,0);
+               	$("input[name=lat]").val(latitude);
+               	$("input[name=lng]").val(longitude);
+               	var address = $(".jibun").html();
+            	$("input[name=address]").val(address);
             };
         })(marker, places[i].title,places[i].latitude, places[i].longitude);
         fragment.appendChild(itemEl);

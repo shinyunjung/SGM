@@ -69,7 +69,7 @@
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<div class="layer">
+		<div class="col5 content">
 			<div class="page">
 				<div id="title">
 					<h3>장소목록</h3>
@@ -78,11 +78,11 @@
 					<table class="detailTable">
 						<thead>
 							<tr class="borderBottom">
-								<td class="subject">제목(불러오기)</td>
-								<td class="borderLeft">NO</td>
-								<td class="borderLeft"></td>
+								<td class="subject">${detail.a_title}</td>
 								<td class="borderLeft">DATE</td>
-								<td class="borderLeft"></td>
+								<td class="borderLeft">${detail.a_date}</td>
+								<td class="borderLeft">조회수</td>
+								<td class="borderLeft">${detail.a_vcount}</td>
 							</tr>
 						</thead>
 						<tbody>
@@ -92,7 +92,7 @@
 										주소 :
 									</div>
 									<div>
-										주소(불러오기)
+										${detail.a_address}
 									</div>
 								</td>
 							</tr>
@@ -102,7 +102,7 @@
 										사진
 									</div>
 									<div>
-										내용
+										${detail.a_content}
 									</div>
 								</td>
 							</tr>

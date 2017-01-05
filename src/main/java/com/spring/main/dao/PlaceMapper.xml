@@ -56,6 +56,11 @@
   	#{param5}, #{param6})
   </insert> 
 	
+	<!--  매칭 상세보기  --> 
+  <select id="a_detail" resultType="com.spring.main.dto.PlaceDto">
+  	SELECT * FROM area WHERE a_idx = #{param1}
+  </select> 
+	
 	
 	
 	

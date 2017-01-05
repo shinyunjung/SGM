@@ -106,7 +106,7 @@ public class PlaceService {
 
 	
 
-
+	//검색 하려다 말았음
 	public Map<String, Object> search(Map<String, String> params) {
 		inter=sqlSession.getMapper(PlaceInterface.class);
 		Map<String, Object> json = new HashMap<String, Object>();
@@ -142,14 +142,17 @@ public class PlaceService {
 
 
 	
-	
-
-
-	public ModelAndView areaMap(String lat) {
+	//장소 상세보기
+	public ModelAndView a_detail(Map<String, String> params, boolean modFlag) {
+		inter=sqlSession.getMapper(PlaceInterface.class);
+		PlaceDto mdt = new PlaceDto();
 		ModelAndView mav = new ModelAndView();
-		logger.info(lat);
-		mav.addObject("lat",lat);
-		mav.setViewName("placeWrite");
+		String idx=params.get("a_idx");
+	
+		
+		mav.addObject("td",inter.a_detail(idx));
+		
+		mav.setViewName("a_detail");
 		return mav;
 	}
 
