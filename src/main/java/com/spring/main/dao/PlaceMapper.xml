@@ -45,4 +45,25 @@
 			 	ROW_NUMBER() OVER(ORDER BY a_idx DESC) AS rnum FROM area)
 			  WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
+	
+	<!--  매칭 리스트 추가 --> 
+  <insert id="a_write">
+  INSERT INTO area(
+  	totalIdx, a_idx, a_ground, a_name,  
+  	a_content, a_lat, a_lng, a_area
+  	) VALUES(
+  	total_seq.NEXTVAL, area_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, 
+  	#{param5}, #{param6})
+  </insert> 
+	
+	<!--  매칭 상세보기  --> 
+  <select id="a_detail" resultType="com.spring.main.dto.PlaceDto">
+  	SELECT * FROM area WHERE a_idx = #{param1}
+  </select> 
+	
+	
+	
+	
+	
+	
 </mapper>
