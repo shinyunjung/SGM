@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.main.service.PlaceService;
 
 @Controller("PlaceController")
-@RequestMapping(value="/main")
+@RequestMapping(value="/place")
 public class PlaceController {
 	
 	@Autowired

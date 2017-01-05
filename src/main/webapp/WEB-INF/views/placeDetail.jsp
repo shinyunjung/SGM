@@ -27,12 +27,9 @@
 				margin-top: 10px;
 			}
 			#repleBox{
-				
 				width: 100%;
 				padding: 10px;
 			}
-		
-			
 			.AD{
 				width: 250px;
 				position: absolute;
@@ -48,7 +45,6 @@
 			}
 			.reple{
 				text-align: left;
-				
 				width: 10%;
 			}
 			.data{

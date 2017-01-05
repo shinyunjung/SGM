@@ -132,7 +132,6 @@ function displayPlaces(places) {
             daum.maps.event.addListener(marker, 'mouseover', function() {
                 displayInfowindow(marker, title);
             });
-<<<<<<< HEAD:src/main/webapp/resources/include/mapWrite.jsp
             daum.maps.event.addListener(marker, 'mouseout', function() {
                 infowindow.close();
             });
@@ -143,18 +142,6 @@ function displayPlaces(places) {
                	$("input[name=lat]").val(latitude);
                	$("input[name=lng]").val(longitude);
             	$("input[name=address]").val(address);
-=======
-            
-            /* daum.maps.event.addListener(marker, 'click', function() {//추가
-            	removeMarker();
-            	placePosition = new daum.maps.LatLng(latitude,longitude);
-            	addMarker(placePosition,0);
-               	$("input[name=lat]").val(latitude);
-               	$("input[name=lng]").val(longitude);
-            }); */
-            daum.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
->>>>>>> 60a548339569d21aef177725e73a4cf3db1f42b6:src/main/webapp/resources/include/placeWrite.jsp
             });
             itemEl.onmouseover =  function () {
                 displayInfowindow(marker, title);
@@ -165,22 +152,12 @@ function displayPlaces(places) {
             itemEl.onclick =  function () {//추가
             	removeMarker();
             	placePosition = new daum.maps.LatLng(latitude,longitude);
-<<<<<<< HEAD:src/main/webapp/resources/include/mapWrite.jsp
             	addMarker(placePosition,i,title);
                	$("input[name=lat]").val(latitude);
                	$("input[name=lng]").val(longitude);
             	$("input[name=address]").val(address);
             };
         })(marker, places[i].title,places[i].latitude, places[i].longitude,places[i].address,i);
-=======
-            	addMarker(placePosition,0);
-               	$("input[name=lat]").val(latitude);
-               	$("input[name=lng]").val(longitude);
-               	var address = $(".jibun").html();
-            	$("input[name=address]").val(address);
-            };
-        })(marker, places[i].title,places[i].latitude, places[i].longitude);
->>>>>>> 60a548339569d21aef177725e73a4cf3db1f42b6:src/main/webapp/resources/include/placeWrite.jsp
         fragment.appendChild(itemEl);
     }
     // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다

@@ -75,7 +75,7 @@
 									<td colspan="5">
 										${content.j_content}
 										<br/>
-										<video src="../../main/resources/include/img/test.mp4" controls autoplay></video>
+										<video src="../../main/resources/upload/1483599549854.wmv" controls autoplay></video>
 									</td>
 								</tr>
 								<tr class="borderTop">

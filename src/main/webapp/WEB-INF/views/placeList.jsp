@@ -64,7 +64,7 @@
 								
 								
 					<div class="placeList">
-						<table class="table table-hover totalTable">
+						<table class="table table-hover">
 							<thead>
 							<tr>
 								<td class="left">
@@ -89,15 +89,7 @@
 								</tr>
 							</thead>
 							<tbody id="list">
-								<tr>
-									<th>No</th>
-									<th class="center">작성자</th>
-									<th class="center">장소명</th>
-									<th>주소</th>
-									<th>조회수</th>
-									<th>날짜</th>
-									<th>별점</th>
-								</tr>
+								
 							</tbody>
 						</table>
 						<div id="paging">

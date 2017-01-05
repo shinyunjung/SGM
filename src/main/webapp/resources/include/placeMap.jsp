@@ -20,33 +20,19 @@
 
 	
 
-<<<<<<< HEAD:src/main/webapp/resources/include/mapSearch.jsp
-	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=eea8daf781b745669919ab906f673fea&libraries=services"></script>
-=======
+
 	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=4c80c1326b8411cbdc60e962e2c46260&libraries=services"></script>
->>>>>>> 60a548339569d21aef177725e73a4cf3db1f42b6:src/main/webapp/resources/include/placeMap.jsp
 	<script>
 	$("#map").empty();
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	    mapOption = { 
-<<<<<<< HEAD:src/main/webapp/resources/include/mapSearch.jsp
-			center: new daum.maps.LatLng(37.447357, 126.6824384), // 지도의 중심좌표
-			
-	        level: 7 // 지도의 확대 레벨
-=======
+	    mapOption = {
 			center: new daum.maps.LatLng(37.472357, 126.6824384), // 지도의 중심좌표
 			
 	        level: 10 // 지도의 확대 레벨
->>>>>>> 60a548339569d21aef177725e73a4cf3db1f42b6:src/main/webapp/resources/include/placeMap.jsp
 	    };
 	   
 		//지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 		var map = new daum.maps.Map(mapContainer, mapOption); 
-<<<<<<< HEAD:src/main/webapp/resources/include/mapSearch.jsp
-=======
-		
-
->>>>>>> 60a548339569d21aef177725e73a4cf3db1f42b6:src/main/webapp/resources/include/placeMap.jsp
 	
    function areaSearch(lat, lng){
 	   $("#map").empty();
