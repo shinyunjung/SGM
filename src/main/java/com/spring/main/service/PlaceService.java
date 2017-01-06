@@ -9,10 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.PlaceInterface;
+import com.spring.main.dao.TdInterface;
+import com.spring.main.dao.TeamInterface;
 import com.spring.main.dto.PlaceDto;
+import com.spring.main.dto.PrDto;
+import com.spring.main.util.UploadFile;
 
 @Service
 public class PlaceService {
@@ -106,7 +111,7 @@ public class PlaceService {
 
 
 	
-
+/*
 	//검색 하려다 말았음
 	public Map<String, Object> search(Map<String, String> params) {
 		inter=sqlSession.getMapper(PlaceInterface.class);
@@ -116,27 +121,34 @@ public class PlaceService {
 		int allCnt = inter.a_searhCount(input, type);
 		json.put("count", allCnt);
 		return json;
-	}
+	}*/
 
 
 	//장소 게시판 글 등록
-	public ModelAndView write(Map<String, String> params) {
+	public ModelAndView write(MultipartHttpServletRequest multi) {
 		ModelAndView mav = new ModelAndView();
 		inter=sqlSession.getMapper(PlaceInterface.class);
 		int success=0;
-		PlaceDto mdt = new PlaceDto();
-		
-		String a_name = params.get("a_name");
- 		
-		String a_content = params.get("a_content");
-		String a_ground = params.get("a_ground");
-		String a_lat = params.get("lat");
-		String a_lng = params.get("lng");
-		String a_area="0";
+		String a_name = multi.getParameter("a_name");
+		String a_area = multi.getParameter("a_area");
+		String a_address = multi.getParameter("address");
+		String a_content = multi.getParameter("a_content");
+		String a_ground = multi.getParameter("a_ground");
+		String a_lat = multi.getParameter("lat");
+		String a_lng = multi.getParameter("lng");
+		String fileName = multi.getParameter("fileName");
+		Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
+		if(fileName !=null){
+			//파일 업로드
+			UploadFile upload = new UploadFile();
+			newFile = upload.fileUp(multi);
+		}
+		ArrayList<String> newName = newFile.get("newName");
 		logger.info(a_ground+"/"+a_name+"/"+a_content+"/"+a_lat+"/"+a_lng+"/"+a_area);
-		success = inter.a_write(a_ground, a_name, a_content, a_lat, a_lng, a_area);
+		success = inter.a_write(a_name,a_area,a_address,a_ground,a_content,fileName,newName.get(0),a_lat,a_lng);
+		
 		mav.addObject("success",success);
-		mav.setViewName("placeList");
+		mav.setViewName("redirect:placeList");
 		logger.info("장소추가");
 		return mav;
 	}
@@ -144,18 +156,79 @@ public class PlaceService {
 
 	
 	//장소 상세보기
-	public ModelAndView a_detail(Map<String, String> params, boolean modFlag) {
+	public ModelAndView placeDetail(String idx) {
 		inter=sqlSession.getMapper(PlaceInterface.class);
-		PlaceDto mdt = new PlaceDto();
 		ModelAndView mav = new ModelAndView();
-		String idx=params.get("a_idx");
-	
 		
-		mav.addObject("td",inter.a_detail(idx));
-		
-		mav.setViewName("a_detail");
+		mav.addObject("detail",inter.a_detail(idx));
+		mav.setViewName("placeDetail");
 		return mav;
 	}
+	
+	//장소수정보기
+	public ModelAndView placeModify(String idx) {
+		inter=sqlSession.getMapper(PlaceInterface.class);
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("detail",inter.a_detail(idx));
+		mav.setViewName("placeModify");
+		return mav;
+	}
+	
+	//장소 게시판 글 수정
+	public ModelAndView modify(MultipartHttpServletRequest multi) {
+		ModelAndView mav = new ModelAndView();
+		inter=sqlSession.getMapper(PlaceInterface.class);
+		int success=0;
+		String a_idx = multi.getParameter("idx");
+		String a_area = multi.getParameter("a_area");
+		String a_address = multi.getParameter("a_address");
+		String a_content = multi.getParameter("a_content");
+		String a_ground = multi.getParameter("a_ground");
+		String a_lat = multi.getParameter("lat");
+		String a_lng = multi.getParameter("lng");
+		String fileName = multi.getParameter("fileName");
+		Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
+		if(fileName !=null){
+			String[] delName = inter.fileDelName(a_idx);
+			//파일 업로드
+			UploadFile upload = new UploadFile();
+			newFile = upload.fileModify(multi,delName);
+		}
+		ArrayList<String> newName = newFile.get("newName");
+		logger.info(a_ground+"/"+a_idx+"/"+a_content+"/"+a_lat+"/"+a_lng+"/"+a_area);
+		success = inter.a_modify(a_idx,a_area,a_address,a_ground,a_content,fileName,newName.get(0),a_lat,a_lng);
+		
+		mav.addObject("success",success);
+		mav.setViewName("redirect:placeList");
+		logger.info("장소수정");
+		return mav;
+	}
+
+	//삭제
+	public ModelAndView delete(String idx) {
+		
+		ModelAndView mav = new ModelAndView();
+		inter=sqlSession.getMapper(PlaceInterface.class);
+		
+		String[] delName = inter.fileDelName(idx);
+		logger.info(Integer.toString(delName.length));
+		//글삭제
+		if(inter.a_delete(idx) == 1){
+			//파일삭제
+			if(delName != null){				
+				UploadFile file = new UploadFile();
+				for(int i=0 ; i<delName.length;i++){
+					logger.info("지운다 : "+delName[i]);
+					file.delete(delName[i]);
+				}				
+			}
+		}
+		mav.setViewName("redirect:placeList");
+		
+		return mav;
+	}
+	
 
 
 	

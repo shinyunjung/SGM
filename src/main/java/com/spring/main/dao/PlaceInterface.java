@@ -21,7 +21,6 @@ public interface PlaceInterface {
 	//장소목록
 	ArrayList<PlaceDto> a_PlaceList();
 
-
 	//장소 상세보기
 	PlaceDto a_detail(String idx);
 
@@ -32,9 +31,18 @@ public interface PlaceInterface {
 	void a_replyUp(String idx);
 	
 	//장소 글 쓰기
-	
-	int a_write( String a_title, String a_name, String a_content, String a_lat,
-			String a_lng, String a_area);
+	int a_write(String a_name, String a_area, String a_address, String a_ground, String a_content,
+			String a_oldPicture, String a_newPicture, String a_lat, String a_lng);
+
+	//삭제할 파일명
+	String[] fileDelName(String a_idx);
+
+	//수정하기
+	int a_modify(String a_idx, String a_area, String a_address, String a_ground, String a_content, String a_oldPicture,
+			String a_newPicture, String a_lat, String a_lng);
+
+	//글삭제
+	int a_delete(String idx);
 
 	
 	

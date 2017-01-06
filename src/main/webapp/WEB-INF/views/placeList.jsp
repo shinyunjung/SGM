@@ -55,11 +55,12 @@
 					 </div>
 					
 					<div class="center">
-						<select>
-							<option value="1">OO구</option>
+						<select class="type">
+							<option value="a_ground">운동장</option>
+							<option value="a_address">주소</option>
 						</select>
-						<input type="text" size="40" />
-						<button>검색</button>
+						<input type="text" class="input" size="40" />
+						<button onclick="searchCall()">검색</button>
 					</div>			
 								
 								
@@ -130,6 +131,7 @@
 	
 	function searchCall(){
 		var input = $(".input").val();
+		var type = $(".type").val();
 		console.log(input);
 		$(".input").val("");
 		var url="./searchCall";
@@ -137,6 +139,7 @@
 		data.page=currPage;
 		data.pagePerNum=$("#pagePerNum").val();
 		data.input=input;
+		data.type=type;
 		reqServer(url, data);
 		
 	}
@@ -193,7 +196,7 @@ function printList(list){
 			+"<td>"+list[i].a_name+"</td>"
 			+"<td><a href='../place/placeDetail?idx="+list[i].a_idx+"'>"+list[i].a_ground+"</td>"
 			+"<td>"+list[i].a_address+"</td>"
-			+"<td>"+list[i].a_vocunt+"</td>"
+			+"<td>"+list[i].a_vcount+"</td>"
 			+"<td>"+list[i].a_date+"</td>"
 			+"<td>"+list[i].a_total+"</td>"
 			+"</tr>";

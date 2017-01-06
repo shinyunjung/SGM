@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<% String[] area = {"중구", "동구", "남구", "연수구", "남동구", "부평구", "계양구", "서구", "강화군", "옹진군"}; %>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -46,35 +47,39 @@
 				<fieldset>
 					<legend>장소 추가</legend>
 				</fieldset>
-					<form action="write" method="post">
+					<form action="write" method="post" name="place" enctype="multipart/form-data" onsubmit="return CheckForm(this)">
 						<table class="detailTable">
 								<tr class="borderTop">
-									<td><input type="text" name="a_ground" placeholder="운동장"/></td>
+									<td colspan="2"><input type="text" name="a_ground" placeholder="운동장"/></td>
 								</tr>
 								<tr class="borderTop">
-									<td><input type="text" name="a_name" value="${sessionScope.manager}" readonly/></td>
+									<td colspan="2"><input type="text" name="a_name" value="${sessionScope.manager}" readonly/></td>
 								</tr>
 								<tr class="borderTop">
-									<td>
+									<td colspan="2">
 										<textarea rows="17" name="a_content" placeholder="내용"></textarea>
 									</td>
 								</tr>
 								<tr class="borderTop">
-									<td>
-										<input type="file" name="a_picfile"/>
+									<td colspan="2">
+										<input type="file" name="file" onchange="fileView(this)"/>
+										<input id="fileName" type="hidden" name="fileName"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
-									<td colspan="4">
-										
-										<c:set var="area" ></c:set>
-											<c:forEach items="${area}" var="ad" varStatus="gu">
+									<td style="width: 10%;">
+										<select name="a_area" class="form-control">
+										<c:set var="area" value="<%=area %>"></c:set>
+											<c:forEach items="${area}" var="team" varStatus="gu">
+												<option value="${gu.index}">${team}</option>
 											</c:forEach>
-									
-									<input type="text" name="address" placeholder="지도에서 장소 선택시 자동 입력됩니다." />
+										</select>
+									</td>
+									<td>
+										<input type="text" name="address" placeholder="지도에서 장소 선택시 자동 입력됩니다." />
 									</td>
 								<tr class="borderTop">
-									<td>
+									<td colspan="2">
 										<jsp:include page="../../resources/include/placeWrite.jsp" />
 										<input type="hidden" name="lat" />
 										<input type="hidden" name="lng" />
@@ -84,9 +89,9 @@
 								
 								
 								<tr class="borderTop">
-									<td style="text-align: center;">
+									<td colspan="2" style="text-align: center;">
 					  				<button type="reset" class="btn btn-default">취소</button>
-					        		<button type="submit" class="btn btn-primary">등록</button>
+					        		<button type="button" onclick="CheckForm(this)" class="btn btn-primary">등록</button>
 			  				</td>
 								</tr>
 						</table>
@@ -101,7 +106,7 @@
 	</body>
 	<script>
 	
-	// 등록시 날짜 시간 표시 
+	/* // 등록시 날짜 시간 표시 
 	$(".btn-primary").click(function(){
 		var a_date=$("input[type='date']").val();
 		console.log(a_date);
@@ -113,8 +118,17 @@
 	$(".btn btn-default").click(function(){
 		
 		
-	});
+	}); */
 	
+	//파일이름추출
+	function fileView(elem){
+		console.log(elem);
+		console.log(elem.value);
+		var fullPath = elem.value;
+		fileName = fullPath.substring(12);
+		console.log(fileName);
+		$("#fileName").val(fileName);
+	}
 	
 	//지도 검색
 	$("#search").click(function(){
@@ -122,6 +136,24 @@
 		searchPlaces(keyword);
 	});
 	
+	//submit체크
+	function CheckForm(f){
+		console.log("f");
+		if($("input[name='a_ground']").val()==""){
+			alert("운동장을 입력해주세요");
+			$("input[name='a_ground']").focus();
+		}else if($("input[name='a_content']").val()==""){
+			alert("내용을 입력해주세요");
+			$("input[name='a_content']").focus();
+		}else if($("input[name='lat']").val()==""){
+			alert("장소를 선택해주세요");
+			$("#keyword").focus();
+		}else{ 
+			
+			document.place.submit(); 
+		}
+		return false;
+	} 
 	
 	</script>
 </html>

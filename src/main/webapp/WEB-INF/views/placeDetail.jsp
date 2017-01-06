@@ -10,21 +10,13 @@
 		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
-			   .map_wrap {position:relative;width:100%;height:350px;}
-   			   .title {font-weight:bold;display:block;}
-  			  
-   			    #centerAddr {display:block;margin-top:2px;font-weight: normal;}
- 			   .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+		   .map_wrap {position:relative;width:100%;height:350px;}
+		   .title {font-weight:bold;display:block;}
+	  
+		   #centerAddr {display:block;margin-top:2px;font-weight: normal;}
+		   .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 		
-			#detailZone{
-				width: 700px;
-				position: absolute;
-				left: 270px;
-				top: 270px;
-			}
 			#replyZone{
-				width: 700px;
-				margin-top: 10px;
 			}
 			#repleBox{
 				width: 100%;
@@ -59,22 +51,43 @@
 				width: 100%;
 				resize: none;
 			}
+			#img{
+				width: 150px;
+				height: 100px;
+	            margin: 10px;
+			}
 			
 		</style>
 	</head>
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
-		<div class="col5 content">
+		<div class="layer">
 			<div class="page">
-				<div id="title">
-					<h3>장소목록</h3>
+				
+				<!-- 첫 번째 구역 -->
+				<div class="col2 content">
+					<fieldset>
+						<legend>장소목록</legend>
+					</fieldset>
+					<c:if test="${sessionScope.userId=='admin'}">
+						<div class="manager">
+							<jsp:include page="../../resources/include/manager.jsp" />
+						</div>
+					</c:if>
 				</div>
-				<div id="detailZone" style="border: 1px solid">
+				
+				<!-- 두 번째 구역 -->
+				<div class="col5 content">
+				
 					<table class="detailTable">
 						<thead>
 							<tr class="borderBottom">
-								<td class="subject">${detail.a_title}</td>
+								<td colspan="6">${detail.a_ground}</td>
+							</tr>
+							<tr class="borderBottom">
+								<td>작성자</td>
+								<td class="borderLeft">${detail.a_name}</td>
 								<td class="borderLeft">DATE</td>
 								<td class="borderLeft">${detail.a_date}</td>
 								<td class="borderLeft">조회수</td>
@@ -83,27 +96,23 @@
 						</thead>
 						<tbody>
 							<tr class="borderBottom">
-								<td colspan="5">
-									<div class="col-sm-2 borderRight">
-										주소 :
-									</div>
-									<div>
-										${detail.a_address}
-									</div>
+								<td>주소</td>
+								<td colspan="5" class="borderLeft">
+									${detail.a_address}
 								</td>
 							</tr>
 							<tr class="borderBottom">
-								<td colspan="5">
-									<div class="col-sm-4 borderRight">
-										사진
-									</div>
+								<td colspan="2">
+									<img id="img" alt="${detail.a_oldPicture}" src="../../main/resources/upload/${detail.a_newPicture}">
+								</td>
+								<td colspan="4" class="borderLeft">
 									<div>
 										${detail.a_content}
 									</div>
 								</td>
 							</tr>
 							<tr class="borderBottom">
-								<td colspan="5">
+								<td colspan="6">
 									<div class="map_wrap">
   						  			<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
     									<jsp:include page="../../resources/include/mapSearch.jsp" />
@@ -111,14 +120,15 @@
   								
 								</td>
 							</tr>
-							<tr class=>
+							<tr>
 								<td class="reple"><a>댓글</a></td>
-								<td colspan="4" class="right ">
+								<td colspan="5" class="right ">
 									<button>등록</button> / <button>삭제</button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
+					
 					<!-- 댓글 -->
 					<div id="replyZone">
 						<table id="repleBox" class="borderTop">
@@ -129,16 +139,18 @@
 							</tr>
 						</table>
 					</div>
+					
 				</div>
-				<div style="border: 1px solid" class="AD">
-					광고
+				<!-- 세 번째 구역 -->
+				<div class="col3 content">
+					<div id="ad">
+					</div>
 				</div>
 			</div>
 		</div>
 	</body>
-				
 	<script>
-	
+	addMarker("${detail.a_lat}", "${detail.a_lng}");
 	</script>		
 					
 					

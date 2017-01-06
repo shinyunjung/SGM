@@ -15,7 +15,7 @@
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
+#menu_wrap .option p {margin:10px 0;} 
 #menu_wrap .option button {margin-left:5px;}
 #placesList li {list-style: none;}
 #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
@@ -44,6 +44,8 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+#keyword{width: 190px;}
+#search{width: 35px;height: 35px;}
 </style>
 </head>
 <body>
@@ -51,12 +53,14 @@
     <div id="map" style="width:100%;height:300px;position:relative;overflow:hidden;"></div>
 
    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-                    키워드 : <input type="text" id="keyword" size="1"> 
-                    <button id="search" type="button">검색하기</button> 
-            </div>
-        </div>
+       
+	    	<table>
+	    		<tr>
+	    			<th><input type="text" id="keyword" placeholder="키워드"></th>
+	    			<td><button id="search" type="button">검색</button></td>
+	    		</tr>
+	    	</table>
+       
         <hr>
         <ul id="placesList"></ul>
         <div id="pagination"></div>
@@ -79,7 +83,13 @@ var ps = new daum.maps.services.Places();
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new daum.maps.InfoWindow({zIndex:1});
 // 키워드로 장소를 검색합니다
-searchPlaces();
+/* searchPlaces(); */
+$("#keyword").keyup(function(e){
+	if(e.keyCode == 13){
+		var key = $("#keyword").val();
+		searchPlaces(key);
+	}
+}); 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces(keyword) {
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
@@ -187,7 +197,6 @@ function getListItem(index, places) {
 }
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, idx, title) {
-	console.log("idx:"+idx);
     var imageSrc = 'http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new daum.maps.Size(36, 37),  // 마커 이미지의 크기
         imgOptions =  {
