@@ -58,7 +58,7 @@
 	
 	<!-- 쪽지 신청 -->
 	<insert id="sendNote">
-		INSERT INTO note(n_idx, n_writer, writer_idx, n_receiver, receiver_idx, n_title, n_content, n_confirm, n_new) VALUES(note_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8})
+		INSERT INTO note(n_idx, n_writer, writer_idx, n_receiver, receiver_idx, n_title, n_content, n_confirm, n_new, mch_idx) VALUES(note_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9})
 	</insert>
 	
 	<!-- 댓글 수 업 -->

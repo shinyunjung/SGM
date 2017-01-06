@@ -349,10 +349,11 @@ public class MatchService {
 		String receiver_idx=params.get("receverIdx");
 		String content=params.get("noteContent");
 		String title=params.get("noteTitle");
-		logger.info(writer+"/"+receiver+"/"+content+"/"+title);
-		String confirm="N";
+		String mchIdx=params.get("mchIdx");
+		logger.info(writer+"/"+receiver+"/"+content+"/"+title+"/"+mchIdx);
+		String confirm="Stay";
 		String newState="Y";
-		success=inter.sendNote(writer, writer_idx, receiver, receiver_idx, title, content, confirm, newState);
+		success=inter.sendNote(writer, writer_idx, receiver, receiver_idx, title, content, confirm, newState, mchIdx);
 		if(success==1){
 			msg="신청 쪽지 보내기가 성공했습니다.";
 		}

@@ -13,6 +13,7 @@ public class NoteDto {
 	private Date n_date;
 	private String n_confirm;
 	private String n_new;
+	private String mch_idx;
 	
 	
 	public String getN_idx() {
@@ -74,6 +75,12 @@ public class NoteDto {
 	}
 	public void setN_new(String n_new) {
 		this.n_new = n_new;
+	}
+	public String getMch_idx() {
+		return mch_idx;
+	}
+	public void setMch_idx(String mch_idx) {
+		this.mch_idx = mch_idx;
 	}
 	
 	

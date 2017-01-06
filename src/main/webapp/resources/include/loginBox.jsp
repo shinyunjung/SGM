@@ -28,7 +28,9 @@
 				border: 1px solid;
 				width: 100%;
 			}
-			
+			#noteImg{
+				display:none;
+			}
 		</style>
 	</head>
 	<body>
@@ -61,6 +63,8 @@
 		var manager="${sessionScope.manager}";
 		var userData={};
 		var teamData={};
+		var preNoteCnt=0;
+		var nowNoteCnt=0;
 		console.log(userId);
 		console.log(userIdx);
 		
@@ -111,6 +115,15 @@
 					}else if(url=="../../main/note/newListCall"){
 						console.log("새로운 쪽지 발생");
 						printMsg(data.list);
+					}else if(url=="../../main/note/countNote"){
+						nowNoteCnt=data.count;
+						if(nowNoteCnt!=preNoteCnt){
+							$("#noteImg").css("display","block");
+							preNoteCnt=nowNoteCnt;
+							if(nowNoteCnt==0){
+								$("#noteImg").css("display","none");
+							}
+						}
 					}
 				},
 				error:function(error){
@@ -122,6 +135,7 @@
 		function printUser(name, data){
 			console.log(name);
 			var content="";
+			content+="<a href='#' onclick='msgPannel()' id='noteImg'><img src='../../main/resources/img/쪽지.png'></a>";
 			if(manager==""){
 				content+="<select>"
 					+"<option value=0>내가 가입한 팀: </option>";
@@ -135,7 +149,6 @@
 				content+=" <a href='../../main/manager/usManager'>"+manager+" 님 안녕하세요</a> ";
 			}
 			content+="<a href=../../main/logout?idx="+${sessionScope.userIdx}+" >로그아웃</a>";
-			content+="  <a href='#' onclick='msgPannel()'> 쪽지 </a>";
 			$(".userMsg").empty();
 			$(".userMsg").append(content);
 		}
@@ -171,13 +184,20 @@
 		for(var i=0; i<list.length; i++){
 			console.log(i);
 			content+="<tr>"
-			+"<td><a href='../../main/note/msgPage?idx="+list[i].receiver_idx+"' >"+list[i].n_receiver+"</a></td>"
+			+"<td><a href='../../main/note/msgPage?idx="+list[i].receiver_idx+"&name="+list[i].n_receiver+"' >"+list[i].n_receiver+"</a></td>"
 			+"<td>"+list[i].n_title+"</td>"
 			+"</tr>";
 			console.log(content);
 		}
 		$("#msgList").empty();
 		$("#msgList").append(content);
-	}	
+	}
+	
+	
+	setInterval(function(){
+		var url="../../main/note/countNote";
+		var data={};
+		sendServer(url, data);
+	}, 10000);
 	</script>
 </html>

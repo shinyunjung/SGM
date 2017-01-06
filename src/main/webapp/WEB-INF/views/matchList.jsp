@@ -221,9 +221,13 @@
 				+"<td>"+list[i].mch_idx+"</td>"
 				+"<td>"+list[i].mch_name+"</td>"
 				+"<td><a href='../match/matchDetail?idx="+list[i].mch_idx+"&userIdx="+idx+"'>"+list[i].mch_title+"</a></td>"
-				+"<td>"+list[i].mch_vcount+"</td>"
-				+"<td>"+list[i].mch_state+"</td>"
-				+"</tr>";
+				+"<td>"+list[i].mch_vcount+"</td>";
+				if(list[i].mch_state!="대기"){
+					content+="<td>VS"+list[i].mch_state+"</td>";
+				}else{
+					content+="<td>"+list[i].mch_state+"</td>";	
+				}
+				content+="</tr>";
 			}
 			
 			$("#list").empty();

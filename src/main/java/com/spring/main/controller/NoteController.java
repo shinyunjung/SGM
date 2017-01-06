@@ -25,9 +25,9 @@ public class NoteController {
 	
 	//쪽지함 페이지 이동
 	@RequestMapping(value = "/msgPage")
-	public ModelAndView msgPage(@RequestParam("idx") String idx) {
+	public ModelAndView msgPage(@RequestParam Map<String, String> params) {
 		
-		return service.msgPage(idx);
+		return service.msgPage(params);
 	}
 	
 	
@@ -50,6 +50,28 @@ public class NoteController {
 	public @ResponseBody Map<String, ArrayList<NoteDto>> newListCall(@RequestParam("idx") String idx){
 		logger.info("검색 요청");
 		return service.newListCall(idx);
+	}
+	
+	//쪽지
+	@RequestMapping(value = "/sendNote")
+	public ModelAndView sendNote(@RequestParam Map<String, String> params) {
+		logger.info("쪽지응답");
+		return service.sendNote(params);
+	}
+	
+	//쪽지 삭제
+	@RequestMapping(value="/deleteNote")
+	public @ResponseBody Map<String, String> deleteNote(@RequestParam("idx") String idx){
+		logger.info("검색 요청");
+		return service.deleteNote(idx);
+	}
+	
+	
+	//쪽지 갯수
+	@RequestMapping(value="/countNote")
+	public @ResponseBody Map<String, Integer> countNote(){
+		logger.info("검색 요청");
+		return service.countNote();
 	}
 	
 }

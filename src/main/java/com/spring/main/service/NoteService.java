@@ -26,9 +26,13 @@ public class NoteService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public ModelAndView msgPage(String t_idx) {
+	public ModelAndView msgPage(Map<String, String> params) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("idx",t_idx);
+		String idx=params.get("idx");
+		String name=params.get("name");
+		logger.info(idx+"/"+name);
+		mav.addObject("idx",idx);
+		mav.addObject("name",name);
 		mav.setViewName("msgpage");
 		return mav;
 	}
@@ -108,6 +112,63 @@ public class NoteService {
 		}
 		logger.info(idx0+"/"+idx1+"/"+idx2);
 		map.put("list", inter.note_newListCall(idx0, idx1, idx2));
+		return map;
+	}
+
+
+	public ModelAndView sendNote(Map<String, String> params) {
+		ModelAndView mav = new ModelAndView();
+		inter=sqlSession.getMapper(NoteInterface.class);
+		int success=0;
+		String msg="쪽지 보내기가 실패했습니다.";
+		String writer=params.get("writer");
+		String writer_idx=params.get("writerIdx");
+		String receiver = params.get("receiver");
+		String receiver_idx=params.get("receiverIdx");
+		String content=params.get("noteContent");
+		String title=params.get("noteTitle");
+		String noteIdx=params.get("noteIdx");
+		String mchIdx=params.get("mchIdx");
+		String confirm=params.get("noteConfirm");
+		logger.info(writer+"/"+receiver+"/"+content+"/"+title+"/"+noteIdx+"/"+mchIdx);
+		String newState="Y";
+		success=inter.sendNote(writer, writer_idx, receiver, receiver_idx, title, content, confirm, newState);
+		if(success==1){
+			msg="쪽지 보내기가 성공했습니다.";
+			inter.note_confirmUpdate(noteIdx);
+			if(confirm.equals("Yes")){
+				logger.info("쪽지 수락");
+				inter.matching_stateUpdate(mchIdx, receiver);
+			}
+		}
+		mav.addObject("msg",msg);
+		mav.addObject("idx",writer_idx);
+		mav.addObject("name",writer);
+		mav.setViewName("msgpage");
+		return mav;
+	}
+
+
+	public Map<String, String> deleteNote(String idx) {
+		Map<String, String> map = new HashMap<String, String>();
+		inter=sqlSession.getMapper(NoteInterface.class);
+		int success=0;
+		String msg="쪽지를 지우는데 실패했습니다.";
+		success=inter.note_delete(idx);
+		if(success==1){
+			msg="쪽지를 지우는데 성공했습니다.";
+		}
+		map.put("msg", msg);
+		return map;
+	}
+
+
+	public Map<String, Integer> countNote() {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		inter=sqlSession.getMapper(NoteInterface.class);
+		int count=0;
+		count=inter.note_count();
+		map.put("count", count);
 		return map;
 	}
 }

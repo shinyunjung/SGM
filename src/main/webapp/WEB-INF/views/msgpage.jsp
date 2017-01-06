@@ -14,17 +14,31 @@
 				border: 1px solid;
 				text-align: center;
 			}
+			textarea{
+				width: 100%;
+				resize: none;
+			}
 			.search{
 				border: 1px solid;
 			}
 			.title td{
 				cursor: pointer;
 			}
-			.hide{
+			.hide2{
 				display: none;
 			}
-			.show{
+			.show2{
 				display: table-row;
+			}
+			#matchMsg{
+				width: 500px;
+				border: 1px solid;
+				position: absolute;
+				background-color: skyblue;
+				top: 45%;
+				left: 45%;
+				display: none;
+				z-index: 2;
 			}
 		</style>
 	</head>
@@ -95,6 +109,47 @@
 				<div class="col3 content">
 					광고 배너 공간
 				</div>
+				
+				<!-- 수락 거절 div -->
+				<div id="matchMsg">
+					<form action="sendNote" method="post">
+						<table class="matchMsg" width="100%">
+							<tr>
+								<td class="noteTitle center">신청 수락/거절 쪽지</td>
+								<td class="right"><input type="button" onclick="delMsg()" value="X">
+									<input type="text" name="noteIdx" class="hide2" value="" />
+									<input type="text" name="mchIdx" class="hide2" value="" />
+								</td>
+							</tr>
+							<tr class="center borderTop">
+								<td class="borderRight sender" id="sender">
+									보낸 이 : <input type="text" name="writer" value="${name}"  readonly/>
+									<input type="hidden" name="writerIdx" value="${idx}" />
+								 </td>
+								<td class="sender">
+									받는 이 : <input type="text" name="receiver" value=""  readonly/>
+									<input type="text" class="hide2" name="receiverIdx" value="" />
+									<input type="text" class="hide2" name="noteTitle" value="" />
+									<input type="text" class="hide2" name="noteConfirm" value="" />
+								</td>
+							</tr>
+							<tr class="borderTop">
+								<td colspan="2">
+									<br/>
+									<div class="msg">
+										<textarea class="noteContent" name="noteContent"></textarea>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="center borderTop" colspan="2" style="padding: 5px">
+									<input type="submit" value="보내기" />
+									<input type="button" onclick="delMsg()" value="취소" />
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
 			</div>
 		</div>
 	</body>
@@ -108,6 +163,7 @@
 		var input = "";
 		var type="n_title";
 		var idx="${idx}";
+		var name="${name}";
 		console.log(idx);
 		
 		var msg="";
@@ -177,6 +233,13 @@
 		}
 		
 		
+		function deleteNote(idx){
+			var url="./deleteNote";
+			var data={};
+			data.idx=idx;
+			reqServer(url, data);
+		}
+		
 		function reqServer(url, data){
 			console.log(url);
 			console.log(data);
@@ -202,6 +265,10 @@
 						totalPage=data.totalPage;
 						printPaging(data.totalCount, data.totalPage); 
 					}
+					else if(url=="./deleteNote"){
+						alert(data.msg);
+						searchCall(currPage);
+					}
 				},
 				error:function(error){
 					console.log(error);
@@ -212,18 +279,21 @@
 	function printList(list){
 		var content="";
 		for(var i=0; i<list.length; i++){
-			content+="<tr id='"+i+"' onclick='showContent("+i+")'>"
-				+"<td>"+list[i].n_idx+"</td>"
-				+"<td>"+list[i].n_writer+"</td>"
-				+"<td>"+list[i].n_title+"</td>";
-				if(list[i].n_confirm=="N"){
-					content+="<td><a href='#' class='disabled'>삭제N</a></td>";
+			content+="<tr id='"+i+"'>"
+				+"<td class='idx'>"+list[i].n_idx+"</td>"
+				+"<td class='writer'>"+list[i].n_writer+"</td>"
+				+"<td class='title'><a href='#' onclick='showContent("+i+")'>"+list[i].n_title+"</a></td>";
+				if(list[i].n_confirm=="Stay"){
+					content+="<td><a href='#' >삭제N</a></td>";
 				}else{
-					content+="<td><a href='#'>삭제Y</a></td>";
+					content+="<td><a href='#' onclick='deleteNote("+list[i].n_idx+")'>삭제Y</a></td>";
 				}
 				content+="</tr>"
-				+"<tr class='hide'><td colspan=4 class='center'>"+list[i].n_content+"</td>"
-				+"</tr>";
+				+"<tr class='hide2'><td colspan='4' class='center'>"+list[i].n_content+"<br/>";
+				if(list[i].n_confirm=="Stay"){
+					content+="<button class='btn' onclick='accept("+list[i].writer_idx+", "+i+", "+list[i].n_idx+", "+list[i].mch_idx+")'>수락</button> <button class='btn' onclick='refuse("+list[i].writer_idx+", "+i+", "+list[i].n_idx+", "+list[i].mch_idx+")'>거절</button></td>"
+					+"</tr>";	
+				}
 			}
 			
 			$("#list").empty();
@@ -232,18 +302,55 @@
 		}
 	
 	function showContent(num){
-		var article = (".show");
+		var article = (".show2");
 		var myArticle =$("#"+num).next("tr");
-		if(myArticle.hasClass("hide")){
-			$(article).removeClass('show').addClass('hide'); 
-			$(myArticle).removeClass('hide').addClass('show');  
+		if(myArticle.hasClass("hide2")){
+			$(article).removeClass('show2').addClass('hide2'); 
+			$(myArticle).removeClass('hide2').addClass('show2');  
 		}else{
-			$(myArticle).removeClass('show').addClass('hide');
+			$(myArticle).removeClass('show2').addClass('hide2');
 		}
 	}
 		
+	
+	function accept(idx, num, noteIdx, parentIdx){
+		console.log(noteIdx+"/"+parentIdx);
+		var receiver =$("#"+num).children(".writer").html();
+		$("#matchMsg").css("display","block");
+		$("input[name='noteIdx']").val(noteIdx);
+		$("input[name='mchIdx']").val(parentIdx);
+		$(".noteTitle").html("신청 수락");
+		$("input[name='receiver']").val(receiver);
+		$("input[name='receiverIdx']").val(idx);
+		$("input[name='noteTitle']").val("신청쪽지의 대답이 왔습니다.");
+		$(".noteContent").val("당신의 신청을 수락합니다.");
+		$("input[name='noteConfirm']").val("Yes");
 		
 		
+	}
+	
+	function refuse(idx, num, noteIdx, parentIdx){
+		var receiver =$("#"+num).children(".writer").html();
+		$("#matchMsg").css("display","block");
+		$("input[name='noteIdx']").val(noteIdx);
+		$("input[name='mchIdx']").val(parentIdx);
+		$(".noteTitle").html("신청 거절");
+		$("input[name='receiver']").val(receiver);
+		$("input[name='receiverIdx']").val(idx);
+		$("input[name='noteTitle']").val("신청쪽지의 대답이 왔습니다.");
+		$(".noteContent").val("당신의 신청을 거절합니다.");
+		$("input[name='noteConfirm']").val("No");
+	}
+	
+	
+	
+	function delMsg(){
+		$(".noteContent").val("");
+		$("#matchMsg").css("display", "none");
+	}
+	
+	
+	
 	 //페이지 그리기
 	function printPaging(count, page){
 		var totalRange=page/5;
