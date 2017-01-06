@@ -223,6 +223,7 @@
 				content+="<div class='center'><a href='./teamJoin'>팀 생성</a></div>"		
 				$(".userLogin").empty();
 				$(".userLogin").append(content);
+				console.log("확인");
 			}
 			
 			function printList(list){
