@@ -68,7 +68,18 @@ public class PlaceController {
 		logger.info("장소쓰기");
 		return service.write(multi);
 	}
-
 	
-
+	//장소 수정
+	@RequestMapping(value = "/modify")
+	public ModelAndView modify(MultipartHttpServletRequest multi) {
+		logger.info("장소수정");
+		return service.modify(multi);
+	}
+	//장소 삭제
+	@RequestMapping(value = "/delete")
+	public ModelAndView delete(@RequestParam("idx") String idx) {
+		logger.info("장소삭제");
+		return service.delete(idx);
+	}
+		
 }

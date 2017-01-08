@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.RepleDto;
 import com.spring.main.dto.SelectTeamDto;
 import com.spring.main.dto.UserDto;
 import com.spring.main.service.BoardService;
@@ -144,14 +145,7 @@ public class MainController {
 		logger.info("회원정보 수정 요청");
 		return service.modify(params);
 	}
-	
-		//팀가입
-		@RequestMapping(value = "/teamJoin")
-		public String teamJoin() {
 			
-			return "teamJoin";
-		}
-		
 		
 	//팀관리
 	@RequestMapping(value = "/teamManager")
@@ -160,12 +154,6 @@ public class MainController {
 		return "teamManager";
 	}
 	
-	//팀 상세보기
-	@RequestMapping(value = "/teamDetail")
-	public String teamDetail() {
-		logger.info("팀 상세보기");
-		return "teamDetail";
-	}
 	
 	//회원이 속한 정보 찾기
 	@RequestMapping(value = "/selectTeam")
@@ -182,19 +170,34 @@ public class MainController {
 	}
 
 	//쪽지함
-		@RequestMapping(value = "/msg")
-		public String msg() {
-			logger.info("쪽지함");
-			return "msgpage";
-		}
+	@RequestMapping(value = "/msg")
+	public String msg() {
+		logger.info("쪽지함");
+		return "msgpage";
+	}
+
+
+	//댓글 등록
+	@RequestMapping(value = "/replyRegist")
+	public @ResponseBody Map<String, String> replyRegist(@RequestParam Map<String, String> params) {
+		logger.info("매칭댓글등록");
+		return service.replyRegist(params);
+	}
+	
+	//댓글 요청	
+	@RequestMapping(value="/replyList")
+	public @ResponseBody Map<String, ArrayList<RepleDto>> replyList(@RequestParam Map<String, String> params){
+		logger.info("댓글 리스트 요청");
+		return service.replyList(params);
+	}
 	
 	
-	//매칭 글작성
-		@RequestMapping(value = "/matchWrite")
-		public String matchWrite() {
-			logger.info("매칭 상세보기");
-			return "matchWrite";
-		}
+	//댓글 삭제
+	@RequestMapping(value="/replyDel")
+	public @ResponseBody Map<String, String> replyDel(@RequestParam Map<String, String> params){
+		logger.info("삭제 요청");
+		return service.replyDel(params);
+	}
 	
 	
 }

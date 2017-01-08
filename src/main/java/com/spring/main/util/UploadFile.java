@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.main.dto.BannerDto;
 import com.spring.main.dto.FileDto;
-import com.spring.main.dto.TdDto;
+import com.spring.main.dto.BoardDto;
 
 public class UploadFile {
 

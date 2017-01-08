@@ -47,7 +47,6 @@
 				text-align: center;
 				padding-left: 1%;
 				padding-right: 1%;
-				/* border: 1px solid; */
 				border: 1px solid red;
 			}
 			.col3{

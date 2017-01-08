@@ -12,6 +12,9 @@
 			th{
 				text-align: center;
 			}
+			.margin{
+				margin: 0;
+			}
 		</style>
 	</head>
 	<body>
@@ -30,7 +33,7 @@
 				<!-- 두 번째 구역 -->
 				<div class="col5 content">	
 					<div class="search">
-						<table width="100%">
+						<table class="table margin">
 							<tr>
 								<td class="left">
 									<button onclick="location.href='../../main/vidio/vidioWrite'">글작성</button>
@@ -55,7 +58,7 @@
 						</table>
 					</div>
 					<div id="freeList">
-						<table class="table table-hover totalTable">
+						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th>순번</th>
@@ -68,14 +71,8 @@
 							<tbody id="list">
 								
 							</tbody>
-							<tr >
-								<td colspan="6" id="paging">
-									<div id="pagenation">
-						
-									</div>
-								</td>
-							</tr>
 						</table>
+						<div id="paging"></div>
 					</div>
 				</div>
 				
@@ -83,6 +80,7 @@
 				<div class="col3 content"></div>		
 			</div>			
 		</div>
+		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
 	var url="";
@@ -97,63 +95,31 @@
 	}); 
 	
 	$("#pagePerNum").change(function(){
-		v_searchCall(currPage);
-	});
-	
-	$(".type").change(function(){
-		type=$(".type option:selected").val();
-		console.log(type);
+		v_listCall(currPage);
 	});
 	
 	function Search(){
-		var url="./v_search";
-		var data={};
-		if($(".input").val()!=""){
-			console.log("검색");
-			input=$(".input").val();
-			$(".input").val("");	
-		}
+		console.log("검색");
+		input=$(".input").val();
 		var count=input.length;
 		console.log(count);
 		if(count>1){
-			data.input=input;
-			data.type=type;
-			reqServer(url, data);	
+			v_listCall(currPage);
 		}else{
-			alert("검색하실 단어는 2글자 이상이여야합니다.")
+			alert("검색하실 단어는 2글자 이상이여야합니다.");
 		}
-	}
-	
-	
-	function v_searchCall(currPage){
-		if(currPage>=1 && currPage<=totalPage){
-			var url="./v_searchCall";
-			var data={};
-			search=true;
-			console.log($(".input").val());
-			if($(".input").val()!=""){
-				console.log("검색");
-				input=$(".input").val();
-				$(".input").val("");	
-			}
-			console.log(type);
-			data.input=input;
-			data.type=type;
-			console.log(input);
-			data.page=currPage;
-			data.pagePerNum=$("#pagePerNum").val();
-			reqServer(url, data);
-		}
-		
 	}
 	
 	function v_listCall(currPage){
 		if(currPage>=1 && currPage<=totalPage){
 			var url="./v_listCall";
 			var data={};
+			data.input=input;
+			data.type=$(".type").val();	
 			data.page=currPage;
 			data.pagePerNum=$("#pagePerNum").val();
 			data.j_category = "2";
+			$(".input").val("");
 			reqServer(url, data);
 		}
 	}
@@ -169,27 +135,10 @@
 			dataType:"JSON",
 			success:function(data){
 				console.log(data);
-				if(url=="./v_listCall"){
-					printList(data.jsonList.list);
-					currPage=data.currPage;
-					totalPage=data.totalPage;
-					printPaging(data.totalCount, data.totalPage); 
-				}
-				else if(url=="./v_search"){
-					if(data.count!=0){
-						console.log(data.count);
-						v_searchCall(1);
-					}else{
-						alert("검색 결과가 없습니다.");
-					}
-				}
-				else if(url=="./v_searchCall"){
-					console.log("검색 종료");
-					printList(data.jsonList.list);
-					currPage=data.currPage;
-					totalPage=data.totalPage;
-					printPaging(data.totalCount, data.totalPage); 
-				}
+				printList(data.jsonList.list);
+				currPage=data.currPage;
+				totalPage=data.totalPage;
+				printPaging(data.totalCount, data.totalPage); 
 			},
 			error:function(error){
 				console.log(error);
@@ -203,7 +152,7 @@ function printList(list){
 		content+="<tr>"
 			+"<td>"+list[i].j_idx+"</td>"
 			+"<td>"+list[i].j_name+"</td>"
-			+"<td><a href='./vidioDetail?j_idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
+			+"<td><a href='./vidioDetail?idx="+list[i].totalIdx+"'>"+list[i].j_title+"</a></td>"
 			+"<td>"+list[i].j_date+"</td>"
 			+"<td>"+list[i].j_vcount+"</td>"
 			+"</tr>";
@@ -215,7 +164,7 @@ function printList(list){
 
 
 
- //페이지 그리기
+//페이지 그리기
 function printPaging(count, page){
 	console.log("전체 게시물:"+count);
 	console.log("전체 페이지:"+page);
@@ -231,37 +180,49 @@ function printPaging(count, page){
 	//다음 페이지가 있는지 여부확인
 	var range=(currPage/5);
 	
-	var content="";
+	var content = "<ul class='pagination pagination-sm'>"
+			+"<li class='page-item first'><a href='#' onclick='v_listCall(1)'>First</a></li>"
+			+"<li class='page-item prev'><a href='#' onclick='v_listCall("+(currPage-1)+")'>Previous</a></li>";
 	
-	console.log(range);
-	if(range>1){//5페이지 넘었을 경우
-		end=currPage%5==0?
-				(Math.floor(range))*5:
-				(Math.floor(range)+1)*5;
-		start=Math.floor(end-4);
-	}else{//5페이지 이하일 경우
-		start=1;
-		end=start+4;
+	if(range >1){//5페이지 넘었을 경우
+		end = currPage%5 == 0 ?
+				(Math.floor(range))*5
+				:(Math.floor(range)+1)*5;
+		start = Math.floor(end-4);
+	}else{//5페이지 미만일 경우
+		start = 1;
+		end = 5;
 	}
-	console.log(start+"/"+end);
-		content+="<a href='#' onclick='v_searchCall("+1+")'>처음</a> |"
-		+" <a href='#' onclick='v_searchCall("+(start-1)+")'> << </a> "
-		+"<a href='#' onclick='v_searchCall("+pre+")'> < </a> ";
-		for(var i=start; i<=end; i++){
-			if(i<=page){
-				if(currPage==i){
-					content+="<b>"+i+"</b>";
-				}else{
-					content+=" <a href='#' onclick='v_searchCall("+i+")'>"
-					+i+"</a> ";
-				}	
-			}
-		}
-		content+="<a href='#' onclick='v_searchCall("+next+")'> > </a> "
-		+" <a href='#' onclick='v_searchCall("+(end+1)+")'> >> </a>"
-		+"| <a href='#' onclick='v_searchCall("+page+")'>끝</a>";	
-	$("#paging").empty();
+	
+	//페이징 표시			
+	for(var i=start; i<=end;i++){
+		if(i<=page){
+			if(currPage ==i){
+				content += "<li class='page-item active'><a href='#'>"+i+"</a></li>";
+			}else{
+				content += "<li class='page-item'><a href='#' onclick='v_listCall("+i+")' >"+i+"</a></li>";
+			}					
+		}			
+	}
+	content += "<li class='page-item next'><a href='#' onclick='v_listCall("+(currPage+1)+")'>Next</a></li>"
+       +"<li class='page-item last'><a href='#' onclick='v_listCall("+page+")'>Last</a></li></ul>";
+    $("#paging").empty();
 	$("#paging").append(content);
+	if(currPage==1){
+		$(".first").addClass("disabled");
+		$(".prev").addClass("disabled");
+	}
+	if(currPage==page){
+		$(".next").addClass("disabled");
+		$(".last").addClass("disabled");
+	}
+	if(page==1||page==0){
+		$(".first").addClass("disabled");
+		$(".prev").addClass("disabled");
+		$(".next").addClass("disabled");
+		$(".last").addClass("disabled");
+	}
+	
 } 
 	</script>
 </html>

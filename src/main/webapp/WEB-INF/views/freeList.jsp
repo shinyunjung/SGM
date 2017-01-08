@@ -12,6 +12,9 @@
          th{
             text-align: center;
          }
+         .margin{
+			margin: 0;
+		}
       </style>
    </head>
    <body>
@@ -30,7 +33,7 @@
             <!-- 두 번째 구역 -->
             <div class="col5 content">   
                <div class="search">
-                  <table>
+                  <table class="table margin">
                      <tr>
                         <td class="left">
                            <button onclick="location.href='./freeWrite'">글작성</button>
@@ -97,63 +100,33 @@
    }); 
    
    $("#pagePerNum").change(function(){
-      f_searchCall(currPage);
+	   f_listCall(currPage);
    });
    
-   $(".type").change(function(){
-      type=$(".type option:selected").val();
-      console.log(type);
-   });
-   
+  
    function Search(){
-      var url="../free/f_search";
-      var data={};
-      if($(".input").val()!=""){
-         console.log("검색");
-         input=$(".input").val();
-         $(".input").val("");   
-      }
-      var count=input.length;
-      console.log(count);
-      if(count>1){
-         data.input=input;
-         data.type=type;
-         reqServer(url, data);   
-      }else{
-         alert("검색하실 단어는 2글자 이상이여야합니다.")
-      }
+      console.log("검색");
+		input=$(".input").val();
+		var count=input.length;
+		console.log(count);
+		if(count>1){
+			f_listCall(currPage);
+		}else{
+			alert("검색하실 단어는 2글자 이상이여야합니다.");
+		}
    }
    
-   
-   function f_searchCall(currPage){
-      if(currPage>=1 && currPage<=totalPage){
-         var url="../free/f_searchCall";
-         var data={};
-         search=true;
-         console.log($(".input").val());
-         if($(".input").val()!=""){
-            console.log("검색");
-            input=$(".input").val();
-            $(".input").val("");   
-         }
-         console.log(type);
-         data.input=input;
-         data.type=type;
-         console.log(input);
-         data.page=currPage;
-         data.pagePerNum=$("#pagePerNum").val();
-         reqServer(url, data);
-      }
-      
-   }
    
    function f_listCall(currPage){
       if(currPage>=1 && currPage<=totalPage){
          var url="../free/f_listCall";
          var data={};
-         data.page=currPage;
-         data.pagePerNum=$("#pagePerNum").val();
-         data.j_category = "3";
+         data.input=input;
+			data.type=$(".type").val();	
+			data.page=currPage;
+			data.pagePerNum=$("#pagePerNum").val();
+			data.j_category = "3";
+			$(".input").val("");
          reqServer(url, data);
       }
    }
@@ -169,26 +142,13 @@
          dataType:"JSON",
          success:function(data){
             console.log(data);
-            if(url=="../free/f_listCall"){
+            if(data.totalCount!=0){
                printList(data.jsonList.list);
                currPage=data.currPage;
                totalPage=data.totalPage;
                printPaging(data.totalCount, data.totalPage); 
-            }
-            else if(url=="../free/f_search"){
-               if(data.count!=0){
-                  console.log(data.count);
-                  f_searchCall(1);
-               }else{
-                  alert("검색 결과가 없습니다.");
-               }
-            }
-            else if(url=="../free/f_searchCall"){
-               console.log("검색 종료");
-               printList(data.jsonList.list);
-               currPage=data.currPage;
-               totalPage=data.totalPage;
-               printPaging(data.totalCount, data.totalPage); 
+            }else{
+               alert("검색 결과가 없습니다.");
             }
          },
          error:function(error){
@@ -203,7 +163,7 @@ function printList(list){
       content+="<tr>"
          +"<td>"+list[i].j_idx+"</td>"
          +"<td>"+list[i].j_name+"</td>"
-         +"<td><a href='../free/freeDetail?j_idx="+list[i].j_idx+"'>"+list[i].j_title+"</a></td>"
+         +"<td><a href='./freeDetail?idx="+list[i].totalIdx+"'>"+list[i].j_title+"</a></td>"
          +"<td>"+list[i].j_date+"</td>" 
          +"<td>"+list[i].j_vcount+"</td>"
          +"</tr>";

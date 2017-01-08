@@ -2,7 +2,7 @@ package com.spring.main.dao;
 
 import java.util.ArrayList;
 
-import com.spring.main.dto.TdDto;
+import com.spring.main.dto.BoardDto;
 
 public interface AdInterface {
 
@@ -10,13 +10,13 @@ public interface AdInterface {
 	int allCount();
 
 	//리스트 보이기
-	ArrayList<TdDto> listCall(int start, int end);
+	ArrayList<BoardDto> listCall(int start, int end);
 	
 	//검색수
 	int searchCount(String type, String value);
 
 	//검색리스트보이기
-	ArrayList<TdDto> search(int start, int end, String type, String value);
+	ArrayList<BoardDto> search(int start, int end, String type, String value);
 
 	//ad_idx불러오기
 	String idxCall();

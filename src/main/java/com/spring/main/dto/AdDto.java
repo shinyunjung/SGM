@@ -1,5 +1,7 @@
 package com.spring.main.dto;
 
+import java.sql.Date;
+
 public class AdDto {
 	
 	String[] area = {"중구", "동구", "남구", "연수구", "남동구", "부평구", "계양구", "서구", "강화군", "옹진군"};
@@ -15,8 +17,8 @@ public class AdDto {
 	private String ad_exposure;
 	private String ad_lat;
 	private String ad_lng;
-	private String s_date;
-	private String e_date;
+	private Date s_date;
+	private Date e_date;
 	private String ad_count;
 	private String ad_state;
 	
@@ -92,16 +94,16 @@ public class AdDto {
 	public void setAd_lng(String ad_lng) {
 		this.ad_lng = ad_lng;
 	}
-	public String getS_date() {
+	public Date getS_date() {
 		return s_date;
 	}
-	public void setE_Sate(String s_date) {
+	public void setE_Sate(Date s_date) {
 		this.s_date = s_date;
 	}
-	public String getE_date() {
+	public Date getE_date() {
 		return e_date;
 	}
-	public void setE_date(String e_date) {
+	public void setE_date(Date e_date) {
 		this.e_date = e_date;
 	}
 	public String getAd_count() {

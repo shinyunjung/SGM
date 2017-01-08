@@ -152,13 +152,14 @@ function displayPlaces(places) {
                	$("input[name=lat]").val(latitude);
                	$("input[name=lng]").val(longitude);
             	$("input[name=address]").val(address);
+            	console.log(marker);
             });
-            itemEl.onmouseover =  function () {
+            /* itemEl.onmouseover =  function () {
                 displayInfowindow(marker, title);
             };
             itemEl.onmouseout =  function () {
                 infowindow.close();
-            };
+            }; */
             itemEl.onclick =  function () {//추가
             	removeMarker();
             	placePosition = new daum.maps.LatLng(latitude,longitude);

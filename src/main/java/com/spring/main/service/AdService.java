@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdInterface;
-import com.spring.main.dto.TdDto;
+import com.spring.main.dto.BoardDto;
 import com.spring.main.util.UploadFile;
 
 @Service
@@ -28,7 +28,7 @@ public class AdService {
 	public Map<String, Object> listCall(Map<String, String> params) {
 		inter = sqlSession.getMapper(AdInterface.class);
 		Map<String, Object> json = new HashMap<String, Object>();
-		Map<String, ArrayList<TdDto>> obj = new HashMap<String, ArrayList<TdDto>>();
+		Map<String, ArrayList<BoardDto>> obj = new HashMap<String, ArrayList<BoardDto>>();
 		
 		//현재 페이지
 		int currPage = Integer.parseInt(params.get("page"));

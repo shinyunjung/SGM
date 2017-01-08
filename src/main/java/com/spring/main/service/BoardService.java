@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BoardInterface;
 import com.spring.main.dto.LoginDto;
+import com.spring.main.dto.RepleDto;
 import com.spring.main.dto.SelectTeamDto;
 import com.spring.main.dto.UserDto;
 import com.spring.main.util.EmailTest;
@@ -268,6 +269,63 @@ public class BoardService {
 			mav.addObject("msg", msg);
 			mav.setViewName(page);
 			return mav;
+		}
+
+
+		//댓글 등록
+		public Map<String, String> replyRegist(Map<String, String> params) {
+			Map<String, String> obj = new HashMap<String, String>();
+			inter=sqlSession.getMapper(BoardInterface.class);
+			int success=0;
+			String msg = "댓글 등록에 실패하셨습니다.";
+			String idx = params.get("idx");
+			String u_idx = params.get("u_idx");
+			String column = params.get("column");
+			String replyer = params.get("replyer");
+			String reple = params.get("reple");
+			String table = params.get("table");
+			String repleCnt  = params.get("repleCnt");
+			logger.info(idx);
+			logger.info(replyer);
+			logger.info(reple);
+			success=inter.replyRegist(column, idx, u_idx, replyer, reple);
+			if(success==1){
+				inter.replyUp(table,repleCnt,idx);
+				msg="댓글 등록에 성공하셨습니다.";
+			}
+			obj.put("msg", msg);
+			return obj;
+		}
+
+
+		public Map<String, ArrayList<RepleDto>> replyList(Map<String, String> params) {
+			Map<String, ArrayList<RepleDto>> obj = new HashMap<String, ArrayList<RepleDto>>();
+			inter=sqlSession.getMapper(BoardInterface.class);
+			String idx=params.get("idx");
+			String column=params.get("column");
+			obj.put("replyList", inter.replyList(column,idx));
+			
+			return obj;
+		}
+
+
+		public Map<String, String> replyDel(Map<String, String> params) {
+			Map<String, String> obj = new HashMap<String, String>();
+			int success=0;
+			inter=sqlSession.getMapper(BoardInterface.class);
+			String r_idx=params.get("r_idx");
+			String idx=params.get("idx");
+			String table=params.get("table");
+			String repleCnt  = params.get("repleCnt");
+			String msg="삭제에 실패했습니다.";
+			
+			success=inter.replyDel(r_idx);
+			if(success==1){
+				inter.repleDown(table,repleCnt,idx);
+				msg="삭제에 성공했습니다.";
+			}
+			obj.put("msg", msg);
+			return obj;
 		}
 
 

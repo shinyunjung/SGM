@@ -78,6 +78,7 @@
 									<td>
 										<input type="text" name="address" placeholder="지도에서 장소 선택시 자동 입력됩니다." />
 									</td>
+								</tr>
 								<tr class="borderTop">
 									<td colspan="2">
 										<jsp:include page="../../resources/include/placeWrite.jsp" />

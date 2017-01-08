@@ -27,6 +27,9 @@
 			width: 100%;
 			height: 100%;
 		}
+		#cen{
+		 margin: 10px;
+		}
 		table{
 			width: 100%;
 		}
@@ -53,9 +56,13 @@
 		<div class="col2 content">
 			<fieldset class="fil">
 						<legend>팀 만들기</legend>
-			<div class="thumbnail"></div>
-			<input type="file" name="file" id="imgInp" onchange="fileView(this)"/>
-			<input id="fileName" type="hidden" name="fileName"/>
+			<div class="thumbnail">
+				<img id="file" src="../../main/resources/include/img/default1.png"/>
+			</div>
+			<div id="cen">
+				<input type="file" name="file" id="imgInp" onchange="fileView(this)"/>
+				<input id="fileName" type="hidden" name="fileName"/>
+			</div>
 			</fieldset>
 		</div>
 		<div class="col5 content"> 
@@ -200,7 +207,7 @@
             }
 
           reader.readAsDataURL(input.files[0]);
-        }$("#"+file).detach(); 
+        }$("#file").attr("src","../../main/resources/include/img/default1.png"); 
     }
 	
 	//팀명 변경시

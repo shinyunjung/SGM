@@ -9,29 +9,24 @@
 		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
+			
+			#replyZone{
+				width: 100%;
+				margin-top: 10px;
+				display: none;
+			}
+			#repleBox{
+				width: 100%;
+				text-align: left;
+			}
+			tr{
+				height: 40px;
+			}
 			.detailTable{
 				width: 100%;
 			}
 			.subject{
-				width: 55%;
-			}
-			.user{
-				text-align: center;
-				
-				width: 10%;
-			}
-			.data{
-				width: 82%;
-				padding: 10px;
-			}
-			.repleBtn{
-				margin: 5px;
-				width: 8%;
-			}
-			#replyZone{
-				
-				width: 100%;
-				margin-top: 10px;
+				width: 40%;
 			}
 			textarea{
 				width: 100%;
@@ -61,41 +56,48 @@
 					<div class="detailZone">
 						<table class="detailTable">
 							<thead>
-								<tr>
-									<td class="subject left">제목</td>
-									<td class="subject left">${content.j_title}</td>
+								<tr class="borderBottom center">
+									<td colspan="6">${content.j_title}</td>
+								</tr>
+								<tr class="borderBottom center">
+									<td style="width: 10%;">작성자</td>
+									<td class="borderLeft" style="width: 25%;">${content.j_name}</td>
 									<td class="borderLeft">날짜</td>
 									<td class="borderLeft">${content.j_date}</td>
 									<td class="borderLeft">조회수</td>
 									<td class="borderLeft">${content.j_vcount}</td>
 								</tr>
 							</thead>
-							<tbody class="borderTop">
+							<tbody class="borderBottom">
 								<tr>
-									<td colspan="5">
+									<td colspan="6" >
 										${content.j_content}
-										<br/>
-										<video src="../../main/resources/upload/1483599549854.wmv" controls autoplay></video>
-									</td>
-								</tr>
-								<tr class="borderTop">
-									<td class="left"><a>댓글쓰기</a></td>
-									<td colspan="4" class="right ">
-										<input type="button" onclick="location.href='./vidioList'" value="돌아가기"/>
-                              			<input type="button" onclick="location.href='./vidioModify?totalidx=${content.totalidx}'" value="수정하기"/>
-                              			<input type="button" onclick="del()" value="삭제"/>
+										<br/><br/>
+										<video onerror="this.style.display='none'" src="../../main/resources/upload/${file[0].f_newfilename}" controls preload="metadata" ></video>
 									</td>
 								</tr>
 							</tbody>
 						</table>
+						<table>
+							<tr  style="height: 50px; font-size: 14px;">
+								<td class="left"><b id="reCnt" onclick="reple()" style="cursor: pointer;">댓글(${content.j_reple})</b></td>
+								<td style="width: 500px"></td>
+								<td class="right ">
+									<b onclick="location.href='./freeModify?idx=${content.totalIdx}'" style="cursor: pointer;">수정</b>
+									/ <b onclick="location.href='./delete?idx=${content.totalIdx}'" style="cursor: pointer;">삭제</b>
+								</td>
+							</tr>
+						</table>
 						<!-- 댓글 -->
 						<div id="replyZone">
 							<table id="repleBox">
-								<tr class="borderTop">
-									<td class="user">등록자</td>
-									<td class="data"><textarea rows="3"></textarea></td>
-									<td class="repleBtn"><button id="go">댓글등록</button></td>
+								<tr class="borderBottom">
+									<td class="center" style="width: 20%;"> ${sessionScope.userName}(${sessionScope.userId})</td>
+									<td style="width: 60%;"><textarea rows="1" id="reple"></textarea></td>
+									<td style="width: 20%;"><button id="repleGo">등록</button></td>
 								</tr>
+							<!-- 댓글 리스트 -->
+							<tbody id="repleList"></tbody>
 							</table>
 						</div>
 					</div>
@@ -107,10 +109,101 @@
 				</div>
 			</div>
 		</div>
+		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
-	function del(){
-	      location.href="./delete?totalidx="+${content.j_idx };
-	   }
+	var user="${sessionScope.userName}(${sessionScope.userId})";
+	
+	function reple(){
+		var display=$("#replyZone").css("display");
+		if(display=="none"){
+			$("#replyZone").css("display","block");
+			 replyList(); 
+		}else{
+			$("#replyZone").css("display","none");
+		}
+	}
+	
+	$("#repleGo").click(function(){
+		console.log("댓글 전송");
+		var url="../replyRegist";
+		var data={};
+		data.idx="${content.totalIdx}";
+		data.u_idx="${sessionScope.userIdx}";
+		data.replyer=user; 
+		data.reple=$("#reple").val();
+		data.column="board_idx";
+		data.table="board";
+		data.repleCnt="j_reple";
+		console.log(data);
+		reqServer(url, data);
+	});
+	
+	function replyList(){
+		var url="../replyList";
+		var data={};
+		data.idx="${content.totalIdx}";
+		data.column="board_idx";
+		console.log(data);
+		console.log("댓글 리스트");
+		reqServer(url, data);
+	}
+	
+	function printReple(list){
+		var content="";
+		console.log(list);
+		for(var i=0; i<list.length; i++){
+			content +="<tr class='borderBottom'>"
+			+"<td class='center'> "+list[i].r_writer+"</td>"
+			+"<td>"+list[i].r_reple;
+			if(user==list[i].r_writer){
+				content+=" <b onclick='repleDel("+list[i].r_idx+")' style='cursor: pointer; color: red;'>X</b>"
+			}
+			content +="</td>"
+				+"<td>"+list[i].r_date+"</td>"
+				+"</tr>";
+		}
+		$("#repleList").empty();
+		$("#repleList").append(content);
+		$("#reCnt").empty();
+		$("#reCnt").append("댓글("+list.length+")");
+	}		
+	
+	function repleDel(idx){
+		var url="../replyDel";
+		var data={};
+		data.r_idx=idx;
+		data.idx="${content.totalIdx}";
+		data.table="board";
+		data.repleCnt="j_reple";
+		console.log(data);
+		reqServer(url, data);
+	}
+	
+	function reqServer(url, data){
+		console.log(url);
+		$.ajax({
+			url:url,
+			type:"post",
+			data:data,
+			dataType:"JSON",
+			success:function(d){
+				console.log(d);
+				if(url=="../replyRegist"){
+					$("#reple").val("");
+					 replyList(); 
+				}else if(url=="../replyList"){
+					console.log("댓글 리스트 호출");
+					printReple(d.replyList); 
+				}else if(url=="../replyDel"){
+					console.log("댓글 삭제");
+					replyList();
+				}
+			},
+			error:function(error){
+				console.log(error);
+			}
+		});
+	}
 	</script>
 </html>

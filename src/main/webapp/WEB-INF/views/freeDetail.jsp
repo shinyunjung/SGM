@@ -2,10 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<% 
-	String j_idx = (String)session.getAttribute("j_idx");
-    boolean check=false;
-%>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,35 +11,23 @@
 		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
 			
-			#repleBox{
-				
+			#replyZone{
 				width: 100%;
-				padding: 10px;
+				margin-top: 10px;
+				display: none;
 			}
-			
+			#repleBox{
+				width: 100%;
+				text-align: left;
+			}
+			#repleBox tr{
+				height: 40px;
+			}
 			.detailTable{
 				width: 100%;
 			}
 			.subject{
 				width: 40%;
-			}
-			.user{
-				text-align: center;
-				
-				width: 10%;
-			}
-			.data{
-				width: 82%;
-				padding: 10px;
-			}
-			.repleBtn{
-				margin: 5px;
-				width: 8%;
-			}
-			#replyZone{
-				
-				width: 100%;
-				margin-top: 10px;
 			}
 			textarea{
 				width: 100%;
@@ -69,41 +53,46 @@
 					<div class="detailZone">
 						<table class="detailTable">
 							<thead>
-								<tr>
-									<td class="subject left">제목</td>
-									<td class="subject left">${content.j_title}</td>
+								<tr class="borderBottom center">
+									<td colspan="6">${content.j_title}</td>
+								</tr>
+								<tr class="borderBottom center">
+									<td style="width: 10%;">작성자</td>
+									<td class="borderLeft" style="width: 25%;">${content.j_name}</td>
 									<td class="borderLeft">날짜</td>
 									<td class="borderLeft">${content.j_date}</td>
 									<td class="borderLeft">조회수</td>
 									<td class="borderLeft">${content.j_vcount}</td>
 								</tr>
 							</thead>
-							<tbody class="borderTop">
+							<tbody class="borderBottom">
 								<tr>
 									<td colspan="5" >
 										${content.j_content}
 									</td>
 								</tr>
-								<tr class="borderTop">
-									<td colspan="4" class="right ">
-										<input type="button" onclick="location.href='./freeList'" value="돌아가기"/>
-										<input type="button" onclick="location.href='./freeModify?j_idx=${content.j_idx}'" value="수정하기"/>
-										<input type="button" onclick="del()" value="삭제"/>
-									</td>
-								</tr>
 							</tbody>
 						</table>
+						<table>
+							<tr  style="height: 50px;">
+								<td class="left"><b id="reCnt" onclick="reple()" style="cursor: pointer;">댓글(${content.j_reple})</b></td>
+								<td style="width: 500px"></td>
+								<td class="right ">
+									<b onclick="location.href='./freeModify?idx=${content.totalIdx}'" style="cursor: pointer;">수정</b>
+									/ <b onclick="location.href='./delete?idx=${content.totalIdx}'" style="cursor: pointer;">삭제</b>
+								</td>
+							</tr>
+						</table>
 						<!-- 댓글 -->
-					<div id="replyZone">
-							<table class="repleBox borderTop">
-								<tr>
-									<td class="user">${sessionScope.userName}(${sessionScope.userId})</td>
-									<td class="data"><textarea rows="3" id="reple"></textarea></td>
-									<td class="repleBtn"><button class="repleGo">댓글등록</button></td>
+						<div id="replyZone">
+							<table id="repleBox">
+								<tr class="borderBottom">
+									<td class="center" style="width: 20%;"> ${sessionScope.userName}(${sessionScope.userId})</td>
+									<td style="width: 60%;"><textarea rows="1" id="reple"></textarea></td>
+									<td style="width: 20%;"><button id="repleGo">등록</button></td>
 								</tr>
-							</table>
 							<!-- 댓글 리스트 -->
-							<table id="repleList">
+							<tbody id="repleList"></tbody>
 							</table>
 						</div>
 					</div>			
@@ -113,17 +102,11 @@
 				<!-- 세 번째 구역 -->
 				
 			</div>
+			<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
-	var url="";
-	var data={};
-	var userIdx="${sessionScope.userIdx}";
-	var user="${sessionScope.userName}"+"(${sessionScope.userId})";
-	var repleCnt=0;
+	var user="${sessionScope.userName}(${sessionScope.userId})";
 	
-	function del(){
-		location.href="./delete?j_idx="+${content.j_idx };
-	}
 	function reple(){
 		var display=$("#replyZone").css("display");
 		if(display=="none"){
@@ -134,23 +117,26 @@
 		}
 	}
 	
-	$(".repleGo").click(function(){
+	$("#repleGo").click(function(){
 		console.log("댓글 전송");
-		var url="../free/replyRegist";
+		var url="../replyRegist";
 		var data={};
-		data.r_idx="${detail.totalIdx}";
-		data.r_category=3;
-		data.r_replyer=user; 
-		data.r_reple=$("#reple").val();
+		data.idx="${td.totalIdx}";
+		data.u_idx="${sessionScope.userIdx}";
+		data.replyer=user; 
+		data.reple=$("#reple").val();
+		data.column="board_idx";
+		data.table="board";
+		data.repleCnt="j_reple";
 		console.log(data);
 		reqServer(url, data);
 	});
 	
 	function replyList(){
-		var url="../free/replyList";
+		var url="../replyList";
 		var data={};
-		data.r_idx="${detail.totalIdx}";
-		data.r_category=3;
+		data.idx="${td.totalIdx}";
+		data.column="board_idx";
 		console.log(data);
 		console.log("댓글 리스트");
 		reqServer(url, data);
@@ -158,65 +144,53 @@
 	
 	function printReple(list){
 		var content="";
-		console.log(user);
-		repleCnt=list.length;
+		console.log(list);
 		for(var i=0; i<list.length; i++){
-			content+="<tr>"
-				+"<td class='user'>"+list[i].r_writer+"</td>"
-				+"<td class='data'>"+list[i].r_reple;
-				if(user==list[i].r_writer){
-				content+="<a href='#' onclick='repleDel("+list[i].r_idx+")'><sup>X</sup></a>";
-				}
-				content+="</td>"
+			content +="<tr class='borderBottom'>"
+			+"<td class='center'> "+list[i].r_writer+"</td>"
+			+"<td>"+list[i].r_reple;
+			if(user==list[i].r_writer){
+				content+=" <b onclick='repleDel("+list[i].r_idx+")' style='cursor: pointer; color: red;'>X</b>"
+			}
+			content +="</td>"
 				+"<td>"+list[i].r_date+"</td>"
 				+"</tr>";
 		}
-		
-		if(repleCnt>0){
-			$(".repCnt").html("댓글 "+repleCnt);	
-		}else{
-			$(".repCnt").html("댓글쓰기");	
-		}
-		
 		$("#repleList").empty();
 		$("#repleList").append(content);
+		$("#reCnt").empty();
+		$("#reCnt").append("댓글("+list.length+")");
 	}		
 	
-	function repleDel(r_idx){
-		var url="../free/replyDel";
+	function repleDel(idx){
+		var url="../replyDel";
 		var data={};
-		data.r_idx=r_idx;
-		data.r_parent="${detail.totalIdx}";
-		data.r_category=3;
+		data.r_idx=idx;
+		data.idx="${td.totalIdx}";
+		data.table="board";
+		data.repleCnt="j_reple";
 		console.log(data);
 		reqServer(url, data);
 	}
 	
-	function reqServer(url, obj){
+	function reqServer(url, data){
 		console.log(url);
-		console.log(obj);
 		$.ajax({
 			url:url,
-			type:"get",
-			data:obj,
+			type:"post",
+			data:data,
 			dataType:"JSON",
-			success:function(data){
-				console.log(data);
-				if(url=="../free/replyRegist"){
-					console.log(data.msg);
+			success:function(d){
+				console.log(d);
+				if(url=="../replyRegist"){
 					$("#reple").val("");
 					 replyList(); 
-				}else if(url=="../free/replyList"){
+				}else if(url=="../replyList"){
 					console.log("댓글 리스트 호출");
-					printReple(data.replyList); 
-				}else if(url=="../free/replyDel"){
+					printReple(d.replyList); 
+				}else if(url=="../replyDel"){
 					console.log("댓글 삭제");
-					alert(data.msg);
 					replyList();
-				}else if(url=="../selectTeam"){
-					console.log("쪽지에서 함");
-					console.log(data.userTeam);
-					printSelect(data.userTeam);
 				}
 			},
 			error:function(error){

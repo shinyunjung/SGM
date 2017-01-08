@@ -11,11 +11,11 @@
    
    <!-- 검색 후 게시물 전채 개수 -->
    <select id="v_searhCount" resultType="Integer" >
-      SELECT COUNT(*) FROM board WHERE j_category=#{param3} WHERE ${param2} like '%'||#{param1}||'%'
+      SELECT COUNT(*) FROM board WHERE j_category=#{param3} AND ${param2} like '%'||#{param1}||'%'
    </select>
    
    <!-- 리스트 불러오기 -->
-   <select id="v_listCall" resultType="com.spring.main.dto.vidioDTO">
+   <select id="v_listCall" resultType="com.spring.main.dto.BoardDto">
       SELECT totalidx, j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
        j_filenum, j_vcount, j_reple
           FROM (
@@ -34,7 +34,7 @@
    </select>
    
    <!-- 검색 후 리스트 추가 -->
-   <select id="v_searhCall" resultType="com.spring.main.dto.vidioDTO">
+   <select id="v_searhCall" resultType="com.spring.main.dto.BoardDto">
       SELECT totalidx, j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
        j_filenum, j_vcount, j_reple FROM (
          SELECT totalidx, j_idx,
@@ -47,12 +47,12 @@
               j_vcount,
               j_reple, 
                  ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board 
-            WHERE j_category=#{param3} AND ${param4} LIKE '%'||#{param5}||'%'
+            WHERE j_category=#{param5} AND ${param4} LIKE '%'||#{param3}||'%'
             )WHERE rnum BETWEEN #{param1} AND #{param2}  
    </select>
    
    <!-- 상세 보기 -->
-    <select id="vidioDetail" resultType="com.spring.main.dto.vidioDTO">
+    <select id="vidioDetail" resultType="com.spring.main.dto.BoardDto">
        SELECT * FROM board WHERE totalidx = #{param1}
     </select>
     

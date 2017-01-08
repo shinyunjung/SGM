@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.spring.main.dto.FileDto;
 import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.PrDto;
-import com.spring.main.dto.TdDto;
+import com.spring.main.dto.BoardDto;
 
 public interface TdInterface {
 
@@ -13,10 +13,10 @@ public interface TdInterface {
 	int allCount(String j_category);
 
 	//리스트
-	ArrayList<TdDto> listCall(int start, int end, String j_category);
+	ArrayList<BoardDto> listCall(int start, int end, String j_category);
 
 	//검색리스트
-	ArrayList<TdDto> search(int start, int end, String j_category, String type, String value);
+	ArrayList<BoardDto> search(int start, int end, String j_category, String type, String value);
 
 	//검색수
 	int searchCount( String j_category, String type, String value);
@@ -42,7 +42,7 @@ public interface TdInterface {
 	void point(int p_atkpoint, String m_idx);
 
 	//상세보기
-	TdDto tdDetail(String idx);
+	BoardDto tdDetail(String idx);
 
 	//개인기록보기
 	ArrayList<PrDto> tdRecord(String idx);
@@ -72,7 +72,7 @@ public interface TdInterface {
 	ArrayList<PrDto> modifyRec(String t_idx, String idx);
 
 	//글수정
-	void update(String idx, String j_title, String j_content);
+	int update(String idx, String j_title, String j_content);
 
 	//파일 수정
 	void fileModify(String del, String oldName, String newName);

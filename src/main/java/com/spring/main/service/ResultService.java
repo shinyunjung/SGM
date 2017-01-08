@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.main.dao.MatchInterface;
 import com.spring.main.dao.ResultInterface;
 import com.spring.main.dto.EntirelyDto;
 

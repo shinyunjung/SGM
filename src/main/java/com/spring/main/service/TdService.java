@@ -17,7 +17,7 @@ import com.spring.main.dao.TeamInterface;
 import com.spring.main.dto.FileDto;
 import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.PrDto;
-import com.spring.main.dto.TdDto;
+import com.spring.main.dto.BoardDto;
 import com.spring.main.util.UploadFile;
 
 
@@ -51,7 +51,7 @@ public class TdService {
 	public Map<String, Object> listCall(Map<String, String> params) {
 		inter = sqlSession.getMapper(TdInterface.class);
 		Map<String, Object> json = new HashMap<String, Object>();
-		Map<String, ArrayList<TdDto>> obj = new HashMap<String, ArrayList<TdDto>>();
+		Map<String, ArrayList<BoardDto>> obj = new HashMap<String, ArrayList<BoardDto>>();
 		
 		//현재 페이지
 		int currPage = Integer.parseInt(params.get("page"));

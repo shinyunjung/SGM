@@ -5,7 +5,7 @@
 <mapper namespace="com.spring.main.dao.TdInterface">
 
 	<!-- 리스트보이기 -->
-	<select id="listCall" resultType="com.spring.main.dto.TdDto">
+	<select id="listCall" resultType="com.spring.main.dto.BoardDto">
 		SELECT totalIdx,j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple
 			FROM (
 				SELECT totalIdx,j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple,
@@ -19,7 +19,7 @@
 	</select>
 	
 	<!-- 검색리스트보이기 -->
-	<select id="search" resultType="com.spring.main.dto.TdDto">
+	<select id="search" resultType="com.spring.main.dto.BoardDto">
 		SELECT totalIdx,j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple
 			FROM (
 				SELECT totalIdx,j_idx,u_idx,j_name,j_category,j_title,j_content,j_date,j_filenum,j_vcount,j_reple,
@@ -73,7 +73,7 @@
 	</update>
 	
 	<!-- 팀잉지상세 -->
-	<select id="tdDetail" resultType="com.spring.main.dto.TdDto">
+	<select id="tdDetail" resultType="com.spring.main.dto.BoardDto">
 		SELECT * FROM board WHERE totalIdx = #{param1}
 	</select>
 	

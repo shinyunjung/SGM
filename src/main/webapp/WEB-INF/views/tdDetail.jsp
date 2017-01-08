@@ -20,32 +20,19 @@
 				width: 100%;
 			}
 			.recordList{
-				
 				border: 1px solid black;
 				border-collapse: collapse;
 			}
-			.user{
-				text-align: center;
-				
-				width: 10%;
-			}
-			.data{
-				width: 80%;
-				padding: 10px;
-			}
-			.repleBtn{
-				margin: 5px;
-			}
 			#replyZone{
-				
 				width: 100%;
-				margin-top: 10px;
 				display: none;
 			}
 			#repleBox{
-				
 				width: 100%;
-				padding: 10px;
+				text-align: left;
+			}
+			tr{
+				height: 40px;
 			}
 			textarea{
 				width: 100%;
@@ -82,15 +69,12 @@
 				<!-- 두 번째 구역 -->
 				<div class="col5 content">
 					<div id="detailZone">
-						<table class="table">
+						<table>
 							<thead>
-								<tr>
-								 	<th>글 번호</th>
-								</tr>
-								<tr>
+								<tr class="borderBottom center">
 									<td colspan="6" class="subject">${td.j_title}</td>
 								</tr>
-								<tr>
+								<tr class="borderBottom center">
 									<td>작성자</td>
 									<td class="borderLeft">${td.j_name}</td>
 									<td class="borderLeft">날짜</td>
@@ -100,14 +84,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<tr class="borderBottom center">
 									<td colspan="6">
 										<div id="content">${td.j_content}</div>
 									</td>
 								</tr>
 							</tbody>
 						</table>
-					</div>
 					<div class="recordZone">
 						<table class="recordTable">
 							<thead>
@@ -153,31 +136,31 @@
 								</c:forEach>
 								</tbody>
 							</table>
-					</div>
+						</div>
 							<table>
-								<tr>
-									<td class="left"><a>댓글쓰기</a></td>
+								<tr  style="height: 50px;">
+									<td class="left"><b id="reCnt" onclick="reple()" style="cursor: pointer;">댓글(${td.j_reple})</b></td>
 									<td style="width: 500px"></td>
-									<td colspan="10" class="right ">
-										<a href="./tdModify?idx=${td.totalIdx}&t_idx=${team.t_idx}">수정</a> / <a href="./delete?idx=${td.totalIdx}&t_idx=${team.t_idx}">삭제</a>
+									<td class="right ">
+										<b onclick="location.href='./tdModify?idx=${td.totalIdx}&t_idx=${team.t_idx}'" style="cursor: pointer;">수정</b>
+										/ <b onclick="location.href='./delete?idx=${td.totalIdx}&t_idx=${team.t_idx}'" style="cursor: pointer;">삭제</b>
 									</td>
 								</tr>
-							</tbody>
-						</table>
+							</table>
+						<!-- 댓글 -->
 						<div id="replyZone">
 							<table id="repleBox">
-							<tr>
-								<td class="user">등록자</td>
-								<td class="data"><textarea rows="3" id="reple"></textarea></td>
-								<td class="repleBtn"><button id="repleGo">댓글등록</button></td>
-							</tr>
-						</table>
-						<!-- 댓글 리스트 -->
-						<table id="repleList">
-						</table>
+								<tr class="borderBottom">
+									<td class="center" style="width: 20%;"> ${sessionScope.userName}(${sessionScope.userId})</td>
+									<td style="width: 60%;"><textarea rows="1" id="reple"></textarea></td>
+									<td style="width: 20%;"><button id="repleGo">등록</button></td>
+								</tr>
+							<!-- 댓글 리스트 -->
+							<tbody id="repleList"></tbody>
+							</table>
+						</div>
 					</div>
 				</div>
-				
 				<!-- 세 번째 구역 -->
 				<div class="col3 content">
 					
@@ -202,7 +185,9 @@
 		}
 	}
 	
-	/* function reple(){
+	var user="${sessionScope.userName}(${sessionScope.userId})";
+	
+	function reple(){
 		var display=$("#replyZone").css("display");
 		if(display=="none"){
 			$("#replyZone").css("display","block");
@@ -212,22 +197,26 @@
 		}
 	}
 	
-	$(".repleGo").click(function(){
+	$("#repleGo").click(function(){
 		console.log("댓글 전송");
-		var url="./replyRegist";
+		var url="../replyRegist";
 		var data={};
 		data.idx="${td.totalIdx}";
+		data.u_idx="${sessionScope.userIdx}";
 		data.replyer=user; 
 		data.reple=$("#reple").val();
+		data.column="board_idx";
+		data.table="board";
+		data.repleCnt="j_reple";
 		console.log(data);
 		reqServer(url, data);
 	});
 	
 	function replyList(){
-		var url="../match/replyList";
+		var url="../replyList";
 		var data={};
 		data.idx="${td.totalIdx}";
-		data.category=4;
+		data.column="board_idx";
 		console.log(data);
 		console.log("댓글 리스트");
 		reqServer(url, data);
@@ -235,48 +224,51 @@
 	
 	function printReple(list){
 		var content="";
-		console.log(user);
-		repleCnt=list.length;
+		console.log(list);
 		for(var i=0; i<list.length; i++){
-			content+="<tr>"
-				+"<td class='user'>"+list[i].r_writer+"</td>"
-				+"<td class='data'>"+list[i].r_reple;
-				if(user==list[i].r_writer){
-				content+="<a href='#' onclick='repleDel("+list[i].r_idx+")'><sup>X</sup></a>";
-				}
-				content+="</td>"
+			content +="<tr class='borderBottom'>"
+			+"<td class='center'> "+list[i].r_writer+"</td>"
+			+"<td>"+list[i].r_reple;
+			if(user==list[i].r_writer){
+				content+=" <b onclick='repleDel("+list[i].r_idx+")' style='cursor: pointer; color: red;'>X</b>"
+			}
+			content +="</td>"
 				+"<td>"+list[i].r_date+"</td>"
 				+"</tr>";
 		}
 		$("#repleList").empty();
 		$("#repleList").append(content);
+		$("#reCnt").empty();
+		$("#reCnt").append("댓글("+list.length+")");
 	}		
 	
 	function repleDel(idx){
-		var url="./replyDel";
+		var url="../replyDel";
 		var data={};
+		data.r_idx=idx;
 		data.idx="${td.totalIdx}";
+		data.table="board";
+		data.repleCnt="j_reple";
 		console.log(data);
 		reqServer(url, data);
 	}
 	
 	function reqServer(url, data){
 		console.log(url);
-		console.log(obj);
 		$.ajax({
 			url:url,
 			type:"post",
-			data:obj,
+			data:data,
 			dataType:"JSON",
 			success:function(d){
 				console.log(d);
-				if(url=="../match/replyRegist"){
+				if(url=="../replyRegist"){
 					$("#reple").val("");
 					 replyList(); 
-				}else if(url=="./replyList"){
+				}else if(url=="../replyList"){
 					console.log("댓글 리스트 호출");
-					printReple(data.replyList); 
-				}else if(url=="./replyDel"){
+					printReple(d.replyList); 
+				}else if(url=="../replyDel"){
 					console.log("댓글 삭제");
 					replyList();
 				}
@@ -285,6 +277,6 @@
 				console.log(error);
 			}
 		});
-	} */
+	}
 	</script>
 </html>

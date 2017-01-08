@@ -180,24 +180,27 @@ public class PlaceService {
 		ModelAndView mav = new ModelAndView();
 		inter=sqlSession.getMapper(PlaceInterface.class);
 		int success=0;
-		String a_idx = multi.getParameter("idx");
+		String a_idx = multi.getParameter("a_idx");
 		String a_area = multi.getParameter("a_area");
-		String a_address = multi.getParameter("a_address");
+		String a_address = multi.getParameter("address");
 		String a_content = multi.getParameter("a_content");
 		String a_ground = multi.getParameter("a_ground");
 		String a_lat = multi.getParameter("lat");
 		String a_lng = multi.getParameter("lng");
 		String fileName = multi.getParameter("fileName");
+		logger.info(fileName);
+		String newfileName = "";
 		Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
-		if(fileName !=null){
+		if(!fileName.equals("")){
 			String[] delName = inter.fileDelName(a_idx);
 			//파일 업로드
 			UploadFile upload = new UploadFile();
 			newFile = upload.fileModify(multi,delName);
+			ArrayList<String> newName = newFile.get("newName");
+			newfileName = newName.get(0);
 		}
-		ArrayList<String> newName = newFile.get("newName");
 		logger.info(a_ground+"/"+a_idx+"/"+a_content+"/"+a_lat+"/"+a_lng+"/"+a_area);
-		success = inter.a_modify(a_idx,a_area,a_address,a_ground,a_content,fileName,newName.get(0),a_lat,a_lng);
+		success = inter.a_modify(a_idx,a_area,a_address,a_ground,a_content,fileName,newfileName,a_lat,a_lng);
 		
 		mav.addObject("success",success);
 		mav.setViewName("redirect:placeList");

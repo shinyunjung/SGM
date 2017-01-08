@@ -142,7 +142,6 @@
 	
 	$("select[name='ad_type']").change(function(){
 		var type = $("select[name='ad_type']").val();
-		$("input[name='ad_count']").removeAttr("readonly");
 		if(type=="CPC"){
 			$("input[name='ad_count']").attr("placeholder","클릭수");
 		}else if(type=="CPM"){

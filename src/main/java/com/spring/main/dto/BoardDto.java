@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class BoardDto {
 	private String totalIdx;
+	private String j_idx;
 	private String u_idx;
 	private String j_name;
 	private String j_category;
@@ -13,13 +14,18 @@ public class BoardDto {
 	private String j_filenum;
 	private String j_vcount;
 	private String j_reple;
-	
-	
+
 	public String getTotalIdx() {
 		return totalIdx;
 	}
 	public void setTotalIdx(String totalIdx) {
 		this.totalIdx = totalIdx;
+	}
+	public String getJ_idx() {
+		return j_idx;
+	}
+	public void setJ_idx(String j_idx) {
+		this.j_idx = j_idx;
 	}
 	public String getU_idx() {
 		return u_idx;
@@ -75,10 +81,4 @@ public class BoardDto {
 	public void setJ_reple(String j_reple) {
 		this.j_reple = j_reple;
 	}
-	
-	
-	
-	
-	
-
 }

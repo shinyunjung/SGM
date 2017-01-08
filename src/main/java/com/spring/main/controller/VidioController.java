@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.VidioService;
@@ -37,62 +38,44 @@ public class VidioController {
 		return VidioService.v_listCall(params);
 	}
 			
-	//검색 요청
-	@RequestMapping(value="/v_search")
-		public @ResponseBody Map<String, Object> v_search(
-				@RequestParam Map<String, String> params){
-		logger.info("검색 요청");
-		return VidioService.v_search(params);
-	}
-			
-	//검색 후 리스트 요청
-	@RequestMapping(value="/v_searchCall")
-	public @ResponseBody Map<String, Object> v_searchCall(
-			@RequestParam Map<String, String> params){
-		logger.info("리스트 요청");
-		return VidioService.v_searchCall(params);
-	}
 	//글작성보기
     @RequestMapping(value="/vidioWrite")
-    public String freeWrite() {
+    public String vidioWrite() {
        logger.info("글보기");
        return "vidioWrite";
     }
 	//영상쓰기
-	@RequestMapping(value = "/Write")
-	public ModelAndView vidioWrite(
-			@RequestParam Map<String, String> params){
+	@RequestMapping(value = "/write")
+	public ModelAndView write(MultipartHttpServletRequest multi){
 		logger.info("영상쓰기");
-		return VidioService.Write(params);
+		return VidioService.write(multi);
 	}
 	//상세보기
     @RequestMapping(value="/vidioDetail")
     public ModelAndView vidioDetail(
-          @RequestParam("j_idx") String j_idx ){
+          @RequestParam("idx") String idx ){
        logger.info("상세보기");
-       return VidioService.vidioDetail(j_idx);
+       return VidioService.vidioDetail(idx);
     }
     //글 삭제
     @RequestMapping(value="/delete")
     public ModelAndView delete(
-          @RequestParam("j_idx") String j_idx){
+          @RequestParam("idx") String idx){
        logger.info("글 삭제");
-       return VidioService.delete(j_idx);
+       return VidioService.delete(idx);
     }
     //수정 페이지 이동
     @RequestMapping(value="/vidioModify")
     public ModelAndView vidioModify(
-          @RequestParam("j_idx") String j_idx ){
+          @RequestParam("idx") String idx ){
        logger.info("수정페이지 이동");
-       return VidioService.vidioModify(j_idx);
+       return VidioService.vidioModify(idx);
     }
     //수정
-    @RequestMapping(value="/update")
-    public ModelAndView update(
-          @RequestParam Map<String, String> params
-          ){
+    @RequestMapping(value="/modify")
+    public ModelAndView modify(MultipartHttpServletRequest multi){
        logger.info("수정 요청");
-       return VidioService.update(params);
+       return VidioService.modify(multi);
     }
 
 }

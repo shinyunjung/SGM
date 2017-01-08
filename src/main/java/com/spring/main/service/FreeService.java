@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.FreeInterface;
+import com.spring.main.dto.BoardDto;
 import com.spring.main.dto.RepleDto;
-import com.spring.main.dto.freelistDTO;
 
 @Service
 public class FreeService {
@@ -26,46 +26,12 @@ public class FreeService {
 	
 	FreeInterface inter = null;
 
-	//리스트 보여주기
-	   public Map<String, Object> f_listCall(Map<String, String> params) {
-	         Map<String, ArrayList<freelistDTO>> obj = 
-	        		 new HashMap<String, ArrayList<freelistDTO>>();
-	         Map<String, Object> json = new HashMap<String, Object>();
-	         inter=sqlSession.getMapper(FreeInterface.class);
-	         
-	         int currPage=Integer.parseInt(params.get("page"));//현재 페이지
-	         
-	         int pagePerNum=Integer.parseInt(params.get("pagePerNum"));//페이지에 넣을 데이터 갯수
-	         logger.info("자유리스트뛰움");
-	         logger.info(currPage+"/"+pagePerNum);
-	         
-	         //게시물 시작과 끝 번호
-	         int end=pagePerNum*currPage;
-	         int start=end-pagePerNum+1;
-	         int j_category = 3;
-	         int allCnt = inter.f_allCount(j_category);
-	         int totalPage=allCnt/pagePerNum;
-	         System.out.println(totalPage%pagePerNum);
-	         if(allCnt%pagePerNum!=0){
-	            totalPage+=1;
-	         }
-	         logger.info("전체 개시물:{}",allCnt);
-	         
-	         obj.put("list", inter.f_listCall(start, end, j_category));
-	         json.put("jsonList", obj);
-	         json.put("currPage", currPage);
-	         json.put("totalCount", allCnt);
-	         json.put("totalPage", totalPage);
-	         logger.info("자유리스트뛰움");
-	         return json;
-	      }
-
-	   
-	//리스트 검색
-	public Map<String, Object> f_searchCall(
+   
+	//리스트
+	public Map<String, Object> f_listCall(
 			Map<String, String> params) {
-		 Map<String, ArrayList<freelistDTO>> obj = 
-				 new HashMap<String, ArrayList<freelistDTO>>();
+		 Map<String, ArrayList<BoardDto>> obj = 
+				 new HashMap<String, ArrayList<BoardDto>>();
          Map<String, Object> json = new HashMap<String, Object>();
          inter=sqlSession.getMapper(FreeInterface.class);
          
@@ -88,7 +54,7 @@ public class FreeService {
             allCnt = inter.f_searhCount(input, type, j_category);
             obj.put("list", inter.f_searhCall(start, end, input, type, j_category));
          }else{
-            allCnt = inter.allCount(j_category);
+            allCnt = inter.f_allCount(j_category);
             obj.put("list", inter.f_listCall(start, end, j_category));
          }
          
@@ -98,44 +64,26 @@ public class FreeService {
             totalPage+=1;
          }
          logger.info("전체 개시물:{}",allCnt);
-         logger.info("전체 개시물:{}",allCnt);
-         logger.info("전체 개시물:{}",allCnt);
-         logger.info("전체 개시물:{}",allCnt);
          json.put("jsonList", obj);
          json.put("currPage", currPage);
          json.put("totalCount", allCnt);
          json.put("totalPage", totalPage);
          
-         logger.info("검색요청2");
-         
          return json;
 
 	}
 	
-		//검색 요청
-		public Map<String, Object> f_search(Map<String, String> params) {
-			inter=sqlSession.getMapper(FreeInterface.class);
-	         Map<String, Object> json = new HashMap<String, Object>();
-	         String input=params.get("input");
-	         String type=params.get("type");
-	         int j_category = 3;
-	         int allCnt = inter.f_searhCount(input, type, j_category);
-	         json.put("count", allCnt);
-
-       
-         return json;
-      } 
 		
 		//상세보기
 		@Transactional
-		public ModelAndView freeDetail(String j_idx) {		
+		public ModelAndView freeDetail(String idx) {		
 			inter = sqlSession.getMapper(FreeInterface.class);
 			ModelAndView mav = new ModelAndView();
 			//조회수
-			inter.j_vcount(j_idx);
+			inter.j_vcount(idx);
 			//불러오기
 			logger.info("상세보기");
-			mav.addObject("content", inter.freeDetail(j_idx));
+			mav.addObject("content", inter.freeDetail(idx));
 			mav.setViewName("freeDetail");		
 			return mav;
 		}
@@ -160,16 +108,16 @@ public class FreeService {
 		}
 
 		//글삭제
-		public ModelAndView delete(String j_idx) {
+		public ModelAndView delete(String idx) {
 			inter = sqlSession.getMapper(FreeInterface.class);
 		      ModelAndView mav = new ModelAndView();
-		      logger.info(j_idx);
+		      logger.info(idx);
 	
 			         
 		      String msg="삭제에 성공 했습니다.";
 		     
 		      //글삭제
-		      if(inter.delete(j_idx) == 1){
+		      if(inter.delete(idx) == 1){
 		         msg="삭제에 성공 했습니다.";
 		         
 		      }
@@ -180,12 +128,12 @@ public class FreeService {
 
 
 		//수정 보기
-		public ModelAndView freeModify(String j_idx) {
+		public ModelAndView freeModify(String idx) {
 			inter = sqlSession.getMapper(FreeInterface.class);
 			ModelAndView mav = new ModelAndView();
 			//불러오기
 			logger.info("수정페이지1");
-			mav.addObject("content", inter.freeDetail(j_idx));
+			mav.addObject("content", inter.freeDetail(idx));
 			mav.setViewName("freeModify");		
 			return mav;
 		}
@@ -210,57 +158,6 @@ public class FreeService {
 			return mav;
 		}
 		
-		//댓글 등록
-		public Map<String, String> replyRegist(Map<String, String> params) {
-			Map<String, String> obj = new HashMap<String, String>();
-			inter=sqlSession.getMapper(FreeInterface.class);
-			int success=0;
-			String msg="댓글 등록에 실패하셨습니다.";
-			String r_idx=params.get("r_idx");
-			String r_replyer=params.get("r_replyer");
-			String r_reple=params.get("r_reple");
-			int r_category = Integer.parseInt(params.get("r_category"));
-			logger.info(r_idx);
-			logger.info(r_replyer);
-			logger.info(r_reple);
-			success=inter.f_replyRegist(r_category, r_idx, r_replyer, r_reple);
-			if(success==1){
-				inter.f_replyUp(r_idx);
-				msg="댓글 등록에 성공하셨습니다.";
-			}
-			obj.put("msg", msg);
-			return obj;
-		}
-
-
-		public Map<String, ArrayList<RepleDto>> replyList(Map<String, String> params) {
-			Map<String, ArrayList<RepleDto>> obj = new HashMap<String, ArrayList<RepleDto>>();
-			inter=sqlSession.getMapper(FreeInterface.class);
-			String r_idx=params.get("r_idx");
-			String r_category=params.get("r_category");
-			obj.put("replyList", inter.f_replyList(r_idx, r_category));
-			
-			return obj;
-		}
-
-
-		public Map<String, String> replyDel(Map<String, String> params) {
-			Map<String, String> obj = new HashMap<String, String>();
-			int success=0;
-			inter=sqlSession.getMapper(FreeInterface.class);
-			String r_idx=params.get("r_idx");
-			String r_category=params.get("r_category");
-			String r_parentIdx = params.get("r_parent");
-			String msg="삭제에 실패했습니다.";
-			
-			success=inter.f_replyDel(r_idx, r_category);
-			if(success==1){
-				inter.f_repleDown(r_parentIdx);
-				msg="삭제에 성공했습니다.";
-			}
-			obj.put("msg", msg);
-			return obj;
-		}
 		
 }
 

@@ -46,31 +46,32 @@
 				<fieldset>
 					<legend>글쓰기</legend>
 				</fieldset>
-					<form action="Write" method="post">
+					<form action="write" method="post" enctype="multipart/form-data" id="td" onsubmit="return CheckForm(this)">
 						<table class="detailTable">
 								<tr class="borderTop">
-									<td><input type="text" name="v_title" placeholder="제목"/></td>
+									<td><input type="text" name="j_title" placeholder="제목"/></td>
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<input type="hidden" name="j_category" value="2"/>
-										<input type="text" name="v_name" value="" readonly/>
+										<input type="text" name="j_name" value="${sessionScope.userName}(${sessionScope.userId})" readonly/>
+										<input type="hidden" name="u_idx" value="${sessionScope.userIdx}"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<textarea rows="17" name="v_content" placeholder="내용"></textarea>
+										<textarea rows="17" name="j_content" placeholder="내용"></textarea>
 									</td>
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<input type="file" name=""/>
+										<input type="file" name="file" onchange="fileView(this)"/>
+										<input id="fileName" type="hidden" name="fileName"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
 									<td style="text-align: center;">
 					  				<button type="reset" class="btn btn-default">취소</button>
-					        		<button type="submit" class="btn btn-primary">등록</button>
+					        		<button type="submit" onclick="CheckForm(this.form)" class="btn btn-primary">등록</button>
 			  				</td>
 								</tr>
 						</table>
@@ -89,5 +90,21 @@
     if(msg !=""){
        alert(msg);
     }
+    
+  	//파일이름추출
+	function fileView(elem){
+		console.log(elem);
+		console.log(elem.value);
+		var fullPath = elem.value;
+		fileName = fullPath.substring(12);
+		console.log(fileName);
+		$("#fileName").val(fileName);
+	}
+  
+	//submit체크
+	function CheckForm(f){
+		
+	    return true; 
+	}
 	</script>
 </html>

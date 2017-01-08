@@ -65,10 +65,12 @@
 				<div class="col3 content">
 					<fieldset class="fil">
 						<legend>${team.t_name}</legend>
-						<div class="thumbnail"></div>
+						<div class="thumbnail">
+							<img id='file' src='../../main/resources/upload/${team.t_newPicture}' onerror="this.src='../../main/resources/include/img/default1.png'" alt='${team.t_oldPicture}'/>
+						</div>
 						<div id="cen">
-						<input type="file" name="file" id="imgInp" onchange="fileView(this)"/>
-						<input id="fileName" type="hidden" name="fileName"/>
+							<input type="file" name="file" id="imgInp" onchange="fileView(this)"/>
+							<input id="fileName" type="hidden" name="fileName"/>
 						</div>
 					</fieldset>
 					<div id="Category">
@@ -238,8 +240,6 @@
 			}
 		}
 		
-		var img = "<img id='file' src='../../main/resources/upload/${team.t_newPicture}' alt='${team.t_oldPicture}'/>";   
-        $(".thumbnail").append(img);
         var day = "${team.t_day}";
         var t_day = day.split(","); 
         for(var i=0; i<t_day.length; i++){
@@ -361,7 +361,7 @@
             }
 
           reader.readAsDataURL(input.files[0]);
-        }$("#"+file).detach(); 
+        }$("#file").attr("src","../../main/resources/include/img/default1.png"); 
     }
 	
   	//중복체크

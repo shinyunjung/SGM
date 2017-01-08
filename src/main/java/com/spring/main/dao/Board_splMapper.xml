@@ -52,4 +52,29 @@
 	<select id="passFind" resultType="String">
 		SELECT u_pass FROM SGM_user WHERE u_id=#{param1} AND u_mail=#{param2}
 	</select>
+	
+	<!-- 댓글 등록 -->
+	<insert id="replyRegist">
+		INSERT INTO reple(r_idx, ${param1}, u_idx, r_writer, r_reple) VALUES(reple_seq.NEXTVAL, #{param2}, #{param3}, #{param4}, #{param5})
+	</insert>
+	
+	<!-- 댓글 수 업 -->
+	<update id="replyUp">
+		UPDATE ${param1} SET ${param2}= ${param2}+1 WHERE totalIdx=#{param3}
+	</update>
+	
+	<!-- 댓글 수 다운 -->
+	<update id="repleDown">
+		UPDATE ${param1} SET ${param2}= ${param2}-1 WHERE totalIdx=#{param3}
+	</update>
+	
+	<!-- 댓글 리스트 -->
+	<select id="replyList" resultType="com.spring.main.dto.RepleDto">
+		SELECT * FROM reple WHERE ${param1}=#{param2}ORDER BY r_idx ASC
+	</select>
+	
+	<!-- 댓글 삭제(개인) -->
+	<delete id="replyDel">
+		DELETE FROM reple WHERE r_idx=#{param1}
+	</delete>
 </mapper>

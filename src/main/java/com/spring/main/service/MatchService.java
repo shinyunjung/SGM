@@ -22,9 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.BoardInterface;
 import com.spring.main.dao.MatchInterface;
-import com.spring.main.dto.AreaDto;
 import com.spring.main.dto.MatchDto;
 import com.spring.main.dto.MemberDto;
+import com.spring.main.dto.PlaceDto;
 import com.spring.main.dto.RepleDto;
 import com.spring.main.dto.TeamDto;
 import com.spring.main.dto.UserDto;
@@ -86,9 +86,6 @@ public class MatchService {
 			totalPage+=1;
 		}
 		logger.info("전체 개시물:{}",allCnt);
-		logger.info("전체 개시물:{}",allCnt);
-		logger.info("전체 개시물:{}",allCnt);
-		logger.info("전체 개시물:{}",allCnt);
 		json.put("jsonList", obj);
 		json.put("currPage", currPage);
 		json.put("totalCount", allCnt);
@@ -145,8 +142,8 @@ public class MatchService {
 	}
 
 
-	public Map<String, ArrayList<AreaDto>> areaList(Map<String, String> params) {
-		Map<String, ArrayList<AreaDto>> obj = new HashMap<String, ArrayList<AreaDto>>();
+	public Map<String, ArrayList<PlaceDto>> areaList(Map<String, String> params) {
+		Map<String, ArrayList<PlaceDto>> obj = new HashMap<String, ArrayList<PlaceDto>>();
 		String area=params.get("area");
 		logger.info("area:{}",area);
 		inter=sqlSession.getMapper(MatchInterface.class);
