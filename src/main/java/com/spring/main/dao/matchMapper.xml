@@ -22,6 +22,11 @@
   		)WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
 	
+	<!-- 현재 진행중인 경기 -->
+	<select id="mch_playing" resultType="com.spring.main.dto.MatchDto">
+		<![CDATA[ SELECT * FROM matching WHERE mch_date=#{param1} AND mch_time>=#{param2} AND mch_time<#{param3} ]]>
+	</select>
+	
 	<!-- 검색 후 리스트 추가 -->
 	<select id="mch_searhCall" resultType="com.spring.main.dto.MatchDto">
 		SELECT mch_idx,mch_name , mch_area, mch_ground, mch_age, mch_type, mch_time, mch_content, mch_title, mch_wrdate, mch_reple, mch_vcount, mch_date, mch_state, mch_lat, mch_lng FROM (

@@ -61,6 +61,8 @@ public interface MatchInterface {
 
 	int sendNote(String writer, String writer_idx, String receiver, String receiver_idx, String title, String content, String confirm, String newState, String mchIdx);
 
+	ArrayList<MatchDto> mch_playing(String toDay, String preTime, String toTime);
+
 
 
 

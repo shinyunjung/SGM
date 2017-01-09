@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.MatchDto;
 import com.spring.main.dto.SelectTeamDto;
 import com.spring.main.dto.UserDto;
 import com.spring.main.service.BoardService;

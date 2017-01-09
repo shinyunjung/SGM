@@ -116,6 +116,53 @@
 		</div>
 	</body>
 	<script>
+		setInterval(function(){
+			var url="../../main/match/playing";
+			var data={};
+			console.log("시간");
+			InterServer(url, data);
+		}, 20000);
 		
+		function InterServer(url, data){
+			$.ajax({
+				url:url,
+				type:"post",
+				data:data,
+				dataType:"JSON",
+				success:function(data){
+					console.log(data);
+					if(url=="../../main/match/playing"){
+						console.log("현재 진행중 jsp");
+						printPlaying(data.mchList);
+					}
+				},
+				error:function(error){
+					console.log(error);
+				}
+			});
+		}
+		
+		
+		function printPlaying(list){
+			var i=0;
+			setInterval(function(){
+				if(i>list.length){
+					i=0;
+				}
+				console.log("playingList");
+				playingList(list, i);
+				i++;
+			}, 10000);
+		}
+		
+		function playingList(list, num){
+			console.log("경기 진행중인 시합"+num);
+			var content="";
+			content+="<tr>"
+			+"<td>"+"dddd"+"</td>";
+			+"</tr>";
+			$("#nowGame").empty();
+			$("#nowGame").append(content);
+		}
 	</script>
 </html>

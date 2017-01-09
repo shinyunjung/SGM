@@ -87,11 +87,8 @@
 					</div>
 					
 					<!-- 현재 진행중인 경기 -->
-					<div id="nowGame">
-						<table>
-							<tr>
-								<td>게임 진행중인 경기장</td>
-							</tr>
+					<div>
+						<table id="nowGame">
 							<tr>
 								<td>경기중인 팀</td>
 							</tr>
@@ -157,7 +154,7 @@
 			var url="./userSearch";
 			var data={};
 			data.userId=user;
-			sendServer(url, data);
+			reqServer(url, data);
 		}
 			
 		$("document").ready(function(){
@@ -168,7 +165,7 @@
 			var url="../../main/match/listCall";
 			var data={};
 			data.count=6;
-			sendServer(url, data);
+			reqServer(url, data);
 		}
 		
 		
@@ -177,10 +174,10 @@
 				var url="./selectTeam";
 				var data={};
 				data.idx=u_idx;
-				sendServer(url, data); 
+				reqServer(url, data); 
 			}
 			
-			function sendServer(url, data){
+			function reqServer(url, data){
 				$.ajax({
 					url:url,
 					type:"post",
@@ -223,7 +220,6 @@
 				content+="<div class='center'><a href='./teamJoin'>팀 생성</a></div>"		
 				$(".userLogin").empty();
 				$(".userLogin").append(content);
-				console.log("확인");
 			}
 			
 			function printList(list){
@@ -246,15 +242,15 @@
 			}
 		
 			
-			function loginCheck(){
-				if(document.login.u_id.value==""){
-					alert("아이디를 입력해주세요");
-				}else if(document.login.u_pass.value==""){
-					alert("비밀번호를 입력해주세요");
-				}else{
-					document.login.submit(); 
-					return true; 
-				}
+		function loginCheck(){
+			if(document.login.u_id.value==""){
+				alert("아이디를 입력해주세요");
+			}else if(document.login.u_pass.value==""){
+				alert("비밀번호를 입력해주세요");
+			}else{
+				document.login.submit(); 
+				return true; 
 			}
+		}
 	</script>
 </html>

@@ -1,7 +1,10 @@
 package com.spring.main.controller;
 
+import java.util.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -169,5 +172,14 @@ public class MatchController {
 	public String calendar() {
 		
 		return "calendar";
+	}
+	
+	
+	
+	//현재 진행중인 경기
+	@RequestMapping(value="/playing")
+	public @ResponseBody Map<String, ArrayList<MatchDto>> playing(){
+		logger.info("현재 진행중인 경기");
+		return service.playing();
 	}
 }

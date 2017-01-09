@@ -73,6 +73,7 @@
 			var data={};
 			data.userId=userId;
 			sendServer(url, data);
+			newNote();
 		}
 		
 		function logoId(){
@@ -81,6 +82,7 @@
 				var data={};
 				data.userId=userId;
 				sendServer(url, data);
+				newNote();
 			}
 		}
 		
@@ -117,12 +119,10 @@
 						printMsg(data.list);
 					}else if(url=="../../main/note/countNote"){
 						nowNoteCnt=data.count;
-						if(nowNoteCnt!=preNoteCnt){
+						if(nowNoteCnt!=0){
 							$("#noteImg").css("display","block");
-							preNoteCnt=nowNoteCnt;
-							if(nowNoteCnt==0){
-								$("#noteImg").css("display","none");
-							}
+						}else{
+							$("#noteImg").css("display","none");
 						}
 					}
 				},
@@ -194,10 +194,13 @@
 	}
 	
 	
-	setInterval(function(){
-		var url="../../main/note/countNote";
-		var data={};
-		sendServer(url, data);
-	}, 10000);
+	function newNote(){
+		console.log("newNote");
+		setInterval(function(){
+			var url="../../main/note/countNote";
+			var data={};
+			sendServer(url, data);
+		}, 10000);	
+	}
 	</script>
 </html>

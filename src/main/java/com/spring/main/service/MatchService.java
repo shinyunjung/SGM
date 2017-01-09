@@ -1,33 +1,23 @@
 package com.spring.main.service;
 
-import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.main.dao.BoardInterface;
 import com.spring.main.dao.MatchInterface;
 import com.spring.main.dto.AreaDto;
 import com.spring.main.dto.MatchDto;
-import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.RepleDto;
 import com.spring.main.dto.TeamDto;
-import com.spring.main.dto.UserDto;
 
 @Service
 public class MatchService {
@@ -360,6 +350,31 @@ public class MatchService {
 		mav.addObject("msg",msg);
 		mav.setViewName("matchList");
 		return mav;
+	}
+
+
+	public Map<String, ArrayList<MatchDto>> playing() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Map<String, ArrayList<MatchDto>> map = new HashMap<String, ArrayList<MatchDto>>();
+        Calendar c1 = Calendar.getInstance();
+        inter=sqlSession.getMapper(MatchInterface.class);
+        int hour = c1.get(Calendar.HOUR_OF_DAY)-2;
+        int min = c1.get(Calendar.MINUTE);
+        String[] toDayTime = sdf.format(c1.getTime()).split(" ");
+        String toDay=toDayTime[0];
+        String toTime=toDayTime[1];
+        String preTime="";
+        if(hour<10){
+        	preTime+="0";
+        }
+        preTime+=Integer.toString(hour)+":";
+        if(min<10){
+        	preTime+="0";
+        }
+        preTime+=Integer.toString(min);
+        logger.info(toDay+" "+preTime+"~"+toTime);
+        map.put("mchList", inter.mch_playing(toDay, preTime, toTime));
+		return map;
 	}
 
 
