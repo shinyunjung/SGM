@@ -4,13 +4,21 @@ public class MemberDto {
 	private String t_idx;
 	private String m_idx;
 	private String u_idx;
+	private String u_id;
 	private String m_name;
 	private String m_matchcount;
 	private String m_tpoint;
 	private String m_position;
 	private String m_grade;
+	private int rank;
 	
 	
+	public int getRank() {   
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 	public String getT_idx() {
 		return t_idx;
 	}
@@ -28,6 +36,12 @@ public class MemberDto {
 	}
 	public void setU_idx(String u_idx) {
 		this.u_idx = u_idx;
+	}
+	public String getU_id() {
+		return u_id;
+	}
+	public void setU_id(String u_id) {
+		this.u_id = u_id;
 	}
 	public String getM_name() {
 		return m_name;

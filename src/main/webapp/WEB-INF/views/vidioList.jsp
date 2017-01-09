@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>영상 게시판</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="resources/bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
+		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
 			th{
 				text-align: center;
+			}
+			.margin{
+				margin: 0;
 			}
 		</style>
 	</head>
@@ -31,37 +33,46 @@
 				<!-- 두 번째 구역 -->
 				<div class="col5 content">	
 					<div class="search">
-						<table width="100%">
+						<table class="table margin">
 							<tr>
-								<td class="left"><button>글작성</button></td>
-								<td class="right">
-									<button>검색</button>
-									<input type="text" size="20" />
+								<td class="left">
+									<button onclick="location.href='../../main/vidio/vidioWrite'">글작성</button>
+									게시물 갯수 : 
+									<select id="pagePerNum">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+									</td>
+									<td class="right">
+									<select class="type">
+										<option value="j_title">제목</option>
+										<option value="j_content">내용</option>
+										<option value="j_name">글쓴이</option>
+									</select>
+									<input type="text" size="20" class="input"/>
+									<button onclick="Search()">검색</button>
 								</td>
 							</tr>
 						</table>
 					</div>
 					<div id="freeList">
-						<table class="table table-hover totalTable">
+						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th>순번</th>
-									<th>글쓴이</th>
+									<th>작성자</th>
 									<th>제목</th>
+									<th>작성일</th>
 									<th>조회 수</th>
-									<th>평점</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>0</td>
-									<td>OOO</td>
-									<td>OOOOO</td>
-									<td>0</td>
-									<td>OOO</td>
-								</tr>
+							<tbody id="list">
+								
 							</tbody>
 						</table>
+						<div id="paging"></div>
 					</div>
 				</div>
 				
@@ -69,6 +80,149 @@
 				<div class="col3 content"></div>		
 			</div>			
 		</div>
+		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
-	<script></script>
+	<script>
+	var url="";
+	var data={};
+	var currPage=1;//현재 페이지
+	var totalPage=1;
+	var search=false;
+	var input = "";
+	var type="j_title";
+	 $("document").ready(function(){
+		 v_listCall(currPage);
+	}); 
+	
+	$("#pagePerNum").change(function(){
+		v_listCall(currPage);
+	});
+	
+	function Search(){
+		console.log("검색");
+		input=$(".input").val();
+		var count=input.length;
+		console.log(count);
+		if(count>1){
+			v_listCall(currPage);
+		}else{
+			alert("검색하실 단어는 2글자 이상이여야합니다.");
+		}
+	}
+	
+	function v_listCall(currPage){
+		if(currPage>=1 && currPage<=totalPage){
+			var url="./v_listCall";
+			var data={};
+			data.input=input;
+			data.type=$(".type").val();	
+			data.page=currPage;
+			data.pagePerNum=$("#pagePerNum").val();
+			data.j_category = "2";
+			$(".input").val("");
+			reqServer(url, data);
+		}
+	}
+	
+	
+	function reqServer(url, data){
+		console.log(url);
+		console.log(data);
+		$.ajax({
+			url:url,
+			type:"post",
+			data:data,
+			dataType:"JSON",
+			success:function(data){
+				console.log(data);
+				printList(data.jsonList.list);
+				currPage=data.currPage;
+				totalPage=data.totalPage;
+				printPaging(data.totalCount, data.totalPage); 
+			},
+			error:function(error){
+				console.log(error);
+			}
+	});
+}
+	
+function printList(list){
+	var content="";
+	for(var i=0; i<list.length; i++){
+		content+="<tr>"
+			+"<td>"+list[i].j_idx+"</td>"
+			+"<td>"+list[i].j_name+"</td>"
+			+"<td><a href='./vidioDetail?idx="+list[i].totalIdx+"'>"+list[i].j_title+"</a></td>"
+			+"<td>"+list[i].j_date+"</td>"
+			+"<td>"+list[i].j_vcount+"</td>"
+			+"</tr>";
+		}
+		
+		$("#list").empty();
+		$("#list").append(content);
+	}
+
+
+
+//페이지 그리기
+function printPaging(count, page){
+	console.log("전체 게시물:"+count);
+	console.log("전체 페이지:"+page);
+	console.log("현재 페이지:"+currPage);
+
+	var start; //페이지 시작
+	var end; //페이지 끝
+	
+	var pre=currPage-1;
+	
+	var next=currPage+1;
+	
+	//다음 페이지가 있는지 여부확인
+	var range=(currPage/5);
+	
+	var content = "<ul class='pagination pagination-sm'>"
+			+"<li class='page-item first'><a href='#' onclick='v_listCall(1)'>First</a></li>"
+			+"<li class='page-item prev'><a href='#' onclick='v_listCall("+(currPage-1)+")'>Previous</a></li>";
+	
+	if(range >1){//5페이지 넘었을 경우
+		end = currPage%5 == 0 ?
+				(Math.floor(range))*5
+				:(Math.floor(range)+1)*5;
+		start = Math.floor(end-4);
+	}else{//5페이지 미만일 경우
+		start = 1;
+		end = 5;
+	}
+	
+	//페이징 표시			
+	for(var i=start; i<=end;i++){
+		if(i<=page){
+			if(currPage ==i){
+				content += "<li class='page-item active'><a href='#'>"+i+"</a></li>";
+			}else{
+				content += "<li class='page-item'><a href='#' onclick='v_listCall("+i+")' >"+i+"</a></li>";
+			}					
+		}			
+	}
+	content += "<li class='page-item next'><a href='#' onclick='v_listCall("+(currPage+1)+")'>Next</a></li>"
+       +"<li class='page-item last'><a href='#' onclick='v_listCall("+page+")'>Last</a></li></ul>";
+    $("#paging").empty();
+	$("#paging").append(content);
+	if(currPage==1){
+		$(".first").addClass("disabled");
+		$(".prev").addClass("disabled");
+	}
+	if(currPage==page){
+		$(".next").addClass("disabled");
+		$(".last").addClass("disabled");
+	}
+	if(page==1||page==0){
+		$(".first").addClass("disabled");
+		$(".prev").addClass("disabled");
+		$(".next").addClass("disabled");
+		$(".last").addClass("disabled");
+	}
+	
+} 
+	</script>
 </html>

@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.main.dto.AreaDto;
 import com.spring.main.dto.MatchDto;
+import com.spring.main.dto.PlaceDto;
 import com.spring.main.dto.RepleDto;
 import com.spring.main.dto.TeamDto;
 import com.spring.main.service.MatchService;
@@ -122,7 +122,7 @@ public class MatchController {
 	
 	//매칭목록
 	@RequestMapping(value = "/areaList")
-	public @ResponseBody Map<String, ArrayList<AreaDto>> areaList(@RequestParam Map<String, String> params) {
+	public @ResponseBody Map<String, ArrayList<PlaceDto>> areaList(@RequestParam Map<String, String> params) {
 		logger.info("매칭목록");
 		return service.areaList(params);
 	}

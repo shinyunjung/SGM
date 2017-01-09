@@ -9,40 +9,77 @@
 	<select id="a_allCount" resultType="Integer">
 		SELECT COUNT(*) FROM area
 	</select>
-	 <!-- 검색 후 게시물 전채 개수 -->
-   <select id="a_searhCount" resultType="Integer" >
-      SELECT COUNT(*) FROM area WHERE ${param2} like '%'||#{param1}||'%'
-   </select>
+	
+	<!-- 검색 후 게시물 전채 개수 -->
+	<select id="a_searhCount" resultType="Integer" >
+	   SELECT COUNT(*) FROM area WHERE ${param2} like '%'||#{param1}||'%'
+	</select>
+	
 	<!-- 리스트 불러오기 -->
-   <select id="a_listCall" resultType="com.spring.main.dto.PlaceDto">
-      SELECT totalIdx, a_idx,  u_idx,  a_name, a_area,  a_address,  a_ground,  a_content,  
-      		 a_date, a_reple,  a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
-      		 a_lat,  a_lng 
-			 FROM (
-				SELECT 
-				totalIdx, a_idx,  u_idx,  a_name, 
-			 	a_area,  a_address,  a_ground,  
-			 	a_content,  a_date, a_reple,  
-			 	a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
-			 	a_lat,  a_lng, 
-			 	ROW_NUMBER() OVER(ORDER BY a_idx DESC) AS rnum FROM area)
-			 	WHERE rnum BETWEEN #{param1} AND #{param2}
-   </select>
+	<select id="a_listCall" resultType="com.spring.main.dto.PlaceDto">
+	   SELECT totalIdx, a_idx,  u_idx,  a_name, a_area,  a_address,  a_ground,  a_content,  
+	   		 a_date, a_reple,  a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
+	   		 a_lat,  a_lng 
+	 FROM (
+		SELECT 
+		totalIdx, a_idx,  u_idx,  a_name, 
+	 	a_area,  a_address,  a_ground,  
+	 	a_content,  a_date, a_reple,  
+	 	a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
+	 	a_lat,  a_lng, 
+	 	ROW_NUMBER() OVER(ORDER BY a_idx DESC) AS rnum FROM area)
+	 	WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
 	
-	
-	<!-- 리스트 추가 -->
+	<!-- 검색 -->
 	<select id="a_searhCall" resultType="com.spring.main.dto.PlaceDto">
 		SELECT totalIdx, a_idx,  u_idx,  a_name, a_area,  a_address,  a_ground,  a_content,  
-		       a_date, a_reple,  a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
-		       a_lat,  a_lng 
-			 FROM (
-				SELECT 
-				totalIdx, a_idx,  u_idx,  a_name, 
-			 	a_area,  a_address,  a_ground,  
-			 	a_content,  a_date, a_reple,  
-			 	a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
-			 	a_lat,  a_lng, 
-			 	ROW_NUMBER() OVER(ORDER BY a_idx DESC) AS rnum FROM area)
-			  WHERE ${param4} like '%'||#{param3}||'%' )WHERE rnum BETWEEN #{param1} AND #{param2}
+	   		 a_date, a_reple,  a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
+	   		 a_lat,  a_lng 
+		 FROM (
+			SELECT 
+			totalIdx, a_idx,  u_idx,  a_name, 
+		 	a_area,  a_address,  a_ground,  
+		 	a_content,  a_date, a_reple,  
+		 	a_vcount,  a_total,  a_evalunum, a_oldPicture, a_newPicture, 
+		 	a_lat,  a_lng, 
+	 	ROW_NUMBER() OVER(ORDER BY a_idx DESC)AS rnum FROM area 
+		WHERE ${param4} LIKE '%'||#{param3}||'%') WHERE rnum BETWEEN #{param1} AND #{param2}
 	</select>
+	
+	<!--  글쓰기 --> 
+	<insert id="a_write">
+	 	INSERT INTO area(totalIdx,a_idx,a_name,a_area,a_address,a_ground,a_content,
+		a_reple,a_vcount,a_total,a_evalunum,a_oldPicture,a_newPicture, a_lat,a_lng) 
+		VALUES(total_seq.NEXTVAL, area_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, 
+		#{param4},#{param5},0,0,0,0,#{param6},#{param7},#{param8},#{param9})
+	</insert> 
+
+	<!--  매칭 상세보기  --> 
+	<select id="a_detail" resultType="com.spring.main.dto.PlaceDto">
+		SELECT * FROM area WHERE a_idx = #{param1}
+	</select> 
+	
+	<!-- 글수정 -->
+	<update id="a_modify">
+		UPDATE area SET a_area = #{param2}, a_address = #{param3}, a_ground = #{param4}, 
+		a_content = #{param5}, a_oldPicture = #{param6},a_newPicture = #{param7}, 
+		a_lat = #{param8}, a_lng = #{param9} WHERE a_idx = #{param1}
+	</update>
+	
+	<!-- 삭제할 파일 이름 -->
+	<select id="fileDelName" resultType="String">
+		SELECT a_newPicture FROM area WHERE a_idx = #{param1}
+	</select>
+	
+	<!-- 글삭제 -->
+	<delete id="a_delete">
+		DELETE FROM area WHERE a_idx = #{param1}
+	</delete>
+	
+	
+	
+	
+	
+	
 </mapper>

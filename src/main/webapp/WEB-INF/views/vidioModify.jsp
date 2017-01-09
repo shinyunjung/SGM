@@ -6,8 +6,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>로그인 페이지</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="resources/bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
+		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 <style>		
 			.detailTable{
 				width: 100%;
@@ -46,30 +46,36 @@
 				<fieldset>
 					<legend>글수정</legend>
 				</fieldset>
-					<form action="" method="post">
+					<form action="update" method="post">
 						<table class="detailTable">
 								<tr class="borderTop">
 									<td><input type="text" name=""/></td>
 								</tr>
 								<tr class="borderTop">
-									<td><input type="text" name="" value="" readonly/></td>
-								</tr>
-								<tr class="borderTop">
-									<td>
-										<textarea rows="17" name=""></textarea>
-									</td>
-								</tr>
-								<tr class="borderTop">
+                           			<td><input type="text" name="j_title" value="${content.j_title}"/></td>
+                        		</tr>
+                        		<tr class="borderTop">
+                           			<td>
+                              			<input type="hidden" name="idx" value="${content.totalIdx}"/>
+                              			<input type="text" name="j_name" value="${content.j_name}"/>
+                           			</td>
+                        		</tr>
+                        		<tr class="borderTop">
+                           			<td>
+                              			<textarea rows="17" name="j_content" >${content.j_content}</textarea>
+                           			</td>
+                        		</tr>
+                        		<tr class="borderTop">
 									<td>
 										<input type="file" name=""/>
 									</td>
 								</tr>
-								<tr class="borderTop">
-									<td style="text-align: center;">
-					  				<button type="reset" class="btn btn-default">취소</button>
-					        		<button type="submit" class="btn btn-primary">등록</button>
-			  				</td>
-								</tr>
+                        		<tr class="borderTop">
+                           			<td style="text-align: center;">
+                           				<button type="submit" class="btn btn-primary">수정</button>
+                             			<button type="reset" class="btn btn-default">취소</button>           
+                       				</td>
+                        		</tr>
 						</table>
 					</form>
 				</div>
@@ -81,5 +87,6 @@
 		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
+	
 	</script>
 </html>

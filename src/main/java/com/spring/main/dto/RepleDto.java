@@ -3,13 +3,41 @@ package com.spring.main.dto;
 import java.sql.Date;
 
 public class RepleDto {
+	private int board_idx;
+	private int mch_idx;
+	private int area_idx;
+	private int u_idx;
 	private int r_idx;
 	private int r_category;
 	private int parent_idx;
 	private String r_reple;
 	private String r_writer;
 	private Date r_date;
-	
+
+	public int getBoard_idx() {
+		return board_idx;
+	}
+	public void setBoard_idx(int board_idx) {
+		this.board_idx = board_idx;
+	}
+	public int getMch_idx() {
+		return mch_idx;
+	}
+	public void setMch_idx(int mch_idx) {
+		this.mch_idx = mch_idx;
+	}
+	public int getArea_idx() {
+		return area_idx;
+	}
+	public void setArea_idx(int area_idx) {
+		this.area_idx = area_idx;
+	}
+	public int getU_idx() {
+		return u_idx;
+	}
+	public void setU_idx(int u_idx) {
+		this.u_idx = u_idx;
+	}
 	public int getR_idx() {
 		return r_idx;
 	}

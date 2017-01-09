@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.PlaceService;
 
@@ -30,9 +32,9 @@ public class PlaceController {
 	}
 	//장소상세
 	@RequestMapping(value = "/placeDetail")
-	public String placeDetail() {
+	public ModelAndView placeDetail(@RequestParam("idx") String idx) {
 		logger.info("장소상세");
-		return "placeDetail";
+		return service.placeDetail(idx);
 	}
 	//장소쓰기
 	@RequestMapping(value = "/placeWrite")
@@ -42,29 +44,42 @@ public class PlaceController {
 	}
 	//장소수정
 	@RequestMapping(value = "/placeModify")
-	public String placeModify() {
+	public ModelAndView placeModify(@RequestParam("idx") String idx) {
 		logger.info("장소수정");
-		return "placeModify";
+		return service.placeModify(idx);
 	}
 	
-	
-	
-	
 	//리스트 요청
-		@RequestMapping(value="/listCall")
-		public @ResponseBody Map<String, Object> listCall(@RequestParam Map<String, String> params){
-			logger.info("리스트 요청");
-			return service.listCall(params);
-			
-		}
+	@RequestMapping(value="/listCall")
+	public @ResponseBody Map<String, Object> listCall(@RequestParam Map<String, String> params){
+		logger.info("리스트 요청");
+		return service.listCall(params);
 		
-		@RequestMapping(value="/searchCall")
-		public @ResponseBody Map<String, Object> searchCall(@RequestParam Map<String, String> params){
-			logger.info("리스트 요청");
-			return service.searchCall(params);
-		}
+	}
+	//검색
+	@RequestMapping(value="/searchCall")
+	public @ResponseBody Map<String, Object> searchCall(@RequestParam Map<String, String> params){
+		logger.info("리스트 요청");
+		return service.searchCall(params);
+	}
+	//장소 쓰기
+	@RequestMapping(value = "/write")
+	public ModelAndView write(MultipartHttpServletRequest multi) {
+		logger.info("장소쓰기");
+		return service.write(multi);
+	}
 	
-	
-	
-
+	//장소 수정
+	@RequestMapping(value = "/modify")
+	public ModelAndView modify(MultipartHttpServletRequest multi) {
+		logger.info("장소수정");
+		return service.modify(multi);
+	}
+	//장소 삭제
+	@RequestMapping(value = "/delete")
+	public ModelAndView delete(@RequestParam("idx") String idx) {
+		logger.info("장소삭제");
+		return service.delete(idx);
+	}
+		
 }

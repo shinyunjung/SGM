@@ -20,27 +20,18 @@
 				float: left;
 				width: 180px;
 			}
-			
-			
- 			
 		</style>
 	</head>
 	<body>
 	<div class="layer">
     <div class="menu">
       <ul class="nav">
-        <li class="active"><a href="../../main/match/matchList"><h4><b>매칭게시판</b></h4><span class="sr-only">(current)</span></a></li>
+        <li><a href="../../main/match/matchList"><h4><b>매칭게시판</b></h4></a></li>
         <li><a href="calendar"><h4><b>매칭일정</b></h4></a></li>
-        <li class="active"><a href="../../main/place/placeList"><h4><b>장소목록</b></h4><span class="sr-only">(current)</span></a></li>
-        <li>
-        	<a href="teamList"><h4><b>팀</b></h4></a>
-        </li>
-         <li>
-        	<a href="vidioList"><h4><b>영상 게시판</b></h4></a>
-        </li>
-         <li>
-        	<a href="freeList"><h4><b>자유 게시판</b></h4></a>
-        </li>
+        <li><a href="../../main/place/placeList"><h4><b>장소목록</b></h4></a></li>
+        <li><a href="../../main/team/teamList"><h4><b>팀</b></h4></a> </li>
+        <li><a href="../../main/vidio/vidioList"><h4><b>영상 게시판</b></h4></a></li>
+        <li><a href="../../main/free/freeList"><h4><b>자유 게시판</b></h4></a></li>
       </ul>  
     </div>
     </div>

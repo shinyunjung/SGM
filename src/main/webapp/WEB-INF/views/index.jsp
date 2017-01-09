@@ -217,7 +217,7 @@
 							content+="<option value="+data[i].t_idx+" >"+data[i].t_name+"</option>";
 						}
 						content+="</select>";
-				content+="<div class='center'><a href='./teamJoin'>팀 생성</a></div>"		
+				content+="<div class='center'><a href='./team/teamJoin'>팀 생성</a></div>"		
 				$(".userLogin").empty();
 				$(".userLogin").append(content);
 			}

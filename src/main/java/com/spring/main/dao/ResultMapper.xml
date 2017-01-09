@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.spring.main.dao.ResultInterface">
+	<!-- 전적정보 가져오기 -->
+	<select id="matchDay" resultType="com.spring.main.dto.EntirelyDto">
+		SELECT mch_idx,t_idx,e_team,e_condition,e_difference FROM entirely WHERE e_date = #{param1} 
+		AND (e_condition = '0' OR e_condition = '1') ORDER BY mch_idx DESC
+	</select>
+	
+	<!-- 점수차,상태 바꾸기 -->
+	<update id="difference">
+		UPDATE entirely SET e_difference=#{param1} ,e_condition='2' WHERE mch_idx = #{param2}
+	</update>
+	
+	<!-- 랭킹포인트,전적 바꾸기 -->
+	<update id="rankpoint">
+		UPDATE team SET t_rankpoint = t_rankpoint + #{param1} , ${param2} = #{param2}+1 
+		WHERE t_name = #{param3}
+	</update>
+	
+
+</mapper>

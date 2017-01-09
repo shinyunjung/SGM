@@ -24,4 +24,12 @@ public class ResultController {
 		logger.info("매칭결과");
 		return "result";
 	}
+	
+	//스레드
+	@RequestMapping(value = "/threadRun")
+	public ModelAndView threadRun(){
+		logger.info("스레드");
+		String chk = "on";
+		return service.threadRun(chk);
+	}
 }

@@ -7,8 +7,8 @@
 	<title>회원가입</title>
 	
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-	<script src="resources/bootstrap/js/bootstrap.js"></script>
-	<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<style>
 		table{
 			width: 100%;
@@ -56,11 +56,11 @@
 			  			</tr>
 			  			<tr>
 			  				<td>
-			  					<input type="radio" name="ev_manner" value="1"/> 매우나쁨&nbsp;
-			  					<input type="radio" name="ev_manner" value="2"/> 나쁨&nbsp;
-			  					<input type="radio" name="ev_manner" value="3" checked/> 보통&nbsp;
-			  					<input type="radio" name="ev_manner" value="4"/> 좋음&nbsp;
-			  					<input type="radio" name="ev_manner" value="5"/> 매우좋음&nbsp;
+			  					<input type="radio" name="ev_manner" value="2"/> 매우나쁨&nbsp;
+			  					<input type="radio" name="ev_manner" value="4"/> 나쁨&nbsp;
+			  					<input type="radio" name="ev_manner" value="6" checked/> 보통&nbsp;
+			  					<input type="radio" name="ev_manner" value="8"/> 좋음&nbsp;
+			  					<input type="radio" name="ev_manner" value="10"/> 매우좋음&nbsp;
 			  				</td>
 			  			</tr>
 			  			<tr>
@@ -68,11 +68,11 @@
 			  			</tr>
 			  			<tr>
 			  				<td>
-			  					<input type="radio" name="ev_level" value="1"/> 매우나쁨&nbsp;
-			  					<input type="radio" name="ev_level" value="2"/> 나쁨&nbsp;
-			  					<input type="radio" name="ev_level" value="3" checked/> 보통&nbsp;
-			  					<input type="radio" name="ev_level" value="4"/> 좋음&nbsp;
-			  					<input type="radio" name="ev_level" value="5"/> 매우좋음&nbsp;
+			  					<input type="radio" name="ev_level" value="2"/> 매우나쁨&nbsp;
+			  					<input type="radio" name="ev_level" value="4"/> 나쁨&nbsp;
+			  					<input type="radio" name="ev_level" value="6" checked/> 보통&nbsp;
+			  					<input type="radio" name="ev_level" value="8"/> 좋음&nbsp;
+			  					<input type="radio" name="ev_level" value="10"/> 매우좋음&nbsp;
 			  				</td>
 			  			</tr>
 			  			<tr>
@@ -80,11 +80,11 @@
 			  			</tr>
 			  			<tr>
 			  				<td>
-			  					<input type="radio" name="ev_attk" value="1"/> 매우나쁨&nbsp;
-			  					<input type="radio" name="ev_attk" value="2"/> 나쁨&nbsp;
-			  					<input type="radio" name="ev_attk" value="3" checked/> 보통&nbsp;
-			  					<input type="radio" name="ev_attk" value="4"/> 좋음&nbsp;
-			  					<input type="radio" name="ev_attk" value="5"/> 매우좋음&nbsp;
+			  					<input type="radio" name="ev_attk" value="2"/> 매우나쁨&nbsp;
+			  					<input type="radio" name="ev_attk" value="4"/> 나쁨&nbsp;
+			  					<input type="radio" name="ev_attk" value="6" checked/> 보통&nbsp;
+			  					<input type="radio" name="ev_attk" value="8"/> 좋음&nbsp;
+			  					<input type="radio" name="ev_attk" value="10"/> 매우좋음&nbsp;
 			  				</td>
 			  			</tr>
 			  			<tr>
@@ -92,19 +92,11 @@
 			  			</tr>
 			  			<tr>
 			  				<td>
-			  					<input type="radio" name="ev_defe" value="1"/> 매우나쁨&nbsp;
-			  					<input type="radio" name="ev_defe" value="2"/> 나쁨&nbsp;
-			  					<input type="radio" name="ev_defe" value="3" checked/> 보통&nbsp;
-			  					<input type="radio" name="ev_defe" value="4"/> 좋음&nbsp;
-			  					<input type="radio" name="ev_defe" value="5"/> 매우좋음&nbsp;
-			  				</td>
-			  			</tr>
-			  			<tr>
-			  				<th>상대팀에게 남기고 싶은 말</th>
-			  			</tr>
-			  			<tr>
-			  				<td>
-			  					<input type="text" class="form-control" name="ev_review" />
+			  					<input type="radio" name="ev_defe" value="2"/> 매우나쁨&nbsp;
+			  					<input type="radio" name="ev_defe" value="4"/> 나쁨&nbsp;
+			  					<input type="radio" name="ev_defe" value="6" checked/> 보통&nbsp;
+			  					<input type="radio" name="ev_defe" value="8"/> 좋음&nbsp;
+			  					<input type="radio" name="ev_defe" value="10"/> 매우좋음&nbsp;
 			  				</td>
 			  			</tr>
 			  			<tr>

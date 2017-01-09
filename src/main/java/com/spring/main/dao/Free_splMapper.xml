@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.spring.main.dao.FreeInterface">
+ 
+
+ 	
+ 	<!-- 게시물 전채 개수 -->
+   <select id="f_allCount" resultType="Integer">
+      SELECT COUNT(*) FROM board WHERE j_category = #{param1}
+   </select>
+   
+   <!-- 검색 후 게시물 전채 개수 -->
+   <select id="f_searhCount" resultType="Integer" >
+      SELECT COUNT(*) FROM board WHERE j_category=${param3} AND ${param2} like '%'||#{param1}||'%'
+   </select>
+   
+   <!-- 리스트 불러오기 -->
+   <select id="f_listCall" resultType="com.spring.main.dto.BoardDto">
+      SELECT totalIdx, j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
+       j_filenum, j_vcount, j_reple
+          FROM (
+              SELECT totalIdx,
+              j_idx,
+              u_idx, j_name,
+              j_category,
+              j_title,
+              j_content, 
+              j_date,
+              j_filenum,
+              j_vcount,
+              j_reple,
+                 ROW_NUMBER() OVER(ORDER BY j_idx DESC)AS rnum FROM board WHERE j_category=#{param3})
+      WHERE rnum BETWEEN #{param1} AND #{param2}
+   </select>
+   
+   <!-- 검색 후 리스트 추가 -->
+   <select id="f_searhCall" resultType="com.spring.main.dto.BoardDto">
+      SELECT totalIdx,j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
+       j_filenum, j_vcount, j_reple FROM (
+         SELECT totalIdx,j_idx,
+              u_idx, j_name,
+              j_category,
+              j_title,
+              j_content, 
+              j_date,
+              j_filenum,
+              j_vcount,
+              j_reple, 
+                 ROW_NUMBER() OVER(ORDER BY j_idx DESC) AS rnum FROM board
+        WHERE j_category=#{param5} AND ${param4} like '%'||#{param3}||'%' 
+        )WHERE rnum BETWEEN #{param1} AND #{param2}
+   </select>
+   
+   <!-- 상세 보기 -->
+ 	<select id="freeDetail" resultType="com.spring.main.dto.BoardDto">
+ 		SELECT * FROM board WHERE totalIdx = #{param1}
+ 	</select>
+ 	
+ 	<!-- 조회수 올리기 -->
+ 	<update id="j_vcount">
+ 		UPDATE board SET j_vcount = j_vcount+1 WHERE totalIdx = #{param1}
+ 	</update>
+
+
+
+ 	<!-- 글쓰기 -->
+ 	<insert id="write">
+ 		INSERT INTO board(
+ 		totalIdx, j_idx, j_title, j_name, j_content, j_category, j_vcount, j_reple,u_idx)
+ 			VALUES(total_seq.NEXTVAL, free_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}
+ 			,0,0, #{param5})
+ 	</insert>
+ 	
+ 	<!-- 글삭제 -->
+	<delete id="delete">
+		DELETE FROM board WHERE totalIdx = #{param1}
+	</delete> 
+	
+	<!-- 글 수정 -->
+ 	<update id="update">
+ 		UPDATE board SET j_title = #{param1}, j_name = #{param2}, j_content = #{param3}
+ 			WHERE totalIdx = #{param4}
+ 	</update>	
+	    
+</mapper>

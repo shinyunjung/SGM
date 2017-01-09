@@ -50,13 +50,11 @@
 <div class="map_wrap">
     <div id="map" style="width:100%;height:300px;position:relative;overflow:hidden;"></div>
 
-    <div id="menu_wrap" class="bg_white">
+   <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
-                <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="문학경기장" id="keyword" size="1"> 
-                    <button type="submit">검색하기</button> 
-                </form>
+                    키워드 : <input type="text" id="keyword" size="1"> 
+                    <button id="search" type="button">검색하기</button> 
             </div>
         </div>
         <hr>
@@ -83,11 +81,9 @@ var infowindow = new daum.maps.InfoWindow({zIndex:1});
 // 키워드로 장소를 검색합니다
 searchPlaces();
 // 키워드 검색을 요청하는 함수입니다
-function searchPlaces() {
-    var keyword = document.getElementById('keyword').value;
+function searchPlaces(keyword) {
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
         alert('키워드를 입력해주세요!');
-        return false;
     }
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
     ps.keywordSearch( keyword, placesSearchCB); 
@@ -126,29 +122,26 @@ function displayPlaces(places) {
         var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
             marker = addMarker(placePosition, i), 
             itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
-        	  //console.log(i+"lat:"+places[i].latitude);
-          	//console.log(i+"lng:"+places[i].longitude);
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function(marker, title,latitude,longitude) {
+        (function(marker, title,latitude,longitude,address,i) {
             daum.maps.event.addListener(marker, 'mouseover', function() {
                 displayInfowindow(marker, title);
             });
-            
-            daum.maps.event.addListener(marker, 'click', function() {
-            	removeMarker();
-            	placePosition = new daum.maps.LatLng(latitude,longitude);
-            	addMarker(placePosition,0);
-            	console.log("lat:"+latitude);
-               	console.log("lng:"+longitude);
-               	$("input[name=lat]").val(latitude);
-            });
             daum.maps.event.addListener(marker, 'mouseout', function() {
                 infowindow.close();
+            });
+            daum.maps.event.addListener(marker, 'click', function() {//추가
+            	removeMarker();
+            	placePosition = new daum.maps.LatLng(latitude,longitude);
+            	addMarker(placePosition,i,title);
+               	$("input[name=lat]").val(latitude);
+               	$("input[name=lng]").val(longitude);
+            	$("input[name=address]").val(address);
             });
             itemEl.onmouseover =  function () {
                 displayInfowindow(marker, title);
@@ -156,7 +149,15 @@ function displayPlaces(places) {
             itemEl.onmouseout =  function () {
                 infowindow.close();
             };
-        })(marker, places[i].title,places[i].latitude, places[i].longitude);
+            itemEl.onclick =  function () {//추가
+            	removeMarker();
+            	placePosition = new daum.maps.LatLng(latitude,longitude);
+            	addMarker(placePosition,i,title);
+               	$("input[name=lat]").val(latitude);
+               	$("input[name=lng]").val(longitude);
+            	$("input[name=address]").val(address);
+            };
+        })(marker, places[i].title,places[i].latitude, places[i].longitude,places[i].address,i);
         fragment.appendChild(itemEl);
     }
     // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
@@ -186,6 +187,7 @@ function getListItem(index, places) {
 }
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, idx, title) {
+	console.log("idx:"+idx);
     var imageSrc = 'http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new daum.maps.Size(36, 37),  // 마커 이미지의 크기
         imgOptions =  {
@@ -198,7 +200,6 @@ function addMarker(position, idx, title) {
             position: position, // 마커의 위치
             image: markerImage 
         });
-    console.log("position:"+position);
     marker.setMap(map); // 지도 위에 마커를 표출합니다
     markers.push(marker);  // 배열에 생성된 마커를 추가합니다
     return marker;

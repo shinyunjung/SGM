@@ -10,7 +10,7 @@
 		<script src="../../main/resources/bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" type="text/css" href="../../main/resources/bootstrap/css/bootstrap.css" />
 		<style>
-			.map{
+			.map_wrap{
 				margin-bottom: 2%;
 			}
 			.manager{
@@ -19,8 +19,8 @@
 			th{
 				text-align: center;
 			}
-			.ad{
-				right: 1000px;
+			.margin{
+				margin: 0;
 			}
 			
 		</style>
@@ -48,40 +48,40 @@
 				<div class="col5 content">
 					<!-- 지도 -->
 					<div class="map_wrap">
-					<jsp:include page="../../resources/include/mapSearch.jsp" />
-		   			 <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-		   				 <div class="hAddr">
-		      			  <span class="title">지도중심기준 행정동 주소정보</span>
-		       			 <span id="centerAddr"></span>
-		    			 </div>
-					 </div>
-					
-					<div class="center">
-						<select>
-							<option value="1">OO구</option>
-						</select>
-						<input type="text" size="40" />
-						<button>검색</button>
-					</div>			
-								
-								
-					<div class="placeList">
-						<table class="table table-hover totalTable">
-							<thead>
+					<jsp:include page="../../resources/include/placeMap.jsp" />
+		   				<div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+		   			</div>	
+					<table class="table margin">
+						<thead>
 							<tr>
-								<td class="left">
-										게시물 갯수 : 
-										<select id="pagePerNum">
-											<option value="5">5</option>
-											<option value="10">10</option>
-											<option value="15">15</option>
-											<option value="20">20</option>
-										</select>
-									</td>
-								</tr>
+								<td style="text-align: left;">
+									<%-- <c:if test="${sessionScope.userId=='admin'}"> --%>
+								<button onclick="location.href='placeWrite'">장소추가</button>
+								
+							<%-- </c:if> --%>
+									게시물수:
+									<select id="pagePerNum">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+									</select>
+								</td>
+								<td style="text-align: right;">
+									<select class="type">
+										<option value="a_ground">운동장</option>
+										<option value="a_address">주소</option>
+									</select>
+									<input type="text" class="input"/>
+									<button onclick="searchCall()">검색</button>
+								</td>
+							</tr>
+						</thead>
+					</table>
+						<table class="table table-hover">
+							<thead>
 								<tr>
 									<th >No</th>
-									<th class="center">작성자</th>
 									<th class="center">장소명</th>
 									<th >주소</th>
 									<th >조회수</th>
@@ -91,27 +91,12 @@
 								</tr>
 							</thead>
 							<tbody id="list">
-								<tr>
-									<th>No</th>
-									<th class="center">작성자</th>
-									<th class="center">장소명</th>
-									<th>주소</th>
-									<th>조회수</th>
-									<th>날짜</th>
-									<th>별점</th>
-								</tr>
+								
 							</tbody>
 						</table>
 						<div id="paging">
 						
 						</div>
-						<div class="left">
-							<button onclick="location.href='placeDetail'">상세보기</button>
-							<c:if test="${sessionScope.userId=='admin'}">
-								<button onclick="location.href='placeWrite'">장소추가</button>
-							</c:if>
-						</div>
-					</div>
 				</div>
 				<!-- 세 번째 구역 -->
 				<div class="col3 content">
@@ -139,6 +124,7 @@
 	
 	function searchCall(){
 		var input = $(".input").val();
+		var type = $(".type").val();
 		console.log(input);
 		$(".input").val("");
 		var url="./searchCall";
@@ -146,6 +132,7 @@
 		data.page=currPage;
 		data.pagePerNum=$("#pagePerNum").val();
 		data.input=input;
+		data.type=type;
 		reqServer(url, data);
 		
 	}
@@ -199,10 +186,9 @@ function printList(list){
 		content+="<tr>"
 			
 			+"<td>"+list[i].a_idx+"</td>"
-			+"<td>"+list[i].a_name+"</td>"
-			+"<td>"+list[i].a_ground+"</td>"
+			+"<td><a href='../place/placeDetail?idx="+list[i].a_idx+"'>"+list[i].a_ground+"</td>"
 			+"<td>"+list[i].a_address+"</td>"
-			+"<td>"+list[i].a_vocunt+"</td>"
+			+"<td>"+list[i].a_vcount+"</td>"
 			+"<td>"+list[i].a_date+"</td>"
 			+"<td>"+list[i].a_total+"</td>"
 			+"</tr>";
@@ -230,51 +216,49 @@ function printPaging(count, page){
 	//다음 페이지가 있는지 여부확인
 	var range=(currPage/5);
 	
-	var content="";
+	var content = "<ul class='pagination pagination-sm'>"
+			+"<li class='page-item first'><a href='#' onclick='listCall(1)'>First</a></li>"
+			+"<li class='page-item prev'><a href='#' onclick='listCall("+(currPage-1)+")'>Previous</a></li>";
 	
-	console.log(range);
-	if(range>1){//5페이지 넘었을 경우
-		end=currPage%5==0?
-				(Math.floor(range))*5:
-				(Math.floor(range)+1)*5;
-		start=Math.floor(end-4);
-	}else{//5페이지 이하일 경우
-		start=1;
-		end=start+4;
+	if(range >1){//5페이지 넘었을 경우
+		end = currPage%5 == 0 ?
+				(Math.floor(range))*5
+				:(Math.floor(range)+1)*5;
+		start = Math.floor(end-4);
+	}else{//5페이지 미만일 경우
+		start = 1;
+		end = 5;
 	}
-	console.log(start+"/"+end);
 	
-	content+="<a href='#' onclick='listCall("+1+")'>처음</a> |";
-	
-	content+=" <a href='#' onclick='listCall("+(start-1)+")'> << </a> ";
-	
-	content+="<a href='#' onclick='listCall("+pre+")'> < </a> ";
-	
-	for(var i=start; i<=end; i++){
+	//페이징 표시			
+	for(var i=start; i<=end;i++){
 		if(i<=page){
-			if(currPage==i){
-				content+="<b>"+i+"</b>";	
+			if(currPage ==i){
+				content += "<li class='page-item active'><a href='#'>"+i+"</a></li>";
 			}else{
-				content+=" <a href='#' onclick='listCall("+i+")'>"
-				+i+"</a> ";
-			}	
-		}
+				content += "<li class='page-item'><a href='#' onclick='listCall("+i+")' >"+i+"</a></li>";
+			}					
+		}			
+	}
+	content += "<li class='page-item next'><a href='#' onclick='listCall("+(currPage+1)+")'>Next</a></li>"
+       +"<li class='page-item last'><a href='#' onclick='listCall("+page+")'>Last</a></li></ul>";
+    $("#paging").empty();
+	$("#paging").append(content);
+	if(currPage==1){
+		$(".first").addClass("disabled");
+		$(".prev").addClass("disabled");
+	}
+	if(currPage==page){
+		$(".next").addClass("disabled");
+		$(".last").addClass("disabled");
+	}
+	if(page==1||page==0){
+		$(".first").addClass("disabled");
+		$(".prev").addClass("disabled");
+		$(".next").addClass("disabled");
+		$(".last").addClass("disabled");
 	}
 	
-	content+="<a href='#' onclick='listCall("+next+")'> > </a> ";
-	
-	content+=" <a href='#' onclick='listCall("+(end+1)+")'> >> </a>";
-	
-	content+="| <a href='#' onclick='listCall("+page+")'>끝</a>";
-	$("#paging").empty();
-	$("#paging").append(content);
-} 
-	
-	
-	
-	
-	
-	
-	
+}
 	</script>
 </html>
