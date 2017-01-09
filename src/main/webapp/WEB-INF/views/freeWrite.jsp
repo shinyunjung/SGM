@@ -59,7 +59,8 @@
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<textarea rows="17" name="j_content" placeholder="내용"></textarea>
+										<div id="content" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+										<input type="hidden" name="j_content"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
