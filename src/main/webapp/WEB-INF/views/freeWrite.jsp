@@ -24,9 +24,9 @@
 				font-size: 14px;
 				
 			}
-			textarea{
-				width:100%;
-				resize:none;
+			#content{
+				width: 100%;
+				min-height: 300px;
 				font-size: 14px;
 			}
 			
@@ -46,7 +46,7 @@
 				<fieldset>
 					<legend>글쓰기</legend>
 				</fieldset>
-					<form action="write" method="post">
+					<form action="write" method="post" onsubmit="return CheckForm(this)">
 						<table class="detailTable">
 								<tr class="borderTop">
 									<td><input type="text" name="j_title" placeholder="제목"/></td>
@@ -85,5 +85,14 @@
 		if(msg !=""){
 			alert(msg);
 		}
+		
+		
+		function CheckForm(f){
+			var text = $("#content").html();
+			$("input[name=j_content]").val(text);
+			console.log($("input[name=j_content]").val());
+			
+		    return true; 
+		} 	
 	</script>
 </html>

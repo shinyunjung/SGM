@@ -24,9 +24,9 @@
 				font-size: 14px;
 				
 			}
-			textarea{
-				width:100%;
-				resize:none;
+			#content{
+				width: 100%;
+				min-height: 300px;
 				font-size: 14px;
 			}
 			
@@ -46,7 +46,7 @@
 				<fieldset>
 					<legend>글수정</legend>
 				</fieldset>
-					<form action="update" method="post">
+					<form action="update" method="post" onsubmit="return CheckForm(this)">
 						<table class="detailTable">
 								<tr class="borderTop">
 									<td><input type="text" name="j_title" value="${content.j_title}"/></td>
@@ -59,7 +59,8 @@
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<textarea rows="17" name="j_content" >${content.j_content}</textarea>
+										<div id="content" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)">${content.j_content}</div>
+										<input type="hidden" name="j_content"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -79,6 +80,12 @@
 		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
-	
+	function CheckForm(f){
+		var text = $("#content").html();
+		$("input[name=j_content]").val(text);
+		console.log($("input[name=j_content]").val());
+		
+	    return true; 
+	}
 	</script>
 </html>

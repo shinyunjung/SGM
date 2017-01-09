@@ -33,6 +33,11 @@
 				width: 100%;
 				resize: none;
 			}
+			#content{
+				width: 100%;
+				min-height: 300px;
+				font-size: 14px;
+			}
 		</style>
 	</head>
 	<body>
@@ -67,8 +72,8 @@
 							</thead>
 							<tbody class="borderBottom">
 								<tr>
-									<td colspan="5" >
-										${content.j_content}
+									<td colspan="6" class="left">
+										<div id="content">${content.j_content}</div>
 									</td>
 								</tr>
 							</tbody>
