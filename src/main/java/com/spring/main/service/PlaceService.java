@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -157,6 +158,7 @@ public class PlaceService {
 
 	
 	//장소 상세보기
+	@Transactional
 	public ModelAndView placeDetail(String idx) {
 		inter=sqlSession.getMapper(PlaceInterface.class);
 		ModelAndView mav = new ModelAndView();

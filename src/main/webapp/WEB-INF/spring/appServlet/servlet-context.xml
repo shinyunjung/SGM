@@ -47,4 +47,7 @@
 	<!-- transaction 관련 설정 -->
 	<beans:import resource="classpath:config/transaction.xml"/>
 	
+	<!-- Intercetor 관련 설정 -->
+	<beans:import resource="classpath:config/interceptor.xml"/>
+	
 </beans:beans>

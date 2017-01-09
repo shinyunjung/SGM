@@ -101,4 +101,9 @@
 	<update id="vcountUp">
 		UPDATE matching SET mch_vcount=mch_vcount+1 WHERE mch_idx=#{param1}
 	</update>
+	
+	<!-- 전적 insert -->
+	<insert id="en_insert">
+		INSERT INTO entirely(mch_idx, e_team, t_idx, e_date, e_difference, e_condition, e_mail) VALUES(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, 0, 0)
+	</insert>
 </mapper>

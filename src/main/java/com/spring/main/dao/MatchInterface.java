@@ -63,6 +63,8 @@ public interface MatchInterface {
 
 	ArrayList<MatchDto> mch_playing(String toDay, String preTime, String toTime);
 
+	void en_insert(String idx, String team, String teamIdx, String e_date, String e_difference);
+
 
 
 

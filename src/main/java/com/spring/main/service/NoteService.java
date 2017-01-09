@@ -1,5 +1,6 @@
 package com.spring.main.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class NoteService {
 	SqlSession sqlSession;
 	
 	NoteInterface inter=null;
+	MatchInterface mch_inter=null;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -140,13 +142,33 @@ public class NoteService {
 			if(confirm.equals("Yes")){
 				logger.info("쪽지 수락");
 				inter.matching_stateUpdate(mchIdx, receiver);
+				entire(mchIdx, writer_idx, receiver_idx);
 			}
+			logger.info("yes테스트");
 		}
 		mav.addObject("msg",msg);
 		mav.addObject("idx",writer_idx);
 		mav.addObject("name",writer);
 		mav.setViewName("msgpage");
 		return mav;
+	}
+
+
+	private void entire(String idx, String writer_idx, String receiver_idx) {
+		MatchDto mdt = new MatchDto();
+		mch_inter=sqlSession.getMapper(MatchInterface.class);
+		mdt = mch_inter.mch_detail(idx);
+		String team1=mdt.getMch_name();
+		String team1Idx=writer_idx;
+		String team2=mdt.getMch_state();
+		String team2Idx=receiver_idx;
+		String e_date=mdt.getMch_date().toString()+" "+mdt.getMch_time();
+		String e_difference="0:0";
+		
+		logger.info(team1+"/"+team2+"/"+e_date);
+		mch_inter.en_insert(idx, team1, team1Idx, e_date, e_difference);
+		mch_inter.en_insert(idx, team2, team2Idx, e_date, e_difference);
+		
 	}
 
 
