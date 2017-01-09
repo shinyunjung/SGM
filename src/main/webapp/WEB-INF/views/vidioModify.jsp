@@ -29,7 +29,11 @@
 				resize:none;
 				font-size: 14px;
 			}
-			
+			#content{
+				width: 100%;
+				min-height: 300px;
+				font-size: 14px;
+			}
 		</style>
 	</head>
 	<body>
@@ -46,18 +50,15 @@
 				<fieldset>
 					<legend>글수정</legend>
 				</fieldset>
-					<form action="update" method="post">
+					<form action="modify" method="post" enctype="multipart/form-data" onsubmit="return CheckForm(this)">
 						<table class="detailTable">
-								<tr class="borderTop">
-									<td><input type="text" name=""/></td>
-								</tr>
 								<tr class="borderTop">
                            			<td><input type="text" name="j_title" value="${content.j_title}"/></td>
                         		</tr>
                         		<tr class="borderTop">
                            			<td>
                               			<input type="hidden" name="idx" value="${content.totalIdx}"/>
-                              			<input type="text" name="j_name" value="${content.j_name}"/>
+                              			<input type="text" name="j_name" value="${content.j_name}" readonly/>
                            			</td>
                         		</tr>
                         		<tr class="borderTop">
@@ -87,6 +88,11 @@
 		<jsp:include page="../../resources/include/footer.jsp" />
 	</body>
 	<script>
-	
+	function CheckForm(f){
+		var text = $("#content").html();
+		$("input[name=j_content]").val(text);
+		console.log($("input[name=j_content]").val());
+	    return true; 
+	}
 	</script>
 </html>

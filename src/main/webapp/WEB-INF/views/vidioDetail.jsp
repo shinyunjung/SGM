@@ -36,6 +36,11 @@
 				width: 100%;
 				resize: none;
 			}
+			#content{
+				width: 100%;
+				min-height: 300px;
+				font-size: 14px;
+			}
 		</style>
 	</head>
 	<body>
@@ -71,7 +76,7 @@
 							<tbody class="borderBottom">
 								<tr>
 									<td colspan="6" >
-										${content.j_content}
+										<div id="content">${content.j_content}</div>
 										<br/><br/>
 										<video onerror="this.style.display='none'" src="../../main/resources/upload/${file[0].f_newfilename}" controls preload="metadata" ></video>
 									</td>

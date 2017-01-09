@@ -232,7 +232,7 @@
 			
 			$("#list").empty();
 			$("#list").append(content);
-			logoId();
+			
 		}
 	
 	function mchWrite(){

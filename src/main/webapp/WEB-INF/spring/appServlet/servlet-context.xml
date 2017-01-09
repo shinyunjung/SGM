@@ -42,11 +42,9 @@
 		<beans:property name="maxInMemorySize" value="200000000" />
 	</beans:bean>
 	
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
 	<beans:import resource="classpath:config/scheduler.xml"/>
+	
+	<!-- transaction 관련 설정 -->
+	<beans:import resource="classpath:config/transaction.xml"/>
 	
 </beans:beans>

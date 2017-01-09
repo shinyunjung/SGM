@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.MatchInterface;
@@ -153,6 +154,7 @@ public class MatchService {
 
 
 	//상세보기/수정페이지 
+	@Transactional
 	public ModelAndView detail(Map<String, String> params, boolean modFlag) {
 		inter=sqlSession.getMapper(MatchInterface.class);
 		MatchDto mdt = new MatchDto();

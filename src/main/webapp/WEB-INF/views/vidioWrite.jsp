@@ -29,6 +29,11 @@
 				resize:none;
 				font-size: 14px;
 			}
+			#content{
+				width: 100%;
+				min-height: 300px;
+				font-size: 14px;
+			}
 			
 		</style>
 	</head>
@@ -59,7 +64,8 @@
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<textarea rows="17" name="j_content" placeholder="내용"></textarea>
+										<div id="content" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+										<input type="hidden" name="j_content"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -103,7 +109,9 @@
   
 	//submit체크
 	function CheckForm(f){
-		
+		var text = $("#content").html();
+		$("input[name=j_content]").val(text);
+		console.log($("input[name=j_content]").val());
 	    return true; 
 	}
 	</script>

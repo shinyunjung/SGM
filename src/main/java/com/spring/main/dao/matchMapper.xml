@@ -24,7 +24,7 @@
 	
 	<!-- 현재 진행중인 경기 -->
 	<select id="mch_playing" resultType="com.spring.main.dto.MatchDto">
-		<![CDATA[ SELECT * FROM matching WHERE mch_date=#{param1} AND mch_time>=#{param2} AND mch_time<#{param3} ]]>
+		<![CDATA[ SELECT * FROM matching WHERE mch_date=#{param1} AND mch_time>=#{param2} AND mch_time<#{param3} AND mch_state!='대기' ]]>
 	</select>
 	
 	<!-- 검색 후 리스트 추가 -->

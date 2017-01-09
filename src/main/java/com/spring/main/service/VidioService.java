@@ -176,7 +176,7 @@ public class VidioService {
 			}
 			
 			mav.addObject("success",success);
-			mav.setViewName("redirect:placeList");
+			mav.setViewName("redirect:vidioList");
 			logger.info("장소수정");
 			return mav;
 		}
@@ -200,7 +200,7 @@ public class VidioService {
 					}				
 				}
 			}
-			mav.setViewName("redirect:placeList");
+			mav.setViewName("redirect:vidioList");
 			
 			return mav;
 		}
