@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.MatchInterface;
 import com.spring.main.dto.MatchDto;
-import com.spring.main.dto.MemberDto;
 import com.spring.main.dto.PlaceDto;
 import com.spring.main.dto.RepleDto;
 import com.spring.main.dto.TeamDto;
@@ -114,6 +113,7 @@ public class MatchService {
 		String mch_type = params.get("mch_type");
 		String mch_age = params.get("mch_age");
 		String mch_content = params.get("mch_content");
+		mch_content = mch_content.replace("\r\n","<br>");
 		String areaInfo = params.get("areaInfo");
 		String mch_area = params.get("mch_area");
 		String[] position = areaInfo.split("/");

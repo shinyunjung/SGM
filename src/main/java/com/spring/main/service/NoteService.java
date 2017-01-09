@@ -126,6 +126,7 @@ public class NoteService {
 		String receiver = params.get("receiver");
 		String receiver_idx=params.get("receiverIdx");
 		String content=params.get("noteContent");
+		content = content.replace("\r\n","<br>");
 		String title=params.get("noteTitle");
 		String noteIdx=params.get("noteIdx");
 		String mchIdx=params.get("mchIdx");

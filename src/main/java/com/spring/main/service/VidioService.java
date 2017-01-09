@@ -79,6 +79,7 @@ public class VidioService {
 		    String j_title = params.get("v_title");
 		    String j_name = params.get("v_name");
 		    String j_content = params.get("v_content");      
+		    j_content = j_content.replace("\r\n","<br>");
 		    int j_category = 2;
 		    int success = inter.Write(j_title, j_name, j_content, j_category); 
 		    String page = "vidioList";

@@ -96,6 +96,7 @@ public class FreeService {
 			String u_idx = params.get("u_idx");
 			String j_name = params.get("j_name");
 			String j_content = params.get("j_content");	
+			j_content = j_content.replace("\r\n","<br>");
 			int j_category = 3;
 			int success = inter.write(j_title, j_name, j_content, j_category, u_idx);	
 			String page = "freeList";

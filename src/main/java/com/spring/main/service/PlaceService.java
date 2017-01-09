@@ -133,6 +133,7 @@ public class PlaceService {
 		String a_area = multi.getParameter("a_area");
 		String a_address = multi.getParameter("address");
 		String a_content = multi.getParameter("a_content");
+		a_content = a_content.replace("\r\n","<br>");
 		String a_ground = multi.getParameter("a_ground");
 		String a_lat = multi.getParameter("lat");
 		String a_lng = multi.getParameter("lng");
