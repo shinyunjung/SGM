@@ -121,7 +121,7 @@
 							<tbody>
 								<tr>
 									<td colspan="5" class="left">
-										<div id="content" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)">${detail.mch_content }</div>
+										<div id="content">${detail.mch_content }</div>
 									</td>
 								</tr>
 								<tr>

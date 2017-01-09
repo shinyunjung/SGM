@@ -28,6 +28,11 @@
 			#repleBox tr{
 				height: 40px;
 			}
+			#content{
+				width: 100%;
+				min-height: 300px;
+				font-size: 14px;
+			}
 			.detailTable{
 				width: 100%;
 			}
@@ -196,7 +201,7 @@
 									<img id="img" alt="${detail.a_oldPicture}" src="../../main/resources/upload/${detail.a_newPicture}" onerror="this.src='../../main/resources/include/img/default1.png'">
 								</td>
 								<td colspan="4" rowspan="2" class="borderLeft text">
-									${detail.a_content}
+									<div id="content">${detail.a_content}</div>
 								</td>
 							</tr>
 							<tr class="borderBottom">

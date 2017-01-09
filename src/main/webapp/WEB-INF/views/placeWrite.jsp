@@ -25,9 +25,9 @@
 				font-size: 14px;
 				
 			}
-			textarea{
-				width:100%;
-				resize:none;
+			#content{
+				width: 100%;
+				min-height: 300px;
 				font-size: 14px;
 			}
 			
@@ -57,7 +57,8 @@
 								</tr>
 								<tr class="borderTop">
 									<td colspan="2">
-										<textarea rows="17" name="a_content" placeholder="내용"></textarea>
+										<div id="content" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+										<input type="hidden" name="a_content"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -143,14 +144,16 @@
 		if($("input[name='a_ground']").val()==""){
 			alert("운동장을 입력해주세요");
 			$("input[name='a_ground']").focus();
-		}else if($("input[name='a_content']").val()==""){
+		}else if($("#content").html()==""){
 			alert("내용을 입력해주세요");
-			$("input[name='a_content']").focus();
+			$("#content").focus();
 		}else if($("input[name='lat']").val()==""){
 			alert("장소를 선택해주세요");
 			$("#keyword").focus();
 		}else{ 
-			
+			var text = $("#content").html();
+			$("input[name=a_content]").val(text);
+			console.log($("input[name=a_content]").val());
 			document.place.submit(); 
 		}
 		return false;
