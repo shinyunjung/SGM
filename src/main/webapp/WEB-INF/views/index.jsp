@@ -90,7 +90,7 @@
 					<div>
 						<table id="nowGame">
 							<tr>
-								<td>경기중인 팀</td>
+								<td></td>
 							</tr>
 						</table>
 					</div>
@@ -144,23 +144,19 @@
 		console.log(user+"/"+idx);
 		var currPage=1;//현재 페이지
 		
+		//메인 페이지에 오면서 출력되는 alert
 		var msg="";
 		msg="${msg}";
 		if(msg!=""){
 			alert(msg);
 		}
 		
-		if(user!=""){
-			var url="./userSearch";
-			var data={};
-			data.userId=user;
-			reqServer(url, data);
-		}
-			
+		//페이지 로딩되면서 가장먼저 해야할 일
 		$("document").ready(function(){
 			listCall(currPage);
 		});
 			
+		//matching리스트 최신6개 그리기
 		function listCall(currPage){
 			var url="../../main/match/listCall";
 			var data={};
@@ -169,88 +165,110 @@
 		}
 		
 		
-			function selectTeam(u_idx){
-				console.log("selectTeam");
-				var url="./selectTeam";
-				var data={};
-				data.idx=u_idx;
-				reqServer(url, data); 
-			}
-			
-			function reqServer(url, data){
-				$.ajax({
-					url:url,
-					type:"post",
-					data:data,
-					dataType:"JSON",
-					success:function(data){
-						console.log(data);
-						if(url=="./userSearch"){
-							console.log("유저확인");
-							selectTeam(data.user.u_idx);
-							userData=data.user;
-							console.log(userData);
-						}else if(url=="./selectTeam"){
-							console.log("팀정보 확인");
-							teamData=(data.userTeam);
-							console.log(teamData.length);
-							printUser(userData.u_name, teamData);
-							
-						}else if(url=="../../main/match/listCall"){
-							console.log("매칭리스트");
-							printList(data.list);
-						}
-					},
-					error:function(error){
-						console.log(error);
-					}
-				});
-			}
-			
-			function printUser(name, data){
-				console.log(name);
-				var content="";
-				content+=" "+"<a href='myPage?id=${sessionScope.userId}'>"+name+"</a> 님 안녕하세요<br/>";	
-					content+="<select>"
-						+"<option value=0>내가 가입한 팀: </option>";
-						for(var i=0; i<data.length; i++){
-							content+="<option value="+data[i].t_idx+" >"+data[i].t_name+"</option>";
-						}
-						content+="</select>";
-				content+="<div class='center'><a href='./team/teamJoin'>팀 생성</a></div>"		
-				$(".userLogin").empty();
-				$(".userLogin").append(content);
-			}
-			
-			function printList(list){
-				var content="";
-				for(var i=0; i<list.length; i++){
-					content+="<tr>"
-						+"<td>"+list[i].mch_idx+"</td>"
-						+"<td>"+list[i].mch_name+"</td>"
-						+"<td><a href='../../main/match/matchDetail?idx="+list[i].mch_idx+"&userIdx="+idx+"'>"+list[i].mch_title+"</a></td>"
-						+"<td>"+list[i].mch_vcount+"</td>";
-						if(list[i].mch_state!="대기"){
-							content+="<td>VS"+list[i].mch_state+"</td>";
-						}else{
-							content+="<td>"+list[i].mch_state+"</td>";	
-						}
-						content+="</tr>";
-					}
-				$("#list").empty();
-				$("#list").append(content);
-			}
-		
-			
-		function loginCheck(){
-			if(document.login.u_id.value==""){
-				alert("아이디를 입력해주세요");
-			}else if(document.login.u_pass.value==""){
-				alert("비밀번호를 입력해주세요");
-			}else{
-				document.login.submit(); 
-				return true; 
-			}
+		//로그인한 id로 멤버로 있는 팀 검색1
+		if(user!=""){
+			var url="./userSearch";
+			var data={};
+			data.userId=user;
+			reqServer(url, data);
 		}
+		
+		//로그인한 id로 멤버로 있는 팀 검색2
+		function selectTeam(u_idx){
+			console.log("selectTeam");
+			var url="./selectTeam";
+			var data={};
+			data.idx=u_idx;
+			reqServer(url, data); 
+		}
+			
+		//ajax폼
+		function reqServer(url, data){
+			$.ajax({
+				url:url,
+				type:"post",
+				data:data,
+				dataType:"JSON",
+				success:function(data){
+				console.log(data);
+				if(url=="./userSearch"){
+					console.log("유저확인");
+					selectTeam(data.user.u_idx);
+					userData=data.user;
+					console.log(userData);
+				}else if(url=="./selectTeam"){
+					console.log("팀정보 확인");
+					teamData=(data.userTeam);
+					console.log(teamData.length);
+					printUser(userData.u_name, teamData);
+					
+				}else if(url=="../../main/match/listCall"){
+					console.log("매칭리스트");
+					printList(data.list);
+				}
+			},
+			error:function(error){
+				console.log(error);
+			}
+		});
+	}
+			
+	
+	//로그인 후 loginBox그리기
+	function printUser(name, data){
+		console.log(name);
+		var content="";
+		content+=" "+"<a href='myPage?id=${sessionScope.userId}'>"+name+"</a> 님 안녕하세요<br/>";	
+		content+="<select class='myTeam'>"
+			+"<option value=0>내가 가입한 팀: </option>";
+		for(var i=0; i<data.length; i++){
+			content+="<option value="+data[i].t_idx+" >"+data[i].t_name+"</option>";
+		}
+		content+="</select>";		
+		content+="<div class='center'><a href='./team/teamJoin'>팀 생성</a></div>";		
+		$(".userLogin").empty();
+		$(".userLogin").append(content);
+	}
+			
+	//팀 선택시 해당 팀페이지 이동
+	$(".myTeam").change(function(){
+		var teamIdx=$(".myTeam").val();
+		console.log(teamIdx);
+		location.href="../../main/teamDetail?t_idx="+teamIdx;
+	});
+			
+			
+	//매칭리스트 그리기
+	function printList(list){
+		var content="";
+		for(var i=0; i<list.length; i++){
+			content+="<tr>"
+			+"<td>"+list[i].mch_idx+"</td>"
+			+"<td>"+list[i].mch_name+"</td>"
+			+"<td><a href='../../main/match/matchDetail?idx="+list[i].mch_idx+"&userIdx="+idx+"'>"+list[i].mch_title+"</a></td>"
+			+"<td>"+list[i].mch_vcount+"</td>";
+			if(list[i].mch_state!="대기"){
+				content+="<td>VS"+list[i].mch_state+"</td>";
+			}else{
+				content+="<td>"+list[i].mch_state+"</td>";	
+			}
+			content+="</tr>";
+		}
+		$("#list").empty();
+		$("#list").append(content);
+	}
+		
+	
+	//로그인시에 빈값 확인
+	function loginCheck(){
+		if(document.login.u_id.value==""){
+			alert("아이디를 입력해주세요");
+		}else if(document.login.u_pass.value==""){
+			alert("비밀번호를 입력해주세요");
+		}else{
+			document.login.submit(); 
+			return true; 
+		}
+	}	
 	</script>
 </html>

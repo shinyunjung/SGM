@@ -115,6 +115,7 @@
 		</div>
 	</body>
 	<script>
+		
 		setInterval(function(){
 			var url="../../main/match/playing";
 			var data={};
@@ -145,12 +146,17 @@
 		function printPlaying(list){
 			var i=0;
 			setInterval(function(){
-				if(i>list.length){
-					i=0;
+				if(list.length>0){
+					console.log(i);
+					if(i>=list.length){
+						i=0;
+					}
+					console.log("playingList");
+					playingList(list, i);
+					i++;	
+				}else{
+					emptyList();
 				}
-				console.log("playingList");
-				playingList(list, i);
-				i++;
 			}, 10000);
 		}
 		
@@ -158,7 +164,17 @@
 			console.log("경기 진행중인 시합"+num);
 			var content="";
 			content+="<tr>"
-			+"<td>"+"dddd"+"</td>";
+			+"<td>"+list[num].mch_name+" VS "+list[num].mch_state+"</td>"
+			+"<td>"+list[num].mch_date+" "+list[num].mch_time+"</td>"
+			+"</tr>";
+			$("#nowGame").empty();
+			$("#nowGame").append(content);
+		}
+		
+		function emptyList(){
+			var content="";
+			content+="<tr>"
+			+"<td><b>"+"현재 진행중인 경기가 없습니다."+"</b></td>";
 			+"</tr>";
 			$("#nowGame").empty();
 			$("#nowGame").append(content);

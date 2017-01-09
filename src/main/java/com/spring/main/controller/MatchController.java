@@ -1,17 +1,12 @@
 package com.spring.main.controller;
 
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.main.dto.MatchDto;
 import com.spring.main.dto.PlaceDto;
 import com.spring.main.dto.RepleDto;
-import com.spring.main.dto.TeamDto;
 import com.spring.main.service.MatchService;
 
 @Controller("MatchController")
@@ -40,25 +34,25 @@ public class MatchController {
 	}
 	
 	//리스트 요청(메인 화면)
-		@RequestMapping(value="/listCall")
-		public @ResponseBody Map<String, ArrayList<MatchDto>> listCall(@RequestParam("count") int count){
-			logger.info("리스트 요청");
-			return service.listCall(count);
-		}
+	@RequestMapping(value="/listCall")
+	public @ResponseBody Map<String, ArrayList<MatchDto>> listCall(@RequestParam("count") int count){
+		logger.info("리스트 요청");
+		return service.listCall(count);
+	}
 		
-		//검색 요청
-		@RequestMapping(value="/search")
-		public @ResponseBody Map<String, Object> search(@RequestParam Map<String, String> params){
-			logger.info("검색 요청");
-			return service.search(params);
-		}
+	//검색 요청
+	@RequestMapping(value="/search")
+	public @ResponseBody Map<String, Object> search(@RequestParam Map<String, String> params){
+		logger.info("검색 요청");
+		return service.search(params);
+	}
 		
-		//검색 후 리스트 요청
-		@RequestMapping(value="/searchCall")
-		public @ResponseBody Map<String, Object> searchCall(@RequestParam Map<String, String> params){
-			logger.info("리스트 요청");
-			return service.searchCall(params);
-		}
+	//검색 후 리스트 요청
+	@RequestMapping(value="/searchCall")
+	public @ResponseBody Map<String, Object> searchCall(@RequestParam Map<String, String> params){
+		logger.info("리스트 요청");
+		return service.searchCall(params);
+	}
 	
 	
 	//매칭상세
@@ -92,6 +86,21 @@ public class MatchController {
 		return service.replyDel(params);
 	}
 	
+	//매칭 신청 권한 검색
+	@RequestMapping(value="/gradeCheck")
+	public @ResponseBody Map<String, Object> gradeCheck(@RequestParam("idx") String idx){
+		logger.info("신청 권한 검색");
+		return service.gradeCheck(idx);
+	}
+	
+	//매칭 신청쪽지
+	@RequestMapping(value = "/sendNote")
+	public ModelAndView sendNote(@RequestParam Map<String, String> params) {
+		logger.info("매칭쪽지");
+		return service.sendNote(params);
+	}	
+	
+	
 	//매칭쓰기페이지 이동
 	@RequestMapping(value = "/matchWrite")
 	public String matchWrite() {
@@ -106,13 +115,6 @@ public class MatchController {
 		return service.memberCheck(idx);
 	}
 	
-	//매칭 신청 권한 검색
-	@RequestMapping(value="/gradeCheck")
-	public @ResponseBody Map<String, Object> gradeCheck(@RequestParam("idx") String idx){
-		logger.info("신청 권한 검색");
-		return service.gradeCheck(idx);
-	}
-	
 	//매칭쓰기
 	@RequestMapping(value = "/write")
 	public ModelAndView write(@RequestParam Map<String, String> params) {
@@ -120,10 +122,10 @@ public class MatchController {
 		return service.write(params);
 	}
 	
-	//매칭목록
+	//매칭 장소목록
 	@RequestMapping(value = "/areaList")
 	public @ResponseBody Map<String, ArrayList<PlaceDto>> areaList(@RequestParam Map<String, String> params) {
-		logger.info("매칭목록");
+		logger.info("매칭 장소목록");
 		return service.areaList(params);
 	}
 	
@@ -158,22 +160,6 @@ public class MatchController {
 		String category="4";
 		return service.delete(idx, category);
 	}
-	
-	
-	//쪽지
-	@RequestMapping(value = "/sendNote")
-	public ModelAndView sendNote(@RequestParam Map<String, String> params) {
-		logger.info("매칭쪽지");
-		return service.sendNote(params);
-	}
-	
-	//경기일정
-	@RequestMapping(value = "/calendar")
-	public String calendar() {
-		
-		return "calendar";
-	}
-	
 	
 	
 	//현재 진행중인 경기

@@ -137,10 +137,10 @@
 			var content="";
 			content+="<a href='#' onclick='msgPannel()' id='noteImg'><img src='../../main/resources/img/쪽지.png'></a>";
 			if(manager==""){
-				content+="<select>"
+				content+="<select class='myTeam'>"
 					+"<option value=0>내가 가입한 팀: </option>";
 					for(var i=0; i<data.length; i++){
-						content+="<option value="+data[i].t_idx+" >"+data[i].t_name+"</option>";
+						content+="<option value="+data[i].t_idx+">"+data[i].t_name+"</option>";
 					}
 					content+="</select>";
 					content+=" "+name+" 님 안녕하세요";
