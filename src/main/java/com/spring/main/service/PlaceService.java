@@ -185,20 +185,23 @@ public class PlaceService {
 		String a_area = multi.getParameter("a_area");
 		String a_address = multi.getParameter("address");
 		String a_content = multi.getParameter("a_content");
+		a_content = a_content.replace("\r\n","<br>");
 		String a_ground = multi.getParameter("a_ground");
 		String a_lat = multi.getParameter("lat");
 		String a_lng = multi.getParameter("lng");
 		String fileName = multi.getParameter("fileName");
 		logger.info(fileName);
 		String newfileName = "";
+		String[] delName = inter.fileDelName(a_idx);
 		Map<String, ArrayList<String>> newFile = new HashMap<String, ArrayList<String>>();
 		if(!fileName.equals("")){
-			String[] delName = inter.fileDelName(a_idx);
 			//파일 업로드
 			UploadFile upload = new UploadFile();
 			newFile = upload.fileModify(multi,delName);
 			ArrayList<String> newName = newFile.get("newName");
 			newfileName = newName.get(0);
+		}else{
+			newfileName = delName[0];
 		}
 		logger.info(a_ground+"/"+a_idx+"/"+a_content+"/"+a_lat+"/"+a_lng+"/"+a_area);
 		success = inter.a_modify(a_idx,a_area,a_address,a_ground,a_content,fileName,newfileName,a_lat,a_lng);

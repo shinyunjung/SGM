@@ -157,6 +157,7 @@ public class VidioService {
 			String idx = multi.getParameter("idx");
 			String j_title = multi.getParameter("j_title");
 			String j_content = multi.getParameter("j_content");
+			j_content = j_content.replace("\r\n","<br>");
 			String fileName = multi.getParameter("fileName");
 			logger.info(fileName);
 			String newfileName = "";

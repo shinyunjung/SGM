@@ -248,6 +248,7 @@ public class MatchService {
 		String mch_type = params.get("mch_type");
 		String mch_age = params.get("mch_age");
 		String mch_content = params.get("mch_content");
+		mch_content = mch_content.replace("\r\n","<br>");
 		String areaInfo = params.get("areaInfo");
 		
 		logger.info("areaInfo:{}",areaInfo);

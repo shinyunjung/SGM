@@ -147,6 +147,7 @@ public class FreeService {
 			String j_title = params.get("j_title");
 			String j_name = params.get("j_name");
 			String j_content = params.get("j_content");
+			j_content = j_content.replace("\r\n","<br>");
 			String j_idx = params.get("j_idx");
 			logger.info(j_title+" / "+j_name+" / "+j_content);
 			String msg = "수정에 실패 했습니다.";
