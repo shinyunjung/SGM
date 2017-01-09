@@ -83,7 +83,7 @@
 								<td class="left"><b id="reCnt" onclick="reple()" style="cursor: pointer;">댓글(${content.j_reple})</b></td>
 								<td style="width: 500px"></td>
 								<td class="right ">
-									<b onclick="location.href='./freeModify?idx=${content.totalIdx}'" style="cursor: pointer;">수정</b>
+									<b onclick="location.href='./vidioModify?idx=${content.totalIdx}'" style="cursor: pointer;">수정</b>
 									/ <b onclick="location.href='./delete?idx=${content.totalIdx}'" style="cursor: pointer;">삭제</b>
 								</td>
 							</tr>

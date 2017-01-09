@@ -25,7 +25,7 @@ public interface FreeInterface {
 	BoardDto freeDetail(String j_idx);
 
 	//글쓰기
-	int write(String j_title, String j_name, String j_content, int j_category);
+	int write(String j_title, String j_name, String j_content, int j_category, String u_idx);
 
 	//글삭제
 	int delete(String j_idx);

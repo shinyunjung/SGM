@@ -172,52 +172,65 @@ function printList(list){
       $("#list").empty();
       $("#list").append(content);
    }
- //페이지 그리기
+//페이지 그리기
 function printPaging(count, page){
-   console.log("전체 게시물:"+count);
-   console.log("전체 페이지:"+page);
-   console.log("현재 페이지:"+currPage);
-   var start; //페이지 시작
-   var end; //페이지 끝
-   
-   var pre=currPage-1;
-   
-   var next=currPage+1;
-   
-   //다음 페이지가 있는지 여부확인
-   var range=(currPage/5);
-   
-   var content="";
-   
-   console.log(range);
-   if(range>1){//5페이지 넘었을 경우
-      end=currPage%5==0?
-            (Math.floor(range))*5:
-            (Math.floor(range)+1)*5;
-      start=Math.floor(end-4);
-   }else{//5페이지 이하일 경우
-      start=1;
-      end=start+4;
-   }
-   console.log(start+"/"+end);
-      content+="<a href='#' onclick='f_searchCall("+1+")'>처음</a> |"
-      +" <a href='#' onclick='f_searchCall("+(start-1)+")'> << </a> "
-      +"<a href='#' onclick='f_searchCall("+pre+")'> < </a> ";
-      for(var i=start; i<=end; i++){
-         if(i<=page){
-            if(currPage==i){
-               content+="<b>"+i+"</b>";
-            }else{
-               content+=" <a href='#' onclick='f_searchCall("+i+")'>"
-               +i+"</a> ";
-            }   
-         }
-      }
-      content+="<a href='#' onclick='f_searchCall("+next+")'> > </a> "
-      +" <a href='#' onclick='f_searchCall("+(end+1)+")'> >> </a>"
-      +"| <a href='#' onclick='f_searchCall("+page+")'>끝</a>";   
-   $("#paging").empty();
-   $("#paging").append(content);
+	console.log("전체 게시물:"+count);
+	console.log("전체 페이지:"+page);
+	console.log("현재 페이지:"+currPage);
+
+	var start; //페이지 시작
+	var end; //페이지 끝
+	
+	var pre=currPage-1;
+	
+	var next=currPage+1;
+	
+	//다음 페이지가 있는지 여부확인
+	var range=(currPage/5);
+	
+	var content = "<ul class='pagination pagination-sm'>"
+			+"<li class='page-item first'><a href='#' onclick='v_listCall(1)'>First</a></li>"
+			+"<li class='page-item prev'><a href='#' onclick='v_listCall("+(currPage-1)+")'>Previous</a></li>";
+	
+	if(range >1){//5페이지 넘었을 경우
+		end = currPage%5 == 0 ?
+				(Math.floor(range))*5
+				:(Math.floor(range)+1)*5;
+		start = Math.floor(end-4);
+	}else{//5페이지 미만일 경우
+		start = 1;
+		end = 5;
+	}
+	
+	//페이징 표시			
+	for(var i=start; i<=end;i++){
+		if(i<=page){
+			if(currPage ==i){
+				content += "<li class='page-item active'><a href='#'>"+i+"</a></li>";
+			}else{
+				content += "<li class='page-item'><a href='#' onclick='v_listCall("+i+")' >"+i+"</a></li>";
+			}					
+		}			
+	}
+	content += "<li class='page-item next'><a href='#' onclick='v_listCall("+(currPage+1)+")'>Next</a></li>"
+       +"<li class='page-item last'><a href='#' onclick='v_listCall("+page+")'>Last</a></li></ul>";
+    $("#paging").empty();
+	$("#paging").append(content);
+	if(currPage==1){
+		$(".first").addClass("disabled");
+		$(".prev").addClass("disabled");
+	}
+	if(currPage==page){
+		$(".next").addClass("disabled");
+		$(".last").addClass("disabled");
+	}
+	if(page==1||page==0){
+		$(".first").addClass("disabled");
+		$(".prev").addClass("disabled");
+		$(".next").addClass("disabled");
+		$(".last").addClass("disabled");
+	}
+	
 } 
    </script>
 </html>

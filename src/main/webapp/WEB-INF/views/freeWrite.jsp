@@ -53,8 +53,8 @@
 								</tr>
 								<tr class="borderTop">
 									<td>
-										<input type="hidden" name="j_category" value="2"/>
-										<input type="text" name="j_name" value="" readonly/>
+										<input type="text" name="j_name" value="${sessionScope.userName}(${sessionScope.userId})" readonly/>
+										<input type="hidden" name="u_idx" value="${sessionScope.userIdx}"/>
 									</td>
 								</tr>
 								<tr class="borderTop">

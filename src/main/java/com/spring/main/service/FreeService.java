@@ -93,10 +93,11 @@ public class FreeService {
 			inter = sqlSession.getMapper(FreeInterface.class);
 			ModelAndView mav = new ModelAndView();		
 			String j_title = params.get("j_title");
+			String u_idx = params.get("u_idx");
 			String j_name = params.get("j_name");
 			String j_content = params.get("j_content");	
 			int j_category = 3;
-			int success = inter.write(j_title, j_name, j_content, j_category);	
+			int success = inter.write(j_title, j_name, j_content, j_category, u_idx);	
 			String page = "freeList";
 			String msg = "등록에 실패하였습니다.";	
 			if(success == 1){

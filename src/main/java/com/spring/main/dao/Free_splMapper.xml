@@ -17,10 +17,10 @@
    
    <!-- 리스트 불러오기 -->
    <select id="f_listCall" resultType="com.spring.main.dto.BoardDto">
-      SELECT totalidx, j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
+      SELECT totalIdx, j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
        j_filenum, j_vcount, j_reple
           FROM (
-              SELECT totalidx,
+              SELECT totalIdx,
               j_idx,
               u_idx, j_name,
               j_category,
@@ -36,9 +36,9 @@
    
    <!-- 검색 후 리스트 추가 -->
    <select id="f_searhCall" resultType="com.spring.main.dto.BoardDto">
-      SELECT totalidx,j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
+      SELECT totalIdx,j_idx, u_idx, j_name, j_category, j_title, j_content, j_date, 
        j_filenum, j_vcount, j_reple FROM (
-         SELECT totalidx,j_idx,
+         SELECT totalIdx,j_idx,
               u_idx, j_name,
               j_category,
               j_title,
@@ -54,12 +54,12 @@
    
    <!-- 상세 보기 -->
  	<select id="freeDetail" resultType="com.spring.main.dto.BoardDto">
- 		SELECT * FROM board WHERE totalidx = #{param1}
+ 		SELECT * FROM board WHERE totalIdx = #{param1}
  	</select>
  	
  	<!-- 조회수 올리기 -->
  	<update id="j_vcount">
- 		UPDATE board SET j_vcount = j_vcount+1 WHERE totalidx = #{param1}
+ 		UPDATE board SET j_vcount = j_vcount+1 WHERE totalIdx = #{param1}
  	</update>
 
 
@@ -67,20 +67,20 @@
  	<!-- 글쓰기 -->
  	<insert id="write">
  		INSERT INTO board(
- 		totalidx, j_idx, j_title, j_name, j_content, j_category, j_vcount, j_reple)
+ 		totalIdx, j_idx, j_title, j_name, j_content, j_category, j_vcount, j_reple,u_idx)
  			VALUES(total_seq.NEXTVAL, free_seq.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}
- 			,0,0)
+ 			,0,0, #{param5})
  	</insert>
  	
  	<!-- 글삭제 -->
 	<delete id="delete">
-		DELETE FROM board WHERE totalidx = #{param1}
+		DELETE FROM board WHERE totalIdx = #{param1}
 	</delete> 
 	
 	<!-- 글 수정 -->
  	<update id="update">
  		UPDATE board SET j_title = #{param1}, j_name = #{param2}, j_content = #{param3}
- 			WHERE totalidx = #{param4}
+ 			WHERE totalIdx = #{param4}
  	</update>	
 	    
 </mapper>
