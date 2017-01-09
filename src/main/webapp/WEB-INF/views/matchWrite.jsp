@@ -47,6 +47,11 @@
 			.sel td,th{
 				text-align: center;
 			}
+			#content{
+				width: 100%;
+				min-height: 300px;
+				font-size: 14px;
+			}
 		</style>
 	</head>
 	<body>
@@ -94,7 +99,8 @@
 								</tr>
 								<tr class="borderTop">
 									<td colspan="4">
-										<textarea rows="17" name="mch_content"></textarea>
+										<div id="content" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+										<input type="hidden" name="mch_content"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -137,8 +143,8 @@
 								</tr>
 								<tr class="borderTop">
 									<td colspan="4" style="text-align: center;">
-					  				<button type="reset" class="btn btn-default">취소</button>
-					        		<button type="submit" class="btn btn-primary" >등록</button>
+					  				<input type="reset" class="btn btn-default" value="취소">
+					        		<input type="submit" class="btn btn-primary" value="등록">
 			  				</td>
 								</tr>
 						</table>
@@ -278,13 +284,16 @@
 		}else if(document.writeForm.mch_time.value==""){
 			alert("경기시간을 입력해주세요");
 			document.writeForm.mch_time.focus();
-		}else if(document.writeForm.mch_content.value==""){
+		}else if($("#content").html()==""){
 			alert("내용을 입력해주세요");
-			document.writeForm.mch_content.focus();
+			$("#content").focus();
 		}else if(areaCheck==false){
 			alert("운동장을 입력해주세요");
 			document.writeForm.area.focus();
 		}else{
+			var text = $("#content").html();
+			$("input[name=mch_content]").val(text);
+			console.log($("input[name=mch_content]").val());
 			 document.writeForm.submit(); 
 			return true; 
 		}

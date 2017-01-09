@@ -29,6 +29,11 @@
 				display: none;
 				z-index: 2;
 			}
+			#content{
+				width: 100%;
+				min-height: 300px;
+				font-size: 14px;
+			}
 			#replyZone{
 				display: none;
 			}
@@ -116,7 +121,7 @@
 							<tbody>
 								<tr>
 									<td colspan="5" class="left">
-										${detail.mch_content}
+										<div id="content" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)">${detail.mch_content }</div>
 									</td>
 								</tr>
 								<tr>

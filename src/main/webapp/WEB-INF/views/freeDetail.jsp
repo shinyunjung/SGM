@@ -126,7 +126,7 @@
 		console.log("댓글 전송");
 		var url="../replyRegist";
 		var data={};
-		data.idx="${td.totalIdx}";
+		data.idx="${content.totalIdx}";
 		data.u_idx="${sessionScope.userIdx}";
 		data.replyer=user; 
 		data.reple=$("#reple").val();
@@ -140,7 +140,7 @@
 	function replyList(){
 		var url="../replyList";
 		var data={};
-		data.idx="${td.totalIdx}";
+		data.idx="${content.totalIdx}";
 		data.column="board_idx";
 		console.log(data);
 		console.log("댓글 리스트");
@@ -171,7 +171,7 @@
 		var url="../replyDel";
 		var data={};
 		data.r_idx=idx;
-		data.idx="${td.totalIdx}";
+		data.idx="${content.totalIdx}";
 		data.table="board";
 		data.repleCnt="j_reple";
 		console.log(data);

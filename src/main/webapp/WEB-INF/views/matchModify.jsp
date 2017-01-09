@@ -37,6 +37,11 @@
 			.map{
 				height: 300px;
 			}
+			#content{
+				width: 100%;
+				min-height: 300px;
+				font-size: 14px;
+			}
 			#popup{
 				width: 100%;
 				height: 300px;
@@ -50,6 +55,7 @@
 			input[name='areaInfo']{
 				display: none;
 			}
+			
 		</style>
 	</head>
 	<body>
@@ -65,7 +71,7 @@
 				</div>
 				<div class="col5 content">
 				<fieldset>
-					<legend>글쓰기</legend>
+					<legend>글 수정</legend>
 				</fieldset>
 					<form action="modify" method="post" id="mainForm" name="modifyForm" onSubmit="modifyCheck();return false" >
 						<table class="detailTable">
@@ -93,7 +99,8 @@
 								</tr>
 								<tr class="borderTop">
 									<td colspan="4">
-										<textarea rows="17" name="mch_content">${detail.mch_content }</textarea>
+										<div id="content" contenteditable="true" ondrop="drop(event)" ondragover="allowDrop(event)">${detail.mch_content }</div>
+										<input type="hidden" name="mch_content"/>
 									</td>
 								</tr>
 								<tr class="borderTop">
@@ -136,8 +143,8 @@
 								</tr>
 								<tr class="borderTop">
 									<td colspan="4" style="text-align: center;">
-					  				<button type="reset" class="btn btn-default">취소</button>
-					        		<button type="submit" class="btn btn-primary" >등록</button>
+					  				<input type="reset" class="btn btn-default" value="취소">
+					        		<input type="submit" class="btn btn-primary" value="등록">
 			  				</td>
 								</tr>
 						</table>
@@ -295,11 +302,14 @@
 		}else if(document.modifyForm.mch_time.value==""){
 			alert("경기시간을 입력해주세요");
 			document.modifyForm.mch_time.focus();
-		}else if(document.modifyForm.mch_content.value==""){
+		}else if($("#content").html()==""){
 			alert("내용을 입력해주세요");
-			document.modifyForm.mch_content.focus();
+			$("#content").focus();
 		}else{
-			 document.modifyForm.submit(); 
+			var text = $("#content").html();
+			$("input[name=mch_content]").val(text);
+			console.log($("input[name=mch_content]").val());
+			document.modifyForm.submit(); 
 			return true; 
 		}
 	}
