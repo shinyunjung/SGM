@@ -26,7 +26,7 @@ public interface NoteInterface {
 
 	int note_delete(String idx);
 
-	int note_count();
+	int note_count(String idx0, String idx1, String idx2);
 
 	void matching_stateUpdate(String mchIdx, String receiver);
 

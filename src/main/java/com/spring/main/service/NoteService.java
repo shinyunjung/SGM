@@ -186,11 +186,25 @@ public class NoteService {
 	}
 
 
-	public Map<String, Integer> countNote() {
+	public Map<String, Integer> countNote(String idx) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		inter=sqlSession.getMapper(NoteInterface.class);
+		String idx0="0";
+		String idx1="0";
+		String idx2="0";
+		String[] idxs = idx.split(" ");
+		for(int i=0; i<idxs.length; i++){
+			if(i==0){
+				idx0=idxs[i];
+			}else if(i==1){
+				idx1=idxs[i];
+			}else{
+				idx2=idxs[i];
+			}
+		}
 		int count=0;
-		count=inter.note_count();
+		count=inter.note_count(idx0, idx1, idx2);
+		logger.info("count:{}",count);
 		map.put("count", count);
 		return map;
 	}

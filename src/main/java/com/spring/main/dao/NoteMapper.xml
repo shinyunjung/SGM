@@ -57,7 +57,7 @@
 	
 	<!-- 쪽지 전채 개수 -->
 	<select id="note_count" resultType="Integer">
-		SELECT COUNT(*) FROM note WHERE n_new='Y'
+		SELECT COUNT(*) FROM note WHERE n_new='Y' AND receiver_idx=#{param1} OR n_new='Y' AND receiver_idx=#{param2} OR n_new='Y' AND receiver_idx=#{param3}
 	</select>
 	
 	

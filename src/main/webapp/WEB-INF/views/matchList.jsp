@@ -108,10 +108,9 @@
 			alert(msg);
 		}
 		
-		$("document").ready(function(){
-			console.log("페이지 생성시 시작");
-			searchCall(currPage);
-		});
+		
+		searchCall(currPage);
+	
 		
 		$("#pagePerNum").change(function(){
 			pagePerNum=$("#pagePerNum").val();

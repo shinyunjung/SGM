@@ -115,13 +115,24 @@
 		</div>
 	</body>
 	<script>
-		
-		setInterval(function(){
-			var url="../../main/match/playing";
-			var data={};
-			console.log("시간");
-			InterServer(url, data);
-		}, 20000);
+	var nowNoteCnt=0;
+	var logoTeam={};
+	var logoUser="${sessionScope.userId}";
+	start2();
+	
+	
+		function start2(){
+			console.log("start2");
+			var startUrl="../../main/match/playing";
+			var startData={};
+			InterServer(startUrl, startData);
+			setInterval(function(){
+				var url="../../main/match/playing";
+				var data={};
+				console.log("시간");
+				InterServer(url, data);
+			}, 60000);	
+		}
 		
 		function InterServer(url, data){
 			$.ajax({
@@ -134,6 +145,14 @@
 					if(url=="../../main/match/playing"){
 						console.log("현재 진행중 jsp");
 						printPlaying(data.mchList);
+					}else if(url=="../../main/note/countNote"){
+						nowNoteCnt=data.count;
+						console.log("현재 쪽지"+nowNoteCnt);
+						if(nowNoteCnt!=0){
+							$("#noteImg").css("display","block");
+						}else{
+							$("#noteImg").css("display","none");
+						}
 					}
 				},
 				error:function(error){
@@ -145,17 +164,58 @@
 		
 		function printPlaying(list){
 			var i=0;
+			if(list.length>0){
+				console.log(i);
+				if(i>=list.length){
+					i=0;
+				}
+				playingList(list, i);
+				i++;	
+			}else{
+				emptyList();
+			}
+			if(logoUser!=""){
+				console.log(logoUser);
+				var startUrl="../../main/note/countNote";
+				var startData={};
+				startData.idx="";
+				for(var j=0; j<logoTeam.length; j++){
+					if(j>0){
+						startData.idx+=" "+logoTeam[j].t_idx;	
+					}else{
+						startData.idx+=logoTeam[j].t_idx;	
+					}
+					
+				} 
+				console.log("인터벌 전 팀정보"+startData.idx);
+				InterServer(startUrl, startData);	
+			}
 			setInterval(function(){
+				console.log(logoUser);
+				var url="../../main/note/countNote";
+				var data={};
 				if(list.length>0){
 					console.log(i);
 					if(i>=list.length){
 						i=0;
 					}
-					console.log("playingList");
 					playingList(list, i);
 					i++;	
 				}else{
 					emptyList();
+				}
+				if(logoUser!=""){
+					data.idx="";
+					for(var j=0; j<logoTeam.length; j++){
+						if(j>0){
+							data.idx+=" "+logoTeam[j].t_idx;	
+						}else{
+							data.idx+=logoTeam[j].t_idx;	
+						}
+						
+					}
+					console.log("팀정보"+data.idx);
+					InterServer(url, data);	
 				}
 			}, 10000);
 		}

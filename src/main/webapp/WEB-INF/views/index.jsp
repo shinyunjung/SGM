@@ -152,10 +152,10 @@
 		}
 		
 		//페이지 로딩되면서 가장먼저 해야할 일
-		$("document").ready(function(){
-			listCall(currPage);
-		});
-			
+		listCall(1);
+		
+		
+		
 		//matching리스트 최신6개 그리기
 		function listCall(currPage){
 			var url="../../main/match/listCall";

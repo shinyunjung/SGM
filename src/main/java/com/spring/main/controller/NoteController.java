@@ -69,9 +69,10 @@ public class NoteController {
 	
 	//쪽지 갯수
 	@RequestMapping(value="/countNote")
-	public @ResponseBody Map<String, Integer> countNote(){
-		logger.info("검색 요청");
-		return service.countNote();
+	public @ResponseBody Map<String, Integer> countNote(@RequestParam("idx") String idx){
+		logger.info("쪽지 검색 요청");
+		logger.info("idx:{}",idx);
+		return service.countNote(idx);
 	}
 	
 }

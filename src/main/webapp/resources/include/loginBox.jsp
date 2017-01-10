@@ -36,8 +36,8 @@
 	<body>
 		<div class="layer">
 			<div class="userMsg">
-				<button class="loginBtn" onclick="location.href='../loginPage'">로그인</button>
-				<button class="joinBtn" onclick="location.href='../join'">회원가입</button>
+				<button class="loginBtn" onclick="location.href='../../main/loginPage'">로그인</button>
+				<button class="joinBtn" onclick="location.href='../../main/join'">회원가입</button>
 			</div>
 			<div class="msgPannel">
 				<table class="table msgTable">
@@ -63,17 +63,15 @@
 		var manager="${sessionScope.manager}";
 		var userData={};
 		var teamData={};
-		var preNoteCnt=0;
-		var nowNoteCnt=0;
 		console.log(userId);
 		console.log(userIdx);
+		
 		
 		if(userId!=""){
 			var url="../../main/userSearch";
 			var data={};
 			data.userId=userId;
 			sendServer(url, data);
-			newNote();
 		}
 		
 		function logoId(){
@@ -82,7 +80,6 @@
 				var data={};
 				data.userId=userId;
 				sendServer(url, data);
-				newNote();
 			}
 		}
 		
@@ -111,19 +108,13 @@
 					}else if(url=="../../main/selectTeam"){
 						console.log("팀정보 확인");
 						teamData=(data.userTeam);
+						logoTeam=data.userTeam;
 						console.log(teamData.length);
 						printUser(userData.u_name, teamData);
 						
 					}else if(url=="../../main/note/newListCall"){
 						console.log("새로운 쪽지 발생");
 						printMsg(data.list);
-					}else if(url=="../../main/note/countNote"){
-						nowNoteCnt=data.count;
-						if(nowNoteCnt!=0){
-							$("#noteImg").css("display","block");
-						}else{
-							$("#noteImg").css("display","none");
-						}
 					}
 				},
 				error:function(error){
@@ -148,7 +139,7 @@
 			else{
 				content+=" <a href='../../main/manager/usManager'>"+manager+" 님 안녕하세요</a> ";
 			}
-			content+="<a href=../../main/logout?idx="+${sessionScope.userIdx}+" >로그아웃</a>";
+			content+="<a href=../../main/logout?idx="+userIdx+" >로그아웃</a>";
 			$(".userMsg").empty();
 			$(".userMsg").append(content);
 		}
@@ -194,13 +185,6 @@
 	}
 	
 	
-	function newNote(){
-		console.log("newNote");
-		setInterval(function(){
-			var url="../../main/note/countNote";
-			var data={};
-			sendServer(url, data);
-		}, 10000);	
-	}
+
 	</script>
 </html>
