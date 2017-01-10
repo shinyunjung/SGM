@@ -46,7 +46,7 @@
 	
 	<!-- 전적 -->
 	<select id="entCall" resultType="com.spring.main.dto.EntirelyDto">
-		SELECT * FROM entirely WHERE t_idx = #{param1}
+		SELECT * FROM entirely WHERE t_idx = #{param1} AND e_condition = 2
 	</select>
 	
 	<!-- 멤버수 -->
