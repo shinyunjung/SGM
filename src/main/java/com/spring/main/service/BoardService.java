@@ -31,6 +31,7 @@ public class BoardService {
 	
 	BoardInterface inter = null;
 	
+	
 	//로그인 처리
 	public ModelAndView login(Map<String, Object> params) {
 		inter = sqlSession.getMapper(BoardInterface.class);		
@@ -264,6 +265,7 @@ public class BoardService {
 				session.removeAttribute("userName");
 				session.removeAttribute("userId");
 				session.removeAttribute("userIdx");
+				session.removeAttribute("manager");
 				msg="로그아웃에 성공했습니다.";
 			}
 			mav.addObject("msg", msg);

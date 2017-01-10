@@ -59,6 +59,7 @@
 	</head>
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
+		<jsp:include page="../../resources/include/loginBox.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div class="layer">
 			<div class="page">
@@ -239,9 +240,7 @@
 	var type = null;
 	var t_idx = ${team.t_idx};
 	
-	$(document).ready(function(){
-		listCall(currPage,t_idx,value,type);
-	});
+	listCall(currPage,t_idx,value,type);
 	
 	
 	
@@ -316,10 +315,21 @@
 		var start;	//페이지 시작
 		var end;	//페이지 끝
 		var range = (currPage/5);	//다음 페이지 있는지 여부
+		var pre=currPage-1;
+		var next=currPage+1;
+		var totalRange=pageNum/5;
+		var totalEnd=0;
 		
-		var content = "<ul class='pagination pagination-sm'>"
-   			+"<li class='page-item first'><a href='#' onclick='listCall(1,"+t_idx+","+value+","+type+")'>First</a></li>"
-   			+"<li class='page-item prev'><a href='#' onclick='listCall("+(currPage-1)+","+t_idx+","+value+","+type+")'>Previous</a></li>";
+		if(totalRange>1){
+			totalEnd=page%5==0?
+					(Math.floor(totalRange))*5:
+					(Math.floor(totalRange)+1)*5;
+			totalStart=Math.floor(totalEnd-4);	
+		}else{
+			totalStart=1;
+			totalEnd=totalStart+4;
+		}
+		
 		
 		if(range >1){//5페이지 넘었을 경우
 			end = currPage%5 == 0 ?
@@ -331,6 +341,12 @@
 			end = 5;
 		}
 		
+		var content = "<ul class='pagination pagination-sm'>";
+		
+   		content+="<li class='page-item first'><a href='#' onclick='listCall(1,"+t_idx+","+value+","+type+")'>First</a></li>"
+		+"<li class='page-item prev'><a href='#' onclick='listCall("+(start-1)+","+t_idx+","+value+","+type+")'> << </a></li> "
+		+"<li class='page-item before'><a href='#' onclick='listCall("+pre+","+t_idx+","+value+","+type+")'> < </a></li> ";
+		
 		//페이징 표시			
 		for(var i=start; i<=end;i++){
 			if(i<=pageNum){
@@ -341,23 +357,24 @@
 				}					
 			}			
 		}
-		content += "<li class='page-item next'><a href='#' onclick='listCall("+(currPage+1)+","+t_idx+","+value+","+type+")'>Next</a></li>"
-           +"<li class='page-item last'><a href='#' onclick='listCall("+pageNum+","+t_idx+","+value+","+type+")'>Last</a></li></ul>";
+		content+="<li class='page-item after'><a href='#' onclick='listCall("+next+","+t_idx+","+value+","+type+")'> > </a></li> "
+		+"<li class='page-item next'> <a href='#' onclick='listCall("+(end+1)+","+t_idx+","+value+","+type+")'> >> </a></li>"
+		+"<li class='page-item last'><a href='#' onclick='listCall("+pageNum+","+t_idx+","+value+","+type+")'>Last</a></li>";	
 		
 		$("#paging").append(content);
-		if(currPage==1){
+		if(range<1){
 			$(".first").addClass("disabled");
 			$(".prev").addClass("disabled");
+			if(currPage==1){
+				$(".before").addClass("disabled");	
+			}
 		}
-		if(currPage==pageNum){
+		if(end==totalEnd){
 			$(".next").addClass("disabled");
 			$(".last").addClass("disabled");
-		}
-		if(pageNum==1||pageNum==0){
-			$(".first").addClass("disabled");
-			$(".prev").addClass("disabled");
-			$(".next").addClass("disabled");
-			$(".last").addClass("disabled");
+			if(currPage==pageNum){
+				$(".after").addClass("disabled");
+			}
 		}
 		
 	} 

@@ -11,12 +11,15 @@
 		<!-- 하나의 인터셉터 -->
 		<mvc:interceptor>
 			<!-- 특정 요청이 올 경우.. -->
-			<mvc:mapping path="/list"/>
-			<mvc:mapping path="/free/detail*"/>
-			<mvc:mapping path="/updateForm/"/>
-			<mvc:mapping path="/update*"/>
-			<mvc:mapping path="/writeForm/"/>
-			<mvc:mapping path="/write*"/>
+			<mvc:mapping path="/match/*"/>
+			<mvc:mapping path="/note/*"/>
+			<mvc:mapping path="/free/*"/>
+			<mvc:mapping path="/manager/*"/>
+			<mvc:mapping path="/place/*"/>
+			<mvc:mapping path="/result/*"/>
+			<mvc:mapping path="/td/*"/>
+			<mvc:mapping path="/team/*"/>
+			<mvc:mapping path="/vidio/*"/>
 			<!-- 아래 클래스로 연결해라 -->
 			<bean class="com.spring.main.util.LoginCheck"></bean>
 		</mvc:interceptor>

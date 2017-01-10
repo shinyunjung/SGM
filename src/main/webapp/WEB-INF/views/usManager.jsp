@@ -215,7 +215,7 @@
 						+"<td>"+list[i].u_gender+"</td>"
 						+"<td>"+list[i].u_phnum+"</td>"
 						+"<td>"+list[i].u_mail+"</td>"
-						+"<td>"+"<a href='../../main/manager/usDelete?idx="+list[i].u_idx+"'>탈퇴</a></td>"
+						+"<td>"+"<a href='#' onclick='delUser("+list[i].u_idx+")'>탈퇴</a></td>"
 						+"</tr>";
 					}
 					
@@ -224,6 +224,13 @@
 					logoId();
 				}
 			
+			function delUser(idx){
+				if (confirm("정말 삭제하시겠습니까??") == true){
+				    location.href="../../main/manager/usDelete?idx="+idx;
+				}else{
+				    return;
+				}
+			}
 			
 			
 			 //페이지 그리기

@@ -60,7 +60,7 @@
 	</head>
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
-		
+		<jsp:include page="../../resources/include/loginBox.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div class=" layer">
 			<div class="page">
@@ -83,7 +83,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td>VS ${detail.mch_name}</td>
+									<td>${detail.mch_name}</td>
 								</tr>
 								<tr class="borderTop">
 									<th>경기날짜</th>

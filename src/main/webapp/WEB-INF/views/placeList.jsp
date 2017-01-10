@@ -114,9 +114,7 @@
 	var currPage=1;//현재 페이지
 	var totalPage=1;
 	
-	 $("document").ready(function(){
-		listCall(currPage);
-	}); 
+	listCall(currPage);
 	
 	$("#pagePerNum").change(function(){
 		listCall(1);
@@ -202,10 +200,27 @@ function printList(list){
 
  //페이지 그리기
 function printPaging(count, page){
+	var totalRange=page/5;
+	var totalEnd=0;
+	
 	console.log("전체 게시물:"+count);
 	console.log("전체 페이지:"+page);
 	console.log("현재 페이지:"+currPage);
-
+	
+	/* if(currPage>page){
+		currPage=page;
+		searchCall(currPage);
+	} */
+	if(totalRange>1){
+		totalEnd=page%5==0?
+				(Math.floor(totalRange))*5:
+				(Math.floor(totalRange)+1)*5;
+		totalStart=Math.floor(totalEnd-4);	
+	}else{
+		totalStart=1;
+		totalEnd=totalStart+4;
+	}
+	
 	var start; //페이지 시작
 	var end; //페이지 끝
 	
@@ -216,47 +231,51 @@ function printPaging(count, page){
 	//다음 페이지가 있는지 여부확인
 	var range=(currPage/5);
 	
-	var content = "<ul class='pagination pagination-sm'>"
-			+"<li class='page-item first'><a href='#' onclick='listCall(1)'>First</a></li>"
-			+"<li class='page-item prev'><a href='#' onclick='listCall("+(currPage-1)+")'>Previous</a></li>";
+	var content = "<ul class='pagination pagination-sm'>";
 	
-	if(range >1){//5페이지 넘었을 경우
-		end = currPage%5 == 0 ?
-				(Math.floor(range))*5
-				:(Math.floor(range)+1)*5;
-		start = Math.floor(end-4);
-	}else{//5페이지 미만일 경우
-		start = 1;
-		end = 5;
+	console.log(range);
+	if(range>1){//5페이지 넘었을 경우
+		end=currPage%5==0?
+				(Math.floor(range))*5:
+				(Math.floor(range)+1)*5;
+		start=Math.floor(end-4);
+	}else{//5페이지 이하일 경우
+		start=1;
+		end=start+4;
 	}
-	
-	//페이징 표시			
-	for(var i=start; i<=end;i++){
-		if(i<=page){
-			if(currPage ==i){
-				content += "<li class='page-item active'><a href='#'>"+i+"</a></li>";
-			}else{
-				content += "<li class='page-item'><a href='#' onclick='listCall("+i+")' >"+i+"</a></li>";
-			}					
-		}			
-	}
-	content += "<li class='page-item next'><a href='#' onclick='listCall("+(currPage+1)+")'>Next</a></li>"
-       +"<li class='page-item last'><a href='#' onclick='listCall("+page+")'>Last</a></li></ul>";
-    $("#paging").empty();
+	console.log(start+"/"+end);
+		content+="<li class='page-item first'><a href='#' onclick='listCall("+1+")'>First</a></li>"
+		+"<li class='page-item prev'><a href='#' onclick='listCall("+(start-1)+")'> << </a></li> "
+		+"<li class='page-item before'><a href='#' onclick='listCall("+pre+")'> < </a></li> ";
+		for(var i=start; i<=end; i++){
+			if(i<=page){
+				if(currPage==i){
+					content+="<li class='page-item active'><a href='#'><b>"+i+"</b></a></li>";	
+				}else{
+					content+="<li class='page-item'> <a href='#' onclick='listCall("+i+")'>"
+					+i+"</a></li> ";
+				}	
+			}
+		}
+		content+="<li class='page-item after'><a href='#' onclick='listCall("+next+")'> > </a></li> "
+		+"<li class='page-item next'> <a href='#' onclick='listCall("+(end+1)+")'> >> </a></li>"
+		+"<li class='page-item last'><a href='#' onclick='listCall("+page+")'>Last</a></li>";	
+	$("#paging").empty();
 	$("#paging").append(content);
-	if(currPage==1){
+	
+	if(range<1){
 		$(".first").addClass("disabled");
 		$(".prev").addClass("disabled");
+		if(currPage==1){
+			$(".before").addClass("disabled");	
+		}
 	}
-	if(currPage==page){
+	if(end==totalEnd){
 		$(".next").addClass("disabled");
 		$(".last").addClass("disabled");
-	}
-	if(page==1||page==0){
-		$(".first").addClass("disabled");
-		$(".prev").addClass("disabled");
-		$(".next").addClass("disabled");
-		$(".last").addClass("disabled");
+		if(currPage==page){
+			$(".after").addClass("disabled");
+		}
 	}
 	
 }

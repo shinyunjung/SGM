@@ -30,6 +30,9 @@
 			.show2{
 				display: table-row;
 			}
+			.msgContent{
+				min-height: 150px;
+			}
 			#matchMsg{
 				width: 500px;
 				border: 1px solid;
@@ -173,9 +176,7 @@
 			alert(msg);
 		}
 		
-		$("document").ready(function(){
-			searchCall(currPage);
-		});
+		searchCall(currPage);
 		
 		$("#pagePerNum").change(function(){
 			pagePerNum=$("#pagePerNum").val();
@@ -284,12 +285,12 @@
 				+"<td class='writer'>"+list[i].n_writer+"</td>"
 				+"<td class='title'><a href='#' onclick='showContent("+i+")'>"+list[i].n_title+"</a></td>";
 				if(list[i].n_confirm=="Stay"){
-					content+="<td><a href='#' >삭제N</a></td>";
+					content+="<td><a href='#' onclick='noDel()'>삭제N</a></td>";
 				}else{
 					content+="<td><a href='#' onclick='deleteNote("+list[i].n_idx+")'>삭제Y</a></td>";
 				}
 				content+="</tr>"
-				+"<tr class='hide2'><td colspan='4' class='center'>"+list[i].n_content+"<br/>";
+				+"<tr class='hide2'><td colspan='4' class='center'><div class='left msgContent'>"+list[i].n_content+"</div>";
 				if(list[i].n_confirm=="Stay"){
 					content+="<button class='btn' onclick='accept("+list[i].writer_idx+", "+i+", "+list[i].n_idx+", "+list[i].mch_idx+")'>수락</button> <button class='btn' onclick='refuse("+list[i].writer_idx+", "+i+", "+list[i].n_idx+", "+list[i].mch_idx+")'>거절</button></td>"
 					+"</tr>";	
@@ -349,6 +350,10 @@
 		$("#matchMsg").css("display", "none");
 	}
 	
+	
+	function noDel(){
+		alert("삭제를 하실려면 수락또는 거절을 하셔야 합니다.");
+	}
 	
 	
 	 //페이지 그리기

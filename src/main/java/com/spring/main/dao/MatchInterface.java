@@ -51,8 +51,6 @@ public interface MatchInterface {
 
 	int delete(String idx);
 
-	void repleDelete(String idx, String category);
-
 	void vcountUp(String idx);
 
 	int mch_modify(String mch_title, String mch_date, String mch_time, String mch_type, String mch_age,

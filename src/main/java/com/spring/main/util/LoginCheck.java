@@ -14,15 +14,20 @@ public class LoginCheck extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		System.out.println("인터셉터!!!!!");
-		
-		//반환 값이 true여야 컨트롤러로 이동
-		HttpSession session=request.getSession();
-		System.out.println(session.getAttribute("userId"));
+		String reqUrl= request.getRequestURL().toString();
+		System.out.println(reqUrl);
 		boolean pass=false;
-		if(session.getAttribute("userId")==null){
-			response.sendRedirect("/main/");//서버 이름
-		}else{
+		//반환 값이 true여야 컨트롤러로 이동
+		if(reqUrl.equals("http://localhost/main/match/listCall")||reqUrl.equals("http://localhost/main/match/playing")){
 			pass=true;
+		}else{
+			HttpSession session=request.getSession();
+			System.out.println(session.getAttribute("userId"));
+			if(session.getAttribute("userId")==null){
+				response.sendRedirect("/main/");//서버 이름
+			}else{
+				pass=true;
+			}
 		}
 		
 		return pass;

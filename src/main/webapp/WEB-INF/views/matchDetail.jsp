@@ -117,6 +117,11 @@
 									<td class="borderLeft">경기시간:${detail.mch_time}</td>
 									<td class="borderLeft" colspan="3">팀명:${detail.mch_name}</td>
 								</tr>
+								<%-- <tr class="borderTop">
+									<td class="left">연령대:${detail.mch_age}</td>
+									<td class="borderLeft"></td>
+									<td colspan="3">시합타입:${detail.mch_type}</td>
+								</tr> --%>
 							</thead>
 							<tbody>
 								<tr>
@@ -163,7 +168,7 @@
 										</c:forEach>
 										<td colspan="4" class="right ">
 											<%if(check) {%>
-											<a href="../match/matchModify?idx=${detail.mch_idx }&userIdx=${sessionScope.userIdx}">수정</a> / <a href="../match/delete?idx=${detail.mch_idx}">삭제</a>
+											<a href="../match/matchModify?idx=${detail.mch_idx }&userIdx=${sessionScope.userIdx}">수정</a> / <a href="#" onclick="mchDel(${detail.totalIdx})">삭제</a>
 											<%} %>
 										</td> 
 									</c:if>
@@ -240,10 +245,15 @@
 		
 		function mchMsg(){
 			console.log("신청");
-			var url="../match/gradeCheck"
-			var data={};
-			data.idx=userIdx;
-			reqServer(url, data);
+			var state="${detail.mch_state}";
+			if(state!="대기"){
+				alert("이미 경기상대가 정해졌습니다.");
+			}else{
+				var url="../match/gradeCheck"
+				var data={};
+				data.idx=userIdx;
+				reqServer(url, data);	
+			}
 		}
 		
 		function selectTeam(idx){
@@ -258,11 +268,22 @@
 			console.log("신청");
 			
 		}
+		
 		function delMsg(){
 			console.log("취소");
 			$(".msgContent").val("");
 			$("#matchMsg").css("display","none");
 		}
+		
+		function mchDel(idx){
+			console.log(idx);
+			if (confirm("정말 삭제하시겠습니까??") == true){
+			    location.href="../match/delete?idx="+idx;
+			}else{
+			    return;
+			}
+		}
+		
 		
 		function reple(){
 			var display=$("#replyZone").css("display");

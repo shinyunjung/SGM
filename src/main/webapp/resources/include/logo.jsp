@@ -117,11 +117,24 @@
 	<script>
 	var nowNoteCnt=0;
 	var logoTeam={};
+	var logoIdx="${sessionScope.userIdx}";
 	var logoUser="${sessionScope.userId}";
-	start2();
+	
+	$("document").ready(function(){
+		logoSelect(logoIdx);
+		start2(); 
+	});
 	
 	
-		function start2(){
+	function logoSelect(u_idx){
+		console.log("logoSelect");
+		var url="../../main/selectTeam";
+		var data={};
+		data.idx=u_idx;
+		InterServer(url, data); 
+	}
+	
+		 function start2(){
 			console.log("start2");
 			var startUrl="../../main/match/playing";
 			var startData={};
@@ -132,7 +145,7 @@
 				console.log("시간");
 				InterServer(url, data);
 			}, 60000);	
-		}
+		} 
 		
 		function InterServer(url, data){
 			$.ajax({
@@ -153,6 +166,8 @@
 						}else{
 							$("#noteImg").css("display","none");
 						}
+					}else if(url=="../../main/selectTeam"){
+						logoTeam=data.userTeam;
 					}
 				},
 				error:function(error){
@@ -162,7 +177,7 @@
 		}
 		
 		
-		function printPlaying(list){
+	 	function printPlaying(list){
 			var i=0;
 			if(list.length>0){
 				console.log(i);
@@ -219,12 +234,15 @@
 				}
 			}, 10000);
 		}
-		
+		 
 		function playingList(list, num){
 			console.log("경기 진행중인 시합"+num);
 			var content="";
 			content+="<tr>"
+			+"<td>"+list[num].mch_ground+"<td>"
+			+"</tr><tr>"
 			+"<td>"+list[num].mch_name+" VS "+list[num].mch_state+"</td>"
+			+"</tr><tr>"
 			+"<td>"+list[num].mch_date+" "+list[num].mch_time+"</td>"
 			+"</tr>";
 			$("#nowGame").empty();

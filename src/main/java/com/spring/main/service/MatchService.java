@@ -299,7 +299,6 @@ public class MatchService {
 		String msg="삭제에 실패했습니다.";
 		success=inter.delete(idx);
 		if(success==1){
-			inter.repleDelete(idx, category);
 			msg="삭제에 성공했습니다.";
 		}
 		mav.addObject("msg",msg);

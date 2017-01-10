@@ -35,6 +35,7 @@
 </head>
 <body>
 	<jsp:include page="../../resources/include/logo.jsp" />
+	<jsp:include page="../../resources/include/loginBox.jsp" />
 	<jsp:include page="../../resources/include/nav.jsp" />
 	<div class=" layer">
 	<div class="page">
@@ -70,47 +71,7 @@
 			  				</td>
 			  			</tr>
 			  		</table>
-			  		<form id="mainForm">
-				  		<div style="text-align: left;">
-							내가 가입한 팀&nbsp;<select name="myTeam"></select>
-			            </div>
-			  		</form>
-		  		 	<table id="mypoin">
-		  		 	<thead>
-		            <tr>
-		            	<td style="width: 14%;">날짜</td>
-		                <td style="width: 20%;">상대팀</td>
-		                <td>득점</td>
-		                <td>도움</td>
-		                <td>공격포인트</td>
-		                <td>슈팅</td>
-		                <td>파울</td>
-		                <td>경고</td>
-		                <td>퇴장</td>
-		                <td>코너킥</td>
-		                <td>패널티킬</td>
-		                <td>오프사이드</td>
-		                <td>유효슈팅</td>
-		            </tr>
-		            </thead>
-					<tbody>
-		            <tr>
-		                <td>날짜</td>
-		                <td>상대팀</td>
-		                <td>득점</td>
-		                <td>도움</td>
-		                <td>공격포인트</td>
-		                <td>슈팅</td>
-		                <td>파울</td>
-		                <td>경고</td>
-		                <td>퇴장</td>
-		                <td>코너킥</td>
-		                <td>패널티킬</td>
-		                <td>오프사이드</td>
-		                <td>유효슈팅</td>
-		            </tr>
-		            </tbody>
-		        </table>
+			  		
 			  </fieldset>
 			</div>
 		</div>

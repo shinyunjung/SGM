@@ -67,6 +67,7 @@
 	</head>
 	<body>
 		<jsp:include page="../../resources/include/logo.jsp" />
+		<jsp:include page="../../resources/include/loginBox.jsp" />
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<div class="layer">
 			<div class="page">
@@ -77,6 +78,7 @@
 					</fieldset>
 					<div class="team">
 						<jsp:include page="../../resources/include/team.jsp" />
+						<a href="../../main/note/msgPage?idx=${team.t_idx}&name=${team.t_name}">쪽지함</a>
 					</div>
 				</div>
 				

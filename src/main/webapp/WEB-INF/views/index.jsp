@@ -36,21 +36,31 @@
             .matching{
                 background-color: orange;
             }
-            
+            .game{
+            	/* min-height: 300px; */
+            	border: 1px solid yellow;
+            }
             
             
             #nowGame{
                 border: 1px solid brown;
                 width: 100%;
+                height: 100%;
             }
             
             a{
                 cursor:pointer;
+            	text-decoration: none;
             }
             
             th{
                 text-align: center;
                 background-color: silver;
+            }
+            .teamMake{
+            	background-color: yellow;
+            	font-size: 14pt;
+            	cursor: pointer;
             }
 		</style>
 	</head>
@@ -87,7 +97,7 @@
 					</div>
 					
 					<!-- 현재 진행중인 경기 -->
-					<div>
+					<div class="game">
 						<table id="nowGame">
 							<tr>
 								<td></td>
@@ -102,27 +112,22 @@
 					      <form action="login" method="post" name="login" onSubmit="loginCheck();return false">
 							<table class="loginBox">
 								<tr>
-									<td class="loginBox">
-										<input type="text" name="u_id" size="12" placeholder="아이디"/>
+									<td class="loginBox" >
+										<input type="text" name="u_id" size="12" tabindex="1" placeholder="아이디"/>
 									</td>
 									<td class="loginBox" rowspan="2">
-											<div class="txt"><input type="submit" value="로그인"></div>
+											<div class="txt"><input type="submit" tabindex="3" value="로그인"></div>
 									</td>
 								</tr>
 								<tr>
 									<td class="loginBox">
-										<input type="password" name="u_pass" size="12" placeholder="비밀번호"/>
+										<input type="password" name="u_pass" size="12" tabindex="2" placeholder="비밀번호"/>
 									</td>
 								</tr>
 								<tr>
 									<td class="loginBox" colspan="2">
 										<a href="./joinForm">회원가입</a><br/>
 										<a href="./idFind">아이디 찾기</a>/<a href="./passFind">비밀번호 찾기</a>
-									</td>
-								</tr>
-								<tr>
-									<td class="loginBox" colspan="2">
-										<jsp:include page="../../resources/include/kakao.jsp" />
 									</td>
 								</tr>
 							</table>
@@ -212,12 +217,15 @@
 			}
 		});
 	}
-			
-	
+		
 	//팀이동
 	function move() {
 		var t_idx = $(".myTeam").val();
-		location.href="./team/teamDetail?t_idx="+t_idx;
+		if(t_idx==0){
+			alert("팀을 선택해주세요");
+		}else{
+			location.href="../../main/team/teamDetail?t_idx="+t_idx;	
+		}
 	}
 		
 	//로그인 후 loginBox그리기
@@ -230,18 +238,12 @@
 		for(var i=0; i<data.length; i++){
 			content+="<option value="+data[i].t_idx+" >"+data[i].t_name+"</option>";
 		}
-		content+="</select><button onclick='move()'>이동</button>";		
-		content+="<div class='center'><a href='./team/teamJoin'>팀 생성</a></div>";		
+		content+="</select><button onclick='move()'>이동</button><br/>";	
+		content+="<a href=../../main/logout?idx="+idx+" >로그아웃</a>"
+		content+="<a href='./team/teamJoin'><div class='center teamMake'>팀 생성</div><a>";		
 		$(".userLogin").empty();
 		$(".userLogin").append(content);
 	}
-			
-	//팀 선택시 해당 팀페이지 이동
-	$(".myTeam").change(function(){
-		var teamIdx=$(".myTeam").val();
-		console.log(teamIdx);
-		location.href="../../main/teamDetail?t_idx="+teamIdx;
-	});
 			
 			
 	//매칭리스트 그리기

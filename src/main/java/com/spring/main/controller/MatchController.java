@@ -156,7 +156,7 @@ public class MatchController {
 	//삭제
 	@RequestMapping(value = "/delete")
 	public ModelAndView delete(@RequestParam("idx") String idx) {
-		logger.info("매칭삭제");
+		logger.info("매칭삭제:{}",idx);
 		String category="4";
 		return service.delete(idx, category);
 	}

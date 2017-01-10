@@ -147,13 +147,6 @@ public class MainController {
 		return service.modify(params);
 	}
 			
-		
-	//팀관리
-	@RequestMapping(value = "/teamManager")
-	public String teamManager() {
-		logger.info("팀관리");
-		return "teamManager";
-	}
 	
 	
 	//회원이 속한 정보 찾기
@@ -168,13 +161,6 @@ public class MainController {
 	public @ResponseBody Map<String, UserDto> userSearch(@RequestParam Map<String, String> params) {
 		logger.info("회원정보 찾기");
 		return service.userSearch(params);
-	}
-
-	//쪽지함
-	@RequestMapping(value = "/msg")
-	public String msg() {
-		logger.info("쪽지함");
-		return "msgpage";
 	}
 
 

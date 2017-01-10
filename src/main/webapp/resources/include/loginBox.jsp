@@ -64,7 +64,7 @@
 		var userData={};
 		var teamData={};
 		console.log(userId);
-		console.log(userIdx);
+		console.log("매니저"+manager);
 		
 		
 		if(userId!=""){
@@ -128,13 +128,13 @@
 			var content="";
 			content+="<a href='#' onclick='msgPannel()' id='noteImg'><img src='../../main/resources/img/쪽지.png'></a>";
 			if(manager==""){
-				content+="<select class='myTeam'>"
+				content+="<select class='userTeam'>"
 					+"<option value=0>내가 가입한 팀: </option>";
 					for(var i=0; i<data.length; i++){
 						content+="<option value="+data[i].t_idx+">"+data[i].t_name+"</option>";
 					}
-					content+="</select>";
-					content+=" "+name+" 님 안녕하세요";
+					content+="</select><button onclick='loginBoxmove()'>이동</button>";
+					content+=" <a href='../../main/myPage?id="+userId+"' >"+name+"</a> 님 안녕하세요";
 			}
 			else{
 				content+=" <a href='../../main/manager/usManager'>"+manager+" 님 안녕하세요</a> ";
@@ -143,6 +143,17 @@
 			$(".userMsg").empty();
 			$(".userMsg").append(content);
 		}
+		
+		//팀이동
+		function loginBoxmove() {
+			var t_idx = $(".userTeam").val();
+			if(t_idx==0){
+				alert("팀을 선택해주세요");
+			}else{
+				location.href="../../main/team/teamDetail?t_idx="+t_idx;	
+			}
+		}
+		
 		
 		function msgPannel(){
 			 $(".msgPannel").slideToggle("fast",function(){

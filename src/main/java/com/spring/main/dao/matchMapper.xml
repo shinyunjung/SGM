@@ -93,7 +93,7 @@
 	
 	<!-- 글 삭제 -->
 	<delete id="delete">
-		DELETE FROM matching WHERE mch_idx=#{param1}
+		DELETE FROM matching WHERE totalIdx=#{param1}
 	</delete>
 	
 	

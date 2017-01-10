@@ -17,23 +17,19 @@
 				text-align: center;
 			}
 			#popup{
-	     	 position:absolute; 
+	     	
 			z-index:2;
-			width: 50%;
-			height: 53px;
+			width: 100%;
+			min-height: 300px;
 			background-color:#f5f5f5;
 			display:none;
 		}
 		
 		#myimporm{
-	        text-align: right;
-	        width: 20%;
-		}
-		#myimporm{
+		  border:1px solid blue;
 		  padding-bottom: 10px;
 		   width: 100%;
-		   height: 100%;
-		   text-align: center;
+		   height: 300px;
 		}
 		</style>
 	</head>
@@ -56,32 +52,6 @@
 				
 				<!-- 두 번째 구역 -->
 				<div class="col5 content">
-					<div id="popup">
-					<!-- 아이디 -->	
-						<table id="myimporm">
-			  			<tr>
-			  				<th>아이디</th>
-			  				<td class=infoId></td>
-			  				<th>성명</th>
-			  				<td class="infoName"></td>
-			  			</tr>
-			  			<tr>
-			  				<th>성별</th>
-			  				<td class="infoGender"></td>
-			  				<th>생년월일</th>
-			  				<td class="infoAge"></td>
-			  			</tr>
-			  			<tr>
-			  				<th>핸드폰</th>
-			  				<td class="infoPhun"></td>
-			  				<th>이메일</th>
-			  				<td class="infoEmail"></td>
-			  			</tr>
-			  			<tr>
-			  				<td colspan="4" class="center"><button class="infoDel">취소</button></td>
-			  			</tr>
-			  		</table>
-					</div>
 					<table width="100%">
 							<tr>
 								<td class="left">
@@ -98,11 +68,34 @@
 									<button onclick="Search()">검색</button>
 								</td>
 							</tr>
-							<tr>
-								<td>
-								</td>
-							</tr>
 						</table>
+					<div id="popup">
+					<!-- 아이디 -->	
+						<table id="myimporm" class="center">
+			  			<tr>
+			  				<th>아이디</th>
+			  				<td class="infoId"></td>
+			  				<th>성명</th>
+			  				<td class="infoName"></td>
+			  			</tr>
+			  			<tr>
+			  				<th>성별</th>
+			  				<td class="infoGender"></td>
+			  				<th>생년월일</th>
+			  				<td class="infoAge"></td>
+			  			</tr>
+			  			<tr>
+			  				<th>핸드폰</th>
+			  				<td class="infoPhun"></td>
+			  				<th>이메일</th>
+			  				<td class="infoEmail"></td>
+			  			</tr>
+			  			<tr class="borderTop">
+			  				<td colspan="4" class="center"><button class="infoDel" onclick="infoDel()">뒤로가기</button></td>
+			  			</tr>
+			  		</table>
+					</div>	
+						
 					<div class="teamManager">
 						<table class="table table-hover">
 							<thead>
@@ -217,6 +210,7 @@
 						if(url=="../../main/manager/teamSearch"){
 							if(data.count!=0){
 								console.log(data.count);
+								infoDel();
 								searchCall(1);
 							}else{
 								alert("검색 결과가 없습니다.");
@@ -363,7 +357,9 @@
 		$(".infoPhun").html(data.u_phnum);
 		$(".teamManager").css("display","none");
 	}
-	$(".infoDel").click(function(){
+	
+	
+	function infoDel(){
 		$(".infoId").html("");
 		$(".infoName").html("");
 		$(".infoGender").html("");
@@ -372,13 +368,18 @@
 		$(".infoPhun").html("");
 		$("#popup").css("display","none");
 		$(".teamManager").css("display","block");
-	});
+	}
+	
 	
 	function teamDelete(idx){
-		var url="../../main/manager/teamDelete";
-		data={};
-		data.idx=idx;
-		reqServer(url, data);
+		if (confirm("정말 삭제하시겠습니까??") == true){
+			var url="../../main/manager/teamDelete";
+			data={};
+			data.idx=idx;
+			reqServer(url, data);
+		}else{
+		    return;
+		}
 	}
 </script>
 </html>
