@@ -142,10 +142,14 @@
 								<tr  style="height: 50px;">
 									<td class="left"><b id="reCnt" onclick="reple()" style="cursor: pointer;">댓글(${td.j_reple})</b></td>
 									<td style="width: 500px"></td>
-									<td class="right ">
-										<b onclick="location.href='./tdModify?idx=${td.totalIdx}&t_idx=${team.t_idx}'" style="cursor: pointer;">수정</b>
-										/ <b onclick="location.href='./delete?idx=${td.totalIdx}&t_idx=${team.t_idx}'" style="cursor: pointer;">삭제</b>
-									</td>
+									<c:set var="detail" value="${td.j_name }" />
+									<c:set var="user" value="${sessionScope.userName}(${sessionScope.userId})" />
+									<c:if test="${user==detail }">
+										<td class="right ">
+											<b onclick="location.href='./tdModify?idx=${td.totalIdx}&t_idx=${team.t_idx}'" style="cursor: pointer;">수정</b>
+											/ <b onclick="location.href='./delete?idx=${td.totalIdx}&t_idx=${team.t_idx}'" style="cursor: pointer;">삭제</b>
+										</td>
+									</c:if>
 								</tr>
 							</table>
 						<!-- 댓글 -->

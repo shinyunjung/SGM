@@ -324,7 +324,7 @@
 			for(var i=0; i<list.length; i++){
 				content+="<tr>"
 					+"<td class='user'>"+list[i].r_writer+"</td>"
-					+"<td class='data'>"+list[i].r_reple;
+					+"<td class='data left'>"+list[i].r_reple;
 					if(user==list[i].r_writer){
 					content+="<a href='#' onclick='repleDel("+list[i].r_idx+")'><sup>X</sup></a>";
 					}
