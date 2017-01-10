@@ -300,7 +300,7 @@
 			+"<a href='./tdDetail?idx="+list[i].totalIdx+"&t_idx="+t_idx+"'>"
 			+list[i].j_title+"</a><b>["+list[i].j_reple+"]</b></td><td>"
 			+list[i].j_name+"</td><td>"
-			+list[i].j_date.substr(0,10)+"</td><td>"
+			+list[i].j_date+"</td><td>"
 			+list[i].j_vcount+"</td></tr>";
 		}
 		$("#start").empty();

@@ -41,8 +41,8 @@
 	</select>
 
 	<!-- 평가여부 -->
-	<select id="mail" resultType="int">
-		SELECT e_mail FROM entirely WHERE t_idx = #{param1}
+	<select id="mailCnt" resultType="com.spring.main.dto.EntirelyDto">
+		SELECT e_mail,t_idx FROM entirely WHERE t_idx = #{param1}
 	</select>
 	
 	<!-- 평가등록 -->

@@ -41,7 +41,7 @@
 				  			</td>
 			  			</tr>
 			  			<tr>
-			  				<th>${result.mch_name}  : ${result.mch_state} </th>
+			  				<th>${result.mch_name}  : ${result.mch_state}</th>
 			  			</tr>
 			  			<tr>
 			  				<th>
@@ -49,14 +49,15 @@
 			  				<input type="text" name="lteam" size="1" style="text-align: center;"/>  
 			  				: <input type="text" name="rteam" size="1" style="text-align: center;"/>
 			  				</span>
-			  				<c:if test="${result.mch_idx}==${t_idx.t_idx}">
+			  				<c:if test="${result.t_idx == mail.t_idx}">
 			  				<input type="hidden" name="ev_name" value="${result.mch_name}"/>
 			  				</c:if>
-			  				<c:if test="${result.mch_idx}!=${t_idx.t_idx}">
+			  				<c:if test="${result.t_idx != mail.t_idx}">
 			  				<input type="hidden" name="ev_name" value="${result.mch_state}"/>
 			  				</c:if>
-			  				<input type="hidden" name="eva" value="${t_idx.e_mail}"/>
-			  				</th>
+			  				<input type="hidden" name="eva" value="${mail.e_mail}"/>
+			  				<input type="hidden" name="t_idx" value="${mail.t_idx}"/>
+			  				<input type="hidden" name="mch_idx" value="${result.mch_idx}"/>
 			  			</tr>
 			  			<tbody id="evalue">
 			  			<tr>
@@ -128,7 +129,7 @@
 </body>
 <script>
 $(document).ready(function(){
-	if("${t_idx.e_mail}"!=0){
+	if("${mail.e_mail}"!=0){
 		$("#evalue").empty();
 	}
 });

@@ -119,7 +119,7 @@ public class ResultService {
 			String email = result.get(i).getU_mail();
 			String idx = result.get(i).getMch_idx();
 			String t_idx = result.get(i).getT_idx();
-			String content = "location.href='http://localhost:8080/main/result/result?idx="+idx+"&t_idx='"+t_idx+"";
+			String content = "http://localhost:8080/main/result/eva?idx="+idx+"&t_idx="+t_idx+"";
 			try {
 				mail.gmailtest(email, content);
 			} catch (Exception e) {
@@ -135,9 +135,8 @@ public class ResultService {
 		ModelAndView mav = new ModelAndView();
 		String t_idx = params.get("t_idx");
 		String idx = params.get("idx");
-		
 		mav.addObject("result", inter.eva(idx));
-		mav.addObject("t_idx", inter.mail(t_idx));
+		mav.addObject("mail", inter.mailCnt(t_idx));
 		mav.setViewName("result");
 		return mav;
 	}
@@ -149,8 +148,9 @@ public class ResultService {
 		String mch_idx = params.get("mch_idx");
 		String t_idx = params.get("t_idx");
 		String eva = params.get("eva");
-		String e_difference = params.get("e_difference");
-		inter.entirely(t_idx,mch_idx,e_difference);
+		String lteam = params.get("lteam");
+		String rteam = params.get("rteam");
+		inter.entirely(t_idx,mch_idx,lteam+":"+rteam);
 		ArrayList<EntirelyDto> ent = inter.entDto(mch_idx);
 		String con1 = ent.get(0).getE_condition();
 		String con2 = ent.get(1).getE_condition();
@@ -182,7 +182,7 @@ public class ResultService {
 						String team = ent.get(i).getT_idx();
 						ResultDto result = inter.email(team);
 						String email = result.getU_mail();
-						String content = "<button type='button' onclick='location.href='http://localhost:8080/main/result/result?idx="+mch_idx+"&t_idx='"+team+"'>결과입력</button>";
+						String content = "http://localhost:8080/main/result/eva?idx="+mch_idx+"&t_idx="+team+"";						
 						try {
 							mail.gmailtest(email, content);
 						} catch (Exception e) {
@@ -199,12 +199,16 @@ public class ResultService {
 			}
 		}
 		if(eva.equals("0")){
+			String team = ent.get(0).getT_idx();
+			if(t_idx.equals(team)){
+				team = ent.get(1).getT_idx();
+			}
 			String ev_name = params.get("ev_name");
 			String ev_manner = params.get("ev_manner");
 			String ev_level = params.get("ev_level");
 			String ev_defe = params.get("ev_defe");
 			String ev_attk = params.get("ev_attk");
-			inter.evalue(t_idx,ev_name,ev_manner,ev_level,ev_defe,ev_attk);
+			inter.evalue(team,ev_name,ev_manner,ev_level,ev_defe,ev_attk);
 		}
 		mav.setViewName("redirect:../");
 		return mav;

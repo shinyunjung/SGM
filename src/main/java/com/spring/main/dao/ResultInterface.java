@@ -28,7 +28,7 @@ public interface ResultInterface {
 	ArrayList<EntirelyDto> entDto(String mch_idx);
 
 	//평가여부
-	int mail(String t_idx);
+	EntirelyDto mailCnt(String t_idx);
 
 	//평가등록
 	void evalue(String t_idx, String ev_name, String ev_manner, String ev_level, String ev_defe, String ev_attk);
