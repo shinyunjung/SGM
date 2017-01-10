@@ -21,5 +21,55 @@
 		WHERE t_name = #{param3}
 	</update>
 	
+	
+	<!-- 전적메일 가져오기 -->
+	<select id="result" resultType="com.spring.main.dto.ResultDto">
+	SELECT a.mch_idx,a.t_idx,c.u_mail FROM entirely a, 
+	(SELECT d.u_mail, e.t_idx FROM SGM_user d, member e WHERE e.u_idx = d.u_idx AND e.m_grade='대표') c 
+	WHERE a.t_idx = c.t_idx AND e_date LIKE #{param1}||'%'
+	</select>
+	
+	<!-- 경기결과 -->
+	<select id="eva" resultType="com.spring.main.dto.MatchDto">
+		SELECT * FROM matching WHERE mch_idx = #{param1}
+	</select>
+
+
+	<!-- 전적정보 -->
+	<select id="entDto" resultType="com.spring.main.dto.EntirelyDto">
+		SELECT * FROM entirely WHERE mch_idx = #{param1}
+	</select>
+
+	<!-- 평가여부 -->
+	<select id="mailCnt" resultType="com.spring.main.dto.EntirelyDto">
+		SELECT e_mail,t_idx FROM entirely WHERE t_idx = #{param1}
+	</select>
+	
+	<!-- 평가등록 -->
+	<insert id="evalue">
+		INSERT INTO evalue(ev_idx,t_idx,ev_name,ev_manner,ev_level,ev_defe,ev_attk)
+		VALUES(evalue_seq.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6})
+	</insert>
+	
+	<!-- 전적등록 -->
+	<update id="entirely">
+		UPDATE entirely SET e_difference = #{param3}, e_condition = 1 WHERE t_idx = #{param1} AND mch_idx = #{param2}
+	</update>
+	
+	<!-- 전적완료 -->
+	<update id="end">
+		UPDATE entirely SET e_condition = 2 WHERE mch_idx = #{param1}
+	</update>
+	
+	<!-- 전적리셋 -->
+	<update id="reset">
+		UPDATE entirely SET e_condition = 0, e_difference = '0:0', e_mail = e_mail+1 WHERE mch_idx = #{param1}
+	</update>
+	
+	<!-- 전적메일발송 -->
+	<select id="email" resultType="com.spring.main.dto.ResultDto">
+	SELECT d.u_mail,e.t_idx FROM SGM_user d, member e WHERE e.u_idx = d.u_idx AND e.m_grade='대표'AND e.t_idx = #{param1}
+	</select>
+	
 
 </mapper>

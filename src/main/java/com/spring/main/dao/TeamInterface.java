@@ -95,6 +95,9 @@ public interface TeamInterface {
 	//멤버수정
 	int memberup(String u_idx, String m_position, String m_idx);
 	
+	//멤버 탈퇴
+	int Delete(String t_idx, String u_idx);
+	
 	
 	
 

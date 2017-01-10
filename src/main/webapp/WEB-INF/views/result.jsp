@@ -33,7 +33,7 @@
             <div class="well bs-component">
 			<form action="evaUp" class="form-horizontal" method="post">
 			  <fieldset>
-			  	<legend><h2>00 VS 00</h2></legend>
+			  	<legend><h2>${result.mch_name} VS ${result.mch_state} </h2></legend>
 			  		<table>
 			  			<tr>
 				  			<td>
@@ -41,7 +41,7 @@
 				  			</td>
 			  			</tr>
 			  			<tr>
-			  				<th>00 : 00</th>
+			  				<th>${result.mch_name}  : ${result.mch_state}</th>
 			  			</tr>
 			  			<tr>
 			  				<th>
@@ -49,8 +49,17 @@
 			  				<input type="text" name="lteam" size="1" style="text-align: center;"/>  
 			  				: <input type="text" name="rteam" size="1" style="text-align: center;"/>
 			  				</span>
-			  				</th>
+			  				<c:if test="${result.t_idx == mail.t_idx}">
+			  				<input type="hidden" name="ev_name" value="${result.mch_name}"/>
+			  				</c:if>
+			  				<c:if test="${result.t_idx != mail.t_idx}">
+			  				<input type="hidden" name="ev_name" value="${result.mch_state}"/>
+			  				</c:if>
+			  				<input type="hidden" name="eva" value="${mail.e_mail}"/>
+			  				<input type="hidden" name="t_idx" value="${mail.t_idx}"/>
+			  				<input type="hidden" name="mch_idx" value="${result.mch_idx}"/>
 			  			</tr>
+			  			<tbody id="evalue">
 			  			<tr>
 			  				<th>매너</th>
 			  			</tr>
@@ -105,6 +114,7 @@
 			        		<button type="submit" class="btn btn-primary">등록</button>
 			  				</th>
 			  			</tr>
+			  			</tbody>
 			  		</table>
 			  </fieldset>
 			</form>
@@ -118,5 +128,10 @@
 	<jsp:include page="../../resources/include/footer.jsp" />
 </body>
 <script>
+$(document).ready(function(){
+	if("${mail.e_mail}"!=0){
+		$("#evalue").empty();
+	}
+});
 </script>
 </html>

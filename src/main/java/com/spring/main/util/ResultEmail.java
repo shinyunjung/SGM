@@ -13,7 +13,7 @@ import org.springframework.ui.*;
 public class ResultEmail {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-   public String gmailtest(String email, String authNum) throws Exception{
+   public String gmailtest(String email, String content) throws Exception{
         
         // 메일 관련 정보
         final String username="2wnaud";
@@ -45,8 +45,8 @@ public class ResultEmail {
 			message.setFrom(new InternetAddress("2wnaud@gmail.com"));// 
 			message.setRecipients(Message.RecipientType.TO,
  InternetAddress.parse(email)); 
-			message.setSubject("SGM 인증번호입니다.");//제목
-			message.setText("인증번호[ "+authNum+" ]");//내용 
+			message.setSubject("게임결과를 입력해주세요.");//제목
+			message.setText(content);//내용 
 			
  //message.setContent("내용","text/html; charset=utf-8");//글내용을 html타입 charset설정
 			
@@ -57,7 +57,7 @@ public class ResultEmail {
 		} catch(Exception e){
 			e.printStackTrace();
 		}
-		return "인증번호가 보내졌습니다.";
+		return "메일이 보내졌습니다.";
  
     }
 }

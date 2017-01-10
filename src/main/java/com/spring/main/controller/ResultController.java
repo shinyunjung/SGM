@@ -1,5 +1,7 @@
 package com.spring.main.controller;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,9 @@ public class ResultController {
 	
 	//매칭결과
 	@RequestMapping(value = "/eva")
-	public String result(){
+	public ModelAndView eva(@RequestParam Map<String, String> params){
 		logger.info("매칭결과");
-		return "result";
+		return service.eva(params);
 	}
 	
 	//스레드
@@ -31,5 +33,12 @@ public class ResultController {
 		logger.info("스레드");
 		String chk = "on";
 		return service.threadRun(chk);
+	}
+	
+	//평가정보넣기
+	@RequestMapping(value="/evaUp")
+	public ModelAndView evaUp(@RequestParam Map<String, String> params){
+		logger.info("평가정보넣기");
+		return service.evaUp(params);
 	}
 }

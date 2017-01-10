@@ -47,11 +47,43 @@
 					<a href="../team/teamDetail?t_idx=${team.t_idx}" class="list-group-item">팀 멤버</a>
 					<a href="../td/tdList?t_idx=${team.t_idx}" class="list-group-item">팀 일지</a>
 					<a href="../team/teamModify?t_idx=${team.t_idx}" class="list-group-item">팀 수정</a>
-					<a href="../team/Delete?t_idx=${team.t_idx}" class="list-group-item">팀 탈퇴</a>
+					<a href="#" onclick="Delete()" class="list-group-item">팀 탈퇴</a>
 				</div>
 			</div>
 		</div>
 	</body>
 	<script>
+	function Delete(){
+		if (confirm("정말로 탈퇴하시겠습니까?") == true){ 
+			var url="./Delete";
+			var data={};
+			data.u_idx="${sessionScope.userIdx}";
+			data.t_idx="${team.t_idx}";
+			console.log(data);
+			Server(url, data);
+		}else{
+		    return;
+		}
+		
+	}
+	
+	function Server(url, data){
+		console.log(url);
+		$.ajax({
+			url:url,
+			type:"post",
+			data:data,
+			dataType:"JSON",
+			success:function(d){
+				console.log(d);
+				
+				alert(d.msg);
+				location.href="../index";
+			},
+			error:function(error){
+				console.log(error);
+			}
+		});
+	}
 	</script>
 </html>

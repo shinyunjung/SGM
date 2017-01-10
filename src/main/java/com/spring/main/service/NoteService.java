@@ -158,16 +158,15 @@ public class NoteService {
 		MatchDto mdt = new MatchDto();
 		mch_inter=sqlSession.getMapper(MatchInterface.class);
 		mdt = mch_inter.mch_detail(idx);
-		String team1=mdt.getMch_name();
+		String team1=mdt.getMch_name()+":"+mdt.getMch_state();
 		String team1Idx=writer_idx;
-		String team2=mdt.getMch_state();
 		String team2Idx=receiver_idx;
 		String e_date=mdt.getMch_date().toString()+" "+mdt.getMch_time();
 		String e_difference="0:0";
 		
-		logger.info(team1+"/"+team2+"/"+e_date);
+		logger.info(team1+"/"+e_date);
 		mch_inter.en_insert(idx, team1, team1Idx, e_date, e_difference);
-		mch_inter.en_insert(idx, team2, team2Idx, e_date, e_difference);
+		mch_inter.en_insert(idx, team1, team2Idx, e_date, e_difference);
 		
 	}
 
