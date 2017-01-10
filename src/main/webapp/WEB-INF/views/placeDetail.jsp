@@ -237,10 +237,12 @@
 								<tr style="height: 50px; font-size: 14px;">
 								<td class="left"><b id="reCnt" onclick="reple()" style="cursor: pointer;">댓글(${detail.a_reple})</b></td>
 									<td style="width: 500px"></td>
-									<td class="right ">
-										<b onclick="location.href='./placeModify?idx=${detail.a_idx}'" style="cursor: pointer;">수정</b>
-										 / <b onclick="location.href='./delete?idx=${detail.a_idx}'" style="cursor: pointer;">삭제</b>
-									</td>
+									<c:if test="${sessionScope.manager!=null}">
+										<td class="right ">
+											<b onclick="location.href='./placeModify?idx=${detail.a_idx}'" style="cursor: pointer;">수정</b>
+											 / <b onclick="location.href='./delete?idx=${detail.a_idx}'" style="cursor: pointer;">삭제</b>
+										</td>
+									</c:if> 
 								</tr>
 							</table>
 					
@@ -270,6 +272,7 @@
 	<script>
 	var user="${sessionScope.userName}(${sessionScope.userId})";
 	var value = 0;
+	var test="${sessionScope.manager}";
 	var a_evalunum = "${detail.a_evalunum}";
 	var a_total = "${detail.a_total}";
 	areaSearch("${detail.a_lat}", "${detail.a_lng}");
