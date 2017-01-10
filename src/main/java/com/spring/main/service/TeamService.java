@@ -317,4 +317,20 @@ public class TeamService {
 		return json;
 	}
 
+	//멤버 탈퇴
+	public Map<String, String> Delete(Map<String, String> params) {
+		inter = sqlSession.getMapper(TeamInterface.class);
+		Map<String, String> json = new HashMap<String, String>();
+		
+		String u_idx = params.get("u_idx");
+		String t_idx = params.get("t_idx");
+		
+		String msg = "탈퇴에 실패 했습니다.";
+		if(inter.Delete(t_idx,u_idx) == 1){
+			msg = "탈퇴에 성공 했습니다.";
+		}
+		json.put("msg", msg);
+		return json;
+	}
+
 }

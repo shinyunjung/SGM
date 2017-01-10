@@ -18,7 +18,7 @@
 			}
 			ul.nav li{
 				float: left;
-				width: 180px;
+				width: 216px;
 			}
 		</style>
 	</head>
@@ -27,7 +27,6 @@
     <div class="menu">
       <ul class="nav">
         <li><a href="../../main/match/matchList"><h4><b>매칭게시판</b></h4></a></li>
-        <li><a href="calendar"><h4><b>매칭일정</b></h4></a></li>
         <li><a href="../../main/place/placeList"><h4><b>장소목록</b></h4></a></li>
         <li><a href="../../main/team/teamList"><h4><b>팀</b></h4></a> </li>
         <li><a href="../../main/vidio/vidioList"><h4><b>영상 게시판</b></h4></a></li>

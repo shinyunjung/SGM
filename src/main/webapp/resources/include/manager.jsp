@@ -21,7 +21,6 @@
 				<a href="../../main/usManager" class="list-group-item">회원관리</a>
 				<a href="../../main/teamManager" class="list-group-item">팀관리</a>
 				<a href="../../main/place/placeList" class="list-group-item">장소목록</a>
-				<a href="../../main/ad/adList" class="list-group-item">광고목록</a>
 			</div>
 		</div>
 	</body>

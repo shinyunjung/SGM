@@ -60,6 +60,11 @@
 		SELECT * FROM area WHERE a_idx = #{param1}
 	</select> 
 	
+	<!-- 조회수 올리기 -->
+	<update id="upHit">
+		UPDATE area SET a_vcount = a_vcount+1 WHERE a_idx = #{param1}
+	</update>
+	
 	<!-- 글수정 -->
 	<update id="a_modify">
 		UPDATE area SET a_area = #{param2}, a_address = #{param3}, a_ground = #{param4}, 
@@ -77,7 +82,10 @@
 		DELETE FROM area WHERE a_idx = #{param1}
 	</delete>
 	
-	
+	<!-- 별점등록 -->
+	<update id="star">
+		UPDATE area SET a_total = a_total+#{param1},a_evalunum = a_evalunum+1 WHERE a_idx = #{param2}
+	</update>
 	
 	
 	

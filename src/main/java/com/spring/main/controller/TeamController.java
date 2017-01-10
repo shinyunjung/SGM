@@ -118,4 +118,10 @@ public class TeamController {
 	}
 	
 	
+	//멤버탈퇴
+	@RequestMapping(value = "/Delete")
+	public @ResponseBody Map<String, String> Delete(@RequestParam Map<String, String> params) {
+		logger.info("멤버탈퇴");
+		return service.Delete(params);
+	}
 }

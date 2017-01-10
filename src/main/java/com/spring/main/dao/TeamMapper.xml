@@ -146,4 +146,10 @@
 	<update id="leaderUp" >
     	UPDATE member SET m_grade = '대표' WHERE m_idx = #{param1}
     </update>
+    
+    <!-- 멤버탈퇴 -->
+	<delete id="Delete">
+		DELETE FROM member WHERE t_idx = #{param1} AND u_idx = #{param2}
+	</delete>
+    
 </mapper>

@@ -214,6 +214,12 @@
 	}
 			
 	
+	//팀이동
+	function move() {
+		var t_idx = $(".myTeam").val();
+		location.href="./team/teamDetail?t_idx="+t_idx;
+	}
+		
 	//로그인 후 loginBox그리기
 	function printUser(name, data){
 		console.log(name);
@@ -224,7 +230,7 @@
 		for(var i=0; i<data.length; i++){
 			content+="<option value="+data[i].t_idx+" >"+data[i].t_name+"</option>";
 		}
-		content+="</select>";		
+		content+="</select><button onclick='move()'>이동</button>";		
 		content+="<div class='center'><a href='./team/teamJoin'>팀 생성</a></div>";		
 		$(".userLogin").empty();
 		$(".userLogin").append(content);

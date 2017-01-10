@@ -163,6 +163,7 @@ public class PlaceService {
 		inter=sqlSession.getMapper(PlaceInterface.class);
 		ModelAndView mav = new ModelAndView();
 		
+		inter.upHit(idx);
 		mav.addObject("detail",inter.a_detail(idx));
 		mav.setViewName("placeDetail");
 		return mav;
@@ -239,7 +240,16 @@ public class PlaceService {
 	}
 	
 
-
+	//별점등록
+		public PlaceDto star(Map<String, String>params) {
+			inter=sqlSession.getMapper(PlaceInterface.class);
+			String value = (String)params.get("value");
+			String idx = (String)params.get("idx");
+			
+			inter.star(value,idx);
+			PlaceDto star =inter.a_detail(idx);
+			return star;
+		}
 	
 	
 	
