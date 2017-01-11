@@ -46,7 +46,7 @@ public interface TeamInterface {
 	ArrayList<MemberDto> grade(String t_idx);
 	
 	//멤버개인기록
-	PrDto memberDetail(String m_idx);
+	ArrayList<PrDto> memberDetail(String m_idx);
 	
 	//팀생성
 	void insertTeam(String t_idx, String t_name, String t_area, String t_day, String t_time, String t_uniform, String t_oldPicture,

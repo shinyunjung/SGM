@@ -91,7 +91,7 @@ public class TeamService {
 		ModelAndView mav = new ModelAndView();
 		String m_idx=params.get("m_idx");
 		String t_idx=params.get("t_idx");
-		mav.addObject("team",inter.memberDetail(m_idx));
+		mav.addObject("detail",inter.memberDetail(m_idx));
 		mav.addObject("team",inter.teamInfo(t_idx));
 		mav.addObject("member",inter.grade(t_idx));
 		mav.setViewName("memberDetail");
