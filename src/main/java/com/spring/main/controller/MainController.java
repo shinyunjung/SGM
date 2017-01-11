@@ -95,6 +95,14 @@ public class MainController {
 		return service.certification(mail);
 	}
 	
+	
+	//인증번호 확인
+	@RequestMapping(value="/certificationCheck")
+	public @ResponseBody Map<String, String> certificationCheck(@RequestParam("num") String num){
+		logger.info("인증번호 확인");
+		return service.certificationCheck(num);
+	}
+	
 	@RequestMapping(value="/join")
 	public @ResponseBody Map<String, String> join(@RequestParam Map<String, String> params){
 		logger.info("회원가입 요청");

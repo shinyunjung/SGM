@@ -124,7 +124,7 @@
 							<td>
 								<select name="t_type" class="form-control">
 									<option value="축구">축구</option>
-									<option value="풋살">축구</option>
+									<option value="풋살">풋살</option>
 								</select>
 							</td>
 						</tr>

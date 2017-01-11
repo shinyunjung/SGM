@@ -85,11 +85,12 @@ public class TeamService {
 	}
 
 	//엠버개인기록
-	public ModelAndView memberDetail(String m_idx,String t_idx) {
+	public ModelAndView memberDetail(Map<String, String> params) {
 		
 		inter = sqlSession.getMapper(TeamInterface.class);
 		ModelAndView mav = new ModelAndView();
-		
+		String m_idx=params.get("m_idx");
+		String t_idx=params.get("t_idx");
 		mav.addObject("team",inter.memberDetail(m_idx));
 		mav.addObject("team",inter.teamInfo(t_idx));
 		mav.addObject("member",inter.grade(t_idx));

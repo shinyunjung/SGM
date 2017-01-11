@@ -49,9 +49,9 @@ public class TeamController {
 	}
 	//멤버상세
 	@RequestMapping(value = "/memberDetail")
-	public ModelAndView memberDetail(@RequestParam("m_idx,t_idx") String m_idx,String t_idx) {
+	public ModelAndView memberDetail(@RequestParam Map<String, String> params) {
 		logger.info("멤버상세");
-		return service.memberDetail(m_idx,t_idx);
+		return service.memberDetail(params);
 	}
 	
 	//리스트보여주기

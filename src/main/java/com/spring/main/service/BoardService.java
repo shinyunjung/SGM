@@ -31,6 +31,7 @@ public class BoardService {
 	
 	BoardInterface inter = null;
 	
+	private String authNum="";
 	
 	//로그인 처리
 	public ModelAndView login(Map<String, Object> params) {
@@ -146,7 +147,6 @@ public class BoardService {
 		//인증번호
 		public Map<String, String> certification(String email) {
 			EmailTest mail = new EmailTest();
-			String authNum="";
 			String success="인증번호가 보내지지 않았습니다.";
 			Map<String, String> map = new HashMap<String, String>();
 			authNum=RandomNum();
@@ -156,9 +156,22 @@ public class BoardService {
 				e.printStackTrace();
 			}
 			map.put("msg", success);
-			map.put("num", authNum);
+			
 			return map;
 		}
+		
+		//인증번호 확인
+		public Map<String, String> certificationCheck(String num) {
+			Map<String, String> map = new HashMap<String, String>();
+			String result="N";
+			if(authNum.equals(num)){
+				result="Y";
+			}
+			map.put("result", result);
+			return map;
+		}
+		
+		
 
 
 		//랜덤(인증번호)

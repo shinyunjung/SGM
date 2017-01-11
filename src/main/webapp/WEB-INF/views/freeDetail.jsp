@@ -88,7 +88,7 @@
 								<c:if test="${user==detail}">
 								<td class="right ">
 									<b onclick="location.href='./freeModify?idx=${content.totalIdx}'" style="cursor: pointer;">수정</b>
-									/ <b onclick="location.href='./delete?idx=${content.totalIdx}'" style="cursor: pointer;">삭제</b>
+									/ <b onclick="boardDel()" style="cursor: pointer;">삭제</b>
 								</td>
 								</c:if>
 							</tr>
@@ -116,6 +116,15 @@
 	</body>
 	<script>
 	var user="${sessionScope.userName}(${sessionScope.userId})";
+	
+	
+	function boardDel(){
+		if(confirm("정말 삭제하시겠습니까??") == true){
+			location.href="./delete?idx="+${content.totalIdx};	
+		}else{
+			return;
+		}
+	}
 	
 	function reple(){
 		var display=$("#replyZone").css("display");

@@ -49,7 +49,7 @@
 			  			<tr>
 			  				<th>아이디</th>
 			  				<td colspan="3">
-			  				<input type="text" id="u_id" class="form-control" placeholder="아이디(영문, 숫자만으로 5~12문자 사용)" onKeyPress="idLimited()">
+			  				<input type="text" id="u_id" class="form-control" placeholder="아이디(영문, 숫자만으로 5~12문자 사용)">
 			  				</td>
 			  				<td style="padding-left: 10px;">
 			  					<input type="button" class="btn btn-default" id="overlay" value="중복체크" />
@@ -58,7 +58,7 @@
 			  			<tr>
 			  				<th>비밀번호</th>
 			  				<td colspan="3">
-			  				<input type="password" id="u_pass" class="form-control" placeholder="비밀번호(5문자 이상 사용)" onKeyPress>
+			  				<input type="password" id="u_pass" class="form-control" placeholder="비밀번호(5문자 이상 사용)">
 			  				</td>
 			  				<th></th>
 			  			</tr>
@@ -127,7 +127,7 @@
 			  			<tr>
 			  				<td colspan="5" style="text-align: center;">
 			  				<input type="reset" class="btn btn-default" value="취소" />
-			        		<input type="button" class="btn btn-primary" onclick="joinCheck()" value="등록" />
+			        		<input type="submit" class="btn btn-primary" onclick="joinCheck()" value="등록" />
 			  				</td>
 			  			</tr>
 			  		</table>
@@ -157,8 +157,6 @@ var passCheck=false;
  /*메일 인증 유무*/
  var Certification=false;
  
- /*인증번호*/
- var number="";
  
 $(document).ready(function(){
     
@@ -341,15 +339,11 @@ function send(){
 
  function numberCheck(){
 	var num=$("input[name='Certification']").val();
+	var url="./certificationCheck";
+	var data={};
+	data.num=num;
 	console.log(num);
-	console.log(number);
-	if(num==number){
-		alert("인증번호를 확인했습니다.");
-		Certification=true;
-	}else{
-		alert("번호가 올바르지 않습니다.");
-		Certification=false;
-	}
+	reqServer(url, data);
 }
 
 $("#mail").change(function(){
@@ -382,7 +376,14 @@ function reqServer(url, data){
 				}
 			}else if(url=="./certification"){
 				alert(data.msg);
-				number=data.num;
+			}else if(url=="./certificationCheck"){
+				if(data.result=="Y"){
+					alert("인증번호를 확인했습니다.");
+					Certification=true;
+				}else{
+					alert("번호가 올바르지 않습니다.");
+					Certification=false;
+				}
 			}else if(url=="./join"){
 				alert(data.msg);
 				if(data.msg=="회원가입에 성공했습니다."){

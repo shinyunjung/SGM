@@ -77,9 +77,10 @@
 							<tbody class="borderBottom">
 								<tr>
 									<td colspan="6" >
-										<div id="content">${content.j_content}</div>
+										<div id="content">${content.j_content}
 										<br/><br/>
 										<video onerror="this.style.display='none'" src="../../main/resources/upload/${file[0].f_newfilename}" controls preload="metadata" ></video>
+										</div>
 									</td>
 								</tr>
 							</tbody>
@@ -93,7 +94,7 @@
 								<c:if test="${user==detail}">
 									<td class="right ">
 										<b onclick="location.href='./vidioModify?idx=${content.totalIdx}'" style="cursor: pointer;">수정</b>
-										/ <b onclick="location.href='./delete?idx=${content.totalIdx}'" style="cursor: pointer;">삭제</b>
+										/ <b onclick="boardDel()" style="cursor: pointer;">삭제</b>
 									</td>
 								</c:if>
 							</tr>
@@ -123,6 +124,16 @@
 	</body>
 	<script>
 	var user="${sessionScope.userName}(${sessionScope.userId})";
+	
+	function boardDel(){
+		if(confirm("정말 삭제하시겠습니까??") == true){
+			location.href="./delete?idx="+${content.totalIdx};	
+		}else{
+			return;
+		}
+	}
+	
+	
 	
 	function reple(){
 		var display=$("#replyZone").css("display");

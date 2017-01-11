@@ -98,8 +98,6 @@
 	 /*메일 인증 유무*/
 	 var userId="";
 	 
-	 /*인증번호*/
-	 var number="";
 	 
 	 var userMail="";
 	 /***********************
@@ -140,14 +138,11 @@
 
 	  function numberCheck(){
 	 	var num=$("input[name='Certification']").val();
-	 	console.log(num);
-	 	console.log(number);
-	 	if(num==number){
-	 		alert("인증번호를 확인했습니다.");
-	 		printAnswer();
-	 	}else{
-	 		alert("번호가 올바르지 않습니다.");
-	 	}
+	 	var url="./certificationCheck";
+		var data={};
+		data.num=num;
+		console.log(num);
+		reqServer(url, data);
 	 }
 
 	 $("#mail").change(function(){
@@ -180,7 +175,14 @@
 	 				}
 	 			}else if(url=="./certification"){
 	 				alert(data.msg);
-					number=data.num;
+	 			}else if(url=="./certificationCheck"){
+					if(data.result=="Y"){
+						alert("인증번호를 확인했습니다.");
+						Certification=true;
+					}else{
+						alert("번호가 올바르지 않습니다.");
+						Certification=false;
+					}
 	 			}
 	 		},
 	 		error:function(error){

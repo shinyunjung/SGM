@@ -7,8 +7,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>메인 페이지</title>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-		<script src="resources/bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css" />
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<style>
 		</style>
 	</head>
@@ -18,7 +18,7 @@
 		<jsp:include page="../../resources/include/nav.jsp" />
 		<!-- ID찾기 -->
 		<div class="joinform">
-	
+		
     </div>
 	</body>
 	<script></script>
