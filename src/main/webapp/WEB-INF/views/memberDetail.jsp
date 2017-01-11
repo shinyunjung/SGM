@@ -46,25 +46,9 @@
 						<table class="recordTable center">
 							<thead>
 								<tr>
-									<th colspan="12"><h4>${detail[0].m_name}</h4></th>
+									<th colspan="11"><h4>${detail[0].m_name}</h4></th>
 					            </tr>
-								<tr>
-									<th style="width:15%">이름</th>
-									<th>득점</th>
-					                <th>도움</th>
-					                <th>슈팅</th>
-					                <th>파울</th>
-					                <th>경고</th>
-					                <th>퇴장</th>
-					                <th>코너킥</th>
-					                <th>패널티 킥</th>
-					                <th>오프 사이드</th>
-					                <th>유효 슈팅</th>
-					                <th style="width:15%">경기일</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:set var="goal" value="0"/>
+					            <c:set var="goal" value="0"/>
 								<c:set var="assist" value="0"/>
 								<c:set var="shoot" value="0"/>
 								<c:set var="poul" value="0"/>
@@ -87,7 +71,7 @@
 									<c:set var="effectshot" value="${sum+rec.p_effectshot}"/>
 								</c:forEach>
 										<tr class='borderTop'>
-											<th>합계</th>
+								            <th>합계</th>
 											<td>${goal}</td>
 											<td>${assist}</td>
 								            <td>${shoot}</td>
@@ -98,12 +82,26 @@
 								            <td>${pk}</td>
 								            <td>${offside}</td>
 								            <td>${effectshot}</td>
-								            <td>-</td>
 							            </tr>
+								<tr class='borderTop'>
+					                <th style="width:15%">경기일</th>
+									<th>득점</th>
+					                <th>도움</th>
+					                <th>슈팅</th>
+					                <th>파울</th>
+					                <th>경고</th>
+					                <th>퇴장</th>
+					                <th>코너킥</th>
+					                <th>패널티 킥</th>
+					                <th>오프 사이드</th>
+					                <th>유효 슈팅</th>
+								</tr>
+							</thead>
+							<tbody>
 								<c:forEach items="${detail}" var="rec">
 									<c:if test="${rec.m_name!=null}">
 										<tr class='borderTop'>
-											<td>${rec.m_name}</td>
+								            <td>${rec.p_date}</td>
 											<td>${rec.p_goal}</td>
 								            <td>${rec.p_assist}</td>
 								            <td>${rec.p_shoot}</td>
@@ -114,7 +112,6 @@
 								            <td>${rec.p_pk}</td>
 								            <td>${rec.p_offside}</td>
 								            <td>${rec.p_effectshot}</td>
-								            <td>${rec.p_date}</td>
 							            </tr>
 									</c:if>
 									<c:if test="${rec.m_name==null}">

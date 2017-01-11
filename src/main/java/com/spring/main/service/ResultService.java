@@ -136,7 +136,7 @@ public class ResultService {
 		String t_idx = params.get("t_idx");
 		String idx = params.get("idx");
 		mav.addObject("result", inter.eva(idx));
-		mav.addObject("mail", inter.mailCnt(t_idx));
+		mav.addObject("mail", inter.mailCnt(t_idx,idx));
 		mav.setViewName("result");
 		return mav;
 	}

@@ -42,7 +42,7 @@
 
 	<!-- 평가여부 -->
 	<select id="mailCnt" resultType="com.spring.main.dto.EntirelyDto">
-		SELECT e_mail,t_idx FROM entirely WHERE t_idx = #{param1}
+		SELECT e_mail,t_idx FROM entirely WHERE t_idx = #{param1}  AND mch_idx = #{param2}
 	</select>
 	
 	<!-- 평가등록 -->

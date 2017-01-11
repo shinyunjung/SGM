@@ -58,12 +58,12 @@
 				width: 10%;
 			}
 			.data{
-				width: 82%;
+				width: 77%;
 				padding: 10px;
 			}
 			.repleBtn{
 				margin: 5px;
-				width: 8%;
+				width: 13%;
 			}
 			.matchMsg{
 				width: 100%;
@@ -329,7 +329,7 @@
 					content+="<a href='#' onclick='repleDel("+list[i].r_idx+")'><sup>X</sup></a>";
 					}
 					content+="</td>"
-					+"<td>"+list[i].r_date+"</td>"
+					+"<td class='repDate'>"+list[i].r_date+"</td>"
 					+"</tr>";
 			}
 			
