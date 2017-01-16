@@ -163,7 +163,6 @@ public class ResultService {
 				String team =  ent.get(0).getE_team();
 				String[] tname = team.split(":");
 				if(Integer.parseInt(score[0])>Integer.parseInt(score[1])){
-					logger.info(score[0]);
 					inter.rankpoint(3,"t_win",tname[0]);
 					inter.rankpoint(1,"t_lose",tname[1]);
 				}else if(score[0].equals(score[1])){

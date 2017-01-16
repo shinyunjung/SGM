@@ -17,7 +17,7 @@
 	
 	<!-- 랭킹포인트,전적 바꾸기 -->
 	<update id="rankpoint">
-		UPDATE team SET t_rankpoint = t_rankpoint + #{param1} , ${param2} = #{param2}+1 
+		UPDATE team SET t_rankpoint = t_rankpoint + #{param1} , ${param2} = ${param2}+1 
 		WHERE t_name = #{param3}
 	</update>
 	
