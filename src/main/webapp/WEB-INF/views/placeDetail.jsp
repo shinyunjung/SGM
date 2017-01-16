@@ -280,9 +280,13 @@
 	function cancel(){
 		if(a_total!=0){
 			a_total = parseInt(a_total/a_evalunum);
+			$("input[id='p"+a_total+"']").attr("checked","checked");
+			$("#value").text(a_total+"점/"+a_evalunum+"명");
+		}else{
+			$("input[name='star-input']").attr("checked","checked");
+			$("input[name='star-input']").removeAttr("checked");
+			$("#value").text(0+"점");
 		}
-		$("input[id='p"+a_total+"']").attr("checked","checked");
-		$("#value").text(a_total+"점/"+a_evalunum+"명");
 		$("#stop").css("display","block");
 		var content = "<a onclick='button()' style='cursor: pointer;'>별점주기</a>";
 		$("#button").empty();

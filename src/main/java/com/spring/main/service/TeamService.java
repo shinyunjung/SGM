@@ -264,13 +264,7 @@ public class TeamService {
 		}else{
 			String idx = inter.uidx(u_id);
 			if(idx!=null){
-				if(inter.uCount(idx)<3){
-					success = inter.memberup(idx,m_position,m_idx);
-				}else{
-					msg = "3개 팀에 가입된 ID로 더이상 가입하실 수 없습니다.";
-				}
-			}else{
-				msg = "존재하지 않는 ID입니다. 다시한번 확인해주세요.";
+				success = inter.memberup(idx,m_position,m_idx);
 			}
 		}
 		if(success == 1){
@@ -278,6 +272,7 @@ public class TeamService {
 		}
 		obj.put("member",inter.updateCall(t_idx));
 		json.put("list", obj);
+		json.put("msg", msg);
 		return json;
 	}
 
