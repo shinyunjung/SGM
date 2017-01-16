@@ -182,7 +182,7 @@ public class ResultService {
 						String team = ent.get(i).getT_idx();
 						ResultDto result = inter.email(team);
 						String email = result.getU_mail();
-						String content = "http://localhost:8080/main/result/eva?idx="+mch_idx+"&t_idx="+team+"";						
+						String content = "http://192.168.0.31/main/result/eva?idx="+mch_idx+"&t_idx="+team+"";						
 						try {
 							mail.gmailtest(email, content);
 						} catch (Exception e) {

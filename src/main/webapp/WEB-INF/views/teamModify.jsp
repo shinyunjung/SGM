@@ -395,9 +395,9 @@
 				}else if(url == "./memberAdd"){
 					$(".tog").toggleClass("ex"); 
 					$(".tog").text("추가");
-				}
 					alert(d.msg);
-					printList(d.list.member);
+				}
+					location.href="../team/teamModify?t_idx=${team.t_idx}";
 				
 			},error:function(e){
 				console.log(e)

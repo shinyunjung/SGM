@@ -21,7 +21,7 @@
 	
 
 
-	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=4c80c1326b8411cbdc60e962e2c46260&libraries=services"></script>
+	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=eea8daf781b745669919ab906f673fea&libraries&libraries=services"></script>
 	<script>
 	$("#map").empty();
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

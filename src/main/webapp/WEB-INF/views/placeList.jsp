@@ -55,10 +55,10 @@
 						<thead>
 							<tr>
 								<td style="text-align: left;">
-									<%-- <c:if test="${sessionScope.userId=='admin'}"> --%>
-								<button onclick="location.href='placeWrite'">장소추가</button>
+								<c:if test="${sessionScope.manager=='관리자'}"> 
+									<button onclick="location.href='placeWrite'">장소추가</button>
 								
-							<%-- </c:if> --%>
+								</c:if> 
 									게시물수:
 									<select id="pagePerNum">
 										<option value="5">5</option>
