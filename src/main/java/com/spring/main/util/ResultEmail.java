@@ -16,8 +16,8 @@ public class ResultEmail {
    public String gmailtest(String email, String content) throws Exception{
         
         // 메일 관련 정보
-        final String username="2wnaud";
-    	final String password="dlwnaud9705dltka";  //google 이메일 비밀번호를 기재합니다.
+        final String username="";	//google 이메일 아이디를 기재합니다.
+    	final String password="";  //google 이메일 비밀번호를 기재합니다.
         
          
         Properties props = System.getProperties();
@@ -42,7 +42,7 @@ public class ResultEmail {
 		System.out.println("??");
 		try{
 			Message message = new MimeMessage(session); 
-			message.setFrom(new InternetAddress("2wnaud@gmail.com"));// 
+			message.setFrom(new InternetAddress(""));//google 이메일 주소를 기재합니다.
 			message.setRecipients(Message.RecipientType.TO,
  InternetAddress.parse(email)); 
 			message.setSubject("게임결과를 입력해주세요.");//제목
